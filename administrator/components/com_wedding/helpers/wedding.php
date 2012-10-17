@@ -42,4 +42,34 @@ class weddingHelper
 			$folder .= '/';
 		return JURI::base().'components/com_wedding/templates/'.$tmpl.'/'.$folder;
 	}
+	
+	/**
+	 * Gets a list of the actions that can be performed.
+	 *
+	 * @param	int		The category ID.
+	 *
+	 * @return	JObject
+	 * @since	1.6
+	 */
+	public static function getActions($categoryId = 0)
+	{
+		$user	= JFactory::getUser();
+		$result	= new JObject;
+
+		if (empty($categoryId)) {
+			$assetName = 'com_wedding';
+		} else {
+			$assetName = 'com_wedding.category.'.(int) $categoryId;
+		}
+
+		$actions = array(
+			'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.edit.state', 'core.delete'
+		);
+
+		foreach ($actions as $action) {
+			$result->set($action,	$user->authorise($action, $assetName));
+		}
+
+		return $result;
+	}
 }
