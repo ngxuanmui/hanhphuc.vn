@@ -33,9 +33,9 @@ class JE_ContentModelArticles extends JModelList {
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
-				'id', '#__je_content.id',
-				'state', '#__je_content.state',
-				'title', '#__je_content.title', 'alias', '#__je_content.alias', 'featured', '#__je_content.featured',
+				'id', 'a.id',
+				'state', 'a.state',
+				'title', 'a.title', 'alias', 'a.alias', 'featured', 'a.featured',
 				'categories_0_title', 'ordering', 'a.ordering', 'users_1_username'
 			);
 		}
@@ -100,50 +100,50 @@ class JE_ContentModelArticles extends JModelList {
 		// Select the required fields from the table.
 		$query->select(
 				$this->getState(
-						'list.select', '#__je_content.id, #__je_content.state, #__je_content.checked_out AS checked_out, #__je_content.checked_out_time AS checked_out_time, 
-				#__je_content.publish_up, #__je_content.publish_down, #__je_content.ordering
-				, #__je_content.title, #__je_content.alias, #__je_content.featured'
+						'list.select', 'a.id, a.state, a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
+				a.publish_up, a.publish_down, a.ordering
+				, a.title, a.alias, a.featured'
 				)
 		);
-		$query->from('`#__je_content`');
+		$query->from('`#__je_content` a');
 
 		// Join over the users for the checked out user.
 		$query->select('uc.name AS editor');
-		$query->join('LEFT', '#__users AS uc ON uc.id=#__je_content.checked_out');
+		$query->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
 
 		// Join over the categories
 		$query->select('categories_0.title AS categories_0_title, categories_0.id AS catid');
-		$query->join('INNER', '#__categories AS categories_0 ON categories_0.id = #__je_content.catid');
+		$query->join('INNER', '#__categories AS categories_0 ON categories_0.id = a.catid');
 
 		// Join over the users
 		$query->select('users_1.username AS users_1_username');
-		$query->join('INNER', '#__users AS users_1 ON users_1.id = #__je_content.created_by');
+		$query->join('LEFT', '#__users AS users_1 ON users_1.id = a.created_by');
 
 		// Filter by published state
 		$published = $this->getState('filter.state');
 		if (is_numeric($published)) {
-			$query->where('#__je_content.state = ' . (int) $published);
+			$query->where('a.state = ' . (int) $published);
 		} else if ($published === '') {
-			$query->where('(#__je_content.state IN (0, 1))');
+			$query->where('(a.state IN (0, 1))');
 		}
 		// Filter by category.
 		$categoryId = $this->getState('filter.category_id');
 		if (is_numeric($categoryId)) {
-			$query->where('#__je_content.catid = ' . (int) $categoryId);
+			$query->where('a.catid = ' . (int) $categoryId);
 		}
 		// Filter by language.
 		if ($language = $this->getState('filter.language')) {
-			$query->where('#__je_content.language = ' . $db->quote($language));
+			$query->where('a.language = ' . $db->quote($language));
 		}
 		// Filter by featured.
 		if ($featured = $this->getState('filter.featured')) {
-			$query->where('#__je_content.featured = ' . $db->quote($featured));
+			$query->where('a.featured = ' . $db->quote($featured));
 		}
 		// Filter by author
 		$authorId = $this->getState('filter.author_id');
 		if (is_numeric($authorId)) {
 			$type = $this->getState('filter.author_id.include', true) ? '= ' : '<>';
-			$query->where('#__je_content.created_by ' . $type . (int) $authorId);
+			$query->where('a.created_by ' . $type . (int) $authorId);
 		}
 
 		// Filter by search
@@ -151,7 +151,7 @@ class JE_ContentModelArticles extends JModelList {
 		if (!empty($search)) {
 			$searchLike = $db->Quote('%' . $db->getEscaped($search, true) . '%');
 			$search = $db->Quote($db->getEscaped($search, true));
-			$query->where('(#__je_content.id = ' . $search . ' OR #__je_content.title LIKE ' . $searchLike . ')');
+			$query->where('(a.id = ' . $search . ' OR a.title LIKE ' . $searchLike . ')');
 		} //end search
 		
 		// Add the list ordering clause.
@@ -163,7 +163,7 @@ class JE_ContentModelArticles extends JModelList {
 		
 		$query->order($db->escape($orderCol.' '.$orderDirn));
 
-//		echo nl2br(str_replace('#__','jos_',$query));
+//		echo nl2br(str_replace('#__','hp_',$query));
 		return $query;
 	}
 
@@ -211,7 +211,7 @@ class JE_ContentModelArticles extends JModelList {
 		$this->setState('filter.featured', $featured);
 
 		// List state information.
-		parent::populateState('#__je_content.id', 'DESC');
+		parent::populateState('a.id', 'DESC');
 	}
 
 }

@@ -35,12 +35,31 @@ $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/styles.cs
 
 <body>
 	
-	<div id="breadcrumbs">
-		<jdoc:include type="modules" name="position-2" />
+	<div class="container">
+		<div id="header">
+			<a href="<?php echo JURI::base(); ?>" id="logo" class="icons fltlft" title="Hạnh Phúc"></a>
+			<div id="header-right" class="fltrgt">
+				<jdoc:include type="modules" name="top" />
+			</div>
+		</div>
+		<div id="top-menu" class="relative">
+			<jdoc:include type="modules" name="top-menu" />
+		</div>
+		<div class="main clr">
+			<div id="breadcrumbs">
+				<jdoc:include type="modules" name="position-2" />
+			</div>
+			<div class="content">
+				<jdoc:include type="message" />
+				<jdoc:include type="component" />
+			</div>
+		</div>
+		<div id="footer">
+			<p>Thông tin bản quyền</p>
+			<p>&copy; 2012 - Hanhphuc.vn</p>
+		</div>
 	</div>
 	
-	<jdoc:include type="message" />
-	<jdoc:include type="component" />
 	<jdoc:include type="modules" name="debug" />
 </body>
 </html>
