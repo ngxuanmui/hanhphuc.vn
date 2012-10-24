@@ -16,8 +16,9 @@
 				description="JGLOBAL_CHOOSE_CATEGORY_DESC"
 				extension="com_je_content"
 				label="JGLOBAL_CHOOSE_CATEGORY_LABEL"
-				required="true"
-			/>
+			>
+				<option value="">All Categories</option>
+			</field>
 		</fieldset>
 	</fields>
 </metadata>
