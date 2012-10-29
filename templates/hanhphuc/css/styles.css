@@ -22,7 +22,9 @@ a { text-decoration: none; }
 
 /* menu */
 #top-menu { background: url('../images/bg-main-menu.png') repeat-x; height: 30px; line-height: 30px; }
-#top-menu ul li { float: left; }
+#top-menu ul li { float: left; margin: 0  }
 #top-menu ul li.active { background: url('../images/bg-left-menu-focus.png') no-repeat; padding-left: 13px; top: -7px; position: relative; height: 37px; line-height: 37px; }
 #top-menu ul li.active a { display: block; background: url('../images/bg-right-menu-focus.png') right no-repeat; padding-left: 10px; padding-right: 20px; position: relative; height: 37px; line-height: 37px; }
-#top-menu ul li a { color: #FFF; }
+#top-menu ul li a { color: #FFF; display: block;  }
+
+#top-menu ul li:first-child, #top-menu ul li:first-child a { background: none; }
