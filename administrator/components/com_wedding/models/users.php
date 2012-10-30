@@ -12,7 +12,7 @@ class weddingModelUsers extends JModelList
 	
 	function getListQuery()
 	{		
-		$query = "SELECT wu.*, u.username, u.name, u.email, u.block FROM #__wedding_users wu RIGHT JOIN #__users u ON u.id = wu.user_id";
+		$query = "SELECT wu.*, u.id, u.username, u.name, u.email, u.block FROM #__wedding_users wu RIGHT JOIN #__users u ON u.id = wu.user_id";
 		return $query;
 	}
 	
