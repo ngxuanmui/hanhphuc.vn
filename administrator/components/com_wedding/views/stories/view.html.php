@@ -10,7 +10,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  
 jimport( 'joomla.application.component.view'); 
  
-class weddingViewAlbum extends JView
+class weddingViewStories extends JView
 {
     function display($tpl = null)
     {
@@ -23,6 +23,17 @@ class weddingViewAlbum extends JView
     	
     	$this->assignRef('items', $items);
     	$this->assignRef('pagination', $pagination);
+    	
+    	return parent::display($tpl);
+    }
+    
+    function details($tpl = null)
+    {
+    	JToolBarHelper::back('Quay lại');
+    	
+    	$model = & $this->getModel();
+    	$item = $model->getItem();
+    	$this->assignRef('item', $item);
     	
     	return parent::display($tpl);
     }

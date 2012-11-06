@@ -2,47 +2,46 @@
 // no direct access 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-jimport( 'joomla.application.component.model'); 
+jimport('joomla.application.component.modellist');
  
-class weddingModelApps extends JModel
+class weddingModelApps extends JModelList
 {
 	var $_data = null;
 	var $_pagination = null;
 	var $_total = null;
 	
-	function getItems()
-	{
-		if( empty( $this->_data ) )
-		{
-			$limit = 20;
-			$limitstart = JRequest::getInt('limitstart');
-			$query = $this->_buildQuery();
-            $this->_data = $this->_getList($query, $limitstart, $limit); 
-		}
-		return $this->_data;
-	}
+//	function getItems()
+//	{
+//		if( empty( $this->_data ) )
+//		{
+//			$limit = 20;
+//			$limitstart = JRequest::getInt('limitstart');
+//			$query = $this->_buildQuery();
+//            $this->_data = $this->_getList($query, $limitstart, $limit); 
+//		}
+//		return $this->_data;
+//	}
 	
-	function getTotal()
-	{
-		if(empty($this->_total))
-		{
-			require_once(JPATH_COMPONENT.DS.'helpers'.DS.'general.php');
-			$this->_total = generalHelpers::getTotal('#__wedding_apps');
-		}
-	}
+//	function getTotal()
+//	{
+//		if(empty($this->_total))
+//		{
+//			require_once(JPATH_COMPONENT.DS.'helpers'.DS.'general.php');
+//			$this->_total = generalHelpers::getTotal('#__wedding_apps');
+//		}
+//	}
 	
-	function getPagination()
-	{
-        if( empty( $this->_pagination ) )
-        {
-            jimport( 'joomla.html.pagination' );
-            $this->_pagination = new JPagination($this->getTotal(), $limitstart, $limit );
-        }
-        return $this->_pagination;
-	}
+//	function getPagination()
+//	{
+//        if( empty( $this->_pagination ) )
+//        {
+//            jimport( 'joomla.html.pagination' );
+//            $this->_pagination = new JPagination($this->getTotal(), $limitstart, $limit );
+//        }
+//        return $this->_pagination;
+//	}
 	
-	function _buildQuery()
-	{		
+	function getListQuery() {
 		$query = "SELECT * FROM #__wedding_apps ORDER BY ordering ASC";
 		return $query;
 	}

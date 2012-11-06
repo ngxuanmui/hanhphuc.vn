@@ -27,8 +27,8 @@ class weddingViewApps extends JView
     	$model = & $this->getModel();
     	$items = & $model->getItems();
     	$pagination = $model->getPagination();
-    	require_once(JPATH_COMPONENT.DS.'helpers'.DS.'application.php');
-    	$maxOrder = generalHelpers::getMaxOrder('#__wedding_apps');
+//    	require_once(JPATH_COMPONENT.DS.'helpers'.DS.'application.php');
+//    	$maxOrder = generalHelpers::getMaxOrder('#__wedding_apps');
     	
 		$this->state		= $this->get('State');
     	$this->assignRef('items', $items);

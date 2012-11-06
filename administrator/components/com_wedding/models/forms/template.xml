@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="details"
+		addfieldpath="/administrator/components/com_templates/models/fields"
+	>
+		<field name="id" type="text" default="0"
+			readonly="true" class="readonly"
+			label="JGLOBAL_FIELD_ID_LABEL" 	description ="JGLOBAL_FIELD_ID_DESC" />
+
+		<field name="title" type="text" class="inputbox"
+			size="40" label="COM_WEDDING_FIELD_NAME_LABEL"
+			description="COM_WEDDING_FIELD_NAME_DESC" required="true" />
+
+		<field name="code" type="text" class="inputbox"
+			size="40" label="Code"
+			description="Code" />
+
+		<field name="published" type="list"
+			label="JSTATUS" description="COM_WEDDING_FIELD_STATE_DESC"
+			class="inputbox" size="1" default="1" >
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+
+		<field name="is_default" type="list"
+			label="Is default" description="Set template is default or not"
+			class="inputbox" size="1" default="0" >
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+
+		<field name="ordering" type="ordering" class="inputbox"
+
+			label="JFIELD_ORDERING_LABEL" description="JFIELD_ORDERING_DESC" />
+
+		<field name="language" type="contentlanguage" label="JFIELD_LANGUAGE_LABEL"
+			description="COM_WEDDING_FIELD_LANGUAGE_DESC" class="inputbox"
+		>
+			<option value="*">JALL</option>
+		</field>
+
+	</fieldset>
+
+	<fieldset name="publish"
+		label="COM_WEDDING_GROUP_LABEL_PUBLISHING_DETAILS"
+	>
+
+		<field name="created" type="calendar"
+			label="COM_WEDDING_FIELD_CREATED_LABEL" description="COM_WEDDING_FIELD_CREATED_DESC"
+			class="inputbox" size="22" format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc" />
+
+	</fieldset>
+
+</form>

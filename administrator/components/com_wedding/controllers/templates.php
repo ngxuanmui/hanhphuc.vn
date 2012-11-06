@@ -1,5 +1,5 @@
 <?php
-class weddingControllerTemplates extends weddingController 
+class WeddingControllerTemplates extends weddingController 
 {
 	function __construct($view = 'templates')
 	{

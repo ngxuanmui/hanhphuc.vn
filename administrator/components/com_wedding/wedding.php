@@ -1,37 +1,19 @@
 <?php
 /**
- * @file: components/com_wedding/wedding.php
- * @author: Pham Van An
- * @version: 1.0
+ * @package		Joomla.Administrator
+ * @subpackage	com_wedding
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-// Require the base controller 
-require_once( JPATH_COMPONENT.DS.'controller.php' );
- 
-// Require specific controller if requested
-if($controller = JRequest::getCmd('view', 'users')) {
-    $path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
-    if (file_exists($path)) {
-        require_once $path;
-    } else {
-        $controller = '';
-    }
-}
- 
-// Create the controller
-$classname    = 'weddingController'.$controller;
-$controller   = new $classname();
- 
-// Perform the Request task
-$task = JRequest::getCmd('task');
-if( empty($task) )
-{
-	$task = JRequest::getCmd('layout');
+// Access check.
+if (!JFactory::getUser()->authorise('core.manage', 'com_wedding')) {
+	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 }
 
-$controller->execute($task);
- 
-// Redirect if set by the controller
+// Execute the task.
+$controller	= JControllerLegacy::getInstance('Wedding');
+$controller->execute(JRequest::getCmd('task'));
 $controller->redirect();

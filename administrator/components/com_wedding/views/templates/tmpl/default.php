@@ -32,7 +32,7 @@
 			foreach ($this->items AS $item)
 			{
 				$checked = JHtml::_('grid.id', $i, $item->id);
-				$editLink = 'index.php?option=com_wedding&view=templates&layout=edit&cid[]='.$item->id;
+				$editLink = 'index.php?option=com_wedding&task=template.edit&id='.$item->id;
 				$published = JHtml::_('jgrid.published', $item->published, $i);
 				$default = JHtml::_('jgrid.isdefault', $item->is_default, $i, '', !$item->is_default);
 		?>

@@ -1,5 +1,5 @@
 <?php
-class TableAlbum extends JTable 
+class WeddingTableAlbum extends JTable 
 {
 	function __construct(&$db)
 	{

@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-class weddingHelper
+class WeddingHelper
 {
 	public static $extention = 'com_content';
 	
@@ -19,13 +19,13 @@ class weddingHelper
 		$link = 'index.php?option=com_wedding&view=templates';
 		JSubMenuHelper::addEntry($name, $link, $vname=='templates');
 		
-		$name = 'Album';
-		$link = 'index.php?option=com_wedding&view=album';
-		JSubMenuHelper::addEntry($name, $link, $vname=='album');
+		$name = 'Albums';
+		$link = 'index.php?option=com_wedding&view=albums';
+		JSubMenuHelper::addEntry($name, $link, $vname=='albums');
 		
 		$name = 'Chuyện tình yêu';
-		$link = 'index.php?option=com_wedding&view=story';
-		JSubMenuHelper::addEntry($name, $link, $vname=='story');
+		$link = 'index.php?option=com_wedding&view=stories';
+		JSubMenuHelper::addEntry($name, $link, $vname=='stories');
 	}
 	
 	function getUserTemplate()
