@@ -121,8 +121,6 @@ class weddingViewTemplates extends JView
 		if ($canDo->get('core.admin'))
 		{
 			JToolBarHelper::preferences('com_wedding');
-			JToolBarHelper::divider();
 		}
-		JToolBarHelper::help('JHELP_COMPONENTS_BANNERS_BANNERS');
 	}
 }

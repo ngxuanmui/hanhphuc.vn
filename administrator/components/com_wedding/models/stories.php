@@ -43,7 +43,10 @@ class WeddingModelStories extends JModelList
 	
 	function getListQuery()
 	{		
-		$query = "SELECT s.id, s.title, s.intro, s.featured, u.username FROM #__wedding_stories s JOIN #__users u ON s.user_id = u.id ORDER BY created_date DESC";
+		$query = "SELECT s.id, s.title, s.intro, s.featured, u.username 
+					FROM #__wedding_stories s 
+					LEFT JOIN #__users u ON s.user_id = u.id 
+					ORDER BY created_date DESC";
 		return $query;
 	}
 	
