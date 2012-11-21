@@ -68,7 +68,8 @@ class userHelpers
 				if($app->app_show===0 || $app->app_show==='0')
 					continue;
 				$title = empty($app->app_title) ? $app->title : $app->app_title;
-				$menu .= '<li><a href="'.JURI::base().$juser->username.'/'.$view.'"><span>'.$title.'</span></a></li>';
+				$link = JRoute::_('index.php?option=com_wedding&view=' . $view . '&user=' . $juser->username . '&tmpl=component');
+				$menu .= '<li><a href="'.$link.'"><span>'.$title.'</span></a></li>';
 			}
 			$menu .= '</ul>';
 		}
