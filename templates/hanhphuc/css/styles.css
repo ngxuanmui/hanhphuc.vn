@@ -28,3 +28,5 @@ a { text-decoration: none; }
 #top-menu ul li a { color: #FFF; display: block;  }
 
 #top-menu ul li:first-child, #top-menu ul li:first-child a { background: none; }
+
+.news-featured { background-position: -4px -108px; height: 288px; width: 991px; margin-left: 5px;  }

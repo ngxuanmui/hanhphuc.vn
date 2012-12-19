@@ -16,6 +16,23 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 ?>
 
+<div class="icons news-featured">
+	<div class="left-panel">
+		
+		kkk
+		<?php
+		$modules = JModuleHelper::getModules('blogger');
+		foreach( $modules As $mod ){
+		   echo  $mod->content;
+		}
+		?>
+	</div>
+	
+	<div class="right-panel">
+		mmm
+	</div>
+</div>
+
 <ul class="items">
 	<?php foreach($this->items as $item): ?>	
 		

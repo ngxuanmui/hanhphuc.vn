@@ -45,6 +45,9 @@ $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/styles.cs
 		<div id="top-menu" class="relative">
 			<jdoc:include type="modules" name="top-menu" />
 		</div>
+		<div id="top-sub-menu" class="relative">
+			<jdoc:include type="modules" name="top-sub-menu" />
+		</div>
 		<div class="main clr">
 			<div id="breadcrumbs">
 				<jdoc:include type="modules" name="position-2" />
