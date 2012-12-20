@@ -30,3 +30,10 @@ a { text-decoration: none; }
 #top-menu ul li:first-child, #top-menu ul li:first-child a { background: none; }
 
 .news-featured { background-position: -4px -108px; height: 288px; width: 991px; margin-left: 5px;  }
+.news-featured .left-panel { width: 517px; }
+.news-featured .right-panel { width: 424px; }
+
+.tab-button { background-position: -100px 0px; }
+
+.left-side { width: 540px; margin-right: 10px; }
+.right-side { width: 460px; }

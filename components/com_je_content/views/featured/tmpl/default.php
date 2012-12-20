@@ -17,37 +17,71 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 ?>
 
 <div class="icons news-featured">
-	<div class="left-panel">
-		
-		kkk
-		<?php
-		$modules = JModuleHelper::getModules('blogger');
-		foreach( $modules As $mod ){
-		   echo  $mod->content;
-		}
-		?>
+	<div class="left-panel float-left padding-5">
+		<div>
+			<?php
+			$modules = JModuleHelper::getModules('blogger');
+			foreach( $modules As $mod ){
+			   echo  $mod->content;
+			}
+			?>
+		</div>
 	</div>
 	
-	<div class="right-panel">
-		mmm
+	<div class="right-panel float-right padding-5">
+		<ul class="items">
+			<?php foreach($this->items as $item): ?>
+				<li>
+					<h1><?php echo $this->escape($item->title); ?>
+				</li>
+				<li>
+				<?php echo JHtml::_('string.truncate', strip_tags($item->introtext), 100); ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
 	</div>
 </div>
 
-<ul class="items">
-	<?php foreach($this->items as $item): ?>	
-		
-			<li>
-			<?php echo '<label>title</label>: '. $this->escape($item->title); ?>
-			</li>
-			<li>
-			<?php echo '<label>alias</label>: '. $this->escape($item->alias); ?>
-			</li>
-			<li>
-			<?php echo '<label>featured</label>: '. $this->escape($item->featured); ?>
-			</li>
-	<?php endforeach; ?>
-</ul>
+<div class="clr"></div>
 
-<div class="pagination">
-	<?php echo $this->pagination->getPagesLinks(); ?>
+<div>
+	<div class="left-side float-left">
+		<div class="icons tab">
+			<span>DỊCH VỤ CƯỚI</span>
+		</div>
+		<div>
+			content
+		</div>
+	</div>
+	
+	<div class="right-side float-right">
+		<div class="icons tab">
+			<span>TIN TỨC</span>
+		</div>
+		<div>
+			content
+		</div>
+	</div>
 </div>
+
+<div class="clr"></div>
+
+<div class="clr"></div>
+
+<div>
+	<div class="left-side float-left">
+		<h2>BLOG DOANH NGHIỆP</h2>
+		<div>
+			content
+		</div>
+	</div>
+	
+	<div class="right-side float-right">
+		<h2>TIN CŨ</h2>
+		<div>
+			content
+		</div>
+	</div>
+</div>
+
+<div class="clr"></div> 

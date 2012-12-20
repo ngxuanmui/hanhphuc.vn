@@ -30,23 +30,34 @@ class JE_ContentModelFeatured extends JModelList
 	 * @return	array	An array of featured objects.
 	 * @since	1.6
 	 */
-	function getListQuery()
+	public function getListQuery()
 	{
 		$db			= $this->getDbo();
 		$query		= $db->getQuery(true);
 		
 		$query->select(
-			'#__je_content.id , #__je_content.title, #__je_content.alias, #__je_content.featured'
+			'a.id , a.title, a.alias, a.introtext'
 		);
 		
-		$query->from('`#__je_content`');
+		$query->from('`#__je_content` a');
 		
 		// Join over the categories
-$query->select('categories_0.title AS categories_0_title');
-$query->join('INNER', '#__categories AS categories_0 ON categories_0.id = #__je_content.catid');
-
-
+		$query->select('c.title AS category_title');
+		$query->join('INNER', '#__categories AS c ON c.id = a.catid');
+		
+		$query->where('a.featured = 1');
 
 		return $query;
+	}
+	
+	public function getItems()
+	{
+		$db = JFactory::getDbo();
+		$query = $this->getListQuery();
+		
+		$db->setQuery($query, 0, 5);
+		$rs = $db->loadObjectList();
+		
+		return $rs;
 	}
 }
