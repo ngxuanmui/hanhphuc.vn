@@ -11,15 +11,20 @@ defined('_JEXEC') or die;
 
 jimport('joomla.filesystem.file');
 
-JHtml::_('behavior.framework', true);
+//JHtml::_('behavior.framework', true);
+
+// Remove generator
+$this->setGenerator('');
+
+// Remove Mootools
+$this->_script = $this->_scripts = array();
 
 $doc				= JFactory::getDocument();
 
 $doc->addStyleSheet($this->baseurl.'/templates/system/css/system.css');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/layout.css', $type = 'text/css');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/styles.css', $type = 'text/css');
-
-//$doc->addScript($this->baseurl.'/templates/'.$this->template.'/javascript/hide.js', 'text/javascript');
+$doc->addScript('//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js');
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

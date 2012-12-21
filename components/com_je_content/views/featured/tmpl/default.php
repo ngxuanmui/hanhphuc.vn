@@ -16,6 +16,10 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 ?>
 
+<script type="text/javascript" src="<?php echo JURI::base(); ?>media/jquery.bxslider/jquery.bxslider.min.js"></script>
+
+
+
 <div class="icons news-featured">
 	<div class="left-panel float-left padding-5">
 		<div>
