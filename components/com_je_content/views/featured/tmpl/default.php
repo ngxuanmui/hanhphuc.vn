@@ -46,40 +46,193 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 <div>
 	<div class="left-side float-left">
-		<div class="icons tab">
-			<span>DỊCH VỤ CƯỚI</span>
+		<div class="tab">
+			<span class="icons">DỊCH VỤ CƯỚI</span>
 		</div>
-		<div>
-			content
+		<div class="content service-content">
+			<h2 class="margin-top-10 float-left">DỊCH VỤ XE HOA</h2>
+			<ul class="float-left service one-edge-shadow">
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+			</ul>
+			
+			<div class="clr"></div>
+			
+			<h2>DỊCH VỤ XE HOA</h2>
+			<ul class="float-left service one-edge-shadow">
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+			</ul>
+			
+			<h2>DỊCH VỤ XE HOA</h2>
+			<ul class="float-left service one-edge-shadow">
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+			</ul>
+			
+			<h2>DỊCH VỤ XE HOA</h2>
+			<ul class="float-left service one-edge-shadow">
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+				<li>
+					<img src="images/sampledata/sample.png" />
+					
+					<p>Tên nhà cung cấp</p>
+				</li>
+			</ul>
 		</div>
 	</div>
 	
 	<div class="right-side float-right">
-		<div class="icons tab">
-			<span>TIN TỨC</span>
+		<div class="tab">
+			<span class="icons">TIN TỨC</span>
 		</div>
-		<div>
-			content
+		<div class="content float-left">
+			
+			<div class="content-detail float-left margin-right-10">
+				<h2 class="title">CẨM NANG CƯỚI</h2>
+				<div class="round-4-conners-5 border-1 padding-5">
+					<img src="images/sampledata/sample-2.png" />
+					<h1>Tự tổ chức đám cưới</h1>
+					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
+				</div>
+			</div>
+
+			<div class="content-detail float-left">
+				<h2 class="title">CẨM NANG CƯỚI</h2>
+				<div class="round-4-conners-5 border-1 padding-5">
+					<img src="images/sampledata/sample-2.png" />
+					<h1>Tự tổ chức đám cưới</h1>
+					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="content float-left margin-top-10">
+			
+			<div class="content-detail float-left margin-right-10">
+				<h2 class="title">CẨM NANG CƯỚI</h2>
+				<div class="round-4-conners-5 border-1 padding-5">
+					<img src="images/sampledata/sample-2.png" />
+					<h1>Tự tổ chức đám cưới</h1>
+					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
+				</div>
+			</div>
+
+			<div class="content-detail float-left">
+				<h2 class="title">CẨM NANG CƯỚI</h2>
+				<div class="round-4-conners-5 border-1 padding-5">
+					<img src="images/sampledata/sample-2.png" />
+					<h1>Tự tổ chức đám cưới</h1>
+					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="content float-left margin-top-10">
+			
+			<div class="content-detail float-left margin-right-10">
+				<h2 class="title">CẨM NANG CƯỚI</h2>
+				<div class="round-4-conners-5 border-1 padding-5">
+					<img src="images/sampledata/sample-2.png" />
+					<h1>Tự tổ chức đám cưới</h1>
+					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
+				</div>
+			</div>
+
+			<div class="content-detail float-left">
+				<h2 class="title">CẨM NANG CƯỚI</h2>
+				<div class="round-4-conners-5 border-1 padding-5">
+					<img src="images/sampledata/sample-2.png" />
+					<h1>Tự tổ chức đám cưới</h1>
+					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </div>
 
-<div class="clr"></div>
+<div class="clr "></div>
 
-<div class="clr"></div>
+<div class="hr margin-top-bottom-10"></div>
 
 <div>
 	<div class="left-side float-left">
 		<h2>BLOG DOANH NGHIỆP</h2>
 		<div>
-			content
+			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			<div class="image float-left round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			
+			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
+			<div class="image float-left round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
 		</div>
 	</div>
 	
 	<div class="right-side float-right">
 		<h2>TIN CŨ</h2>
-		<div>
-			content
+		<div class="content">
+			<div class="">
+				<img src="" />
+				<p>Đám cưới tập thể</p>
+			</div>
 		</div>
 	</div>
 </div>

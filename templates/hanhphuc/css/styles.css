@@ -1,8 +1,10 @@
-body { background: #FFF; margin: 0; padding: 0; border-top: 5px solid #041b23; }
+body { background: #f5f5f5; margin: 0; padding: 0; border-top: 5px solid #041b23; }
 * { font-family: Tahoma; font-size: 11px; margin: 0; padding: 0; }
 
 ul { list-style: none; }
+ul li { float: left; }
 a { text-decoration: none; }
+
 
 #header { height: 110px; }
 #footer { border-top: 1px solid #565656; margin-top: 5px; padding-top: 5px; text-align: right; }
@@ -16,7 +18,22 @@ a { text-decoration: none; }
 .relative { position: relative; }
 
 .margin-5 { margin: 5px; }
+.margin-top-bottom-5 { margin-top: 5px; margin-bottom: 5px; }
+.margin-top-bottom-10 { margin-top: 10px; margin-bottom: 10px; }
+.margin-right-10 { margin-right: 10px; }
+.margin-right-15 { margin-right: 15px; }
+.margin-right-20 { margin-right: 20px; }
+.margin-top-10 { margin-top: 10px; }
+
 .padding-5 { padding: 5px; }
+
+.border-1 { border: 1px solid #CCC; }
+
+.round-4-conners-5 {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
 
 #header #logo { width: 201px; height: 68px; margin-top: 25px; }
 
@@ -35,5 +52,31 @@ a { text-decoration: none; }
 
 .tab-button { background-position: -100px 0px; }
 
-.left-side { width: 540px; margin-right: 10px; }
-.right-side { width: 460px; }
+.left-side { width: 530px; }
+.right-side { width: 452px; }
+
+.tab { border-bottom: 2px solid #333; }
+.tab span { background-position: -399px 0px; display: block; width: 105px; height: 25px; line-height: 35px; text-align: left; font-weight: bold; padding-left: 5px; }
+
+.hr { border-bottom: 3px solid #333; }
+
+.content img { border: 1px solid #CCC; }
+.service img { width: 158px; height: 77px; }
+
+.one-edge-shadow {
+	-webkit-box-shadow: 0 8px 6px -6px #CCC;
+	   -moz-box-shadow: 0 8px 6px -6px #CCC;
+	        box-shadow: 0 8px 6px -6px #CCC;
+}
+
+ul.service { border: 1px solid #CCC; padding: 5px; margin-bottom: 10px; }
+ul.service li { margin-right: 19px; }
+ul.service li:last-child { margin-right: 0; }
+ul.service li p { text-align: center; padding: 5px 0 10px 0; }
+.service-content h2 { margin: 10px 0 10px 0; }
+
+.content .content-detail {  }
+.content .content-detail img { width: 207px; height: 119px; }
+.content .content-detail > div { width: 209px; }
+
+.image { width: 70px; height: 70px; margin-bottom: 20px; }
