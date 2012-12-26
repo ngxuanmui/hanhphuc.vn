@@ -147,6 +147,17 @@ class JE_ContentModelArticle extends JModelAdmin
 
 		if (empty($data))
 			$data = $this->getItem();
+		
+		if (is_object($data))
+		{
+			$data->hidden_image = base64_encode($data->images);
+			$data->hidden_featured_image = base64_encode($data->featured_images);
+		}
+		else
+		{
+			$data['hidden_image'] = base64_encode($data['images']);
+			$data['hidden_featured_image'] = base64_encode($data['featured_images']);
+		}
 
 		return $data;
 	}
@@ -160,7 +171,16 @@ class JE_ContentModelArticle extends JModelAdmin
 			$id = $this->getState($this->getName() . '.id');
 			
 			// Upload thumb
-			$data['images'] = $this->uploadImages($id, $data['del_image']);
+			$thumb = $this->uploadImages('images', $id, $data['del_image'], base64_decode($data['hidden_image']));
+			
+//			if ($thumb)
+				$data['images'] = $thumb;
+			
+			// Upload featured image
+			$featured = $this->uploadImages('featured_images', $id, $data['del_featured_image'], base64_decode($data['hidden_featured_image']));
+			
+//			if ($featured)
+				$data['featured_images'] = $featured;
 			
 			// update content
 			$content = $this->copyFilesOnSave($data['fulltext'], $id);
@@ -217,20 +237,20 @@ class JE_ContentModelArticle extends JModelAdmin
 		return $content;
 	}
 	
-	private function uploadImages($itemId, $delImage = 0)
+	private function uploadImages($field = 'images', $itemId = 0, $delImage = 0, $oldImg = '')
 	{
 		$jFileInput = new JInput($_FILES);
 		$file = $jFileInput->get('jform', array(), 'array');
 
 		// If there is no uploaded file, we have a problem...
 		if (!is_array($file)) {
-			JError::raiseWarning('', 'No file was selected.');
+//			JError::raiseWarning('', 'No file was selected.');
 			return '';
 		}
 
 		// Build the paths for our file to move to the components 'upload' directory
-		$fileName = $file['name']['images'];
-		$tmp_src    = $file['tmp_name']['images'];
+		$fileName = $file['name'][$field];
+		$tmp_src    = $file['tmp_name'][$field];
 		
 		$image = '';
 		
@@ -239,17 +259,21 @@ class JE_ContentModelArticle extends JModelAdmin
 		{
 			$item = $this->getItem();
 			
-			$oldImage = JPATH_ROOT . DS . str_replace('/', DS, $item->images);
+			$oldImage = JPATH_ROOT . DS . str_replace('/', DS, $item->$field);
 			
 			// unlink file
 			@unlink($oldImage);
 			
 			$image = '';
 		}
+		else
+			$image = $oldImage;
 		
 		$date = date('Y') . DS . date('m') . DS . date('d');
 		
-		$dest = JPATH_ROOT . DS . 'images' . DS . 'com_je_content' . DS . 'thumbs' . DS . $date . DS . $itemId . DS;
+		$path = ($field == 'images') ? 'thumbs' : 'featured';
+		
+		$dest = JPATH_ROOT . DS . 'images' . DS . 'je_content' . DS . $path . DS . $date . DS . $itemId . DS;
 		
 		// Make directory
 		@mkdir($dest, '0777', true);
@@ -274,7 +298,9 @@ class JE_ContentModelArticle extends JModelAdmin
 			}
 
 			// set value to return
-			$image = 'images/com_je_content/thumbs/' . str_replace(DS, '/', $date) . '/' . $itemId . '/' . $fileName;
+			$image = 'images/je_content/'.$path.'/' . str_replace(DS, '/', $date) . '/' . $itemId . '/' . $fileName;
+			
+//			return $image;
 		}
 		
 		return $image;

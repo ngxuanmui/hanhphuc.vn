@@ -47,10 +47,26 @@ JHtml::_('behavior.formvalidation');
 				<li>
 					<label>&nbsp;</label>
 					<a href="<?php echo JURI::root() . $this->item->images; ?>" class="modal">
-						<img src="<?php echo JURI::root() . $this->item->images; ?>" style="float: left; width: 50px;" />
+						<img src="<?php echo JURI::root() . $this->item->images; ?>" style="float: left; width: 100px;" />
 					</a>
 					<?php echo $this->form->getInput('del_image'); ?>
+					<?php echo $this->form->getInput('hidden_image'); ?>
 					<span style="float: left; line-height: 23px;">Delete Image</span>
+				</li>
+				<?php endif; ?>
+				
+				<li><?php echo $this->form->getLabel('featured_images'); ?>
+				<?php echo $this->form->getInput('featured_images'); ?></li>
+				
+				<?php if ($this->item->featured_images): ?>
+				<li>
+					<label>&nbsp;</label>
+					<a href="<?php echo JURI::root() . $this->item->featured_images; ?>" class="modal">
+						<img src="<?php echo JURI::root() . $this->item->featured_images; ?>" style="float: left; width: 100px;" />
+					</a>
+					<?php echo $this->form->getInput('del_featured_image'); ?>
+					<?php echo $this->form->getInput('hidden_featured_image'); ?>
+					<span style="float: left; line-height: 23px;">Delete Featured Image</span>
 				</li>
 				<?php endif; ?>
 				
