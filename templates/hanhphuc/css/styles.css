@@ -46,9 +46,9 @@ a { text-decoration: none; }
 
 #top-menu ul li:first-child, #top-menu ul li:first-child a { background: none; }
 
-.news-featured { background-position: -4px -108px; height: 288px; width: 991px; margin-left: 5px;  }
-.news-featured .left-panel { width: 517px; }
-.news-featured .right-panel { width: 424px; }
+.news-featured { background-position: -4px -108px; height: 297px; width: 991px; margin-left: 5px;  }
+.news-featured .left-panel { width: 430px; }
+.news-featured .right-panel { width: 527px; }
 
 .tab-button { background-position: -100px 0px; }
 

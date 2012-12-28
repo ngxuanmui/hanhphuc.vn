@@ -18,31 +18,43 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 <script type="text/javascript" src="<?php echo JURI::base(); ?>media/jquery.bxslider/jquery.bxslider.min.js"></script>
 
-
+<script type="text/javascript">
+jQuery().ready(function($){
+	$('#featured-slideshow').bxSlider({
+		mode: 'fade',
+		pager: false,
+		auto: false,
+		controls: false
+	});
+})
+</script>
 
 <div class="icons news-featured">
 	<div class="left-panel float-left padding-5">
 		<div>
-			<?php
+			<ul class="items" id="featured-slideshow">
+				<?php foreach($this->items as $item): ?>
+					<li>
+						<h1><?php echo $this->escape($item->title); ?>
+						<?php if ($item->featured_images): ?>
+						<img src="<?php echo JURI::base() . $item->featured_images; ?>" />
+						<?php endif; ?>
+						<div class="absolute featured-desc">
+							<?php echo JHtml::_('string.truncate', strip_tags($item->introtext), 100); ?>
+						</div>					
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="right-panel float-right padding-5">
+		<?php
 			$modules = JModuleHelper::getModules('blogger');
 			foreach( $modules As $mod ){
 			   echo  $mod->content;
 			}
 			?>
-		</div>
-	</div>
-	
-	<div class="right-panel float-right padding-5">
-		<ul class="items">
-			<?php foreach($this->items as $item): ?>
-				<li>
-					<h1><?php echo $this->escape($item->title); ?>
-				</li>
-				<li>
-				<?php echo JHtml::_('string.truncate', strip_tags($item->introtext), 100); ?>
-				</li>
-			<?php endforeach; ?>
-		</ul>
 	</div>
 </div>
 

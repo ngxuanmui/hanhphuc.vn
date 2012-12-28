@@ -36,7 +36,7 @@ class JE_ContentModelFeatured extends JModelList
 		$query		= $db->getQuery(true);
 		
 		$query->select(
-			'a.id , a.title, a.alias, a.introtext'
+			'a.id , a.title, a.alias, a.introtext, a.featured_images'
 		);
 		
 		$query->from('`#__je_content` a');
