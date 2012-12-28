@@ -9,8 +9,8 @@
 			description="Loại tài khoản"
 			label="Loại tài khoản"
 		>
-			<option value="1">Tài khoản thường</option>
-			<option value="2">Tài khoản doanh nghiệp</option>
+			<option value="0">Tài khoản thường</option>
+			<option value="1">Tài khoản doanh nghiệp</option>
 		</field>
 	</fieldset>
 </form>

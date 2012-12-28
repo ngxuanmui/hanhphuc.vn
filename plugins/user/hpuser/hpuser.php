@@ -111,7 +111,7 @@ class plgUserHpuser extends JPlugin {
 		//TODO #nttuyen save user's info after save
 		$info = new stdClass();
 		if(isset($data['id']) && $data['id']) $info->user_id = $data['id'];
-		
+		var_dump($data);die;
 //		$db = JFactory::getDbo();
 //		if(!empty($info)) {
 //			if($isNew) {

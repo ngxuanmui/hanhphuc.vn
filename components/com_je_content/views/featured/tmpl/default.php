@@ -50,88 +50,12 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 <div>
 	<div class="left-side float-left">
-		<div class="tab">
-			<span class="icons">DỊCH VỤ CƯỚI</span>
-		</div>
-		<div class="content service-content">
-			<h2 class="margin-top-10 float-left">DỊCH VỤ XE HOA</h2>
-			<ul class="float-left service one-edge-shadow">
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-			</ul>
-			
-			<div class="clr"></div>
-			
-			<h2>DỊCH VỤ XE HOA</h2>
-			<ul class="float-left service one-edge-shadow">
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-			</ul>
-			
-			<h2>DỊCH VỤ XE HOA</h2>
-			<ul class="float-left service one-edge-shadow">
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-			</ul>
-			
-			<h2>DỊCH VỤ XE HOA</h2>
-			<ul class="float-left service one-edge-shadow">
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-				<li>
-					<img src="images/sampledata/sample.png" />
-					
-					<p>Tên nhà cung cấp</p>
-				</li>
-			</ul>
-		</div>
+        <?php
+        $modules = JModuleHelper::getModules('wedding_services');
+        foreach( $modules As $mod ){
+            echo JModuleHelper::renderModule($mod);
+        }
+        ?>
 	</div>
 	
 	<div class="right-side float-right">
@@ -212,22 +136,12 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 <div>
 	<div class="left-side float-left">
-		<h2>BLOG DOANH NGHIỆP</h2>
-		<div>
-			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			<div class="image float-left round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			
-			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			<div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-			<div class="image float-left round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-		</div>
+        <?php
+        $modules = JModuleHelper::getModules('business_blog');
+        foreach( $modules As $mod ){
+            echo JModuleHelper::renderModule($mod);
+        }
+        ?>
 	</div>
 	
 	<div class="right-side float-right">
