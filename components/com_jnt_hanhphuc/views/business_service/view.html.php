@@ -31,7 +31,7 @@ class Jnt_HanhPhucViewBusiness_Service extends JView
             $app = JFactory::getApplication();
             $app->redirect(JRoute::_('index.php?option=com_users&view=login'), 'Bạn cần đăng nhập!');
             return true;
-        } else if($user->user_type != 2) {
+        } else if($user->user_type != USER_TYPE_BUSSINESS) {
             //Khong phai la doanh nghiep
             $app = JFactory::getApplication();
             $app->redirect(JRoute::_('index.php?option=com_users&view=login'), 'Bạn là người dùng cá nhân, hiện bạn không thể thực hiện chức năng này!');

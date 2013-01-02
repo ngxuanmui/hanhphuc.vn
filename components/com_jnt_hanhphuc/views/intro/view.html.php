@@ -44,7 +44,7 @@ class Jnt_HanhPhucViewIntro extends JView
                 $app->redirect('index.php?option=com_users&view=login', 'Bạn cần đăng nhập mới có thể sửa thông tin');
                 return true;
             }
-            if($this->businessInfo->user_type != 2 || $this->businessInfo->id != $user->id) {
+            if($this->businessInfo->user_type != USER_TYPE_BUSSINESS || $this->businessInfo->id != $user->id) {
                 $app = JFactory::getApplication();
                 $app->redirect('index.php?option=com_users&view=login', 'Bạn không có quyền sửa thông tin sửa thông tin');
                 return true;
@@ -52,7 +52,7 @@ class Jnt_HanhPhucViewIntro extends JView
         }
         
         if(empty($this->data->content) && $layout == 'default' && $businessId > 0) {
-            if($businessId == $user->id && $user->user_type == 2) {
+            if($businessId == $user->id && $user->user_type == USER_TYPE_BUSSINESS) {
                 //Redirect to edit
                 $app = JFactory::getApplication();
                 $app->redirect(JRoute::_('index.php?option=com_jnt_hanhphuc&view=intro&layout=edit&bid='.$businessId));

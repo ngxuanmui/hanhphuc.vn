@@ -16,6 +16,8 @@ jimport('joomla.application.component.controller');
 define('SESSION_PAY_METHOD_KEY', 'jnt_hanhphuc.cart.pay_method');
 define('SESSION_PAY_INFO_KEY', 'jnt_hanhphuc.cart.pay_info');
 define('SESSION_PAY_SHHIPPING_INFO_KEY', 'jnt_hanhphuc.cart.pay_shipping_info');
+define('USER_TYPE_NORMAL', 0);
+define('USER_TYPE_BUSSINESS', 1);
 
 
 // Execute the task.
