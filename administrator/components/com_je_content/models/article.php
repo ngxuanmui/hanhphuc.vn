@@ -202,7 +202,7 @@ class JE_ContentModelArticle extends JModelAdmin
 		
 		$date = date('Y') . DS . date('m') . DS . date('d');
 		
-		$dest = JPATH_ROOT . DS . 'images' . DS . 'com_je_content' . DS . $date . DS . $itemId . DS;
+		$dest = JPATH_ROOT . DS . 'images' . DS . 'je_content' . DS . $date . DS . $itemId . DS;
 		@mkdir($dest, 0777, true);
 		
 		$doc=new DOMDocument();
@@ -224,7 +224,7 @@ class JE_ContentModelArticle extends JModelAdmin
 			
 			// Search & Replace
 			$tmpSearch[] = $img['src'];			
-			$tmpReplace[] = 'images/com_je_content/' . str_replace(DS, '/', $date) . '/' . $itemId . '/' . end($imgSrc);
+			$tmpReplace[] = 'images/je_content/' . str_replace(DS, '/', $date) . '/' . $itemId . '/' . end($imgSrc);
 				
 			$src = str_replace('/', DS, JPATH_ROOT.'/'.$img['src']);
 				
@@ -276,7 +276,7 @@ class JE_ContentModelArticle extends JModelAdmin
 		$dest = JPATH_ROOT . DS . 'images' . DS . 'je_content' . DS . $path . DS . $date . DS . $itemId . DS;
 		
 		// Make directory
-		@mkdir($dest, '0777', true);
+		@mkdir($dest, 0777, true);
 		
 		if (isset($fileName) && $fileName) {
 			
