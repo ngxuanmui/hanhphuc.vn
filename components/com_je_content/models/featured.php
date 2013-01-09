@@ -46,6 +46,8 @@ class JE_ContentModelFeatured extends JModelList
 		$query->join('INNER', '#__categories AS c ON c.id = a.catid');
 		
 		$query->where('a.featured = 1');
+		
+		$query->order('a.id DESC');
 
 		return $query;
 	}
@@ -55,7 +57,7 @@ class JE_ContentModelFeatured extends JModelList
 		$db = JFactory::getDbo();
 		$query = $this->getListQuery();
 		
-		$db->setQuery($query, 0, 5);
+		$db->setQuery($query, 0, 10);
 		$rs = $db->loadObjectList();
 		
 		return $rs;
