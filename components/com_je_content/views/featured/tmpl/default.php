@@ -60,6 +60,82 @@ jQuery().ready(function($){
 
 <div class="clr"></div>
 
+<div class="container">
+    <div class="float-left left-side">
+		<div>
+			<img src="<?php echo JURI::root().'templates/hanhphuc/images/sample/sample-1.png'; ?>" />
+		</div>
+
+		<div class="sub-container">
+			<p>TÌM KIẾM DỊCH VỤ CƯỚI</p>
+
+			<div class="line-break-search"><span></span></div>
+
+			<form id="frm-search-service">
+			<p>Chú ý: <span>Chọn một trong các lựa chọn bên dưới rồi nhấn vào Tìm kiếm để tìm kiếm dịch vụ.</span></p>
+			<div>
+				<select>
+					<option>Chọn dịch vụ</option>
+				</select>
+
+				<select>
+					<option>Tỉnh / Thành</option>
+				</select>
+
+				<select>
+					<option>Quận / Huyện</option>
+				</select>
+			</div>
+
+			<div>
+				<input type="text" placeholder="Gõ tên nhà cung cấp dịch vụ">
+				<button type="button">Tìm kiếm dịch vụ</button>
+			</div>
+
+			</form>
+		</div>
+		
+		<div class="sub-container">
+			<div class="left">
+				<div class="items-category">
+					<h1>
+						NGƯỜI TA YÊU
+						<span>
+							<a href="#">Đám cưới quanh ta</a>
+							<a href="#">Đám cưới quanh ta</a>
+						</span>
+					</h1>
+
+					<div>
+						<h2>Cầu hôn bằng 1999 bông hồng vàng ròng</h2>
+						<img src="" /> Chiều qua ...
+
+						<ul>
+							<li>Kỷ lục cưới nhau 85 lần trong 6 tháng</li>
+							<li>Kỷ lục cưới nhau 85 lần trong 6 tháng</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="right">
+				<p>DỊCH VỤ CƯỚI</p>
+				<ul>
+					<li>Ảnh viện áo cưới</li>
+					<li>Nhẫn cưới - Đồ trang sức</li>
+					<li>Xe hoa</li>
+				</ul>
+			</div>
+		</div>
+    </div>
+    
+    <div class="float-right right-side">
+	<div>
+	    <img src="<?php echo JURI::root().'templates/hanhphuc/images/sample/sample-2.png'; ?>" />
+	</div>
+    </div>
+</div>
+
 <div>
 	<div class="left-side float-left">
         <?php
