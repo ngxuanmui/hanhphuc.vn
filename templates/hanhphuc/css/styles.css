@@ -82,3 +82,6 @@ ul.service li p { text-align: center; padding: 5px 0 10px 0; }
 .content .content-detail > div { width: 209px; }
 
 .image { width: 70px; height: 70px; margin-bottom: 20px; }
+
+.sub-container .left { width: 300px; }
+.sub-container .left .items-category { width: 300px; }

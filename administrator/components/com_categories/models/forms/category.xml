@@ -105,6 +105,16 @@
 			value="-2">
 			JTRASHED</option>
 	</field>
+
+	<field name="featured" type="list"
+			label="JFEATURED"
+			description="COM_CONTENT_FIELD_FEATURED_DESC"
+			default="0"
+		>
+			<option value="0">JNO</option>
+			<option value="1">JYES</option>
+		</field>
+
 	<field
 		name="buttonspacer"
 		label="JGLOBAL_ACTION_PERMISSIONS_LABEL"

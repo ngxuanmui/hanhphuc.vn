@@ -96,35 +96,71 @@ jQuery().ready(function($){
 		</div>
 		
 		<div class="sub-container">
-			<div class="left">
+			<div class="left float-left">
+			    <?php 
+			    $articles = $this->articles;
+			    
+			    foreach ($articles as $item):
+				if (isset($item['sub'])):
+			    ?>
 				<div class="items-category">
 					<h1>
-						NGƯỜI TA YÊU
+						<?php
+						$firstCategory = array_shift($item['sub']);
+						echo $firstCategory->title;
+						
+						$tmp = array_reverse($item['sub']);
+						array_pop($tmp);
+						$categories = array_reverse($tmp);
+						
+						$check = 0;
+						?>
 						<span>
-							<a href="#">Đám cưới quanh ta</a>
-							<a href="#">Đám cưới quanh ta</a>
+							<?php foreach ($categories as $cat): ?>
+							<a href="#"><?php echo $cat->title; ?></a>
+							
+							<?php 
+							$check ++;
+
+							if ($check > 1)
+							    break;
+							
+							endforeach; 
+							?>
 						</span>
+						
 					</h1>
 
+				    <?php $listArticles = $item['articles'][$firstCategory->id]; ?>
 					<div>
-						<h2>Cầu hôn bằng 1999 bông hồng vàng ròng</h2>
-						<img src="" /> Chiều qua ...
-
+						<h2><?php echo $listArticles[0]->title; ?></h2>
+						<?php echo $listArticles[0]->introtext; ?>
+						
 						<ul>
-							<li>Kỷ lục cưới nhau 85 lần trong 6 tháng</li>
-							<li>Kỷ lục cưới nhau 85 lần trong 6 tháng</li>
+						    <?php 
+						    foreach ($listArticles as $key => $article):
+							if ($key == 0) continue;
+						?>
+							<li>
+							    <a href="#"><?php echo $article->title; ?></a>
+							</li>
+							<?php endforeach; ?>
 						</ul>
 					</div>
 				</div>
+			    <div class="clr"></div>
+			    <?php endif; endforeach; ?>
 			</div>
 			
-			<div class="right">
+			<div class="right float-right">
 				<p>DỊCH VỤ CƯỚI</p>
-				<ul>
-					<li>Ảnh viện áo cưới</li>
-					<li>Nhẫn cưới - Đồ trang sức</li>
-					<li>Xe hoa</li>
-				</ul>
+				<?php 
+				$modules = JModuleHelper::getModules('homepage-menu-service');
+				foreach($modules as $module)
+				{
+				    echo JModuleHelper::renderModule($module);
+				}
+				?>
 			</div>
 		</div>
     </div>
