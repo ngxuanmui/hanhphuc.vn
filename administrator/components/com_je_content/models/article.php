@@ -267,7 +267,7 @@ class JE_ContentModelArticle extends JModelAdmin
 			$image = '';
 		}
 		else
-			$image = $oldImage;
+			$image = $oldImg;
 		
 		$date = date('Y') . DS . date('m') . DS . date('d');
 		
