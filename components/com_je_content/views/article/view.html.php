@@ -48,6 +48,8 @@ class JE_ContentViewArticle extends JView
 	 */
 	protected function _prepareDocument()
 	{
-		//TODO: prepare document
+	    //TODO: prepare document
+	    $item = $this->item;
+	    
 	}
 }

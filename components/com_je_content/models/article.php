@@ -32,13 +32,13 @@ class JE_ContentModelArticle extends JModel
 	function getItem()
 	{
 		//init vars
-		$db			= $this->getDbo();
+		$db		= $this->getDbo();
 		$id 		= JRequest::getInt('id');
 		$query		= $db->getQuery(true);
 		
 		$query->select(
-			'a.id, a.catid, a.title, a.alias, a.introtext, a.fulltext, a.images, a.featured, a.params'
-		);
+				'a.id, a.catid, a.title, a.alias, a.introtext, a.fulltext, a.images, a.featured'
+			    );
 		
 		$query->from('#__je_content a');
 		
@@ -51,8 +51,10 @@ class JE_ContentModelArticle extends JModel
 		$db->setQuery($query);
 		$record = $db->loadObject();
 		
+//		echo str_replace('#__', 'hp_', $query);
+		
 		if($record)
-			return $record;
+		    return $record;
 		
 		// Update hit
 		$this->hit();

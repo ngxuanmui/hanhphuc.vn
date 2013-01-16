@@ -93,7 +93,7 @@ class JE_ContentModelFeatured extends JModelList
 		    
 		    $query = $db->getQuery(true);
 		    
-		    $query->select('id, title, alias, introtext, images')
+		    $query->select('id, catid, title, alias, introtext, images')
 			    ->from('#__je_content')
 			    ->where('catid = ' . $category->id)
 			    ->where('state = 1')

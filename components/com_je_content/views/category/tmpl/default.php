@@ -13,31 +13,43 @@
 defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
-
 ?>
 
-<ul class="items">
-	<?php foreach($this->items as $item): ?>
-	<li>
-		<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($item->slug, $item->catid)); ?>">
-			<?php echo $this->escape($item->title); ?>
-		</a>			
-	</li>
-	<li>
-	<?php echo $this->escape($item->category_title); ?>
-	</li>
-	<li>
-		<?php if ($item->images): ?>
-		<img src="<?php echo JURI::base().$item->images; ?>" style="float:left; margin-right: 10px; width: 100px;" />
-		<?php endif; ?>
-		<?php echo $item->introtext; ?>
-	</li>
-	<li>
-		Detail
-	</li>
-	<?php endforeach; ?>
-</ul>
+<div class="container">
+    <div class="sub-container">
+	<div class="left float-left">
+	    <ul class="items">
+		<?php foreach($this->items as $item): ?>
+		<li class="clr">
+		    <a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($item->slug, $item->catid)); ?>">
+			    <?php echo $this->escape($item->title); ?>
+		    </a>	
+		    <?php if ($item->images): ?>
+		    <img src="<?php echo JURI::base().$item->images; ?>" style="float:left; margin-right: 10px; width: 100px;" />
+		    <?php endif; ?>
+		    <div class="desc">
+			<?php echo $item->introtext; ?>
+		    </div>		    
+		</li>
+		<?php endforeach; ?>
+	    </ul>
+	</div>
+	<div class="right float-right">
+	    <?php 
+	    $modules = JModuleHelper::getModules('right');
+	    foreach($modules as $module)
+	    {
+		echo JModuleHelper::renderModule($module);
+	    }
+	    ?>
+	</div>
+    </div>
+</div>
+
+<div class="clear"></div>
 
 <div class="pagination">
 	<?php echo $this->pagination->getPagesLinks(); ?>
 </div>
+
+<div class="clear"></div>

@@ -18,19 +18,27 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 $item = $this->item;
 ?>
 
-<ul class="item">
-	<li>
-		<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($item->slug, $item->catid)); ?>">
-			<?php echo $this->escape($item->title); ?>
-		</a>	
-	</li>
-	<li>
-	<?php echo $item->category_title; ?>
-	</li>
-	<li>
-	<?php echo $item->introtext; ?>
-	</li>
-	<li>
-	<?php echo $item->fulltext; ?>
-	</li>
-</ul>
+<div class="container">
+    <div class="float-left left-side">
+	<h1>
+	    <a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($item->slug, $item->catid)); ?>">
+		    <?php echo $this->escape($item->title); ?>
+	    </a>
+	</h1>
+	
+	<div class="fulltext">
+	    <?php echo $item->fulltext; ?>
+	</div>
+    </div>
+    
+    <div class="float-right right-side">
+	<?php
+	$modules = JModuleHelper::getModules('right');
+	foreach( $modules As $mod ){
+	    echo JModuleHelper::renderModule($mod);
+	}
+	?>
+    </div>
+</div>
+
+<div class="clear"></div>

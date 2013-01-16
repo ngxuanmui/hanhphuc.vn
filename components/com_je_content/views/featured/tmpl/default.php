@@ -49,12 +49,13 @@ jQuery().ready(function($){
 	</div>
 	
 	<div class="right-panel float-right padding-5">
-		<?php
-			$modules = JModuleHelper::getModules('blogger');
-			foreach( $modules As $mod ){
-			   echo  $mod->content;
-			}
-			?>
+	    <?php 
+	    $modules = JModuleHelper::getModules('blogger');
+	    foreach($modules as $module)
+	    {
+		echo JModuleHelper::renderModule($module);
+	    }
+	    ?>
 	</div>
 </div>
 
@@ -63,7 +64,13 @@ jQuery().ready(function($){
 <div class="container">
     <div class="float-left left-side">
 		<div>
-			<img src="<?php echo JURI::root().'templates/hanhphuc/images/sample/sample-1.png'; ?>" />
+		    <?php 
+		    $modules = JModuleHelper::getModules('center');
+		    foreach($modules as $module)
+		    {
+			echo JModuleHelper::renderModule($module);
+		    }
+		    ?>
 		</div>
 
 		<div class="sub-container">
@@ -105,33 +112,32 @@ jQuery().ready(function($){
 			    ?>
 				<div class="items-category">
 					<h1>
-						<?php
-						$firstCategory = array_shift($item['sub']);
-						echo $firstCategory->title;
-						
-						$tmp = array_reverse($item['sub']);
-						array_pop($tmp);
-						$categories = array_reverse($tmp);
-						
-						$check = 0;
-						?>
-						<span>
-							<?php foreach ($categories as $cat): ?>
-							<a href="#"><?php echo $cat->title; ?></a>
-							
-							<?php 
-							$check ++;
+					    <?php
+					    $firstCategory = array_shift($item['sub']);
+					    echo $firstCategory->title;
 
-							if ($check > 1)
-							    break;
-							
-							endforeach; 
-							?>
-						</span>
-						
+					    $tmp = array_reverse($item['sub']);
+					    array_pop($tmp);
+					    $categories = array_reverse($tmp);
+
+					    $check = 0;
+					    ?>
+					    <span>
+						    <?php foreach ($categories as $cat): ?>
+						    <a href="#"><?php echo $cat->title; ?></a>
+
+						    <?php 
+						    $check ++;
+
+						    if ($check > 1)
+							break;
+
+						    endforeach; 
+						    ?>
+					    </span>
 					</h1>
 
-				    <?php $listArticles = $item['articles'][$firstCategory->id]; ?>
+					<?php $listArticles = $item['articles'][$firstCategory->id]; ?>
 					<div>
 						<h2><?php echo $listArticles[0]->title; ?></h2>
 						<?php echo $listArticles[0]->introtext; ?>
@@ -140,11 +146,15 @@ jQuery().ready(function($){
 						    <?php 
 						    foreach ($listArticles as $key => $article):
 							if ($key == 0) continue;
-						?>
-							<li>
-							    <a href="#"><?php echo $article->title; ?></a>
-							</li>
-							<?php endforeach; ?>
+							
+							$article->slug = $article->alias ? ($article->id . ':' . $article->alias) : $article->id;
+						    ?>
+						    <li>
+							<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($article->slug, $article->catid)); ?>">
+							    <?php echo $article->title; ?>
+							</a>
+						    </li>
+						    <?php endforeach; ?>
 						</ul>
 					</div>
 				</div>
@@ -153,105 +163,28 @@ jQuery().ready(function($){
 			</div>
 			
 			<div class="right float-right">
-				<p>DỊCH VỤ CƯỚI</p>
-				<?php 
-				$modules = JModuleHelper::getModules('homepage-menu-service');
-				foreach($modules as $module)
-				{
-				    echo JModuleHelper::renderModule($module);
-				}
-				?>
+			    <?php 
+			    $modules = JModuleHelper::getModules('right-sub');
+			    foreach($modules as $module)
+			    {
+				if ($module->showtitle)
+				    echo '<div class="module-title">' . $module->title . '</div>';
+				
+				echo JModuleHelper::renderModule($module);
+			    }
+			    ?>
 			</div>
 		</div>
     </div>
     
     <div class="float-right right-side">
-	<div>
-	    <img src="<?php echo JURI::root().'templates/hanhphuc/images/sample/sample-2.png'; ?>" />
-	</div>
+	<?php
+	$modules = JModuleHelper::getModules('right');
+	foreach( $modules As $mod ){
+	    echo JModuleHelper::renderModule($mod);
+	}
+	?>
     </div>
-</div>
-
-<div>
-	<div class="left-side float-left">
-        <?php
-        $modules = JModuleHelper::getModules('wedding_services');
-        foreach( $modules As $mod ){
-            echo JModuleHelper::renderModule($mod);
-        }
-        ?>
-	</div>
-	
-	<div class="right-side float-right">
-		<div class="tab">
-			<span class="icons">TIN TỨC</span>
-		</div>
-		<div class="content float-left">
-			
-			<div class="content-detail float-left margin-right-10">
-				<h2 class="title">CẨM NANG CƯỚI</h2>
-				<div class="round-4-conners-5 border-1 padding-5">
-					<img src="images/sampledata/sample-2.png" />
-					<h1>Tự tổ chức đám cưới</h1>
-					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
-				</div>
-			</div>
-
-			<div class="content-detail float-left">
-				<h2 class="title">CẨM NANG CƯỚI</h2>
-				<div class="round-4-conners-5 border-1 padding-5">
-					<img src="images/sampledata/sample-2.png" />
-					<h1>Tự tổ chức đám cưới</h1>
-					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
-				</div>
-			</div>
-			
-		</div>
-		
-		<div class="content float-left margin-top-10">
-			
-			<div class="content-detail float-left margin-right-10">
-				<h2 class="title">CẨM NANG CƯỚI</h2>
-				<div class="round-4-conners-5 border-1 padding-5">
-					<img src="images/sampledata/sample-2.png" />
-					<h1>Tự tổ chức đám cưới</h1>
-					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
-				</div>
-			</div>
-
-			<div class="content-detail float-left">
-				<h2 class="title">CẨM NANG CƯỚI</h2>
-				<div class="round-4-conners-5 border-1 padding-5">
-					<img src="images/sampledata/sample-2.png" />
-					<h1>Tự tổ chức đám cưới</h1>
-					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
-				</div>
-			</div>
-			
-		</div>
-		
-		<div class="content float-left margin-top-10">
-			
-			<div class="content-detail float-left margin-right-10">
-				<h2 class="title">CẨM NANG CƯỚI</h2>
-				<div class="round-4-conners-5 border-1 padding-5">
-					<img src="images/sampledata/sample-2.png" />
-					<h1>Tự tổ chức đám cưới</h1>
-					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
-				</div>
-			</div>
-
-			<div class="content-detail float-left">
-				<h2 class="title">CẨM NANG CƯỚI</h2>
-				<div class="round-4-conners-5 border-1 padding-5">
-					<img src="images/sampledata/sample-2.png" />
-					<h1>Tự tổ chức đám cưới</h1>
-					<p class="content-desc">Tự tổ chức đám cưới dĩ nhiên sẽ vất vả hơn rất nhiều ...</p>
-				</div>
-			</div>
-			
-		</div>
-	</div>
 </div>
 
 <div class="clr "></div>

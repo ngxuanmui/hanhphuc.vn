@@ -32,32 +32,38 @@ class JE_ContentModelCategory extends JModelList
 	 */
 	function getListQuery()
 	{
-		$db			= $this->getDbo();
-		$query		= $db->getQuery(true);
-		
-		$query->select(
-			'a.id, a.catid, a.title, a.alias, a.introtext, a.images, a.params'
-		);
-		
-		$query->from('`#__je_content` a');
-		
-		// Join over the categories
-		$query->select('c.title AS category_title');
-		$query->join('INNER', '#__categories AS c ON c.id = a.catid');
-		
-		// Filter by start and end dates.
-		$nullDate = $db->Quote($db->getNullDate());
-		$nowDate = $db->Quote(JFactory::getDate()->toSQL());
+	    $db			= $this->getDbo();
+	    $query		= $db->getQuery(true);
 
-		$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
-		$query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
-		
-		// Filter by category
-		$catid = JRequest::getInt('id');
-		
-		if ($catid)
-			$query->where ('a.catid = ' . $catid);
+	    $query->select(
+		    'a.id, a.catid, a.title, a.alias, a.introtext, a.images'
+	    );
 
-		return $query;
+	    $query->from('`#__je_content` a');
+
+	    // Join over the categories
+	    $query->select('c.title AS category_title');
+	    $query->join('INNER', '#__categories AS c ON c.id = a.catid');
+
+	    // Filter by start and end dates.
+	    $nullDate = $db->Quote($db->getNullDate());
+	    $nowDate = $db->Quote(JFactory::getDate()->toSQL());
+
+	    $query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
+	    $query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
+
+	    // Filter by category
+	    $catid = JRequest::getInt('id');
+
+	    if ($catid)
+		$query->where ('a.catid = ' . $catid . ' OR a.catid IN (SELECT id FROM #__categories WHERE parent_id = '. (int) $catid .')');
+	    
+	    $query->where('extension = "com_je_content"');
+	    
+	    $query->order('a.id DESC');
+	    
+//	    echo str_replace('#__', 'hp_', $query);
+
+	    return $query;
 	}
 }

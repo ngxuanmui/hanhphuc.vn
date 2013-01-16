@@ -2,7 +2,6 @@ body { background: #f5f5f5; margin: 0; padding: 0; border-top: 5px solid #041b23
 * { font-family: Tahoma; font-size: 11px; margin: 0; padding: 0; }
 
 ul { list-style: none; }
-ul li { float: left; }
 a { text-decoration: none; }
 
 
@@ -83,5 +82,5 @@ ul.service li p { text-align: center; padding: 5px 0 10px 0; }
 
 .image { width: 70px; height: 70px; margin-bottom: 20px; }
 
-.sub-container .left { width: 300px; }
-.sub-container .left .items-category { width: 300px; }
+.sub-container .left { width: 440px; }
+.sub-container .left .items-category {  }
