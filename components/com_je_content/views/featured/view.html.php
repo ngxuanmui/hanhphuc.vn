@@ -25,11 +25,15 @@ class JE_ContentViewFeatured extends JView
 {
 	protected $items;
 	protected $pagination;
+	protected $articles;
 
 	function display($tpl = null)
 	{
 		$this->items		= $this->get('Items');
 		$this->pagination 	= $this->get('Pagination');
+		$this->articles		= $this->get('Articles');
+		
+//		echo '<pre>'; print_r($this->articles); die;
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

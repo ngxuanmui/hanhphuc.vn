@@ -46,6 +46,8 @@ class JE_ContentModelFeatured extends JModelList
 		$query->join('INNER', '#__categories AS c ON c.id = a.catid');
 		
 		$query->where('a.featured = 1');
+		
+		$query->order('a.id DESC');
 
 		return $query;
 	}
@@ -55,9 +57,63 @@ class JE_ContentModelFeatured extends JModelList
 		$db = JFactory::getDbo();
 		$query = $this->getListQuery();
 		
-		$db->setQuery($query, 0, 5);
+		$db->setQuery($query, 0, 10);
 		$rs = $db->loadObjectList();
 		
 		return $rs;
 	}
+	
+	public function getArticles()
+	{
+	    $db = JFactory::getDbo();
+	    $query = $db->getQuery(true);
+	    
+	    $query->select('*')
+		    ->from('#__categories')
+		    ->where('extension = "com_je_content"')
+		    ->where('published = 1')
+		    ->order('lft')
+		;
+	    
+	    $db->setQuery($query);
+	    $categories = $db->loadObjectList();
+	    
+	    $arrCat = array();
+	    
+	    $idx = 0;
+	    
+	    foreach ($categories as $category)
+	    {
+		if ($category->level == 1)
+		    $arrCat[$category->id]['category'] = $category;
+		else
+		{
+		    if ($category->featured == 0)
+			continue;
+		    
+		    $query = $db->getQuery(true);
+		    
+		    $query->select('id, title, alias, introtext, images')
+			    ->from('#__je_content')
+			    ->where('catid = ' . $category->id)
+			    ->where('state = 1')
+			;
+		    
+		    $db->setQuery($query, 0, 3);
+		    $rs = $db->loadObjectList();
+		    
+		    if (!empty($rs))
+		    {
+			$arrCat[$category->parent_id]['sub'][$category->id] = $category;
+			$arrCat[$category->parent_id]['articles'][$category->id] = $rs;
+		    }
+			
+		}
+		
+		$idx ++;
+	    }
+	    
+	    return $arrCat;
+	}
+	
 }

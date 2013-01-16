@@ -60,6 +60,118 @@ jQuery().ready(function($){
 
 <div class="clr"></div>
 
+<div class="container">
+    <div class="float-left left-side">
+		<div>
+			<img src="<?php echo JURI::root().'templates/hanhphuc/images/sample/sample-1.png'; ?>" />
+		</div>
+
+		<div class="sub-container">
+			<p>TÌM KIẾM DỊCH VỤ CƯỚI</p>
+
+			<div class="line-break-search"><span></span></div>
+
+			<form id="frm-search-service">
+			<p>Chú ý: <span>Chọn một trong các lựa chọn bên dưới rồi nhấn vào Tìm kiếm để tìm kiếm dịch vụ.</span></p>
+			<div>
+				<select>
+					<option>Chọn dịch vụ</option>
+				</select>
+
+				<select>
+					<option>Tỉnh / Thành</option>
+				</select>
+
+				<select>
+					<option>Quận / Huyện</option>
+				</select>
+			</div>
+
+			<div>
+				<input type="text" placeholder="Gõ tên nhà cung cấp dịch vụ">
+				<button type="button">Tìm kiếm dịch vụ</button>
+			</div>
+
+			</form>
+		</div>
+		
+		<div class="sub-container">
+			<div class="left float-left">
+			    <?php 
+			    $articles = $this->articles;
+			    
+			    foreach ($articles as $item):
+				if (isset($item['sub'])):
+			    ?>
+				<div class="items-category">
+					<h1>
+						<?php
+						$firstCategory = array_shift($item['sub']);
+						echo $firstCategory->title;
+						
+						$tmp = array_reverse($item['sub']);
+						array_pop($tmp);
+						$categories = array_reverse($tmp);
+						
+						$check = 0;
+						?>
+						<span>
+							<?php foreach ($categories as $cat): ?>
+							<a href="#"><?php echo $cat->title; ?></a>
+							
+							<?php 
+							$check ++;
+
+							if ($check > 1)
+							    break;
+							
+							endforeach; 
+							?>
+						</span>
+						
+					</h1>
+
+				    <?php $listArticles = $item['articles'][$firstCategory->id]; ?>
+					<div>
+						<h2><?php echo $listArticles[0]->title; ?></h2>
+						<?php echo $listArticles[0]->introtext; ?>
+						
+						<ul>
+						    <?php 
+						    foreach ($listArticles as $key => $article):
+							if ($key == 0) continue;
+						?>
+							<li>
+							    <a href="#"><?php echo $article->title; ?></a>
+							</li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
+				</div>
+			    <div class="clr"></div>
+			    <?php endif; endforeach; ?>
+			</div>
+			
+			<div class="right float-right">
+				<p>DỊCH VỤ CƯỚI</p>
+				<?php 
+				$modules = JModuleHelper::getModules('homepage-menu-service');
+				foreach($modules as $module)
+				{
+				    echo JModuleHelper::renderModule($module);
+				}
+				?>
+			</div>
+		</div>
+    </div>
+    
+    <div class="float-right right-side">
+	<div>
+	    <img src="<?php echo JURI::root().'templates/hanhphuc/images/sample/sample-2.png'; ?>" />
+	</div>
+    </div>
+</div>
+
 <div>
 	<div class="left-side float-left">
         <?php

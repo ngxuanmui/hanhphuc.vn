@@ -17,19 +17,6 @@ defined('_JEXEC') or die;
         <?php foreach($blogs as $blog): ?>
         <a href="#" class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('<?php echo $blog->business_logo ?>') center no-repeat;"></a>
         <?php endforeach; ?>
-        <?php else: ?>
-        <div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-        <div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-        <div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-        <div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-        <div class="image float-left round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-
-        <div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-        <div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-        <div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-        <div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-        <div class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-        <div class="image float-left round-4-conners-5" style="background: #FFF url('images/sampledata/sample-3.png') center no-repeat;"></div>
-        <?php endif; ?>
+		<?php endif; ?>
     </div>
 </div>
