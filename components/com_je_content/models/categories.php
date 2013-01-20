@@ -22,27 +22,58 @@ jimport('joomla.application.component.helper');
  * @subpackage	com_je_content
  * @since		1.6
  */
-class JE_ContentModelCategories extends JModelList
+class JE_ContentModelCategories extends JModel
 {
-	/**
-	 * Gets a list of categories
-	 *
-	 * @return	array	An array of categories objects.
-	 * @since	1.6
-	 */
-	function getListQuery()
-	{
-		$db			= $this->getDbo();
-		$query		= $db->getQuery(true);
-		
-		$query->select(
-			'#__je_content.id , #__je_content.title, #__je_content.alias'
-		);
-		
-		$query->from('`#__je_content`');
-		
-		
+    public function getArticles()
+    {
+	$db = JFactory::getDbo();
+	$query = $db->getQuery(true);
 
-		return $query;
+	$query->select('*')
+		->from('#__categories')
+		->where('extension = "com_je_content"')
+		->where('published = 1')
+		->order('lft')
+	    ;
+
+	$db->setQuery($query);
+	$categories = $db->loadObjectList();
+
+	$arrCat = array();
+
+	$idx = 0;
+
+	foreach ($categories as $category)
+	{
+	    if ($category->level == 1)
+		$arrCat[$category->id]['category'] = $category;
+	    else
+	    {
+//		if ($category->featured == 0)
+//		    continue;
+
+		$query = $db->getQuery(true);
+
+		$query->select('id, catid, title, alias, introtext, images')
+			->from('#__je_content')
+			->where('catid = ' . $category->id)
+			->where('state = 1')
+		    ;
+
+		$db->setQuery($query, 0, 3);
+		$rs = $db->loadObjectList();
+
+		if (!empty($rs))
+		{
+		    $arrCat[$category->parent_id]['sub'][$category->id] = $category;
+		    $arrCat[$category->parent_id]['articles'][$category->id] = $rs;
+		}
+
+	    }
+
+	    $idx ++;
 	}
+
+	return $arrCat;
+    }
 }

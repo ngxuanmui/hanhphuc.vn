@@ -16,21 +16,146 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 ?>
 
-<ul class="items">
-	<?php foreach($this->items as $item): ?>	
-		
-			<li>
-			<?php echo '<label>title</label>: '. $this->escape($item->title); ?>
-			</li>
-			<li>
-			<?php echo '<label>alias</label>: '. $this->escape($item->alias); ?>
-			</li>
-						<li>
-						<?php echo '<label>'.users_0_username.'</label>: '. $this->escape($item->users_0_username); ?>
-						</li>
-	<?php endforeach; ?>
-</ul>
+<script type="text/javascript" src="<?php echo JURI::base(); ?>media/jquery.bxslider/jquery.bxslider.min.js"></script>
 
-<div class="pagination">
-	<?php echo $this->pagination->getPagesLinks(); ?>
+<script type="text/javascript">
+jQuery().ready(function($){
+	$('#featured-slideshow').bxSlider({
+		mode: 'fade',
+		pager: false,
+		auto: false,
+		controls: false
+	});
+})
+</script>
+
+<div class="icons news-featured">
+	<div class="left-panel float-left padding-5">
+		<div>
+			<ul class="items" id="featured-slideshow">
+				<?php foreach($this->items as $item): ?>
+					<li>
+						<h1><?php echo $this->escape($item->title); ?>
+						<?php if ($item->featured_images): ?>
+						<img src="<?php echo JURI::base() . $item->featured_images; ?>" />
+						<?php endif; ?>
+						<div class="absolute featured-desc">
+							<?php echo JHtml::_('string.truncate', strip_tags($item->introtext), 100); ?>
+						</div>					
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="right-panel float-right padding-5">
+	    <?php 
+	    $modules = JModuleHelper::getModules('blogger');
+	    foreach($modules as $module)
+	    {
+		echo JModuleHelper::renderModule($module);
+	    }
+	    ?>
+	</div>
 </div>
+
+<div class="clr"></div>
+
+<div class="container">
+    <div class="float-left left-side">
+		<div>
+		    <?php 
+		    $modules = JModuleHelper::getModules('center');
+		    foreach($modules as $module)
+		    {
+			echo JModuleHelper::renderModule($module);
+		    }
+		    ?>
+		</div>
+		
+		<div class="sub-container">
+			<div class="left float-left">
+			    <?php 
+			    $articles = $this->articles;
+			    
+			    foreach ($articles as $item):
+				if (isset($item['sub'])):
+			    ?>
+				<div class="items-category">
+					<h1>
+					    <?php
+					    $firstCategory = array_shift($item['sub']);
+					    echo $firstCategory->title;
+
+					    $tmp = array_reverse($item['sub']);
+					    array_pop($tmp);
+					    $categories = array_reverse($tmp);
+
+					    $check = 0;
+					    ?>
+					    <span>
+						    <?php foreach ($categories as $cat): ?>
+						    <a href="#"><?php echo $cat->title; ?></a>
+
+						    <?php 
+						    $check ++;
+
+						    if ($check > 1)
+							break;
+
+						    endforeach; 
+						    ?>
+					    </span>
+					</h1>
+
+					<?php $listArticles = $item['articles'][$firstCategory->id]; ?>
+					<div>
+						<h2><?php echo $listArticles[0]->title; ?></h2>
+						<?php echo $listArticles[0]->introtext; ?>
+						
+						<ul>
+						    <?php 
+						    foreach ($listArticles as $key => $article):
+							if ($key == 0) continue;
+							
+							$article->slug = $article->alias ? ($article->id . ':' . $article->alias) : $article->id;
+						    ?>
+						    <li>
+							<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($article->slug, $article->catid)); ?>">
+							    <?php echo $article->title; ?>
+							</a>
+						    </li>
+						    <?php endforeach; ?>
+						</ul>
+					</div>
+				</div>
+			    <div class="clr"></div>
+			    <?php endif; endforeach; ?>
+			</div>
+			
+			<div class="right float-right">
+			    <?php 
+			    $modules = JModuleHelper::getModules('right-sub');
+			    foreach($modules as $module)
+			    {
+				if ($module->showtitle)
+				    echo '<div class="module-title">' . $module->title . '</div>';
+				
+				echo JModuleHelper::renderModule($module);
+			    }
+			    ?>
+			</div>
+		</div>
+    </div>
+    
+    <div class="float-right right-side">
+	<?php
+	$modules = JModuleHelper::getModules('right');
+	foreach( $modules As $mod ){
+	    echo JModuleHelper::renderModule($mod);
+	}
+	?>
+    </div>
+</div>
+
+<div class="clr"></div> 
