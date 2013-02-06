@@ -3,7 +3,8 @@
 <form>
 	<fields name="business_profile">
 		<fieldset name="business_profile"
-			label="Thông tin doanh nghiệp">
+			label="Thông tin doanh nghiệp"
+			addfieldpath="/administrator/components/com_jnt_hanhphuc/models/fields">
 			<field
 				name="business_director"
 				type="text"
@@ -36,13 +37,14 @@
 			/>
 	        <field
 				name="business_city"
-				type="list"
+				type="location" get="province"
 				id="business_city"
 				description="Tỉnh/Thành Phố"
 				filter="string"
 				label="Tỉnh/Thành Phố"
 				message="Tỉnh/Thành Phố"
 				size="1"
+
 			/>
 	        <field
 				name="business_district"
