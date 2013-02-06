@@ -3,7 +3,7 @@
 <form>
 	<fields name="user_profile">
 		<fieldset name="user_profile"
-			label="Thông tin thêm">
+			label="Thông tin cá nhân">
 			<field name="name_of_yours" type="text"
 				autocomplete="off"
 				default="Hanhphuc.vn"

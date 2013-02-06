@@ -20,7 +20,12 @@ define('JPATH_PLUGIN_HPUSER', dirname(__FILE__));
  * @since		1.5
  */
 class plgUserHpuser extends JPlugin {
-	/**
+    public function __construct(&$subject, $config = array()) {
+        parent::__construct($subject, $config);
+    }
+
+
+    /**
 	 * Prepair data for Form (use in getForm in model)
 	 * @param	string	$context	The context for the data
 	 * @param	int		$data		The user id
@@ -96,30 +101,35 @@ class plgUserHpuser extends JPlugin {
 		$user = JFactory::getUser();
 		
 		$formName = $form->getName();
-		$userType = JRequest::getInt('type', 0);
+		$userType = JRequest::getInt('type', -1);
 		if(is_object($data) && isset($data->user_type)) {
 			$userType = $data->user_type;
 		}
 		$form->setValue('user_type', '', $userType);
-		
-		//Neu la tao moi trong admin thi khong can fai load them form
-		//De lai luc sua se load them
-		if(!$user->get('isRoot') || @$data->id > 0) {
-			if($userType == 1) {
-				$form->loadFile('business_user', false);
-			} else {
-				$form->loadFile('normal_user', false);
-			}
+
+        if(@$data->id > 0) {
+            if($userType == 1) {
+                $form->loadFile('business_user', false);
+            } else {
+                $form->loadFile('normal_user', false);
+            }
+        } elseif(!$user->get('isRoot')) {
+            $form->loadFile('business_user', false);
+            $form->loadFile('normal_user', false);
 		}
 		
 		//If not at new user, don't editable user_type field
 		if($formName != 'com_users.registration' && @$data->id != 0) {
-			if($user->get('isRoot')) {
+            $form->setFieldAttribute('user_type', 'readonly', 'true');
+			/*if($user->get('isRoot')) {
 				$form->setFieldAttribute('user_type', 'readonly', 'true');
 			} else {
 				$form->setFieldAttribute('user_type', 'type', 'hidden');
-			}
-		}
+			}*/
+		} else {
+            $form->removeField("business_logo", "business_profile");
+            $form->removeField("business_banner", "business_profile");
+        }
 		
 		return true;
 	}
@@ -131,6 +141,7 @@ class plgUserHpuser extends JPlugin {
 
         $formData = $_POST['jform'];
         if($data['user_type'] == 1) {
+
             $profileFormData = $formData['business_profile'];
 
             $profile->business_director = $profileFormData['business_director'];
