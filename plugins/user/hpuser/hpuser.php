@@ -121,6 +121,12 @@ class plgUserHpuser extends JPlugin {
 		//If not at new user, don't editable user_type field
 		if($formName != 'com_users.registration' && @$data->id != 0) {
             $form->setFieldAttribute('user_type', 'readonly', 'true');
+			
+			$form->setFieldAttribute('username', 'readonly', 'true');
+			$form->setFieldAttribute('email1', 'readonly', 'true');
+			
+			$form->removeField("email2");
+			
 			/*if($user->get('isRoot')) {
 				$form->setFieldAttribute('user_type', 'readonly', 'true');
 			} else {
@@ -129,6 +135,8 @@ class plgUserHpuser extends JPlugin {
 		} else {
             $form->removeField("business_logo", "business_profile");
             $form->removeField("business_banner", "business_profile");
+			
+			
         }
 		
 		return true;

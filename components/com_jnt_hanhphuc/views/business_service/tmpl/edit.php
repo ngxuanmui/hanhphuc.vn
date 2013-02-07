@@ -54,7 +54,7 @@ $businessInfo = $this->businessInfo;
 
 <div class="business-intro">
 
-<h2><?php echo $businessInfo->profile->business_name ?></h2>
+	<h2><?php echo (!empty($businessInfo->profile->business_name)) ? $businessInfo->profile->business_name : ''; ?></h2>
 
 <form id="business-info" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=business_service.save'); ?>" method="post" class="form-validate" enctype="multipart/form-data">
     <div>

@@ -42,6 +42,6 @@ $businessInfo = $this->businessInfo;
 </div>
 <?php endif;?>
 <div class = "business-services-manager">
-	<a href = "<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=business_service&layout=edit') ?>">Add news</a>
+	<a href = "<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=business_service.add') ?>">Add news</a>
 </div>
 </div>

@@ -58,7 +58,12 @@ class Jnt_HanhPhucModelBusiness_Service extends JModelForm {
         $query = "SELECT * FROM #__hp_business_service WHERE id = '$id'";
         $db->setQuery($query);
         $this->data = $db->loadObject();
-        $this->data->payment_type = json_decode(isset($this->data->payment_type) ? $this->data->payment_type : '[]');
+		
+		if (is_object($this->data))
+		{
+			$this->data->payment_type = json_decode(isset($this->data->payment_type) ? $this->data->payment_type : '[]');
+		}
+		
         return $this->data;
     }
 	
