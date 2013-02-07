@@ -17,7 +17,7 @@ jimport('joomla.filesystem.file');
 $this->setGenerator('');
 
 // Remove Mootools
-$this->_script = $this->_scripts = array();
+//$this->_script = $this->_scripts = array();
 
 $doc = JFactory::getDocument();
 
@@ -36,6 +36,11 @@ $doc->addScript(JURI::base() . 'media/jquery.bxslider/jquery.bxslider.min.js');
 <!--[if IE 7]>
 <link href="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/css/ie7only.css" rel="stylesheet" type="text/css" />
 <![endif]-->
+
+
+<script type="text/javascript">
+	jQuery.noConflict();
+</script>
 
 </head>
 

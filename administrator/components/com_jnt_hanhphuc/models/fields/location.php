@@ -45,7 +45,7 @@ class JFormFieldLocation extends JFormFieldList
                                         "'.JURI::root().'index.php?option=com_jnt_hanhphuc&task=location.getLocations&type='.$this->element['location_type'].'&parent_column='.$this->element['location_parent_column'].'&parent="+value
                                         , function(data){
                                             $input = "";
-                                            currentValue = '.$this->value.';
+                                            currentValue = '.(!empty($this->value) ? $this->value : 0).';
                                             jQuery(data).each(function(index, element){
                                                 $input += "<option value=\""+element.value+"\"";
                                                 if(element.value == currentValue) {
@@ -88,7 +88,7 @@ class JFormFieldLocation extends JFormFieldList
         } else {
             $table .= '_province';
         }
-
+		
         $query->select('l.id as value, l.title as text');
         $query->from($table . ' as l');
         $query->order('l.title');
@@ -96,7 +96,7 @@ class JFormFieldLocation extends JFormFieldList
         if($this->element['location_parent_field'] && $this->element['location_parent_column']) {
             $group = $this->element['location_parent_group'] ? $this->element['location_parent_group'] : $this->group;
             $parentField = $this->form->getField($this->element['location_parent_field'], $group);
-            $parentValue = $parentField->value;
+            $parentValue = !empty($parentField->value) ? $parentField->value : 0;
             $query->where('l.'.$this->element['location_parent_column']. ' = '.$parentValue);
         }
 
