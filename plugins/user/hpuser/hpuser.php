@@ -140,13 +140,15 @@ class plgUserHpuser extends JPlugin {
 		if(isset($data['id']) && $data['id']) $profile->user_id = $data['id'];
 
         $formData = $_POST['jform'];
-        if($data['user_type'] == 1) {
+        if($data['user_type'] == 1 && !empty($formData['business_profile'])) {
 
             $profileFormData = $formData['business_profile'];
 
             $profile->business_director = $profileFormData['business_director'];
             $profile->business_name = $profileFormData['business_name'];
             $profile->business_address = $profileFormData['business_address'];
+            $profile->business_city = $profileFormData['business_city'];
+            $profile->business_district = $profileFormData['business_district'];
             $profile->business_village = $profileFormData['business_village'];
             $profile->business_phone = $profileFormData['business_phone'];
             $profile->business_fax = $profileFormData['business_fax'];
@@ -170,7 +172,7 @@ class plgUserHpuser extends JPlugin {
             } else {
                 return $db->insertObject('#__hp_business_profile', $profile, 'user_id');
             }
-        } else {
+        } elseif(!empty($formData['user_profile'])) {
             $db->setQuery(
                 'DELETE FROM #__user_profiles WHERE user_id = '.(int)$data['id'] .
                     " AND profile_key IN ('website_slogan', 'name_of_yours', 'date_organization')"

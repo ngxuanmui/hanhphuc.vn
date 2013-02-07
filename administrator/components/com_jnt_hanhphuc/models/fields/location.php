@@ -36,6 +36,12 @@ class JFormFieldLocation extends JFormFieldList
         $input = parent::getInput();
         $script = '';
         if($this->element['location_parent_field']) {
+            //Need load jQuery in admin
+            $app = JFactory::getApplication();
+            if($app->isAdmin()){
+                $document = JFactory::getDocument();
+                $document->addScript('http://code.jquery.com/jquery-1.9.1.min.js');
+            }
             //TODO: #nttuyen JS load ajax
             $script = '<script type="text/javascript">
                             jQuery(document).ready(function($){
