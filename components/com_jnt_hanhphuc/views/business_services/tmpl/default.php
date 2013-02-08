@@ -12,16 +12,18 @@ defined('_JEXEC') or die;
 $businessInfo = $this->businessInfo;
 ?>
 <div class="business-services">
+<?php /*
 <h2>
 	Thông tin doanh nghiệp: <?php echo $businessInfo->profile->business_name ?>
 </h2>
+ */ ?>
 <?php if($this->items):?>
 	<div class = "business-services-list">
 		<ul>
 		<?php foreach($this->items as $item):?>
 			<li>
 				<div>
-					<h3><?php echo $item->cat_title ?></h3>
+					<h3><?php echo $item->name . ' ('. $item->cat_title . ')'; ?></h3>
 					<div>
 						<?php echo $item->description?>
 					</div>

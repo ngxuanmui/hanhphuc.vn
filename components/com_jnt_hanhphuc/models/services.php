@@ -46,7 +46,11 @@ class Jnt_HanhPhucModelServices extends JModelList {
 		$query = "SELECT s.*, c.id as cat_id, c.title as cat_title 
 				  FROM  #__hp_business_service s 
 				  	  	JOIN #__categories c ON s.category = c.id 
-				  WHERE c.published = 1 AND s.state = 1 AND c.id = ".$id;
+				  WHERE c.published = 1 AND s.state = 1";
+		
+		if ($id)
+			$query .= " AND c.id = " . $id;
+	
         return $query;
 	}
 	
@@ -66,17 +70,17 @@ class Jnt_HanhPhucModelServices extends JModelList {
 	 * @return	mixed	An array of data items on success, false on failure.
 	 * @since	1.6
 	 */
-	public function getItems() {
-		$serviceInfos = parent::getItems();
-		$businessInfos = array();
-		
-		$introModel = JModel::getInstance('Intro', 'Jnt_HanhPhucModel');
-		foreach($serviceInfos as $serviceInfo) {
-			$businessInfo = $introModel->getBusinessInfo($serviceInfo->business_id);
-			$businessInfos[] = $businessInfo;
-		}
-		return $businessInfos;
-	}
+//	public function getItems() {
+//		$serviceInfos = parent::getItems();
+//		$businessInfos = array();
+//		
+//		$introModel = JModel::getInstance('Intro', 'Jnt_HanhPhucModel');
+//		foreach($serviceInfos as $serviceInfo) {
+//			$businessInfo = $introModel->getBusinessInfo($serviceInfo->business_id);
+//			$businessInfos[] = $businessInfo;
+//		}
+//		return $businessInfos;
+//	}
 
 	/**
 	 * Method to auto-populate the model state.

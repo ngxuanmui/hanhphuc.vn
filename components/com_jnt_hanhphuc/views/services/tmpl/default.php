@@ -11,13 +11,25 @@
 defined('_JEXEC') or die;
 ?>
 <div class="services">
-	<h2 class="title">Dịch vụ: <?php echo $this->category->title?></h2>
+	<h2 class="title"><?php echo !empty($this->category->title) ? $this->category->title : 'Dịch vụ cưới'; ?></h2>
 	<?php if($this->items):?>
 	<div class="services-list">
 		<ul>
 			<?php foreach($this->items as $item):?>
 			<li>
 				<div class="service-business-detail">
+					<h1>
+						<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$item->category.'&bid='.$item->id)?>">
+							<?php echo $item->name; ?>
+						</a>
+					</h1>
+					<div class="desc">
+						<?php echo $item->description; ?>
+					</div>
+					<div class="price">
+						<strike><?php echo $item->price; ?></strike> - <?php echo $item->current_price; ?>
+					</div>
+					<?php /*
 					<h3>
 						<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$this->category->id.'&bid='.$item->id)?>"><?php echo $item->profile->business_name?></a>
 					</h3>
@@ -41,7 +53,8 @@ defined('_JEXEC') or die;
 								</li>
 							</ul>
 						</p>
-					</div>
+					</div
+					 */ ?>
 				</div>
 			</li>
 			<?php endforeach;?>

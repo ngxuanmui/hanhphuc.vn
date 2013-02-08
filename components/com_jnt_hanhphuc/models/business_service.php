@@ -77,22 +77,22 @@ class Jnt_HanhPhucModelBusiness_Service extends JModelForm {
 	 */
 	function validate($form, $data) {
 		$return = parent::validate($form, $data);
-		if(!$return) return $return;
+		if(!$return) return false;
 		
-		//Check xem da ton tai dich vu loai nay chua
-		$category = $data['category'];
-		$id = $data['id'];
-		if($id == 0) {
-			$db = JFactory::getDbo();
-			$db->setQuery(
-				'SELECT * FROM #__hp_business_service WHERE category = '.(int)$category
-			);
-			if($db->loadObject()) {
-				$this->setError('Bạn đã có dịch vụ này!');
-				$return = false;
-			}
-		}
-		
+//		//Check xem da ton tai dich vu loai nay chua
+//		$category = $data['category'];
+//		$id = $data['id'];
+//		if($id == 0) {
+//			$db = JFactory::getDbo();
+//			$db->setQuery(
+//				'SELECT * FROM #__hp_business_service WHERE category = '.(int)$category
+//			);
+//			if($db->loadObject()) {
+//				$this->setError('Bạn đã có dịch vụ này!');
+//				$return = false;
+//			}
+//		}
+//		
 		return $return;
 	}
     
@@ -129,7 +129,7 @@ class Jnt_HanhPhucModelBusiness_Service extends JModelForm {
         
         if($id) {
 			//TODO: Xu ly anh???
-	        include_once JPATH_ROOT.DS.'jnt'.DS.'classes'.DS.'upload.class.php';
+	        include_once JPATH_ROOT.DS.'libraries'.DS.'hp'.DS.'upload.class.php';
 	        $path = JPATH_ROOT.DS.'images'.DS.'users'.DS.$data['business_id'].DS.'services'.DS.$id;
 	        @mkdir($path, 0777, true);
 	        
