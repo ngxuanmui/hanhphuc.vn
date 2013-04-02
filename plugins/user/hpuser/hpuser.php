@@ -226,8 +226,7 @@ class plgUserHpuser extends JPlugin {
 	}
 
 
-    private function uploadImages($field = 'images', $itemId = 0, $delImage = 0, $oldImg = '')
-    {
+    private function uploadImages($field = 'images', $itemId = 0, $delImage = 0, $oldImg = '') {
         $jFileInput = new JInput($_FILES);
         $file = $jFileInput->get('jform', array(), 'array');
 
