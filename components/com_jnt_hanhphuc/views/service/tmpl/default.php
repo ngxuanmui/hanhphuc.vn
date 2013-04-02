@@ -15,7 +15,6 @@ JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 // Create shortcuts to some parameters.
 $serviceInfo = $this->serviceInfo;
 $businessInfo = $this->businessInfo;
-$user = JFactory::getUser();
 $paymentTypeName = array(
 	1 => 'Thanh toán qua tài khoản ngân hàng',
 	2 => 'Thanh toán qua địa chỉ bưu điện',

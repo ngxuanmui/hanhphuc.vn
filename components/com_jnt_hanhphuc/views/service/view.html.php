@@ -28,8 +28,9 @@ class Jnt_HanhPhucViewService extends JView {
         // Get the view data.
         $introModel = JModel::getInstance('Intro','Jnt_HanhPhucModel');
         
-        $this->businessInfo = $introModel->getBusinessInfo($bid);
         $this->serviceInfo = $this->get('ServiceInfo');
+		
+		$this->businessInfo = $introModel->getBusinessInfo($this->serviceInfo->business_id);
         
 		parent::display($tpl);
 	}

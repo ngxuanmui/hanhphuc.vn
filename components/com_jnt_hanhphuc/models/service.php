@@ -16,17 +16,22 @@ jimport('joomla.application.component.modelitem');
  * @package		Joomla.Site
  * @subpackage	com_contact
  */
-class Jnt_HanhPhucModelService extends JModelItem {
-	public function getServiceInfo() {
+class Jnt_HanhPhucModelService extends JModelItem
+{
+	public function getServiceInfo() 
+	{
 		$catId = JRequest::getInt('id', 0);
 		$bid = JRequest::getInt('bid', 0);
 		
 		$db = JFactory::getDbo();
-		$db->setQuery(
-			'SELECT s.*, c.id as cat_id, c.title as cat_title FROM #__hp_business_service s
+		
+		$query = 'SELECT s.*, c.id as cat_id, c.title as cat_title FROM #__hp_business_service s
 							 JOIN #__categories c ON c.id = s.category
-						WHERE c.published = 1 AND c.id = '.$catId.' AND s.business_id = '.$bid
-		);
-		return $db->loadObject();
+						WHERE c.published = 1 AND c.id = '.$catId.' AND s.id = '.$bid;
+		$db->setQuery($query);
+		
+		$obj = $db->loadObject();
+		
+		return $obj;
 	}	
 }

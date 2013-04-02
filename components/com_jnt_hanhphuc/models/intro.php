@@ -70,22 +70,28 @@ class Jnt_HanhPhucModelIntro extends JModelForm {
         
         //Load profile
         $db = JFactory::getDbo();
-        $db->setQuery(
-            'SELECT profile_key, profile_value FROM #__user_profiles' .
-            ' WHERE user_id = '.(int) $businessId." AND profile_key LIKE 'profile.%'" .
-            ' ORDER BY ordering'
-        );
-        $results = $db->loadRowList();
+//        $db->setQuery(
+//            'SELECT profile_key, profile_value FROM #__user_profiles' .
+//            ' WHERE user_id = '.(int) $businessId." AND profile_key LIKE 'profile.%'" .
+//            ' ORDER BY ordering'
+//        );
+		
+		$query = $db->getQuery(true);
+		$query->select('*')->from('#__hp_business_profile')->where('user_id = ' . $businessId);
+		$db->setQuery($query);
+//        $results = $db->loadRowList();
+		
+		$result = $db->loadObject();
 
-        // Merge the profile data.
-        $profile = new stdClass();
-
-        foreach ($results as $v) {
-            $k = str_replace('profile.', '', $v[0]);
-            //$data->profile[$k] = $v[1];
-            $profile->$k = $v[1];
-        }
-        $businessInfo->profile = $profile;
+//        // Merge the profile data.
+//        $profile = new stdClass();
+//
+//        foreach ($results as $v) {
+//            $k = str_replace('profile.', '', $v[0]);
+//            //$data->profile[$k] = $v[1];
+//            $profile->$k = $v[1];
+//        }
+        $businessInfo->profile = $result;
         
         return $businessInfo;
     }
