@@ -41,8 +41,7 @@ class Jnt_HanhPhucModelOrders extends JModelList
 	 * @return	JDatabaseQuery
 	 * @since	1.6
 	 */
-	protected function getListQuery()
-	{
+	protected function getListQuery() {
 		// Initialise variables.
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
@@ -54,73 +53,11 @@ class Jnt_HanhPhucModelOrders extends JModelList
 				'o.*'
 			)
 		);
+
 		$query->from('`#__hp_order` AS o');
-
-
-		// Filter by published state
-//		$published = $this->getState('filter.state');
-//		if (is_numeric($published)) {
-//			$query->where('a.state = '.(int) $published);
-//		} else if ($published === '') {
-//			$query->where('(a.state IN (0, 1))');
-//		}
-
-		// Filter by category.
-//		$categoryId = $this->getState('filter.category_id');
-//		if (is_numeric($categoryId)) {
-//			$query->where('a.catid = '.(int) $categoryId);
-//		}
-
-
-		// Filter by search in title
-//		$search = $this->getState('filter.search');
-//		if (!empty($search)) {
-//			if (stripos($search, 'id:') === 0) {
-//				$query->where('a.id = '.(int) substr($search, 3));
-//			} else {
-//				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
-//				$query->where('(a.name LIKE '.$search.' OR a.alias LIKE '.$search.')');
-//			}
-//		}
-
-		// Filter on the language.
-		if ($language = $this->getState('filter.language')) {
-			$query->where('a.language = ' . $db->quote($language));
-		}
-
-		// Add the list ordering clause.
-//		$orderCol	= $this->state->get('list.ordering');
-//		$orderDirn	= $this->state->get('list.direction');
-//		if ($orderCol == 'ordering' || $orderCol == 'category_title') {
-//			$orderCol = 'category_title '.$orderDirn.', ordering';
-//		}
-//		$query->order($db->getEscaped($orderCol.' '.$orderDirn));
 
 		//echo nl2br(str_replace('#__','jos_',$query));
 		return $query;
-	}
-
-	/**
-	 * Method to get a store id based on model configuration state.
-	 *
-	 * This is necessary because the model is used by the component and
-	 * different modules that might need different sets of data or different
-	 * ordering requirements.
-	 *
-	 * @param	string		$id	A prefix for the store id.
-	 * @return	string		A store id.
-	 * @since	1.6
-	 */
-	protected function getStoreId($id = '')
-	{
-		// Compile the store id.
-		$id	.= ':'.$this->getState('filter.search');
-		$id	.= ':'.$this->getState('filter.access');
-		$id	.= ':'.$this->getState('filter.state');
-		$id	.= ':'.$this->getState('filter.category_id');
-		$id .= ':'.$this->getState('filter.language');
-
-		return parent::getStoreId($id);
 	}
 
 	/**
@@ -132,8 +69,7 @@ class Jnt_HanhPhucModelOrders extends JModelList
 	 * @return	JTable	A database object
 	 * @since	1.6
 	 */
-	public function getTable($type = 'Orders', $prefix = 'Jnt_HanhPhucTable', $config = array())
-	{
+	public function getTable($type = 'Order', $prefix = 'Jnt_HanhPhucTable', $config = array()) {
 		return JTable::getInstance($type, $prefix, $config);
 	}
 
@@ -144,8 +80,7 @@ class Jnt_HanhPhucModelOrders extends JModelList
 	 *
 	 * @since	1.6
 	 */
-	protected function populateState($ordering = null, $direction = null)
-	{
+	protected function populateState($ordering = null, $direction = null) {
 		// Initialise variables.
 		$app = JFactory::getApplication('administrator');
 

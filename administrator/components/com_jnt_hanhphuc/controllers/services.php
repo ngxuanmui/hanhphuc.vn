@@ -1,7 +1,6 @@
 <?php
 /**
- * @version		$Id: banners.php 20228 2011-01-10 00:52:54Z eddieajau $
- * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -17,13 +16,12 @@ jimport('joomla.application.component.controlleradmin');
  * @subpackage	com_banners
  * @since		1.6
  */
-class Jnt_HanhPhucControllerOrders extends JControllerAdmin
-{
+class Jnt_hanhphucControllerServices extends JControllerAdmin {
 	/**
 	 * @var		string	The prefix to use with controller messages.
 	 * @since	1.6
 	 */
-	protected $text_prefix = 'COM_JNT_HANHPHUC_ORDERS';
+	protected $text_prefix = 'COM_JNT_HANHPHUC_SERVICES';
 
 	/**
 	 * Constructor.
@@ -34,15 +32,13 @@ class Jnt_HanhPhucControllerOrders extends JControllerAdmin
 	 */
 	public function __construct($config = array()) {
 		parent::__construct($config);
-
-		$this->registerTask('sticky_unpublish',	'sticky_publish');
 	}
 
 	/**
 	 * Proxy for getModel.
 	 * @since	1.6
 	 */
-	public function getModel($name = 'Order', $prefix = 'Jnt_HanhphucModel', $config = array('ignore_request' => true)) {
+	public function getModel($name = 'Service', $prefix = 'Jnt_HanhPhucModel', $config = array('ignore_request' => true)) {
 		$model = parent::getModel($name, $prefix, $config);
 		return $model;
 	}

@@ -17,12 +17,11 @@ jimport('joomla.application.component.view');
  * @subpackage	com_banners
  * @since		1.5
  */
-class Jnt_HanhPhucViewOrder extends JView
+class Jnt_HanhPhucViewService extends JView
 {
 	protected $form;
 	protected $item;
 	protected $state;
-    protected $orderItems;
 
 	/**
 	 * Display the view
@@ -33,8 +32,6 @@ class Jnt_HanhPhucViewOrder extends JView
 		$this->form		= $this->get('Form');
 		$this->item		= $this->get('Item');
 		$this->state	= $this->get('State');
-        
-        $this->orderItems = $this->get('OrderItems');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
@@ -61,19 +58,19 @@ class Jnt_HanhPhucViewOrder extends JView
 		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
 		$canDo		= Jnt_HanhPhucHelper::getActions($this->state->get('filter.category_id'));
 
-		JToolBarHelper::title($isNew ? 'New order' : 'HP: Order detail', 'banners.png');
+		JToolBarHelper::title($isNew ? 'New Services' : 'Service detail', 'banners.png');
 
 		// If not checked out, can save the item.
-		if (!$checkedOut && ($canDo->get('core.edit') || $canDo->get('core.create'))) {
-			JToolBarHelper::apply('order.apply', 'JTOOLBAR_APPLY');
-			JToolBarHelper::save('order.save', 'JTOOLBAR_SAVE');
+		if (!$checkedOut && ($canDo->get('service.edit') || $canDo->get('core.create'))) {
+			JToolBarHelper::apply('service.apply', 'JTOOLBAR_APPLY');
+			JToolBarHelper::save('service.save', 'JTOOLBAR_SAVE');
 		}
 
 		if (empty($this->item->id))  {
-			JToolBarHelper::cancel('order.cancel','JTOOLBAR_CANCEL');
+			JToolBarHelper::cancel('service.cancel','JTOOLBAR_CANCEL');
 		}
 		else {
-			JToolBarHelper::cancel('order.cancel', 'JTOOLBAR_CLOSE');
+			JToolBarHelper::cancel('service.cancel', 'JTOOLBAR_CLOSE');
 		}
 
 		JToolBarHelper::divider();

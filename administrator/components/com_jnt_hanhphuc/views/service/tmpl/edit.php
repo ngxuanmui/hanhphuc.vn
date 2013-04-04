@@ -40,41 +40,37 @@ JHtml::_('behavior.formvalidation');
 	});
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=order&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="banner-form" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="banner-form" class="form-validate">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
-			<legend><?php echo empty($this->item->id) ? JText::_('Order detail') : JText::sprintf('Order detail %d', $this->item->id); ?></legend>
+			<legend><?php echo empty($this->item->id) ? JText::_('Service detail') : JText::sprintf('Service detail %d', $this->item->id); ?></legend>
 			<ul class="adminformlist">
 				<li><?php echo $this->form->getLabel('id'); ?>
 				<?php echo $this->form->getInput('id'); ?></li>
 
-				<li><?php echo $this->form->getLabel('user_id'); ?>
-				<?php echo $this->form->getInput('user_id'); ?></li>
+				<li><?php echo $this->form->getLabel('business_id'); ?>
+				<?php echo $this->form->getInput('business_id'); ?></li>
 
-				<li><?php echo $this->form->getLabel('username'); ?>
-				<?php echo $this->form->getInput('username'); ?></li>
+				<li><?php echo $this->form->getLabel('category'); ?>
+				<?php echo $this->form->getInput('category'); ?></li>
 
-				<li><?php echo $this->form->getLabel('total_price'); ?>
-				<?php echo $this->form->getInput('total_price'); ?></li>
+				<li><?php echo $this->form->getLabel('name'); ?>
+				<?php echo $this->form->getInput('name'); ?></li>
 
 				<li><?php echo $this->form->getLabel('price'); ?>
 				<?php echo $this->form->getInput('price'); ?></li>
-				
-				<li><?php echo $this->form->getLabel('payment_method'); ?>
-				<?php echo $this->form->getInput('payment_method'); ?></li>
-				
-				<li><?php echo $this->form->getLabel('address'); ?>
-				<?php echo $this->form->getInput('address'); ?></li>
-				
-				<li><?php echo $this->form->getLabel('district'); ?>
-				<?php echo $this->form->getInput('district'); ?></li>
 
-				<li><?php echo $this->form->getLabel('city'); ?>
-				<?php echo $this->form->getInput('city'); ?></li>
+                <li><?php echo $this->form->getLabel('current_price'); ?>
+                <?php echo $this->form->getInput('current_price'); ?></li>
+
+                <li><?php echo $this->form->getLabel('promotion'); ?>
+                    <?php echo $this->form->getInput('promotion'); ?></li>
 				
-				<li><?php echo $this->form->getLabel('ipaddress'); ?>
-				<?php echo $this->form->getInput('ipaddress'); ?></li> 
-                
+				<li><?php echo $this->form->getLabel('payment_type'); ?>
+				<?php echo $this->form->getInput('payment_type'); ?></li>
+				
+				<li><?php echo $this->form->getLabel('description'); ?>
+				<?php echo $this->form->getInput('description'); ?></li>
 			</ul>
 			<div class="clr"> </div>
 
@@ -93,35 +89,17 @@ JHtml::_('behavior.formvalidation');
             
             <li><?php echo $this->form->getLabel('created'); ?>
 			<?php echo $this->form->getInput('created'); ?></li>
+
+            <li><?php echo $this->form->getLabel('created_by'); ?>
+            <?php echo $this->form->getInput('created_by'); ?></li>
+
+            <li><?php echo $this->form->getLabel('modified'); ?>
+            <?php echo $this->form->getInput('modified'); ?></li>
+
+            <li><?php echo $this->form->getLabel('modified_by'); ?>
+            <?php echo $this->form->getInput('modified_by'); ?></li>
         </ul>
 		</fieldset>
-
-	<?php echo JHtml::_('sliders.panel',JText::_('Order item'), 'metadata'); ?>
-    <div>
-        <table class="adminlist">
-            <thead>
-                <tr>
-                    <th>Service</th>
-                    <th>Business name</th>
-                    <th>Qty</th>
-                    <th>Origin price</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($this->orderItems as $item): ?>
-                <tr>
-                    <td><?php echo $item->service_name ?></td>
-                    <td><?php echo $item->business_name ?></td>
-                    <td><?php echo $item->qty ?></td>
-                    <td><?php echo $item->origin_price ?></td>
-                    <td><?php echo $item->price ?></td>
-                </tr>
-                <?php endforeach;?>
-            </tbody>
-        </table>
-    </div>
-
 
 	<?php echo JHtml::_('sliders.end'); ?>
 	<input type="hidden" name="task" value="" />

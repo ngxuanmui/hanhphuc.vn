@@ -22,6 +22,24 @@ define('JPATH_PLUGIN_HPUSER', dirname(__FILE__));
 class plgUserHpuser extends JPlugin {
     public function __construct(&$subject, $config = array()) {
         parent::__construct($subject, $config);
+        
+        JHTML::register('users.jform_user_profile_avatar', function($value){
+            echo '<img
+                    width="100"
+                    height="100"
+                    src="'.JURI::root().'/images/users/'.$value.'"/>';
+        });
+        JHtml::register('users.jform_business_profile_business_logo', function($value) {
+            echo '<img
+                    width="100"
+                    height="100"
+                    src="'.JURI::root().'/images/business/'.$value.'"/>';
+        });
+        JHtml::register('users.jform_business_profile_business_banner', function($value) {
+            echo '<img
+                    height="100"
+                    src="'.JURI::root().'/images/business/'.$value.'"/>';
+        });
     }
 
 
@@ -69,6 +87,7 @@ class plgUserHpuser extends JPlugin {
                     $val = $profile->profile_value;
                     $data->user_profile->$key = $val;
                 }
+                $data->user_profile->avatar_old = $data->avatar;
             } else if($userType == 1) {
                 $query = $db->getQuery(true);
                 $query->select('*')
@@ -76,6 +95,8 @@ class plgUserHpuser extends JPlugin {
                     ->where('user_id = '.(int)$data->id);
                 $db->setQuery($query);
                 $profile = $db->loadObject();
+                $profile->business_logo_old = $profile->business_logo;
+                $profile->business_banner_old = $profile->business_banner;
                 $data->business_profile = $profile;
             }
         }
@@ -164,8 +185,15 @@ class plgUserHpuser extends JPlugin {
             $profile->business_sitename = $profileFormData['business_sitename'];
             $profile->business_slogan = $profileFormData['business_slogan'];
 
-            //TODO: business logo and banner
+            $logoBaseDir = JPATH_ROOT.DS.'images'.DS.'business';
+            if($logo = $this->upload('business_profile.business_logo', $logoBaseDir, $profile->user_id.DS.'logo'.DS.'logo', true, $profileFormData['business_logo_old'])) {
+                $profile->business_logo = $logo;
+            }
 
+            $bannerBaseDir = JPATH_ROOT.DS.'images'.DS.'business';
+            if($banner = $this->upload('business_profile.business_banner', $bannerBaseDir, $profile->user_id.DS.'banner'.DS.'banner', true, $profileFormData['business_banner_old'])) {
+                $profile->business_banner = $banner;
+            }
 
             //Check exists record:
             $query = $db->getQuery(true);
@@ -193,6 +221,21 @@ class plgUserHpuser extends JPlugin {
             $tuples = array();
             $order	= 1;
             $userProfile = $formData['user_profile'];
+
+            //Upload avatar
+            $avatarBaseDir = JPATH_ROOT.DS.'images'.DS.'users';
+            if($avatar = $this->upload('user_profile.avatar', $avatarBaseDir, $data['id'].DS.'avata'.DS.'avatar', true, $userProfile['avatar_old'])) {
+                $userProfile['avatar'] = $avatar;
+                $db->setQuery(
+                    'DELETE FROM #__user_profiles WHERE user_id = '.(int)$data['id'] .
+                        " AND profile_key IN ('avatar')"
+                );
+                if(!$db->query()) {
+                    throw new Exception($db->getErrorMsg());
+                }
+            }
+            unset($userProfile['avatar_old']);
+
             foreach ($userProfile as $k => $v) {
                 $tuples[] = '('.$data['id'].', '.$db->quote($k).', '.$db->quote($v).', '.$order++.')';
             }
@@ -233,72 +276,46 @@ class plgUserHpuser extends JPlugin {
 		return true;
 	}
 
-
-    private function uploadImages($field = 'images', $itemId = 0, $delImage = 0, $oldImg = '') {
+    private function upload($field, $baseDir, $newFileName = false, $deleteOld = false, $oldFilename = '') {
         $jFileInput = new JInput($_FILES);
-        $file = $jFileInput->get('jform', array(), 'array');
+        $fileInput = $jFileInput->get('jform', array(), 'array');
+        if(empty($fileInput)) return false;
 
-        // If there is no uploaded file, we have a problem...
-        if (!is_array($file)) {
-//			JError::raiseWarning('', 'No file was selected.');
-            return '';
-        }
+        $field = explode('.', $field);
 
-        // Build the paths for our file to move to the components 'upload' directory
-        $fileName = $file['name'][$field];
-        $tmp_src    = $file['tmp_name'][$field];
-
-        $image = '';
-
-        // if delete old image checked or upload new file
-        if ($delImage || $fileName)
-        {
-            $item = $this->getItem();
-
-            $oldImage = JPATH_ROOT . DS . str_replace('/', DS, $item->$field);
-
-            // unlink file
-            @unlink($oldImage);
-
-            $image = '';
-        }
-        else
-            $image = $oldImg;
-
-        $date = date('Y') . DS . date('m') . DS . date('d');
-
-        $path = ($field == 'images') ? 'thumbs' : 'featured';
-
-        $dest = JPATH_ROOT . DS . 'images' . DS . 'je_content' . DS . $path . DS . $date . DS . $itemId . DS;
-
-        // Make directory
-        @mkdir($dest, '0777', true);
-
-        if (isset($fileName) && $fileName) {
-
-            $filepath = JPath::clean($dest.$fileName);
-
-            /*
-               if (JFile::exists($filepath)) {
-                   JError::raiseWarning(100, JText::_('COM_MEDIA_ERROR_FILE_EXISTS'));	// File exists
-               }
-               */
-
-            // Move uploaded file
-            jimport('joomla.filesystem.file');
-
-            if (!JFile::upload($tmp_src, $filepath))
-            {
-                JError::raiseWarning(100, JText::_('COM_MEDIA_ERROR_UNABLE_TO_UPLOAD_FILE')); // Error in upload
-                return '';
+        $uploadFileName = $fileInput['name'];
+        $uploadFileTemp = $fileInput['tmp_name'];
+        foreach($field as $f) {
+            if(!empty($uploadFileName[$f]) && !empty($uploadFileTemp[$f])) {
+                $uploadFileName = $uploadFileName[$f];
+                $uploadFileTemp = $uploadFileTemp[$f];
+            } else {
+                $uploadFileName = '';
+                $uploadFileTemp = '';
+                break;
             }
-
-            // set value to return
-            $image = 'images/je_content/'.$path.'/' . str_replace(DS, '/', $date) . '/' . $itemId . '/' . $fileName;
-
-//			return $image;
+        }
+        if(empty($uploadFileName)) {
+            return false;
         }
 
-        return $image;
+        if($deleteOld && $oldFilename) {
+            $oldFilename = is_array($oldFilename) ? $oldFilename : array($oldFilename);
+            foreach($oldFilename as $key => &$value) {
+                $value = $baseDir.DS.$oldFilename;
+                $oldFilename[$key] = $value;
+            }
+            JFile::delete($oldFilename);
+        }
+
+        $uploadFileExt = JFile::getExt($uploadFileName);
+        if(!is_dir($baseDir)) {
+            if(!mkdir($baseDir, 0777, true)) return false;
+        }
+
+        $fileName = ($newFileName) ? $newFileName.'.'.$uploadFileExt : $uploadFileName;
+        $filePath = $baseDir.DS.$fileName;
+
+        return JFile::upload($uploadFileTemp, $filePath) ? $fileName : false;
     }
 }

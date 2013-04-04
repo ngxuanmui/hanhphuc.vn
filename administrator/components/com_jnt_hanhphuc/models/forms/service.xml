@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset name="details">
+        <field name="id" type="text" default="0"
+               readonly="true" class="readonly"
+               label="ID" 	description ="ID" />
+
+        <field name="category" type="category" extension="com_jnt_hanhphuc"
+               label="JCATEGORY" description="COM_JNT_HANHPHUC_FIELD_CATEGORY_DESC"
+               class="inputbox" required="true" />
+
+        <field name="business_id" type="user" default="0"
+               readonly="false" class="inputbox"
+               label="Business" 	description ="User ID" />
+
+        <field name="name" type="text" default="0"
+               class="inputbox"
+               label="Name" 	description ="Name" />
+
+
+        <field name="price" type="text" default="0"
+               class="inputbox"
+               label="Price" 	description ="Price" />
+
+        <field name="price" type="text" default="0"
+               class="inputbox"
+               label="Price" 	description ="Price" />
+
+        <field name="current_price" type="text" default="0"
+               readonly="false" class="inputbox"
+               label="Current price" 	description ="Price" />
+
+        <field name="promotion" type="text" default="0"
+               readonly="false" class="inputbox"
+               label="promotion" 	description ="promotion" />
+
+        <field name="description" type="editor" default="0"
+               filter = "SAFEHTML"
+               readonly="true" class="inputbox"
+               label="Description" 	description ="description" />
+
+        <field name="payment_type" type="list" default="0"
+               size="3"
+               multiple="true"
+               class="inputbox"
+               label="Payment type" 	description ="Payment type">
+                    <option value="1">Chuyển tiền qua bưu điện</option>
+                    <option value="2">Chuyển khoản ngân hàng</option>
+                    <option value="3">Thanh toán qua website NgânLượng</option>
+        </field>
+
+        <field name="state" type="list"
+               label="Order State" description="Order State"
+               class="inputbox" size="1" default="1" >
+            <option value="0">Unpublish</option>
+            <option value="1">Publish</option>
+            <option value="2">Removed</option>
+        </field>
+
+    </fieldset>
+
+    <fieldset name="publish"
+              label="COM_BANNERS_GROUP_LABEL_PUBLISHING_DETAILS">
+
+        <field name="created" type="calendar"
+              readonly = "true"
+              label="Created" description="Created"
+              class="readonly" size="22" format="%Y-%m-%d %H:%M:%S"
+              filter="user_utc" />
+        <field name="created_by" type="user"
+               readonly = "true"
+               label="Created By" description="Created"
+               class="readonly" size="22"/>
+
+        <field name="modified" type="calendar"
+               readonly = "true"
+               label="Created" description="Created"
+               class="readonly" size="22" format="%Y-%m-%d %H:%M:%S"
+               filter="user_utc" />
+        <field name="modified_by" type="user"
+               readonly = "true"
+               label="Created By" description="Created"
+               class="readonly" size="22"/>
+    </fieldset>
+</form>

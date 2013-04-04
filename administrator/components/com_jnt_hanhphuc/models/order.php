@@ -26,46 +26,6 @@ class Jnt_HanhPhucModelOrder extends JModelAdmin
 	protected $text_prefix = 'COM_JNT_HANHPHUC_ORDER';
 
 	/**
-	 * Method to test whether a record can be deleted.
-	 *
-	 * @param	object	A record object.
-	 * @return	boolean	True if allowed to delete the record. Defaults to the permission set in the component.
-	 * @since	1.6
-	 */
-	protected function canDelete($record)
-	{
-		$user = JFactory::getUser();
-
-		if (!empty($record->catid)) {
-			return $user->authorise('core.delete', 'com_cl_diamond.category.'.(int) $record->catid);
-		}
-		else {
-			return parent::canDelete($record);
-		}
-	}
-
-	/**
-	 * Method to test whether a record can be deleted.
-	 *
-	 * @param	object	A record object.
-	 * @return	boolean	True if allowed to change the state of the record. Defaults to the permission set in the component.
-	 * @since	1.6
-	 */
-	protected function canEditState($record)
-	{
-		$user = JFactory::getUser();
-
-		// Check against the category.
-		if (!empty($record->catid)) {
-			return $user->authorise('core.edit.state', 'com_cl_diamond.category.'.(int) $record->catid);
-		}
-		// Default to component settings if category not known.
-		else {
-			return parent::canEditState($record);
-		}
-	}
-
-	/**
 	 * Returns a reference to the a Table object, always creating it.
 	 *
 	 * @param	type	The table type to instantiate
@@ -74,8 +34,7 @@ class Jnt_HanhPhucModelOrder extends JModelAdmin
 	 * @return	JTable	A database object
 	 * @since	1.6
 	 */
-	public function getTable($type = 'Order', $prefix = 'Jnt_HanhPhucTable', $config = array())
-	{
+	public function getTable($type = 'Order', $prefix = 'Jnt_HanhPhucTable', $config = array()) {
 		return JTable::getInstance($type, $prefix, $config);
 	}
 
@@ -87,18 +46,12 @@ class Jnt_HanhPhucModelOrder extends JModelAdmin
 	 * @return	mixed	A JForm object on success, false on failure
 	 * @since	1.6
 	 */
-	public function getForm($data = array(), $loadData = true)
-	{
+	public function getForm($data = array(), $loadData = true) {
 		// Get the form.
-		$form = $this->loadForm('com_cl_diamond.order', 'order', array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_jnt_hanhphuc.order', 'order', array('control' => 'jform', 'load_data' => $loadData));
 		if (empty($form)) {
 			return false;
 		}
-        
-        $currentState = $form->getValue('state');
-        if($currentState == 1) {
-            $form->setFieldAttribute('state', 'readonly', "true");
-        }
 
 		return $form;
 	}
@@ -109,106 +62,16 @@ class Jnt_HanhPhucModelOrder extends JModelAdmin
 	 * @return	mixed	The data for the form.
 	 * @since	1.6
 	 */
-	protected function loadFormData()
-	{
+	protected function loadFormData() {
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_cl_diamond.edit.order.data', array());
+		$data = JFactory::getApplication()->getUserState('com_jnt_hanhphuc.edit.order.data', array());
 
 		if (empty($data)) {
 			$data = $this->getItem();
-
-			// Prime some default values.
-			if ($this->getState('order.id') == 0) {
-				$app = JFactory::getApplication();
-				$data->set('catid', JRequest::getInt('catid', $app->getUserState('com_cl_diamond.order.filter.category_id')));
-			}
 		}
-		
-		//echo '<pre>'; print_r($data); echo '</pre>';
-		
-		if(is_array($data))
-			$data['total_price'] = number_format($data['total_price'], 2);
-		else
-			$data->total_price = number_format($data->total_price, 2);
 
 		return $data;
 	}
-
-    public function save($data) {
-        //Load old state
-        $db = JFactory::getDbo();
-        $db->setQuery(
-                'SELECT * FROM #__cl_diamond_orders WHERE id = '.(int)$data['id']
-        );
-        $oldData = $db->loadObject();
-        $oldState = $oldData->state;
-        
-        $state = $data['state'];
-        if($state == $oldState || $oldState == 1) {
-            //Neu state khong doi hoac oldstate == 1 thi khoi can save
-            return true;
-        }
-        
-        //Save
-        if(!parent::save($data)) {
-            return false;
-        }
-        
-        $emailToUserSubject = '';
-        $emailToAdminSubject = '';
-        
-        //Gui mail
-        if($oldState != 1 && $state == 1) {
-            //Order finished
-            //Send 2 email: 1 to customer (user_id), 1 to admin (config)
-            		
-            $emailToUserSubject = 'Order has been invoiced';
-            $emailToAdminSubject = 'Notice: Order Invoiced';
-            
-        } else if($oldState == 0 && $state == 2) {
-            //Send 2 email notice order was canceled
-            $emailToUserSubject = 'Order Watches was cancelled';
-            $emailToAdminSubject = 'Notice: Order was cancelled';
-        } else if($oldState == 2 && $state == 0) {
-            //Send email notice user that order was cancelled would be confirmed
-            $emailToUserSubject = 'Order Watches would be confirmed';
-            $emailToAdminSubject = 'Notice: Order would be confirmed';
-        }
-        
-        $user = JFactory::getUser($data['user_id']);
-            
-        //To user
-        $mail = JFactory::getMailer();
-        
-        $mail->isHTML(true);
-
-        $mail->setSubject($emailToUserSubject);
-
-        $userTemplate = $this->emailTemplate($user, $oldData);
-
-        $mail->addRecipient($user->email);
-        $mail->setBody( $userTemplate );
-
-        $mail->Send();
-
-        //To admin
-        $mail = JFactory::getMailer();
-        
-        $mail->isHTML(true);
-
-        $mail->setSubject($emailToAdminSubject);
-
-        $config =& JFactory::getConfig();
-        $mail->addRecipient( $config->getValue( 'config.mailfrom' ) );
-
-        $adminTemplate = $this->emailTemplate($user, $oldData, true);		
-        $mail->setBody( $adminTemplate );
-
-        $mail->Send();
-        
-        return true;
-        
-    }
     
     public function getOrderItems() {
         $id = JRequest::getInt('id', 0);
@@ -218,21 +81,6 @@ class Jnt_HanhPhucModelOrder extends JModelAdmin
         $db->setQuery($query);
         return $db->loadObjectList();
     }
-    
-	/**
-	 * A protected method to get a set of ordering conditions.
-	 *
-	 * @param	object	A record object.
-	 * @return	array	An array of conditions to add to add to ordering queries.
-	 * @since	1.6
-	 */
-	protected function getReorderConditions($table)
-	{
-		$condition = array();
-		$condition[] = 'catid = '. (int) $table->catid;
-		$condition[] = 'state >= 0';
-		return $condition;
-	}
     
     function emailTemplate($user, $order, $isAdmin = false) {
 		$template = '';

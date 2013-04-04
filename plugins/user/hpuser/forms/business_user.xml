@@ -110,6 +110,16 @@
 				message="Logo"
 				size="30"
 			/>
+            <field
+                    name="business_logo_old"
+                    type="hidden"
+                    id="business_logo_old"
+                    description="Logo"
+                    filter="string"
+                    label="Logo"
+                    message="Logo"
+                    size="30"
+                    />
 	        <field
 				name="business_sitename"
 				type="text"
@@ -140,6 +150,16 @@
 				message="Banner"
 				size="30"
 			/>
+            <field
+                    name="business_banner_old"
+                    type="hidden"
+                    id="business_banner_old"
+                    description="Banner"
+                    filter="string"
+                    label="Banner"
+                    message="Banner"
+                    size="30"
+                    />
 		</fieldset>
 	</fields>
 </form>

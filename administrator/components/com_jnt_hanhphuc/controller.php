@@ -19,7 +19,7 @@ jimport('joomla.application.component.controller');
  */
 class Jnt_HanhPhucController extends JController {
     
-    protected $default_view = 'orders';
+    protected $default_view = 'services';
     
 	/**
 	 * Method to display a view.
@@ -37,7 +37,7 @@ class Jnt_HanhPhucController extends JController {
 		//return true;
 		
 		// Load the submenu.
-		Jnt_HanhPhucHelper::addSubmenu(JRequest::getCmd('view', 'orders'));
+		Jnt_HanhPhucHelper::addSubmenu(JRequest::getCmd('view', 'services'));
 
 		parent::display();
 

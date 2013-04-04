@@ -30,8 +30,6 @@ class Jnt_HanhPhucViewOrders extends JView {
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
 		$this->state		= $this->get('State');
-
-		var_dump($this->items);
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

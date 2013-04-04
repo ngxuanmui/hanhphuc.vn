@@ -25,6 +25,22 @@
 				size="30"
 				validate="username"
 			/>
+
+            <field
+                    name="avatar"
+                    type="file"
+                    id="avatar"
+                    description="Avatar"
+                    filter="string"
+                    label="Avatar"
+                    message="Avatar"
+                    size="30"
+                    />
+            <field
+                    name="avatar_old"
+                    type="hidden"
+                    id="avatar_old"
+                    />
 		</fieldset>
 	</fields>
 </form>

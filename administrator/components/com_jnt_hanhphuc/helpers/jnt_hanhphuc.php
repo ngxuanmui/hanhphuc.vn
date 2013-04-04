@@ -24,16 +24,23 @@ class Jnt_HanhPhucHelper
 	 */
 	public static function addSubmenu($vName) {
 		JSubMenuHelper::addEntry(
-			'Services',
+			'Categories',
 			'index.php?option=com_categories&extension=com_jnt_hanhphuc',
 			$vName == 'categories'
 		);
+
+        JSubMenuHelper::addEntry(
+            'Services',
+            'index.php?option=com_jnt_hanhphuc&view=services',
+            $vName == 'services'
+        );
 		
 		JSubMenuHelper::addEntry(
-			'Order',
+			'Orders',
 			'index.php?option=com_jnt_hanhphuc&view=orders',
 			$vName == 'orders'
 		);
+
 	}
 
 	/**
