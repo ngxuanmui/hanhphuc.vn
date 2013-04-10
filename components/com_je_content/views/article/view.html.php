@@ -22,11 +22,13 @@ jimport('joomla.application.component.view');
 class JE_ContentViewArticle extends JView
 {
 	protected $item;
+	protected $others;
 
 	function display($tpl = null)
 	{
 		// Initialise variables.
 		$item = $this->get('Item');
+		$this->others = $this->get('OthersContent');
 		
 		$item->slug = $item->alias ? ($item->id . ':' . $item->alias) : $item->id;
 		

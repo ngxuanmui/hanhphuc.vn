@@ -6,7 +6,7 @@ class JConfig {
 	public $offline_image = '';
 	public $sitename = 'Hanhphuc.vn';
 	public $editor = 'tinymce';
-	public $captcha = '0';
+	public $captcha = 'recaptcha';
 	public $list_limit = '20';
 	public $access = '1';
 	public $debug = '0';
@@ -14,7 +14,7 @@ class JConfig {
 	public $dbtype = 'mysqli';
 	public $host = 'localhost';
 	public $user = 'root';
-	public $password = '';
+	public $password = '1234';
 	public $db = 'hanhphuc_vn';
 	public $dbprefix = 'hp_';
 	public $live_site = '';
