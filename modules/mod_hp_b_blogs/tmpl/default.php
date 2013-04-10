@@ -10,13 +10,20 @@
 defined('_JEXEC') or die;
 
 ?>
-<div class="module-business-blog <?php echo $moduleclass_sfx?>">
+<div class="module-business-blog <?php echo $moduleclass_sfx?> padding-5">
     <h2><?php echo $moduleTitle ?></h2>
-    <div>
+	
+	<div class="line-break-bussiness-blog"><span></span></div>
+	
+    <div class="bussiness-blog-box box">
         <?php if(!empty($blogs)): ?>
         <?php foreach($blogs as $blog): ?>
-        <a href="#" class="image float-left margin-right-20 round-4-conners-5" style="background: #FFF url('<?php echo $blog->business_logo ?>') center no-repeat;"></a>
+        <a href="#" class="image float-left margin-right-20" style="background: #FFF url('<?php echo $blog->business_logo ?>') center no-repeat;"></a>
         <?php endforeach; ?>
+		
+		<div class="clear"></div>
 		<?php endif; ?>
     </div>
+	
+	
 </div>

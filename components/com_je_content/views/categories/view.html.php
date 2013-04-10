@@ -25,11 +25,13 @@ class JE_ContentViewCategories extends JView
 {
 	protected $items;
 	protected $pagination;
+	protected $articles;
 
 	function display($tpl = null)
 	{
 		$this->items		= $this->get('Items');
 		$this->pagination 	= $this->get('Pagination');
+		$this->articles		= $this->get('Articles');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

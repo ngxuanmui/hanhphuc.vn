@@ -23,25 +23,31 @@ jQuery().ready(function($){
 	$('#featured-slideshow').bxSlider({
 		mode: 'fade',
 		pager: false,
-		auto: false,
+		auto: true,
 		controls: false
 	});
 })
 </script>
 
 <div class="icons news-featured">
-	<div class="left-panel float-left padding-5">
-		<div>
+	<div class="left-panel float-left">
+		<div class="slider">
 			<ul class="items" id="featured-slideshow">
-				<?php foreach($this->items as $item): ?>
+				<?php 
+				foreach($this->items as $item): 
+					$item->slug = $item->alias ? ($item->id . ':' . $item->alias) : $item->id;
+				?>
 					<li>
-						<h1><?php echo $this->escape($item->title); ?>
 						<?php if ($item->featured_images): ?>
 						<img src="<?php echo JURI::base() . $item->featured_images; ?>" />
 						<?php endif; ?>
 						<div class="absolute featured-desc">
+							<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($item->slug, $item->catid)); ?>" class="slider-title">
+								<?php echo $this->escape($item->title); ?>
+							</a>
 							<?php echo JHtml::_('string.truncate', strip_tags($item->introtext), 100); ?>
-						</div>					
+						</div>
+						<div class="absolute featured-desc-opacity"></div>
 					</li>
 				<?php endforeach; ?>
 			</ul>
@@ -49,13 +55,15 @@ jQuery().ready(function($){
 	</div>
 	
 	<div class="right-panel float-right padding-5">
-	    <?php 
-	    $modules = JModuleHelper::getModules('blogger');
-	    foreach($modules as $module)
-	    {
-		echo JModuleHelper::renderModule($module);
-	    }
-	    ?>
+		<div class="blogger">
+			<?php 
+			$modules = JModuleHelper::getModules('blogger');
+			foreach($modules as $module)
+			{
+				echo JModuleHelper::renderModule($module);
+			}
+			?>
+		</div>
 	</div>
 </div>
 
@@ -68,13 +76,13 @@ jQuery().ready(function($){
 		    $modules = JModuleHelper::getModules('center');
 		    foreach($modules as $module)
 		    {
-			echo JModuleHelper::renderModule($module);
+				echo JModuleHelper::renderModule($module);
 		    }
 		    ?>
 		</div>
 
 		<div class="sub-container">
-			<p>TÌM KIẾM DỊCH VỤ CƯỚI</p>
+			<p class="search-text">TÌM KIẾM DỊCH VỤ CƯỚI</p>
 
 			<div class="line-break-search"><span></span></div>
 
@@ -113,8 +121,10 @@ jQuery().ready(function($){
 				<div class="items-category">
 					<h1>
 					    <?php
+						$linkToCategory = '#';
+						
 					    $firstCategory = array_shift($item['sub']);
-					    echo $firstCategory->title;
+					    echo '<a href="'.$linkToCategory.'">'.$firstCategory->title.'</a>';
 
 					    $tmp = array_reverse($item['sub']);
 					    array_pop($tmp);
@@ -136,27 +146,48 @@ jQuery().ready(function($){
 						    ?>
 					    </span>
 					</h1>
+					
+					<div class="line-break-news"><span></span></div>
 
 					<?php $listArticles = $item['articles'][$firstCategory->id]; ?>
-					<div>
-						<h2><?php echo $listArticles[0]->title; ?></h2>
-						<?php echo $listArticles[0]->introtext; ?>
+					<div class="news-content">
 						
-						<ul>
-						    <?php 
-						    foreach ($listArticles as $key => $article):
-							if ($key == 0) continue;
+						<div class="news-content-inside">
+							<h2>
+								<?php
+								
+								$slug = $listArticles[0]->alias ? ($listArticles[0]->id . ':' . $listArticles[0]->alias) : $listArticles[0]->id;
+								
+								?>
+								
+								<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($slug, $listArticles[0]->catid)); ?>">
+									<?php echo $listArticles[0]->title; ?>
+								</a>
+							</h2>
+							<?php echo $listArticles[0]->introtext; ?>
 							
+							<div class="clear"></div>
+						</div>
+						
+						<ul class="news-other-list">
+							<?php 
+							foreach ($listArticles as $key => $article):
+							if ($key == 0) continue;
+
 							$article->slug = $article->alias ? ($article->id . ':' . $article->alias) : $article->id;
-						    ?>
-						    <li>
+							?>
+							<li>
 							<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($article->slug, $article->catid)); ?>">
-							    <?php echo $article->title; ?>
+								<?php echo $article->title; ?>
 							</a>
-						    </li>
-						    <?php endforeach; ?>
+							</li>
+							<?php endforeach; ?>
 						</ul>
+						
+						<div class="clear"></div>
 					</div>
+					
+						
 				</div>
 			    <div class="clr"></div>
 			    <?php endif; endforeach; ?>
@@ -164,52 +195,59 @@ jQuery().ready(function($){
 			
 			<div class="right float-right">
 			    <?php 
-			    $modules = JModuleHelper::getModules('right-sub');
-			    foreach($modules as $module)
-			    {
-				if ($module->showtitle)
-				    echo '<div class="module-title">' . $module->title . '</div>';
-				
-				echo JModuleHelper::renderModule($module);
-			    }
+				echo JEUtil::loadModule('right-sub', 'module-padding');
+//			    $modules = JModuleHelper::getModules('right-sub');
+//			    foreach($modules as $module)
+//			    {
+//					if ($module->showtitle)
+//					{
+//						echo '<div class="module-title">' . $module->title . '</div>';
+//						echo '<div class="line-break-news"></div>';
+//					}
+//
+//					echo JModuleHelper::renderModule($module);
+//			    }
 			    ?>
 			</div>
 		</div>
     </div>
     
     <div class="float-right right-side">
-	<?php
-	$modules = JModuleHelper::getModules('right');
-	foreach( $modules As $mod ){
-	    echo JModuleHelper::renderModule($mod);
-	}
-	?>
+		<?php echo JEUtil::loadModule('right', 'module-padding'); ?>
+		
+		<div class="module-title module-padding">THÔNG TIN KHUYẾN MẠI</div>
+		<div class="line-break-promotion"><span></span></div>
+		<div class="box">
+			<ul class="news-other-list">
+				<li>
+					Áo cưới: ....
+				</li>
+			</ul>
+		</div>
+		
+		<div class="module-title module-padding">DOANH NGHIỆP TIÊU BIỂU</div>
+		<div class="line-break"></div>
+		<div class="box">
+			<ul>
+				<li>
+					<div class="img">
+						img here
+					</div>
+					<div class="bussiness-focus-info">
+						<p class="title">Áo cưới</p>
+						<p class="address">Địa chỉ</p>
+						<p class="phone">Điện thoại</p>
+					</div>
+				</li>
+			</ul>
+		</div>
     </div>
 </div>
 
-<div class="clr "></div>
+<div class="clr"></div> 
 
-<div class="hr margin-top-bottom-10"></div>
-
-<div>
-	<div class="left-side float-left">
-        <?php
-        $modules = JModuleHelper::getModules('business_blog');
-        foreach( $modules As $mod ){
-            echo JModuleHelper::renderModule($mod);
-        }
-        ?>
-	</div>
-	
-	<div class="right-side float-right">
-		<h2>TIN CŨ</h2>
-		<div class="content">
-			<div class="">
-				<img src="" />
-				<p>Đám cưới tập thể</p>
-			</div>
-		</div>
-	</div>
+<div class="business-blogger">
+	<?php echo JEUtil::loadModule('business_blog'); ?>
 </div>
 
 <div class="clr"></div> 
