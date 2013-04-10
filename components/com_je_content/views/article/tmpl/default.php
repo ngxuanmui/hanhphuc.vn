@@ -20,24 +20,41 @@ $item = $this->item;
 
 <div class="container">
     <div class="float-left left-side">
-	<h1>
-	    <a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($item->slug, $item->catid)); ?>">
-		    <?php echo $this->escape($item->title); ?>
-	    </a>
-	</h1>
-	
-	<div class="fulltext">
-	    <?php echo $item->fulltext; ?>
+		<h1 class="content-title">
+			<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($item->slug, $item->catid)); ?>">
+				<?php echo $this->escape($item->title); ?>
+			</a>
+		</h1>
+
+		<div class="line-break-news"></div>
+
+		<div class="fulltext box">
+			<?php echo $item->fulltext; ?>
+		</div>
+		
+		<div class="clear"></div>
+		
+		<ul class="news-other-list">
+			<?php 
+			$listArticles = $this->others;
+			
+			foreach ($listArticles as $key => $article):
+			if ($key == 0) continue;
+
+			$article->slug = $article->alias ? ($article->id . ':' . $article->alias) : $article->id;
+			?>
+			<li>
+			<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($article->slug, $article->catid)); ?>">
+				<?php echo $article->title; ?>
+			</a>
+			</li>
+			<?php endforeach; ?>
+		</ul>
 	</div>
-    </div>
+    
     
     <div class="float-right right-side">
-	<?php
-	$modules = JModuleHelper::getModules('right');
-	foreach( $modules As $mod ){
-	    echo JModuleHelper::renderModule($mod);
-	}
-	?>
+		<?php echo JEUtil::loadModule('right', 'module-padding'); ?>
     </div>
 </div>
 

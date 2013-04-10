@@ -30,18 +30,24 @@ jQuery().ready(function($){
 </script>
 
 <div class="icons news-featured">
-	<div class="left-panel float-left padding-5">
-		<div>
+	<div class="left-panel float-left">
+		<div class="slider">
 			<ul class="items" id="featured-slideshow">
-				<?php foreach($this->items as $item): ?>
+				<?php 
+				foreach($this->items as $item): 
+					$item->slug = $item->alias ? ($item->id . ':' . $item->alias) : $item->id;
+				?>
 					<li>
-						<h1><?php echo $this->escape($item->title); ?>
 						<?php if ($item->featured_images): ?>
 						<img src="<?php echo JURI::base() . $item->featured_images; ?>" />
 						<?php endif; ?>
 						<div class="absolute featured-desc">
+							<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($item->slug, $item->catid)); ?>" class="slider-title">
+								<?php echo $this->escape($item->title); ?>
+							</a>
 							<?php echo JHtml::_('string.truncate', strip_tags($item->introtext), 100); ?>
-						</div>					
+						</div>
+						<div class="absolute featured-desc-opacity"></div>
 					</li>
 				<?php endforeach; ?>
 			</ul>
@@ -49,13 +55,15 @@ jQuery().ready(function($){
 	</div>
 	
 	<div class="right-panel float-right padding-5">
-	    <?php 
-	    $modules = JModuleHelper::getModules('blogger');
-	    foreach($modules as $module)
-	    {
-		echo JModuleHelper::renderModule($module);
-	    }
-	    ?>
+		<div class="blogger">
+			<?php 
+			$modules = JModuleHelper::getModules('blogger');
+			foreach($modules as $module)
+			{
+				echo JModuleHelper::renderModule($module);
+			}
+			?>
+		</div>
 	</div>
 </div>
 
@@ -64,13 +72,7 @@ jQuery().ready(function($){
 <div class="container">
     <div class="float-left left-side">
 		<div>
-		    <?php 
-		    $modules = JModuleHelper::getModules('center');
-		    foreach($modules as $module)
-		    {
-			echo JModuleHelper::renderModule($module);
-		    }
-		    ?>
+		    <?php echo JEUtil::loadModule('center'); ?>
 		</div>
 		
 		<div class="sub-container">
@@ -84,8 +86,10 @@ jQuery().ready(function($){
 				<div class="items-category">
 					<h1>
 					    <?php
+						$linkToCategory = '#';
+						
 					    $firstCategory = array_shift($item['sub']);
-					    echo $firstCategory->title;
+					    echo '<a href="'.$linkToCategory.'">'.$firstCategory->title.'</a>';
 
 					    $tmp = array_reverse($item['sub']);
 					    array_pop($tmp);
@@ -107,43 +111,38 @@ jQuery().ready(function($){
 						    ?>
 					    </span>
 					</h1>
+					
+					<div class="line-break-news"><span></span></div>
 
 					<?php $listArticles = $item['articles'][$firstCategory->id]; ?>
-					<div>
-						<h2><?php echo $listArticles[0]->title; ?></h2>
-						<?php echo $listArticles[0]->introtext; ?>
+					<div class="news-content">
 						
-						<ul>
-						    <?php 
-						    foreach ($listArticles as $key => $article):
-							if ($key == 0) continue;
+						<div class="news-content-inside">
+							<h2>
+								<?php
+								
+								$slug = $listArticles[0]->alias ? ($listArticles[0]->id . ':' . $listArticles[0]->alias) : $listArticles[0]->id;
+								
+								?>
+								
+								<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($slug, $listArticles[0]->catid)); ?>">
+									<?php echo $listArticles[0]->title; ?>
+								</a>
+							</h2>
+							<?php echo $listArticles[0]->introtext; ?>
 							
-							$article->slug = $article->alias ? ($article->id . ':' . $article->alias) : $article->id;
-						    ?>
-						    <li>
-							<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($article->slug, $article->catid)); ?>">
-							    <?php echo $article->title; ?>
-							</a>
-						    </li>
-						    <?php endforeach; ?>
-						</ul>
+							<div class="clear"></div>
+						</div>
 					</div>
+					
+						
 				</div>
 			    <div class="clr"></div>
 			    <?php endif; endforeach; ?>
 			</div>
 			
 			<div class="right float-right">
-			    <?php 
-			    $modules = JModuleHelper::getModules('right-sub');
-			    foreach($modules as $module)
-			    {
-				if ($module->showtitle)
-				    echo '<div class="module-title">' . $module->title . '</div>';
-				
-				echo JModuleHelper::renderModule($module);
-			    }
-			    ?>
+			    <?php echo JEUtil::loadModule('right-sub', 'module-padding'); ?>
 			</div>
 		</div>
     </div>

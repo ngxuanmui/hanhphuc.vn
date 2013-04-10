@@ -93,4 +93,30 @@ class JE_ContentModelArticle extends JModel
 
             return true;
 	}
+	
+	public function getOthersContent()
+	{
+		$db			= $this->getDbo();
+		$query		= $db->getQuery(true);
+
+		$query->select(
+			'a.id , a.title, a.alias, a.introtext, a.featured_images, a.catid'
+		);
+
+		$query->from('`#__je_content` a');
+
+		// Join over the categories
+		$query->select('c.title AS category_title');
+		$query->join('INNER', '#__categories AS c ON c.id = a.catid');
+		$query->where('state = 1');
+		$query->order('a.id DESC');
+
+		$db->setQuery($query, 0, 10);
+		$rs = $db->loadObjectList();
+
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg ());
+		
+		return $rs;
+	}
 }

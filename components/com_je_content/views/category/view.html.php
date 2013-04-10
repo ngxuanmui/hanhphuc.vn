@@ -24,11 +24,13 @@ jimport('joomla.application.component.view');
 class JE_ContentViewCategory extends JView
 {
 	protected $items;
+	protected $category;
 	protected $pagination;
 
 	function display($tpl = null)
 	{
 		$items		= $this->get('Items');
+		$this->category = $this->get('Category');
 		$this->pagination 	= $this->get('Pagination');
 
 		// Check for errors.

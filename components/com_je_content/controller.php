@@ -24,7 +24,7 @@ jimport('joomla.application.component.controller');
 class JE_ContentController extends JController
 {
 	public $default_view = 'categories';
-	
+
 	/**
 	 * Method to display a view.
 	 *

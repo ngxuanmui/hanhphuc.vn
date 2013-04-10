@@ -8,14 +8,18 @@ $blogger_url = JURI::base().$blogger->username.'/';
 ?>
 
 	<div class="blogger-wrap">
-        <div class="album-title">
+		<div class="img-container">
+			<a href="<?php echo $blogger_url;?>" target="_blank" class="img">
+				<img src="<?php echo $blogger->avatar;?>" />
+			</a>
+		</div>
+		
+		<div class="album-title">
             <a href="<?php echo $blogger_url;?>" target="_blank">
                 <?php echo $blogger->username; #(empty($blogger->couple_name) ? $blogger->username : $blogger->couple_name); ?>
             </a>
         </div>    
-		<a href="<?php echo $blogger_url;?>" target="_blank">
-			<img src="<?php echo $blogger->avatar;?>" />
-		</a>
+		
 	</div>
 	
 <?php endforeach; ?>

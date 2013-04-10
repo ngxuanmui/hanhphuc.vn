@@ -56,9 +56,15 @@ $doc->addScript(JURI::base() . 'media/jquery.bxslider/jquery.bxslider.min.js');
 		<div id="top-menu" class="relative">
 			<jdoc:include type="modules" name="top-menu" />
 		</div>
-		<div id="top-sub-menu" class="relative">
+		
+		<div class="clr"></div>
+		
+		<div id="top-sub-menu-container" class="relative">
 			<jdoc:include type="modules" name="top-sub-menu" />
 		</div>
+		
+		<div class="clr"></div>
+		
 		<div class="main clr">
 			<div id="breadcrumbs">
 				<jdoc:include type="modules" name="position-2" />
