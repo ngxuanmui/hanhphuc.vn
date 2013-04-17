@@ -37,7 +37,11 @@ a { text-decoration: none; color: #333; }
 #header #logo { width: 201px; height: 68px; margin-top: 25px; }
 
 /* menu */
+<<<<<<< HEAD
 #top-menu { background: url('../images/bg-main-menu.png') repeat-x; height: 30px; line-height: 30px; margin-bottom: 0px; }
+=======
+#top-menu { background: url('../images/bg-main-menu.png') repeat-x; height: 30px; line-height: 30px; margin-bottom: 10px; }
+>>>>>>> branch 'master' of https://github.com/ngxuanmui/hanhphuc.vn.git
 #top-menu ul li { float: left; margin: 0  }
 #top-menu ul li a { padding: 0 15px; }
 #top-menu ul li.active { background: url('../images/bg-left-menu-focus.png') no-repeat; padding-left: 13px; top: -7px; position: relative; height: 37px; line-height: 37px; }
