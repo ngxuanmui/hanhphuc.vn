@@ -16,59 +16,6 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 
 ?>
 
-<script type="text/javascript" src="<?php echo JURI::base(); ?>media/jquery.bxslider/jquery.bxslider.min.js"></script>
-
-<script type="text/javascript">
-jQuery().ready(function($){
-	$('#featured-slideshow').bxSlider({
-		mode: 'fade',
-		pager: false,
-		auto: false,
-		controls: false
-	});
-})
-</script>
-
-<div class="icons news-featured">
-	<div class="left-panel float-left">
-		<div class="slider">
-			<ul class="items" id="featured-slideshow">
-				<?php 
-				foreach($this->items as $item): 
-					$item->slug = $item->alias ? ($item->id . ':' . $item->alias) : $item->id;
-				?>
-					<li>
-						<?php if ($item->featured_images): ?>
-						<img src="<?php echo JURI::base() . $item->featured_images; ?>" />
-						<?php endif; ?>
-						<div class="absolute featured-desc">
-							<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($item->slug, $item->catid)); ?>" class="slider-title">
-								<?php echo $this->escape($item->title); ?>
-							</a>
-							<?php echo JHtml::_('string.truncate', strip_tags($item->introtext), 100); ?>
-						</div>
-						<div class="absolute featured-desc-opacity"></div>
-					</li>
-				<?php endforeach; ?>
-			</ul>
-		</div>
-	</div>
-	
-	<div class="right-panel float-right padding-5">
-		<div class="blogger">
-			<?php 
-			$modules = JModuleHelper::getModules('blogger');
-			foreach($modules as $module)
-			{
-				echo JModuleHelper::renderModule($module);
-			}
-			?>
-		</div>
-	</div>
-</div>
-
-<div class="clr"></div>
-
 <div class="container">
     <div class="float-left left-side">
 		<div>

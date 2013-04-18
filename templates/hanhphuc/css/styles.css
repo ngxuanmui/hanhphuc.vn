@@ -37,11 +37,7 @@ a { text-decoration: none; color: #333; }
 #header #logo { width: 201px; height: 68px; margin-top: 25px; }
 
 /* menu */
-<<<<<<< HEAD
-#top-menu { background: url('../images/bg-main-menu.png') repeat-x; height: 30px; line-height: 30px; margin-bottom: 0px; }
-=======
-#top-menu { background: url('../images/bg-main-menu.png') repeat-x; height: 30px; line-height: 30px; margin-bottom: 10px; }
->>>>>>> branch 'master' of https://github.com/ngxuanmui/hanhphuc.vn.git
+#top-menu { background: url('../images/bg-main-menu.png') repeat-x; height: 30px; line-height: 30px; }
 #top-menu ul li { float: left; margin: 0  }
 #top-menu ul li a { padding: 0 15px; }
 #top-menu ul li.active { background: url('../images/bg-left-menu-focus.png') no-repeat; padding-left: 13px; top: -7px; position: relative; height: 37px; line-height: 37px; }
@@ -144,14 +140,13 @@ ul.sub-menu li a {  padding-left: 15px; font-weight: bold; display: block; }
 h1.content-title { font-size: 14px; padding: 0 0 10px 0px; }
 .content-title a { font-size: 16px; color: #c81056; font-weight: bold; margin: 0px 0 20px 0; display: block; }
 
-#top-sub-menu-container { background: url('../images/bg-top-sub-menu.png') repeat-x; height: 35px; top: -6px; }
+#top-sub-menu-container { top: -6px; }
+ul.top-sub-menu { background: url('../images/bg-top-sub-menu.png') repeat-x; height: 35px; }
 ul.top-sub-menu li { float: left; padding: 10px; }
 ul.top-sub-menu li.active, ul.top-sub-menu li.alias-parent-active { font-weight: bold; }
 
 ul.items li { margin-top: 10px; }
 ul.items li a.title { margin: 10px 0; display: block; font-weight: bold; }
-
-
 
 div.pagination ul { float: right; }
 div.pagination ul li { float: left; padding: 2px 5px; }
