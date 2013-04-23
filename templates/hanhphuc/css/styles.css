@@ -28,6 +28,8 @@ a { text-decoration: none; color: #333; }
 
 .border-1 { border: 1px solid #CCC; }
 
+a.title { font-weight: bold; padding-bottom: 5px; display: block; }
+
 .round-4-conners-5 {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -150,3 +152,14 @@ ul.items li a.title { margin: 10px 0; display: block; font-weight: bold; }
 
 div.pagination ul { float: right; }
 div.pagination ul li { float: left; padding: 2px 5px; }
+
+/* services */
+ul.list-service-categories { margin: 20px 0; }
+ul.list-service-categories > li > ul { padding: 25px 15px; border: 1px solid #CCC; width: 624px; }
+ul.list-service-categories > li > ul > li { width: 50%; }
+ul.list-service-categories > li > ul > li .image { width: 60px; height: 60px; border: 1px solid #999; padding: 1px; overflow: hidden; margin: 0; margin-right: 10px; }
+ul.list-service-categories > li > ul > li .image img { width: 60px; }
+
+h1.category-title { font-size: 12px; padding-bottom: 5px; }
+
+ul > li p { margin: 3px 0; }
