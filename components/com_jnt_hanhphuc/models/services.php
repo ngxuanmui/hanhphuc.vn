@@ -16,8 +16,16 @@ jimport('joomla.application.component.modellist');
  * @package		Joomla.Site
  * @subpackage	com_contact
  */
-class Jnt_HanhPhucModelServices extends JModelList {
-
+class Jnt_HanhPhucModelServices extends JModelList
+{
+	protected function populateState($ordering = null, $direction = null)
+	{
+		parent::populateState($ordering, $direction);
+		
+		$id = JRequest::getInt('id', 0);
+		$this->setState('filter.category_id', $id);
+	}
+	
 	/**
 	 * Constructor.
 	 * @param	array	An optional associative array of configuration settings.
@@ -42,7 +50,9 @@ class Jnt_HanhPhucModelServices extends JModelList {
 	 * @since	1.6
 	 */
 	protected function getListQuery() {
-		$id = JRequest::getInt('id', 0);
+		
+		$id = $this->getState('filter.category_id');
+		
 		$query = "SELECT s.*, c.id as cat_id, c.title as cat_title 
 				  FROM  #__hp_business_service s 
 				  	  	JOIN #__categories c ON s.category = c.id 
@@ -55,13 +65,17 @@ class Jnt_HanhPhucModelServices extends JModelList {
 	}
 	
 	
-	public function getCategory($id = 0) {
-		if(!$id) $id = JRequest::getInt('id', 0);
-		$db = JFactory::getDbo();
-		$db->setQuery(
-			'SELECT * FROM #__categories WHERE published = 1 AND id = '.$id
-		);
-		return $db->loadObject();
+	public function getCategory($id = 0) 
+	{
+		$id = $this->getState('filter.category_id');
+		
+		jimport('joomla.application.categories');
+		
+		$cat = JCategories::getInstance('Jnt_Hanhphuc', array('extension' => 'com_jnt_hanhphuc', 'table' => ''));
+		
+		$category = $cat->get($id);
+		
+		return $category;
 	}
 	
 	/**
@@ -81,15 +95,4 @@ class Jnt_HanhPhucModelServices extends JModelList {
 //		}
 //		return $businessInfos;
 //	}
-
-	/**
-	 * Method to auto-populate the model state.
-	 *
-	 * Note. Calling getState in this method will result in recursion.
-	 *
-	 * @since	1.6
-	 */
-	protected function populateState($ordering = null, $direction = null) {
-		parent::populateState($ordering, $direction);
-	}
 }

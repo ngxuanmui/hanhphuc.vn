@@ -24,6 +24,17 @@ jimport('joomla.application.component.helper');
  */
 class JE_ContentModelCategory extends JModelList
 {
+	protected function populateState($ordering = null, $direction = null)
+	{
+		$id = JRequest::getInt('id');
+		$this->setState('filter.category_id', $id);
+		
+		$this->setState('list.start', JRequest::getUInt('limitstart', 0));
+		
+		$limit = 10;
+		$this->setState('list.limit', $limit);
+	}
+	
 	/**
 	 * Gets a list of articles
 	 *
@@ -65,5 +76,18 @@ class JE_ContentModelCategory extends JModelList
 //	    echo str_replace('#__', 'hp_', $query);
 
 	    return $query;
+	}
+	
+	public function getCategory()
+	{
+		$id = $this->getState('filter.category_id');
+		
+		jimport('joomla.application.categories');
+		
+		$cat = JCategories::getInstance('JE_Content', array('extension' => 'com_je_content', 'table' => ''));
+		
+		$category = $cat->get($id);
+		
+		return $category;
 	}
 }
