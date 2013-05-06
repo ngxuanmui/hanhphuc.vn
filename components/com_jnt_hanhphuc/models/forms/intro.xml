@@ -14,8 +14,8 @@
         
 		<field name="content" type="editor"
 			label="Nội dung"
-			required="true"
-			size="25"
+			required="true" buttons="false"
+			size="25" filter="safehtml"
 		/>
         
 	</fieldset>

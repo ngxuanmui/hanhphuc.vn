@@ -53,7 +53,15 @@ class Jnt_HanhPhucModelIntro extends JModelForm {
            return $this->data; 
         }
         
-        if(!$businessId) $businessId = JRequest::getInt('bid', 0);
+//         if(!$businessId) $businessId = JRequest::getInt('bid', 0);
+
+        if(!$businessId)
+        {
+        	//         	$businessId = JRequest::getInt('bid', 0);
+        
+        	$businessId = JFactory::getUser()->id;
+        }
+        
         $db = JFactory::getDbo();
         $query = "SELECT * FROM #__hp_business_info WHERE business_id = '$businessId'";
         $db->setQuery($query);
@@ -63,7 +71,12 @@ class Jnt_HanhPhucModelIntro extends JModelForm {
     }
     
     public function getBusinessInfo($businessId = 0) {
-        if(!$businessId) $businessId = JRequest::getInt('bid', 0);
+        if(!$businessId) 
+        {
+//         	$businessId = JRequest::getInt('bid', 0);
+
+        	$businessId = JFactory::getUser()->id;
+        }
         
         //Load from tbl user
         $businessInfo = JFactory::getUser($businessId);
@@ -108,7 +121,7 @@ class Jnt_HanhPhucModelIntro extends JModelForm {
 	 * @since	1.6
 	 */
 	public function save($data) {
-		$user = new JUser($userId);
+		$user = new JUser();
         
         //make object
         $info = new stdClass();
