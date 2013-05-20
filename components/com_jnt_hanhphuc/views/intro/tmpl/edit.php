@@ -23,12 +23,15 @@ $businessInfo = $this->businessInfo;
 
 <h2><?php echo $businessInfo->profile->business_name ?></h2>
 
-<form id="business-info" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=intro.save'); ?>" method="post" class="form-validate">
+<form id="business-info" name="userForm" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=intro.save'); ?>" method="post" class="form-validate" enctype="multipart/form-data">
     <div>
         <ul>
             <li>
                 <?php echo $this->form->getLabel('content'); ?>
 				<?php echo $this->form->getInput('content'); ?>
+            </li>
+            <li>
+            	<?php echo $this->form->getInput('images2content'); ?>
             </li>
         </ul>
     </div>

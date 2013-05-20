@@ -125,15 +125,77 @@ class Jnt_HanhPhucModelIntro extends JModelForm {
         
         //make object
         $info = new stdClass();
+        
         foreach($data as $key => $value) {
             $info->$key = $value;
         }
         
         $db = JFactory::getDbo();
+        
         if($info->id == 0) {
-            return $db->insertObject('#__hp_business_info', $info);
+            $update = $db->insertObject('#__hp_business_info', $info);
         } else {
-            return $db->updateObject('#__hp_business_info', $info, 'id');
+            $update = $db->updateObject('#__hp_business_info', $info, 'id');
         }
+        
+        if ($update)
+        {
+        	if ($info->id == 0)
+        		$id = $db->insertid();
+        	else
+        		$id = $info->id;
+        	
+        	$info->id = $id;
+        	
+        	// update content
+        	$content = $this->copyFilesOnSave($info->content, $info->id);
+        	 
+        	if ($content)
+        		$info->content = $content;
+        	
+        	$update = $db->updateObject('#__hp_business_info', $info, 'id');
+        }
+    }
+    
+    private function copyFilesOnSave($content = '', $itemId = 0)
+    {
+    	if(!$content || !$itemId)
+    		return false;
+    
+    	$date = date('Y') . DS . date('m') . DS . date('d');
+    
+    	$dest = JPATH_ROOT . DS . 'images' . DS . 'jnt_hanhphuc' . DS . 'intros' . DS . $itemId . DS;
+    	@mkdir($dest, 0777, true);
+    
+    	$doc=new DOMDocument();
+    
+    	$doc->loadHTML($content);
+    
+    	// just to make xpath more simple
+    	$xml=simplexml_import_dom($doc);
+    
+    	$images=$xml->xpath('//img');
+    
+    	$tmpSearch = array();
+    	$tmpReplace = array();
+    
+    	foreach ($images as $img)
+    	{
+    		// Explode src to get file name
+    		$imgSrc = explode('/', $img['src']);
+    			
+    		// Search & Replace
+    		$tmpSearch[] = $img['src'];
+    		$tmpReplace[] = 'images/jnt_hanhphuc/intros/' . $itemId . '/' . end($imgSrc);
+    
+    		$src = str_replace('/', DS, JPATH_ROOT.'/'.$img['src']);
+    
+    		if($imgSrc[0] == 'tmp')
+    			JFile::copy($src, $dest.end($imgSrc));
+    	}
+    
+    	$content = str_replace($tmpSearch, $tmpReplace, $content);
+    
+    	return $content;
     }
 }
