@@ -24,6 +24,9 @@ class Jnt_HanhPhucModelServices extends JModelList
 		
 		$id = JRequest::getInt('id', 0);
 		$this->setState('filter.category_id', $id);
+		
+		$userId = JRequest::getInt('user', 0);
+		$this->setState('filter.user_id', $userId);
 	}
 	
 	/**
@@ -60,6 +63,11 @@ class Jnt_HanhPhucModelServices extends JModelList
 		
 		if ($id)
 			$query .= " AND c.id = " . $id;
+		
+		$userId = $this->getState('filter.user_id');
+		
+		if ($userId)
+			$query .= ' AND business_id = ' . $userId;
 	
         return $query;
 	}
@@ -78,21 +86,22 @@ class Jnt_HanhPhucModelServices extends JModelList
 		return $category;
 	}
 	
-	/**
-	 * Method to get an array of data items.
-	 *
-	 * @return	mixed	An array of data items on success, false on failure.
-	 * @since	1.6
-	 */
-//	public function getItems() {
-//		$serviceInfos = parent::getItems();
-//		$businessInfos = array();
-//		
-//		$introModel = JModel::getInstance('Intro', 'Jnt_HanhPhucModel');
-//		foreach($serviceInfos as $serviceInfo) {
-//			$businessInfo = $introModel->getBusinessInfo($serviceInfo->business_id);
-//			$businessInfos[] = $businessInfo;
-//		}
-//		return $businessInfos;
-//	}
+	public function getUserInfo()
+	{
+		$userId = $this->getState('filter.user_id');
+		
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		
+		$query->select('*')->from('#__hp_business_info')->where('business_id = ' . $userId);
+		$db->setQuery($query);
+		
+		$info = $db->loadObject();
+		
+		$user = JFactory::getUser($userId);
+		
+		$user->info = $info;
+		
+		return $user;
+	}
 }

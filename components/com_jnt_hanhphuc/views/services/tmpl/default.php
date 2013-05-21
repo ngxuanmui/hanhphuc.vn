@@ -9,65 +9,67 @@
 
 // no direct access
 defined('_JEXEC') or die;
+
+$user = $this->user_info;
 ?>
-<div class="services">
-	<h2 class="title"><?php echo !empty($this->category->title) ? $this->category->title : 'Dịch vụ cưới'; ?></h2>
-	<?php if($this->items):?>
-	<div class="services-list">
-		<ul>
-			<?php foreach($this->items as $item):?>
-			<li>
-				<div class="service-business-detail">
-					<h1>
-						<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$item->category.'&bid='.$item->id)?>">
-							<?php echo $item->name; ?>
-						</a>
-					</h1>
-					<div class="desc">
-						<?php echo $item->description; ?>
+
+<div class="container">
+    <div class="float-left left-side">
+		<div class="sub-container">
+			<div><?php echo $user->name; ?></div>
+			
+			<div><?php echo $user->info->content; ?></div>
+			
+			<div class="services-list">
+				<ul>
+					<?php foreach($this->items as $item):?>
+					<li>
+						<div class="service-business-detail">
+							<h1>
+								<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$item->category.'&bid='.$item->id)?>">
+									<?php echo $item->name; ?>
+								</a>
+							</h1>
+						</div>
+					</li>
+					<?php endforeach;?>
+					
+					<?php echo $this->pagination->getPagesLinks()?>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div class="float-right right-side">
+		<?php echo JEUtil::loadModule('right', 'module-padding'); ?>
+		
+		<div class="module-title module-padding">THÔNG TIN KHUYẾN MẠI</div>
+		<div class="line-break-promotion"><span></span></div>
+		<div class="box">
+			<ul class="news-other-list">
+				<li>
+					Áo cưới: ....
+				</li>
+			</ul>
+		</div>
+		
+		<div class="module-title module-padding">DOANH NGHIỆP TIÊU BIỂU</div>
+		<div class="line-break"></div>
+		<div class="box">
+			<ul>
+				<li>
+					<div class="img">
+						img here
 					</div>
-					<div class="price">
-						<strike><?php echo $item->price; ?></strike> - <?php echo $item->current_price; ?>
+					<div class="bussiness-focus-info">
+						<p class="title">Áo cưới</p>
+						<p class="address">Địa chỉ</p>
+						<p class="phone">Điện thoại</p>
 					</div>
-					<?php /*
-					<h3>
-						<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$this->category->id.'&bid='.$item->id)?>"><?php echo $item->profile->business_name?></a>
-					</h3>
-					<?php
-					$logo = !empty($item->profile->business_logo) ? 'users/'.$item->id.'/'.$item->profile->business_logo : 'default/logo.png'; 
-					?>
-					<img width="100px" height="90px" alt="<?php echo $item->profile->business_name?>-logo" src="<?php echo JURI::base()?>images/<?php echo $logo?>">
-					<div>
-						<p class="contact">
-							<ul>
-								<li>
-									Địa chỉ: <?php echo $item->profile->business_address?>
-									<br/>
-									<?php echo $item->profile->business_village?> - <?php echo $item->profile->business_district?> - <?php echo $item->profile->business_city?>
-								</li>
-								<li>
-									Email: <?php echo $item->email?>
-								</li>
-								<li>
-									Điện thoại: <?php echo $item->profile->business_phone?>
-								</li>
-							</ul>
-						</p>
-					</div
-					 */ ?>
-				</div>
-			</li>
-			<?php endforeach;?>
-		</ul>
-	</div>
-	<?php else:?>
-	<div class = "services-noservice">
-		Hiện không có danh nghiệp nào cung cấp dịch vụ này!
-	</div>
-	<?php endif;?>
-	<div class="services-pagination">
-		<?php echo $this->pagination->getPagesLinks()?>
-	</div>
+				</li>
+			</ul>
+		</div>
+    </div>
 </div>
 
-
+<div class="clr"></div>

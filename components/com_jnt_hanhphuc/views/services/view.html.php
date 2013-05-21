@@ -23,6 +23,7 @@ class Jnt_HanhPhucViewServices extends JView {
     protected $state;
 	protected $items;
 	protected $pagination;
+	protected $user_info;
     
 	function display($tpl = null) {
 		
@@ -33,6 +34,7 @@ class Jnt_HanhPhucViewServices extends JView {
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
+		$this->user_info	= $this->get('UserInfo');
 		
 		parent::display($tpl);
 	}

@@ -50,7 +50,7 @@ $category = $this->category;
 									Avatar
 								</div>
 								<div class="fltlft info">
-									<a class="title" href="<?php echo $user->username; ?>">
+									<a class="title" href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&user='.$user->id.'-'.$user->username); ?>">
 										<?php echo $user->name; ?>
 									</a>
 									<p>Địa chỉ: </p>
