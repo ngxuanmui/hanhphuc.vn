@@ -24,7 +24,7 @@ $paymentTypeName = array(
 <div class="business-intro">
     <h2><?php echo $businessInfo->profile->business_name ?></h2>
     <h3><?php echo $serviceInfo->name?></h3>
-    <div>
+    <div class="business-intro-desc">
     	<?php echo $serviceInfo->description?>
     </div>
     <div>

@@ -18,7 +18,9 @@ $user = $this->user_info;
 		<div class="sub-container">
 			<div><?php echo $user->name; ?></div>
 			
-			<div><?php echo $user->info->content; ?></div>
+			<div class="business-intro-desc">
+				<?php echo $user->info->content; ?>
+			</div>
 			
 			<div class="services-list">
 				<ul>

@@ -155,11 +155,14 @@ div.pagination ul li { float: left; padding: 2px 5px; }
 
 /* services */
 ul.list-service-categories { margin: 20px 0; }
+ul.list-service-categories > li { margin-bottom: 10px; }
 ul.list-service-categories > li > ul { padding: 25px 15px; border: 1px solid #CCC; width: 624px; }
-ul.list-service-categories > li > ul > li { width: 50%; }
+ul.list-service-categories > li > ul > li { width: 50%; margin-bottom: 10px; }
 ul.list-service-categories > li > ul > li .image { width: 60px; height: 60px; border: 1px solid #999; padding: 1px; overflow: hidden; margin: 0; margin-right: 10px; }
 ul.list-service-categories > li > ul > li .image img { width: 60px; }
 
 h1.category-title { font-size: 12px; padding-bottom: 5px; }
 
 ul > li p { margin: 3px 0; }
+
+.business-intro-desc img { max-width: 656px; }

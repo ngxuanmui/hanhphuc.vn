@@ -29,17 +29,30 @@ class Jnt_HanhphucModelCategories extends JModel
 		
 		$categories = $catObj->get()->getChildren();
 		
+// 		var_dump($categories);
+
+		$arrCat = array();
+		
 		foreach ($categories as $key => & $cat)
 		{
-			$users = FrontJntHanhphucHelper::getUsers($cat->id);
+			$sub = $cat->getChildren();
 			
-			if (!empty($users))
-				$cat->users = $users;
-			else
-				unset($categories[$key]);
+			foreach($sub as & $c)
+			{
+				$users = FrontJntHanhphucHelper::getUsers($c->id);
+				
+				if (!empty($users))
+				{
+					$c->users = $users;
+					
+					$arrCat[] = $c;
+				}
+					
+			}
+				
 		}
 		
-		return $categories;
+		return $arrCat;
 	}
 	
 	
