@@ -74,11 +74,18 @@
 			size="25"
 		/>
 		
-		<field name="description" type="editor"
+		<field name="content" type="editor"
 			filter = "SAFEHTML"
 			label="Miêu tả"
             description = "Miêu tả về dịch vụ bạn cung cấp"
 			required = "false"
+			buttons="false"
+		/>
+		
+		<field name="images2content" type="front_images2content"
+			label="Images" description="Upload images to content"
+			class="inputbox"
+			addfieldpath="/administrator/components/com_je_content/models/fields/front"
 		/>
         
         <field id="payment_type"

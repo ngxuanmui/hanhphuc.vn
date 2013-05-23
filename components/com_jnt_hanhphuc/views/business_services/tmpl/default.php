@@ -25,7 +25,7 @@ $businessInfo = $this->businessInfo;
 				<div>
 					<h3><?php echo $item->name . ' ('. $item->cat_title . ')'; ?></h3>
 					<div>
-						<?php echo $item->description?>
+						<?php echo strip_tags($item->description); ?>
 					</div>
 					<div>
 						<a href = "<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=business_service&layout=edit&id='.$item->id) ?>">Chỉnh sửa</a>

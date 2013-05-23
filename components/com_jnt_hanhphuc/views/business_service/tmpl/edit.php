@@ -17,8 +17,7 @@ JHtml::_('behavior.formvalidation');
 $data = $this->data;
 $businessInfo = $this->businessInfo;
 ?>
-<script src="<?php echo JURI::root() ?>components/com_users/helpers/html/js/jquery-1.6.1.js" type="text/javascript"></script>
-<script src="<?php echo JURI::root() ?>components/com_users/helpers/html/js/jquery.vnlocation.js" type="text/javascript"></script>
+<script src="<?php echo JURI::root() ?>media/hp/jquery.vnlocation.js" type="text/javascript"></script>
 <script type="text/javascript">
     jQuery.noConflict();
     jQuery(document).ready(function($){
@@ -56,7 +55,7 @@ $businessInfo = $this->businessInfo;
 
 	<h2><?php echo (!empty($businessInfo->profile->business_name)) ? $businessInfo->profile->business_name : ''; ?></h2>
 
-<form id="business-info" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=business_service.save'); ?>" method="post" class="form-validate" enctype="multipart/form-data">
+<form name="userForm" id="business-info" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=business_service.save'); ?>" method="post" class="form-validate" enctype="multipart/form-data">
     <div>
         <ul>
             <li>
@@ -109,8 +108,11 @@ $businessInfo = $this->businessInfo;
                 <a id="service-add-more-image" href="#">Add more image</a>
             </li>
 			<li>
-                <?php echo $this->form->getLabel('description'); ?>
-				<?php echo $this->form->getInput('description'); ?>
+                <?php echo $this->form->getLabel('content'); ?>
+				<?php echo $this->form->getInput('content'); ?>
+            </li>
+            <li>
+            	<?php echo $this->form->getInput('images2content'); ?>
             </li>
         </ul>
     </div>

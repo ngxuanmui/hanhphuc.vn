@@ -18,7 +18,7 @@ $businessInfo = $this->businessInfo;
 $paymentTypeName = array(
 	1 => 'Thanh toán qua tài khoản ngân hàng',
 	2 => 'Thanh toán qua địa chỉ bưu điện',
-	3 => 'Thanh toán que website nganluong'
+	//3 => 'Thanh toán qua website nganluong'
 );
 ?>
 <div class="business-intro">

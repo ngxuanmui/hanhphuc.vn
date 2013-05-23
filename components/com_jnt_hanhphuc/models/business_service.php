@@ -61,6 +61,7 @@ class Jnt_HanhPhucModelBusiness_Service extends JModelForm {
 		
 		if (is_object($this->data))
 		{
+			$this->data->content = $this->data->description;
 			$this->data->payment_type = json_decode(isset($this->data->payment_type) ? $this->data->payment_type : '[]');
 		}
 		
@@ -108,6 +109,10 @@ class Jnt_HanhPhucModelBusiness_Service extends JModelForm {
 		//Payment type
 		$data['payment_type'] = json_encode($data['payment_type']);
 		
+		$data['description'] = $data['content'];
+		
+		unset($data['content']);
+		
 		$imgTemp = JRequest::getVar('image-temp', array());
 		$images = $imgTemp;
         
@@ -121,15 +126,15 @@ class Jnt_HanhPhucModelBusiness_Service extends JModelForm {
         $db = JFactory::getDbo();
         if($info->id == 0) {
             $db->insertObject('#__hp_business_service', $info);
-			if($db->getError()) {
-				return false;
+			if($db->getErrorMsg()) {
+				die ($db->getErrorMsg());
 			}
 			$id = $db->insertid();
         }
         
         if($id) {
 			//TODO: Xu ly anh???
-	        include_once JPATH_ROOT.DS.'libraries'.DS.'hp'.DS.'upload.class.php';
+// 	        require_once JPATH_ROOT.DS.'libraries'.DS.'hp'.DS.'upload.class.php';
 	        $path = JPATH_ROOT.DS.'images'.DS.'users'.DS.$data['business_id'].DS.'services'.DS.$id;
 	        @mkdir($path, 0777, true);
 	        
@@ -140,15 +145,68 @@ class Jnt_HanhPhucModelBusiness_Service extends JModelForm {
 	        	}
 	        }
         }
+        
         if(empty($images)) $images = array();
         
         $info->id = $id;
         $info->image = json_encode($images);
+        
+        // update content
+        $content = $this->copyFilesOnSave($info->description, $info->id);
+        
+        if ($content)
+        	$info->description = $content;
+        
+        unset($info->content);
+        
         $db->updateObject('#__hp_business_service', $info, 'id');
-		if($db->getError()) {
+		if($db->getErrorMsg()) {
+			die($db->getErrorMsg());
 			return false;
 		}
 		$id = $data['id'];
 		return $id;
+    }
+    
+    private function copyFilesOnSave($content = '', $itemId = 0)
+    {
+    	if(!$content || !$itemId)
+    		return false;
+    
+    	$date = date('Y') . DS . date('m') . DS . date('d');
+    
+    	$dest = JPATH_ROOT . DS . 'images' . DS . 'jnt_hanhphuc' . DS . 'services' . DS . $itemId . DS;
+    	@mkdir($dest, 0777, true);
+    
+    	$doc=new DOMDocument();
+    
+    	$doc->loadHTML($content);
+    
+    	// just to make xpath more simple
+    	$xml=simplexml_import_dom($doc);
+    
+    	$images=$xml->xpath('//img');
+    
+    	$tmpSearch = array();
+    	$tmpReplace = array();
+    
+    	foreach ($images as $img)
+    	{
+    		// Explode src to get file name
+    		$imgSrc = explode('/', $img['src']);
+    		 
+    		// Search & Replace
+    		$tmpSearch[] = $img['src'];
+    		$tmpReplace[] = 'images/jnt_hanhphuc/services/' . $itemId . '/' . end($imgSrc);
+    
+    		$src = str_replace('/', DS, JPATH_ROOT.'/'.$img['src']);
+    
+    		if($imgSrc[0] == 'tmp')
+    			JFile::copy($src, $dest.end($imgSrc));
+    	}
+    
+    	$content = str_replace($tmpSearch, $tmpReplace, $content);
+    
+    	return $content;
     }
 }
