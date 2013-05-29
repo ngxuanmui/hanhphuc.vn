@@ -166,3 +166,10 @@ h1.category-title { font-size: 12px; padding-bottom: 5px; }
 ul > li p { margin: 3px 0; }
 
 .business-intro-desc img { max-width: 656px; }
+
+.list-services h1 { font-size: 14px; border-bottom: 2px solid #CCC; padding-bottom: 5px; }
+.list-services .business-intro-desc { border: 1px solid #CCC; padding: 15px 10px; }
+.list-services .services-list, .list-services .business-info { border: 1px solid #CCC; padding: 15px 10px; margin-top: 10px; }
+.list-services .services-list ul li { float: left; width: 135px; height: 90px; margin-right: 10px; margin-bottom: 10px; }
+.list-services .services-list h2, .list-services .business-info h2 { margin: 0 0 10px 0; }
+.list-services .seperator { background: url('../images/bg-services-seperator.png') no-repeat; width: 596px; height: 25px; left: 30px; top: -18px; }

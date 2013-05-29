@@ -15,29 +15,44 @@ $user = $this->user_info;
 
 <div class="container">
     <div class="float-left left-side">
-		<div class="sub-container">
-			<div><?php echo $user->name; ?></div>
+		<div class="sub-container list-services relative">
+			<h1><?php echo $user->name; ?></h1>
 			
 			<div class="business-intro-desc">
 				<?php echo $user->info->content; ?>
 			</div>
 			
-			<div class="services-list">
+			
+			
+			<div class="services-list relative">
+				
+				<div class="seperator absolute"></div>
+				
+				<h2>SẢN PHẨM VÀ DỊCH VỤ</h2>
 				<ul>
 					<?php foreach($this->items as $item):?>
 					<li>
 						<div class="service-business-detail">
-							<h1>
+							
 								<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$item->category.'&bid='.$item->id)?>">
 									<?php echo $item->name; ?>
 								</a>
-							</h1>
+							
 						</div>
 					</li>
 					<?php endforeach;?>
-					
-					<?php echo $this->pagination->getPagesLinks()?>
 				</ul>
+				
+				<?php echo $this->pagination->getPagesLinks()?>
+				
+				<div class="clr"></div>
+			</div>
+			
+			<div class="business-info relative">
+				
+				<div class="seperator absolute"></div>
+				
+				<h2>THÔNG TIN LIÊN HỆ</h2>
 			</div>
 		</div>
 	</div>
