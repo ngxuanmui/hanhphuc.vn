@@ -22,6 +22,13 @@ class Jnt_HanhPhucModelServices extends JModelList
 	{
 		parent::populateState($ordering, $direction);
 		
+		// List state information
+		$value = JRequest::getUInt('limit', 8);
+		$this->setState('list.limit', $value);
+		
+		$value = JRequest::getUInt('limitstart', 0);
+		$this->setState('list.start', $value);
+		
 		$id = JRequest::getInt('id', 0);
 		$this->setState('filter.category_id', $id);
 		
@@ -72,6 +79,25 @@ class Jnt_HanhPhucModelServices extends JModelList
         return $query;
 	}
 	
+	public function getItems()
+	{
+		$items = parent::getItems();
+				
+		foreach ($items as & $item)
+		{
+			$img = json_decode($item->image);
+			
+			$item->img = '';
+			
+			if (!empty($img[0]))
+			{
+				$item->img = $img[0];
+			}
+		}
+		
+		return $items;
+	}
+	
 	
 	public function getCategory($id = 0) 
 	{
@@ -90,6 +116,8 @@ class Jnt_HanhPhucModelServices extends JModelList
 	{
 		$userId = $this->getState('filter.user_id');
 		
+		$user = JFactory::getUser($userId);
+		
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		
@@ -98,9 +126,17 @@ class Jnt_HanhPhucModelServices extends JModelList
 		
 		$info = $db->loadObject();
 		
-		$user = JFactory::getUser($userId);
-		
 		$user->info = $info;
+		
+		// get profile
+		$query = $db->getQuery(true);
+		
+		$query->select('*')->from('#__hp_business_profile')->where('user_id = ' . $userId);
+		$db->setQuery($query);
+		
+		$profile = $db->loadObject();
+		
+		$user->profile = $profile;
 		
 		return $user;
 	}

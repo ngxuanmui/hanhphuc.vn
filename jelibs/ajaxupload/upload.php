@@ -25,9 +25,9 @@ if (in_array($extension, $extensions))
 		{
 			$obj = new Resize($target_path);
 			$obj->setNewImage($destination_path . $markedImageName);
-			$obj->setWaterMarkImage("watermark.png");
-			$obj->setWaterMarkOpacity(40);
-			$obj->setWaterMarkPosition('bottomLeft');
+// 			$obj->setWaterMarkImage("watermark.png");
+// 			$obj->setWaterMarkOpacity(40);
+// 			$obj->setWaterMarkPosition('bottomLeft');
 			$obj->setProportionalFlag('V');
 			$obj->setProportional(1);
 // 			$obj->setDegrees(90);

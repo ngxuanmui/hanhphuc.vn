@@ -11,6 +11,8 @@
 defined('_JEXEC') or die;
 
 $user = $this->user_info;
+$profile = $user->profile;
+
 ?>
 
 <div class="container">
@@ -19,6 +21,13 @@ $user = $this->user_info;
 			<h1><?php echo $user->name; ?></h1>
 			
 			<div class="business-intro-desc">
+			
+				<?php if ($profile->business_logo != ''): ?>
+				<div class="business-logo">
+					<img src="<?php echo JURI::base();?>images/business/<?php echo $profile->business_logo; ?>" />
+				</div>				
+				<?php endif; ?>
+				
 				<?php echo $user->info->content; ?>
 			</div>
 			
@@ -29,21 +38,27 @@ $user = $this->user_info;
 				<div class="seperator absolute"></div>
 				
 				<h2>SẢN PHẨM VÀ DỊCH VỤ</h2>
-				<ul>
+				<ul class="items">
 					<?php foreach($this->items as $item):?>
-					<li>
-						<div class="service-business-detail">
-							
-								<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$item->category.'&bid='.$item->id)?>">
-									<?php echo $item->name; ?>
-								</a>
-							
-						</div>
+					<li class="service-business-detail">
+							<a title="<?php echo htmlspecialchars($item->name); ?>" href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$item->category.'&bid='.$item->id)?>">
+								<?php if ($item->img): ?>
+								<div class="img">
+									<img src='<?php echo JURI::base()?>images/users/<?php echo $user->id?>/services/<?php echo $item->id?>/<?php echo $item->img; ?>' />
+								</div>
+								<?php else: ?>
+								NO IMAGE
+								<?php endif; ?>
+							</a>
 					</li>
 					<?php endforeach;?>
 				</ul>
 				
-				<?php echo $this->pagination->getPagesLinks()?>
+				<div class="clr"></div>
+				
+				<div class="pagination">
+					<?php echo $this->pagination->getPagesLinks()?>
+				</div>
 				
 				<div class="clr"></div>
 			</div>
@@ -52,7 +67,44 @@ $user = $this->user_info;
 				
 				<div class="seperator absolute"></div>
 				
-				<h2>THÔNG TIN LIÊN HỆ</h2>
+				<div class="business-profile">
+					<ul>
+						<li>
+							<h3><?php echo $profile->business_name; ?></h3>
+						</li>
+						<li>
+							<label>Địa chỉ</label>
+							<span>
+								: <?php echo $profile->business_address; ?>, <?php echo $profile->business_district; ?>, <?php echo $profile->business_city; ?>
+							</span>
+						</li>
+						<li>
+							<label>Số điện thoại</label>
+							<span>
+								: <?php echo $profile->business_phone; ?>
+							</span>
+						</li>
+						<li>
+							<label>Fax</label>
+							<span>
+								: <?php echo $profile->business_fax; ?>
+							</span>
+						</li>
+						<li>
+							<label>Email</label>
+							<span>
+								: <?php echo $user->email; ?>
+							</span>
+						</li>
+						<li>
+							<label>Website</label>
+							<span>
+								: <?php echo $profile->business_website; ?>	
+							</span>
+						</li>
+					</ul>
+					<div class="clr"></div>
+				</div>
 			</div>
 		</div>
 	</div>

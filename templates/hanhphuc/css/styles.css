@@ -167,9 +167,20 @@ ul > li p { margin: 3px 0; }
 
 .business-intro-desc img { max-width: 656px; }
 
+.list-services img { max-width: 630px; }
 .list-services h1 { font-size: 14px; border-bottom: 2px solid #CCC; padding-bottom: 5px; }
 .list-services .business-intro-desc { border: 1px solid #CCC; padding: 15px 10px; }
 .list-services .services-list, .list-services .business-info { border: 1px solid #CCC; padding: 15px 10px; margin-top: 10px; }
-.list-services .services-list ul li { float: left; width: 135px; height: 90px; margin-right: 10px; margin-bottom: 10px; }
+.list-services .services-list ul.items li { float: left; width: 135px; height: 94px; margin-right: 20px; margin-bottom: 10px; padding: 1px; }
+.list-services .services-list ul.items li .img { width: 135px; overflow: hidden; }
+.list-services .services-list ul.items li img { height: 90px; border: 1px solid #CCC; }
 .list-services .services-list h2, .list-services .business-info h2 { margin: 0 0 10px 0; }
 .list-services .seperator { background: url('../images/bg-services-seperator.png') no-repeat; width: 596px; height: 25px; left: 30px; top: -18px; }
+
+.business-logo { text-align: center; padding-bottom: 10px; }
+.business-logo img { max-width: 635px; }
+.list-services { line-height: 20px; }
+
+.business-profile h3 { font-size: 14px; padding-bottom: 10px; }
+.business-profile label { width: 100px; font-weight: bold; float: left; }
+.business-profile span { float: left; width: 530px; }
