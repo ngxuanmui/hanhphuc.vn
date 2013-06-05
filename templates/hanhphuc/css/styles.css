@@ -175,7 +175,9 @@ ul > li p { margin: 3px 0; }
 .list-services .services-list ul.items li .img { width: 135px; overflow: hidden; }
 .list-services .services-list ul.items li img { height: 90px; border: 1px solid #CCC; }
 .list-services .services-list h2, .list-services .business-info h2 { margin: 0 0 10px 0; }
-.list-services .seperator { background: url('../images/bg-services-seperator.png') no-repeat; width: 596px; height: 25px; left: 30px; top: -18px; }
+
+.seperator { background: url('../images/bg-services-seperator.png') no-repeat; width: 596px; height: 25px; left: 30px; top: -18px; }
+.box { border: 1px solid #999899; padding: 15px; }
 
 .business-logo { text-align: center; padding-bottom: 10px; }
 .business-logo img { max-width: 635px; }
@@ -183,4 +185,24 @@ ul > li p { margin: 3px 0; }
 
 .business-profile h3 { font-size: 14px; padding-bottom: 10px; }
 .business-profile label { width: 100px; font-weight: bold; float: left; }
-.business-profile span { float: left; width: 530px; }
+.business-profile span { float: left; width: 490px; }
+
+.view-service-left h1 { font-size: 14px; color: #c81056; padding-bottom: 5px; border-bottom: 2px solid #999899; }
+.view-service-left .sub-container { border: 1px solid #999899; padding: 15px; }
+.view-service-left .comments { margin-top: 10px;}
+.view-service-left .images { width: 200px; height: 135px; overflow: hidden; margin-right: 10px; padding: 1px; border: 1px solid #CCC; }
+.view-service-left .images img { max-width: 188px; border: none; }
+.service-info h3 { text-transform: uppercase; font-size: 12px; padding-bottom: 10px; }
+.service-info ul { width: 400px; }
+.service-info ul li { float: left; width: 400px; padding: 3px 0; }
+.service-info ul li label { float: left; width: 120px; }
+.service-info ul li span { float: left; }
+
+#add-service-to-cart button { border: 1px solid #CCC; padding: 3px 15px; cursor: pointer; }
+
+ul.tabs { float: left; width: 100%; border-bottom: 1px solid #CCC; margin-top: 20px; }
+ul.tabs li { float: left; border: 1px solid #CCC; padding: 5px 15px; margin-right: 5px; margin-bottom: -1px; cursor: pointer; }
+ul.tabs li.active { border-bottom: 1px solid #FFF; font-weight: bold; }
+ul.tab-content-container { border: 1px solid #CCC; border-top: none; }
+ul.tab-content-container > li.tab-content { padding: 15px; display: none; }
+.tab-display { display: block !important; }

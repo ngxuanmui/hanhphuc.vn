@@ -53,6 +53,6 @@ JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
     	<?php endif;?>
     </div>
     <div>
-    	<span><a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc')?>">Thêm các dịch vụ khác</a></span>  /  <span><a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.checkout') ?>">Thanh toán hóa đơn</a></span>
+    	<span><a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=categories')?>">Thêm các dịch vụ khác</a></span>  /  <span><a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.checkout') ?>">Thanh toán hóa đơn</a></span>
     </div>
 </div>
