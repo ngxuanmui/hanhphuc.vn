@@ -12,10 +12,14 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.controllerform');
 
 class Jnt_HanhPhucControllerOrder extends JController {
-	protected function isLoggedIn() {
+	protected function isLoggedIn($task = '') {
 		$user = JFactory::getUser();
+		
+		if (!$view)
+			$view = 'checkout';
+		
 		if($user->guest) {
-			$returnURL = JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.pay'.(!empty($step) ? '&step='.$step : ''));
+			$returnURL = JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.'.$task.(!empty($step) ? '&step='.$step : ''));
 			$returnURL = base64_encode($returnURL);
 			$this->setRedirect(JRoute::_('index.php?option=com_users&view=login&return='.$returnURL), 'Bạn cần login trước khi thanh toán!');
 			return false;
@@ -23,14 +27,14 @@ class Jnt_HanhPhucControllerOrder extends JController {
 		return true;
 	}
 	public function checkout() {
-		if(!$this->isLoggedIn()) return false;
+		if(!$this->isLoggedIn('checkout')) return false;
 		
 		$this->setRedirect(JRoute::_('index.php?option=com_jnt_hanhphuc&view=cart_shipinfo'));
 		return true;
 	}
 	
 	public function shippingInfoSubmit() {
-		if(!$this->isLoggedIn()) return false;
+		if(!$this->isLoggedIn('shippingInfoSubmit')) return false;
 		
 		$session = JFactory::getSession();
 		
@@ -56,6 +60,9 @@ class Jnt_HanhPhucControllerOrder extends JController {
 	}
 	
 	public function confirm() {
+		
+		if(!$this->isLoggedIn('confirm')) return false;
+		
 		//TODO: #nttuyen Luu tru hoa don vao day??
 		$cartModel = $this->getModel('Cart', 'Jnt_HanhPhucModel');
 		$order = $cartModel->getOrder();
@@ -111,8 +118,13 @@ class Jnt_HanhPhucControllerOrder extends JController {
 			$orderItemDatas[] = $orderItemData;
 		}
 		
+		// remove shopping cart
+		require_once JPATH_COMPONENT.DS.'helpers'.DS.'shoppingcart.class.php';
+		$basket = new ShoppingBasket();
+		$basket->emptyBasket();
+		
 		//TODO #nttuyen After save order, what will redirect to
-		$this->setRedirect(JRoute::_('index.php?option=com_jnt_hanhphuc'), 'Bạn đã thanh toán thành công!');
+		$this->setRedirect(JRoute::_(JURI::base()), 'Bạn đã đặt hàng thành công!');
 		return true;
 	}
 }

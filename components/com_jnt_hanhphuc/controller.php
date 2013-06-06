@@ -19,15 +19,21 @@ jimport('joomla.application.component.controller');
  * @subpackage	com_banners
  * @since		1.5
  */
-class Jnt_HanhPhucController extends JController {
-    
+class Jnt_HanhPhucController extends JController
+{
     public function __construct($config = array()) {
         parent::__construct($config);
-        $this->default_view = 'intros';
+        
+        $this->default_view = 'categories';
     }
 
-
     public function display($cachable = false, $urlparams = false) {
-        parent::display($cachable, $urlparams);
+    	
+    	$safeurlparams = array('catid'=>'INT', 'id'=>'INT', 'cid'=>'ARRAY', 'year'=>'INT', 'month'=>'INT', 'limit'=>'UINT', 'limitstart'=>'UINT',
+    			'showall'=>'INT', 'return'=>'BASE64', 'filter'=>'STRING', 'filter_order'=>'CMD', 'filter_order_Dir'=>'CMD', 'filter-search'=>'STRING', 'print'=>'BOOLEAN', 'lang'=>'CMD');
+    	 
+    	$arrRequiredLogin = array('cart_checkout', );
+    	
+        parent::display($cachable, $safeurlparams);
     }
 }

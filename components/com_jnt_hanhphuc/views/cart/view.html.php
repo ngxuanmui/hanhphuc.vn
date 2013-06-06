@@ -22,7 +22,17 @@ class Jnt_HanhPhucViewCart extends JView {
 	protected $order;
 
 	function display($tpl = null) {
-		$this->order = $this->get('Order');
+		$order = $this->get('Order');
+		
+		if (!$order)
+		{
+			// redirect to home
+			JFactory::getApplication()->redirect(JURI::base());
+			exit();
+		}
+		
+		$this->order = $order;
+		
 		parent::display($tpl);
 	}
 
