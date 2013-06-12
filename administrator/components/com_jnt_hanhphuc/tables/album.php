@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  * @subpackage	com_ntrip
  * @since		1.5
  */
-class NtripTableAlbum extends JTable
+class Jnt_HanhphucTableAlbum extends JTable
 {
 	/**
 	 * Constructor
@@ -23,7 +23,7 @@ class NtripTableAlbum extends JTable
 	 */
 	function __construct(&$_db)
 	{
-		parent::__construct('#__ntrip_albums', 'id', $_db);
+		parent::__construct('#__hp_albums', 'id', $_db);
 		$date = JFactory::getDate();
 		$this->created = $date->toSql();
 	}
@@ -86,7 +86,7 @@ class NtripTableAlbum extends JTable
 			}
 			
 			// Verify that the alias is unique
-			$table = JTable::getInstance('Album', 'NtripTable');
+			$table = JTable::getInstance('Album', 'Jnt_HanhphucTable');
 			if ($table->load(array('alias'=>$this->alias, 'catid'=>$this->catid)) && ($table->id != $this->id || $this->id==0)) {
 				$this->setError(JText::_('COM_NTRIP_ERROR_UNIQUE_ALIAS'));
 				return false;
@@ -102,14 +102,14 @@ class NtripTableAlbum extends JTable
 			$this->modified_by	= $user->get('id');
 			
 			// Get the old row
-			$oldrow = JTable::getInstance('Album', 'NtripTable');
+			$oldrow = JTable::getInstance('Album', 'Jnt_HanhphucTable');
 			if (!$oldrow->load($this->id) && $oldrow->getError())
 			{
 				$this->setError($oldrow->getError());
 			}
 
 			// Verify that the alias is unique
-			$table = JTable::getInstance('Album', 'NtripTable');
+			$table = JTable::getInstance('Album', 'Jnt_HanhphucTable');
 			if ($table->load(array('alias'=>$this->alias, 'catid'=>$this->catid)) && ($table->id != $this->id || $this->id==0)) {
 				$this->setError(JText::_('COM_NTRIP_ERROR_UNIQUE_ALIAS'));
 				return false;
@@ -164,7 +164,7 @@ class NtripTableAlbum extends JTable
 		}
 
 		// Get an instance of the table
-		$table = JTable::getInstance('Album', 'NtripTable');
+		$table = JTable::getInstance('Album', 'Jnt_HanhphucTable');
 
 		// For all keys
 		foreach ($pks as $pk)

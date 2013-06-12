@@ -56,7 +56,7 @@ class Jnt_HanhphucControllerUser_Man_Album extends JControllerForm
 
 		if (isset($data['id']) && (int) $data['id'] > 0)
 		{
-			if (!NtripFrontHelper::checkUserPermissionOnItem($data['id'], '#__ntrip_albums'))
+			if (!NtripFrontHelper::checkUserPermissionOnItem($data['id'], '#__hp_albums'))
 				return false;
 		}
 		

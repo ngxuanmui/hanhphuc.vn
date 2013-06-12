@@ -93,7 +93,7 @@ class Jnt_HanhphucModelUser_Man_Album extends JModelAdmin
 	 *
 	 * @since   1.6
 	 */
-	public function getTable($type = 'Album', $prefix = 'NtripTable', $config = array())
+	public function getTable($type = 'Album', $prefix = 'Jnt_HanhphucTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
