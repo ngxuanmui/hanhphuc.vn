@@ -20,6 +20,9 @@ define('USER_TYPE_NORMAL', 0);
 define('USER_TYPE_BUSSINESS', 1);
 
 require_once JPATH_COMPONENT.'/helpers/front.jnt_hanhphuc.php';
+require_once JPATH_COMPONENT.'/helpers/user_toolbar.php';
+
+// var_dump($_POST); die;
 
 // Execute the task.
 $controller	= JController::getInstance('Jnt_HanhPhuc');

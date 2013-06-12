@@ -25,6 +25,8 @@ $doc->addStyleSheet($this->baseurl.'/templates/system/css/system.css');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/layout.css', $type = 'text/css');
 $doc->addStyleSheet($this->baseurl.'/templates/'.$this->template.'/css/styles.css', $type = 'text/css');
 $doc->addScript(JURI::base() . 'media/hp/jquery-1.8.3.min.js');
+$doc->addScript(JURI::base() . 'media/hp/jquery.validate.js');
+$doc->addScript(JURI::base() . 'media/hp/hp_main.js');
 $doc->addScript(JURI::base() . 'media/jquery.bxslider/jquery.bxslider.min.js');
 
 ?>

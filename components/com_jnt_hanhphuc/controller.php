@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 jimport('joomla.application.component.controller');
 
 /**
- * Banners Controller
+ * HP Services Controller
  *
  * @package		Joomla.Site
  * @subpackage	com_banners
@@ -32,7 +32,9 @@ class Jnt_HanhPhucController extends JController
     	$safeurlparams = array('catid'=>'INT', 'id'=>'INT', 'cid'=>'ARRAY', 'year'=>'INT', 'month'=>'INT', 'limit'=>'UINT', 'limitstart'=>'UINT',
     			'showall'=>'INT', 'return'=>'BASE64', 'filter'=>'STRING', 'filter_order'=>'CMD', 'filter_order_Dir'=>'CMD', 'filter-search'=>'STRING', 'print'=>'BOOLEAN', 'lang'=>'CMD');
     	 
-    	$arrRequiredLogin = array('cart_checkout', );
+    	$arrRequiredLogin = array('user_man_albums', 'user_man_album');
+    	
+    	
     	
         parent::display($cachable, $safeurlparams);
     }
