@@ -207,8 +207,8 @@ class Jnt_HanhphucModelUser_Man_Album extends JModelAdmin
 			
 		if (isset($id) && (int) $id > 0)
 		{
-			if (!NtripFrontHelper::checkUserPermissionOnItem($id, '#__ntrip_albums'))
-				exit();
+			if (!FrontJntHanhphucHelper::checkUserPermissionOnItem($id, '#__hp_albums'))
+				exit('Cannot edit this album!');
 		}
 		
 	    if (parent::save($data))
@@ -218,15 +218,15 @@ class Jnt_HanhphucModelUser_Man_Album extends JModelAdmin
 			// Update images
 			$currentImages = (isset($_POST['current_images'])) ? $_POST['current_images'] : array();
 			$currentDesc = (isset($_POST['current_desc'])) ? $_POST['current_desc'] : array();
-			NtripHelper::updateImages($id, $currentImages, $currentDesc, 'albums');
+			Jnt_HanhPhucHelper::updateImages($id, $currentImages, $currentDesc, 'albums');
 
 			// Temp files
 			if (isset($_POST['tmp_other_img']))
 			{
 				// Copy file 
-				NtripHelper::copyTempFiles($id, $_POST['tmp_other_img'], 'albums');
+				Jnt_HanhPhucHelper::copyTempFiles($id, $_POST['tmp_other_img'], 'albums');
 				// Insert images
-				NtripHelper::insertImages($id, $_POST['tmp_other_img'], $_POST['tmp_desc'], 'albums');
+				Jnt_HanhPhucHelper::insertImages($id, $_POST['tmp_other_img'], $_POST['tmp_desc'], 'albums');
 			}
 
 			if ($id)
@@ -236,18 +236,18 @@ class Jnt_HanhphucModelUser_Man_Album extends JModelAdmin
 
 			// Upload thumb
 			$item = $this->getItem();
-			$data['images'] = NtripHelper::uploadImages('images', $item, $delImage, 'albums');
+			$data['images'] = Jnt_HanhPhucHelper::uploadImages('images', $item, $delImage, 'albums');
 			
-			$coordinates = LocaHelper::getGmapCoordinates($data['address']);
-			
-			$data['gmap_lat'] = $coordinates['lat'];
-			$data['gmap_long'] = $coordinates['long'];
+//			$coordinates = LocaHelper::getGmapCoordinates($data['address']);
+//			
+//			$data['gmap_lat'] = $coordinates['lat'];
+//			$data['gmap_long'] = $coordinates['long'];
 			
 			//TODO: Update count location
-//			NtripHelper::updateCountLocations('albums');
+//			Jnt_HanhPhucHelper::updateCountLocations('albums');
 			
 			//TODO: Update count custom field for each location
-//			NtripHelper::updateCountCustomFieldLocations('albums');
+//			Jnt_HanhPhucHelper::updateCountCustomFieldLocations('albums');
 
 			return parent::save($data);
 	    }

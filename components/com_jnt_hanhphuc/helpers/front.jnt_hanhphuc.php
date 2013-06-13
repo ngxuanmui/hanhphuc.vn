@@ -19,7 +19,7 @@ class FrontJntHanhphucHelper
 		return $rs;
 	}
 	
-	public static function checkUserPermissionOnItem($id, $table = '#__ntrip_hotels', $pk = 'id')
+	public static function checkUserPermissionOnItem($id, $table = '#__hp_albums', $pk = 'id')
 	{
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
@@ -30,7 +30,7 @@ class FrontJntHanhphucHelper
 	
 		$db->setQuery($query);
 		$result = $db->loadResult();
-	
+		
 		if ($result)
 			return true;
 	

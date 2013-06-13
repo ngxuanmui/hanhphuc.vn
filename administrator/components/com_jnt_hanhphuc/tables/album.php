@@ -88,7 +88,7 @@ class Jnt_HanhphucTableAlbum extends JTable
 			// Verify that the alias is unique
 			$table = JTable::getInstance('Album', 'Jnt_HanhphucTable');
 			if ($table->load(array('alias'=>$this->alias, 'catid'=>$this->catid)) && ($table->id != $this->id || $this->id==0)) {
-				$this->setError(JText::_('COM_NTRIP_ERROR_UNIQUE_ALIAS'));
+				$this->setError(JText::_('Error: Unique Alias'));
 				return false;
 			}
 			
@@ -111,7 +111,7 @@ class Jnt_HanhphucTableAlbum extends JTable
 			// Verify that the alias is unique
 			$table = JTable::getInstance('Album', 'Jnt_HanhphucTable');
 			if ($table->load(array('alias'=>$this->alias, 'catid'=>$this->catid)) && ($table->id != $this->id || $this->id==0)) {
-				$this->setError(JText::_('COM_NTRIP_ERROR_UNIQUE_ALIAS'));
+				$this->setError(JText::_('Error: Unique Alias'));
 				return false;
 			}
 

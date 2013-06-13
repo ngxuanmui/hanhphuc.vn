@@ -12,7 +12,7 @@ class HP_User_Toolbar
 		
 		$id = JRequest::getInt('id');
 		
-		$txtButton = ($id) ? 'Hủy thay đổi' : 'Hủy bỏ';
+		$txtButton = ($id) ? 'Quay về Danh sách' : 'Hủy bỏ';
 		
 		$html[] = '<button id="btn-cancel" class="button cancel" rel="'.$controller.'.cancel">'.$txtButton.'</button>';
 		

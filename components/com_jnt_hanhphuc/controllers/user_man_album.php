@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_ntrip
+ * @subpackage  com_jnt_hanhphuc
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -16,7 +16,7 @@ jimport('joomla.application.component.controllerform');
  * Album controller class.
  *
  * @package     Joomla.Administrator
- * @subpackage  com_ntrip
+ * @subpackage  com_jnt_hanhphuc
  * @since       1.6
  */
 class Jnt_HanhphucControllerUser_Man_Album extends JControllerForm
@@ -25,7 +25,7 @@ class Jnt_HanhphucControllerUser_Man_Album extends JControllerForm
 	 * @var    string  The prefix to use with controller messages.
 	 * @since  1.6
 	 */
-	protected $text_prefix = 'COM_NTRIP_ALBUM';
+	protected $text_prefix = 'COM_JNT_HANH_PHUC_ALBUM';
 
 	/**
 	 * Method override to check if you can add a new record.
@@ -56,7 +56,7 @@ class Jnt_HanhphucControllerUser_Man_Album extends JControllerForm
 
 		if (isset($data['id']) && (int) $data['id'] > 0)
 		{
-			if (!NtripFrontHelper::checkUserPermissionOnItem($data['id'], '#__hp_albums'))
+			if (!FrontJntHanhphucHelper::checkUserPermissionOnItem($data['id'], '#__hp_albums'))
 				return false;
 		}
 		

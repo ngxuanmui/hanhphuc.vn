@@ -6,8 +6,6 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('HotelsHelper', JPATH_COMPONENT.'/helpers/hotels.php');
-
 /**
  * View to edit a hotel.
  *
@@ -15,7 +13,7 @@ JLoader::register('HotelsHelper', JPATH_COMPONENT.'/helpers/hotels.php');
  * @subpackage	com_ntrip
  * @since		1.5
  */
-class NtripViewUploadFile extends JViewLegacy
+class Jnt_HanhphucViewUploadFile extends JViewLegacy
 {
 	/**
 	 * Display the view

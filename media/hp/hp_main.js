@@ -22,7 +22,6 @@ jQuery(function($){
 		
 		validate = form.validate({ errorPlacement: function(error, element) {} });
 		
-		return false;
 		// submit form
 		if (validate)
 			form.submit();

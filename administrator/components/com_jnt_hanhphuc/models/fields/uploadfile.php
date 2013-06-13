@@ -77,11 +77,11 @@ class JFormFieldUploadFile extends JFormFieldList
 	{
 		JHtml::_('behavior.modal');
 		
-		$linkUploadFile = JRoute::_('index.php?option=com_ntrip&view=uploadfile&tmpl=component&format=raw', false);
+		$linkUploadFile = JRoute::_('index.php?option=com_jnt_hanhphuc&view=uploadfile&tmpl=component&format=raw', false);
 		
 		$html = '<div class="fltlft" style="line-height: 23px;" id="uploaded">';
 		
-		$html .= '<a href="'.$linkUploadFile.'" class="clear modal button" rel="{handler: \'iframe\', closable: 0}" id="uploadfile">Thêm ảnh</a>';
+		$html .= '<a href="'.$linkUploadFile.'" class="clear modal button" rel="{handler: \'iframe\', closable: 1}" id="uploadfile">Thêm ảnh</a>';
 				
 		$html .= '</div><div class="clear" style="margin: 10px 0;"></div>';
 		

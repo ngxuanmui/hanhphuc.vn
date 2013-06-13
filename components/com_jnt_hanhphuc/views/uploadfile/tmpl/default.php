@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-$jqueryUploadFilePath = JURI::root() . 'media/jquery-ui-upload/';
+$jqueryUploadFilePath = JURI::root() . 'media/hp/jquery-ui-upload/';
 ?>
 
 <!-- jQuery UI styles -->
@@ -135,7 +135,7 @@ $jqueryUploadFilePath = JURI::root() . 'media/jquery-ui-upload/';
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
         xhrFields: {withCredentials: false},
-        url: '<?php echo JRoute::_('index.php?option=com_ntrip&task=uploadfile.handle', false); ?>'
+        url: '<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=uploadfile.handle', false); ?>'
     });
     
     $('#fileupload').bind('fileuploadsubmit', function (e, data) {
@@ -152,7 +152,7 @@ $jqueryUploadFilePath = JURI::root() . 'media/jquery-ui-upload/';
     })
     
 $('#btn-close-add').click(function(){
-    var url = '<?php echo JRoute::_('index.php?option=com_ntrip&task=uploadfile.close', false); ?>';
+    var url = '<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=uploadfile.close', false); ?>';
     $.get(url, {}, function(data){
 		
 		if (data.length > 0)

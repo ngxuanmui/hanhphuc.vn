@@ -241,3 +241,5 @@ table.gridtable td {
 .frm-shipping ul li { float: left; width: 600px; margin: 3px 0; }
 .frm-shipping ul li label { float: left; width: 150px; }
 .frm-shipping ul li input { float: left; padding: 3px 5px; width: 200px; }
+
+fieldset { border: none; }

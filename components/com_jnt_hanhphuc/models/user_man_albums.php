@@ -12,7 +12,7 @@ jimport('joomla.application.component.modellist');
  * Methods supporting a list of album records.
  *
  * @package		Joomla.Administrator
- * @subpackage	com_ntrip
+ * @subpackage	com_jnt_hanhphuc
  * @since		1.6
  */
 class Jnt_HanhphucModelUser_Man_Albums extends JModelList
@@ -224,7 +224,7 @@ class Jnt_HanhphucModelUser_Man_Albums extends JModelList
 		$this->setState('filter.language', $language);
 
 		// Load the parameters.
-		//$params = JComponentHelper::getParams('com_ntrip');
+		//$params = JComponentHelper::getParams('com_jnt_hanhphuc');
 		//$this->setState('params', $params);
 
 		// List state information.

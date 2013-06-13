@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_ntrip
+ * @subpackage  com_jnt_hanhphuc
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -17,27 +17,23 @@ $items = $this->items;
 
 <div class="container">
     <div class="float-left left-side">
-		<div class="sub-container list-services relative">
+		<div class="sub-container list-items relative">
 			<div class="list-items-container" style="padding: 10px 0; margin-top: 0">
 				<form method="post" action="<?php echo ''; ?>" name="userForm">
 					<table class="list-user-hotels" cellpadding="10" border="0" cellspacing="0" width="98%">
 						<tr class="oven">
 							<th>Tiêu đề</th>
-							<th>Tỉnh thành</th>
-							<th>Rating</th>
+							<th>Danh mục</th>
 							<th>Trạng thái</th>
 						</tr>
 						<?php foreach ($items as $key => $item): ?>
 						<tr class="<?php if (($key+1) %2 == 0) echo 'oven' ?>">
 							<td>
-								<a href="<?php echo JRoute::_('index.php?option=com_ntrip&task=user_man_hotel.edit&id='. $item->id . '&Itemid=' . JRequest::getInt('Itemid'), false); ?>">
+								<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_album.edit&id='. $item->id . '&Itemid=' . JRequest::getInt('Itemid'), false); ?>">
 									<?php echo $item->name; ?>
 								</a>
 							</td>
 							<td><?php echo $item->category_title; ?></td>
-							<td>
-								<span class="full-star-over fltlft"><span class="star<?php echo round($item->user_rank); ?>"></span></span>
-							</td>
 							<td><?php echo ($item->state == 1) ? 'Yes' : 'No'; ?></td>
 						</tr>
 						<?php endforeach; ?>
