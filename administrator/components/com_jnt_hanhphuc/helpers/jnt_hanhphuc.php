@@ -90,16 +90,16 @@ class Jnt_HanhPhucHelper
 	    
 	    foreach ($images as $img)
 	    {
-		$src = $tmpFolder . $img;
-		$dest = $destFolder . $img;
-		
-		copy($src, $dest);
-		copy($tmpThumbFolder . $img, $destThumbFolder . $img);
+			$src = $tmpFolder . $img;
+			$dest = $destFolder . $img;
+			
+			copy($src, $dest);
+			copy($tmpThumbFolder . $img, $destThumbFolder . $img);
 	    }
 	    
 	    // delete tmp folder
 	    if (is_dir($tmpFolder))
-		JFolder::delete($tmpFolder);
+			JFolder::delete($tmpFolder);
 	}
 	
 	static function insertImages($itemId, $images = array(), $desc = array(), $itemType = 'hotels')
@@ -132,9 +132,9 @@ class Jnt_HanhPhucHelper
 	    // get old images
 	    $images = Jnt_HanhphucHelper::getImages($itemId, $itemType);
 		
-//		var_dump($images, $curentImages, $currentDesc);
-//		
-//		die;
+// 		var_dump($images, $curentImages, $currentDesc);
+		
+// 		die;
 	    
 	    foreach ($images as $img)
 	    {

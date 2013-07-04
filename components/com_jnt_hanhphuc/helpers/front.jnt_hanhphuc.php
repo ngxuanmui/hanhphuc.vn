@@ -43,10 +43,10 @@ class FrontJntHanhphucHelper
 		$query = $db->getQuery(true);
 		 
 		$query->select('*')
-		->from('#__ntrip_images')
-		->where('item_id = ' . $itemId)
-		->where('item_type = "'.$itemType.'"');
-		 
+				->from('#__hp_images')
+				->where('item_id = ' . $itemId)
+				->where('item_type = "'.$itemType.'"');
+		
 		$db->setQuery($query);
 		$rs = $db->loadObjectList('id');
 		 

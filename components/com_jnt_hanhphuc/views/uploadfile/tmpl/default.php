@@ -5,7 +5,7 @@ $jqueryUploadFilePath = JURI::root() . 'media/hp/jquery-ui-upload/';
 ?>
 
 <!-- jQuery UI styles -->
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" id="theme">
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/base/jquery-ui.css" id="theme">
 <!-- CSS to style the file input field as button and adjust the jQuery UI progress bars -->
 <link rel="stylesheet" href="<?php echo $jqueryUploadFilePath; ?>css/jquery.fileupload-ui.css">
 <!-- CSS adjustments for browsers with JavaScript disabled -->
@@ -117,9 +117,9 @@ $jqueryUploadFilePath = JURI::root() . 'media/hp/jquery-ui-upload/';
 </script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-<script src="http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"></script>
-<script src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
-<script type="text/javascript" src="http://blueimp.github.com/JavaScript-Canvas-to-Blob/canvas-to-blob.min.js"></script>
+<script src="<?php echo JURI::root(); ?>media/hp/tmpl.min.js"></script>
+<script src="<?php echo JURI::root(); ?>media/hp/load-image.min.js"></script>
+<script type="text/javascript" src="<?php echo JURI::root(); ?>media/hp/canvas-to-blob.min.js"></script>
 <script type="text/javascript" src="<?php echo $jqueryUploadFilePath; ?>js/jquery.iframe-transport.js"></script>
 <script type="text/javascript" src="<?php echo $jqueryUploadFilePath; ?>js/jquery.fileupload.js"></script>
 <script type="text/javascript" src="<?php echo $jqueryUploadFilePath; ?>js/jquery.fileupload-fp.js"></script>

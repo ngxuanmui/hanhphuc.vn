@@ -219,12 +219,13 @@ class Jnt_HanhphucModelUser_Man_Album extends JModelAdmin
 			$currentImages = (isset($_POST['current_images'])) ? $_POST['current_images'] : array();
 			$currentDesc = (isset($_POST['current_desc'])) ? $_POST['current_desc'] : array();
 			Jnt_HanhPhucHelper::updateImages($id, $currentImages, $currentDesc, 'albums');
-
+			
 			// Temp files
 			if (isset($_POST['tmp_other_img']))
 			{
 				// Copy file 
 				Jnt_HanhPhucHelper::copyTempFiles($id, $_POST['tmp_other_img'], 'albums');
+				
 				// Insert images
 				Jnt_HanhPhucHelper::insertImages($id, $_POST['tmp_other_img'], $_POST['tmp_desc'], 'albums');
 			}
