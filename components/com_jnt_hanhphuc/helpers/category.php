@@ -21,5 +21,10 @@ jimport('joomla.application.categories');
  */
 class Jnt_HanhphucCategories extends JCategories
 {
-	
+	public function __construct($options = array())
+	{
+		$options['table'] = '';
+		$options['extension'] = 'com_jnt_hanhphuc';
+		parent::__construct($options);
+	}
 }

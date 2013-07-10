@@ -52,4 +52,17 @@ class FrontJntHanhphucHelper
 		 
 		return $rs;
 	}
+	
+	public static function getProvinces()
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		 
+		$query->select('*')->from('#__hp_location_province');
+		
+		$db->setQuery($query);
+		$rs = $db->loadObjectList('id');
+		 
+		return $rs;
+	}
 }

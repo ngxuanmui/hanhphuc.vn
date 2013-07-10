@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		Joomla.Site
- * @subpackage	mod_stats
+ * @subpackage	mod_jnt_hanhphuc_search_form
  * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -15,7 +15,7 @@ require_once dirname(__FILE__).'/helper.php';
 $serverinfo = $params->get('serverinfo');
 $siteinfo	= $params->get('siteinfo');
 
-$list = modStatsHelper::getList($params);
+$list = modJnt_Hanhphuc_Serach_FromHelper::getList($params);
 $moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
 
-require JModuleHelper::getLayoutPath('mod_stats', $params->get('layout', 'default'));
+require JModuleHelper::getLayoutPath('mod_jnt_hanhphuc_search_form', $params->get('layout', 'default'));

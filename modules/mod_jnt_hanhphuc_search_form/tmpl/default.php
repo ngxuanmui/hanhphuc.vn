@@ -3,6 +3,9 @@
 // no direct access
 defined('_JEXEC') or die;
 
+$categories = $list['categories'];
+$provinces = $list['provinces'];
+
 ?>
 
 <p class="search-text">TÌM KIẾM DỊCH VỤ CƯỚI</p>
@@ -18,10 +21,21 @@ defined('_JEXEC') or die;
 	</p>
 	<div>
 		<select>
-			<option>Chọn dịch vụ</option>
-		</select> <select>
-			<option>Tỉnh / Thành</option>
-		</select> <select>
+			<option value="">Chọn dịch vụ</option>
+			<?php foreach ($categories as $cat): ?>
+			<option value="<?php echo $cat->id; ?>"><?php echo $cat->title; ?></option>
+				<?php foreach ($cat->subCategories as $subCat): ?>
+				<option value="<?php echo $subCat->id; ?>">&nbsp; &nbsp; <?php echo $subCat->title; ?></option>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
+		</select> 
+		<select>
+			<option value="">Lựa chọn Tỉnh / Thành</option>
+			<?php foreach ($provinces as $key => $val): ?>
+			<option value="<?php echo $key; ?>"><?php echo $val->title; ?></option>
+			<?php endforeach; ?>
+		</select> 
+		<select>
 			<option>Quận / Huyện</option>
 		</select>
 	</div>
