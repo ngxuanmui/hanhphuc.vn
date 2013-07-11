@@ -17,6 +17,9 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_banners')) {
 // Include dependancies
 jimport('joomla.application.component.controller');
 
+// Helper
+require_once JPATH_COMPONENT.'/helpers/jnt_hanhphuc.php';
+
 // Execute the task.
 $controller	= JController::getInstance('Jnt_HanhPhuc');
 $controller->execute(JRequest::getCmd('task'));

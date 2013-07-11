@@ -10,13 +10,13 @@
 		<field name="name" type="text" class="inputbox" required="true"
 			size="40" label="Album" />
 
-		<!--field name="catid" type="categoryedit" extension="com_ntrip"
-			label="COM_NTRIP_FIELD_LOCATION_LABEL"
+		<field name="catid" type="categoryedit" extension="com_jnt_hanhphuc.albums"
+			label="Category"
 			class="inputbox" required="true"
 			addfieldpath="/administrator/components/com_categories/models/fields"
 		>
-			<option value="">Lựa chọn Tỉnh / Thành</option>
-		</field-->
+			<option value="">Chọn danh mục</option>
+		</field>
 
 		<field name="images" type="file" class="inputbox"
 			size="40" label="Image" />

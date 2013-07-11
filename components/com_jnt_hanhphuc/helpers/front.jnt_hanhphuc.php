@@ -62,6 +62,9 @@ class FrontJntHanhphucHelper
 		
 		$db->setQuery($query);
 		$rs = $db->loadObjectList('id');
+		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
 		 
 		return $rs;
 	}

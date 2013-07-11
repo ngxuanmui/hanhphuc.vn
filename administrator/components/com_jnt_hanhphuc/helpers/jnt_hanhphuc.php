@@ -40,6 +40,18 @@ class Jnt_HanhPhucHelper
 			'index.php?option=com_jnt_hanhphuc&view=orders',
 			$vName == 'orders'
 		);
+		
+		JSubMenuHelper::addEntry(
+			'Album Categories',
+			'index.php?option=com_categories&extension=com_jnt_hanhphuc.albums',
+			$vName == 'categories'
+		);
+		
+		JSubMenuHelper::addEntry(
+			'Albums',
+			'index.php?option=com_jnt_hanhphuc&view=albums',
+			$vName == 'albums'
+		);
 
 	}
 

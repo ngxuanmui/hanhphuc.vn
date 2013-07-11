@@ -29,10 +29,11 @@ $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 
 							<li><?php echo $this->form->getLabel('alias'); ?>
 							<?php echo $this->form->getInput('alias'); ?></li>
-
-							<?php /*
+							
 							<li><?php echo $this->form->getLabel('catid'); ?>
 							<?php echo $this->form->getInput('catid'); ?></li>
+							
+							<?php /*
 
 							<li><?php echo $this->form->getLabel('state'); ?>
 							<?php echo $this->form->getInput('state'); ?></li>

@@ -56,9 +56,6 @@ class Jnt_HanhphucTableAlbum extends JTable
 		if ($this->state < 0) {
 			// Set ordering to 0 if state is archived or trashed
 			$this->ordering = 0;
-		} elseif (empty($this->ordering)) {
-			// Set ordering to last if ordering was 0
-			$this->ordering = self::getNextOrder($this->_db->quoteName('catid').'=' . $this->_db->Quote($this->catid).' AND state>=0');
 		}
 
 		return true;
@@ -86,11 +83,11 @@ class Jnt_HanhphucTableAlbum extends JTable
 			}
 			
 			// Verify that the alias is unique
-			$table = JTable::getInstance('Album', 'Jnt_HanhphucTable');
-			if ($table->load(array('alias'=>$this->alias, 'catid'=>$this->catid)) && ($table->id != $this->id || $this->id==0)) {
-				$this->setError(JText::_('Error: Unique Alias'));
-				return false;
-			}
+// 			$table = JTable::getInstance('Album', 'Jnt_HanhphucTable');
+// 			if ($table->load(array('alias'=>$this->alias, 'catid'=>$this->catid)) && ($table->id != $this->id || $this->id==0)) {
+// 				$this->setError(JText::_('Error: Unique Alias'));
+// 				return false;
+// 			}
 			
 			// Store the row
 			parent::store($updateNulls);
@@ -109,11 +106,11 @@ class Jnt_HanhphucTableAlbum extends JTable
 			}
 
 			// Verify that the alias is unique
-			$table = JTable::getInstance('Album', 'Jnt_HanhphucTable');
-			if ($table->load(array('alias'=>$this->alias, 'catid'=>$this->catid)) && ($table->id != $this->id || $this->id==0)) {
-				$this->setError(JText::_('Error: Unique Alias'));
-				return false;
-			}
+// 			$table = JTable::getInstance('Album', 'Jnt_HanhphucTable');
+// 			if ($table->load(array('alias'=>$this->alias, 'catid'=>$this->catid)) && ($table->id != $this->id || $this->id==0)) {
+// 				$this->setError(JText::_('Error: Unique Alias'));
+// 				return false;
+// 			}
 
 			// Store the new row
 			parent::store($updateNulls);
