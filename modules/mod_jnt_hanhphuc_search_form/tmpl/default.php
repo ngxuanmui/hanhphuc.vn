@@ -6,6 +6,7 @@ defined('_JEXEC') or die;
 $categories = $list['categories'];
 $provinces = $list['provinces'];
 
+$jinput = JFactory::getApplication()->input;
 ?>
 
 <script type="text/javascript">
@@ -35,13 +36,16 @@ jQuery(function($){
 	<span></span>
 </div>
 
-<form id="frm-search-service">
+<form id="frm-search-service" method="get" action="index.php">
+	<input type="hidden" name="option" value="com_jnt_hanhphuc" />
+	<input type="hidden" name="view" value="search" />
+		
 	<p>
 		Chú ý: <span>Chọn một trong các lựa chọn bên dưới rồi nhấn vào Tìm
 			kiếm để tìm kiếm dịch vụ.</span>
 	</p>
 	<div>
-		<select>
+		<select name="catid">
 			<option value="">Chọn dịch vụ</option>
 			<?php foreach ($categories as $cat): ?>
 			<option value="<?php echo $cat->id; ?>"><?php echo $cat->title; ?></option>
@@ -57,15 +61,16 @@ jQuery(function($){
 			<?php endforeach; ?>
 		</select>
 		<span id="district">
-			<select>
-				<option>Quận / Huyện</option>
+			<select name="district">
+				<option value="">Chọn Quận / Huyện</option>
 			</select>
 		</span>
 	</div>
 
 	<div>
 		<input type="text" placeholder="Gõ tên nhà cung cấp dịch vụ">
-		<button type="button">Tìm kiếm dịch vụ</button>
+		
+		<button type="submit">Tìm kiếm dịch vụ</button>
 	</div>
 
 </form>
