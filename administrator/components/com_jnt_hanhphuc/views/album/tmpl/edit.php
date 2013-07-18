@@ -33,7 +33,7 @@ $jqueryFileUploadPath = JURI::root() . 'media/jquery-ui-upload/';
 <form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="album-form" class="form-validate" enctype="multipart/form-data">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
-			<legend><?php echo empty($this->item->id) ? JText::_('COM_NTRIP_NEW_HOTEL') : JText::sprintf('COM_NTRIP_HOTEL_DETAILS', $this->item->id); ?></legend>
+			<legend><?php echo empty($this->item->id) ? JText::_('New Album') : JText::sprintf('Edit Album', $this->item->id); ?></legend>
 			<ul class="adminformlist">
 				<li><?php echo $this->form->getLabel('name'); ?>
 				<?php echo $this->form->getInput('name'); ?></li>
@@ -91,8 +91,6 @@ $jqueryFileUploadPath = JURI::root() . 'media/jquery-ui-upload/';
 			<div class="clr"> </div>
 			<?php echo $this->form->getInput('description'); ?>
 			
-			<div class="clr"> </div>
-			<?php echo $this->form->getInput('images2content'); ?>
 			<div class="clr"> </div>
 			
 		</fieldset>

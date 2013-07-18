@@ -1,104 +1,75 @@
 <?php
-/**
- * @version		$Id: default.php 21097 2011-04-07 15:38:03Z dextercowley $
- * @package		Joomla.Site
- * @subpackage	com_contact
- * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- */
 
-// no direct access
+// No direct access
 defined('_JEXEC') or die;
-$app = JFactory::getApplication();
-$type 		= $app->getUserState('business.service.search.type');
-$city 		= $app->getUserState('business.service.search.city');
-$district 	= $app->getUserState('business.service.search.district');
-$search 	= $app->getUserState('business.service.search.search');
+
 ?>
-<script src="<?php echo JURI::root() ?>components/com_users/helpers/html/js/jquery-1.6.1.js" type="text/javascript"></script>
-<script src="<?php echo JURI::root() ?>components/com_users/helpers/html/js/jquery.vnlocation.js" type="text/javascript"></script>
-<script type="text/javascript">
-    jQuery.noConflict();
-    jQuery(document).ready(function($){
-        $(document).vnlocation({
-            province: '#search-city',
-            current_province: "<?php echo $city ?>",
-            district: '#search-district',
-            current_district: "<?php echo $district ?>"
-        });
-        $("#search-type").change(function(){
-            $("#search-city").val('');
-        });
-        $("#search-city").change(function(){
-            $("#search-type").val('0');
-        });
-    });
-    
-</script>
-<div class="services">
-	<div class="services-search-form">
-		<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=search')?>" method="post">
-			<label for="search-type">Loại dịch vụ:</label>
-			<select id="search-type" name="type">
-				<option value="0">Tất cả</option>
-				<?php foreach($this->categories as $category):?>
-				<option value="<?php echo $category->id?>" <?php if($category->id == $type) echo 'selected="selected"'?>><?php if($category->level > 1) echo '--'?>  <?php echo $category->title?></option>
-				<?php endforeach;?>
-			</select>
-			<br/>
-			<label for="search-city">Địa điểm: </label>
-			<select id="search-city" name="city"></select>
-			<select id="search-district" name="district"></select>
-			<br/>
-			<label for="search-search">Từ khóa:</label>
-			<input id="search-search" type="text" name="search" size = "30"/>
-			<br/>
-			<input type="submit" value="Tìm kiếm" />
-		</form>
+
+<div class="container">
+    <div class="float-left left-side">
+		<div class="sub-container">
+			<?php echo JEUtil::loadModule('jnt_hanhphuc_search_form'); ?>
+		</div>
+		
+		<div class="sub-container">
+			<div>
+				<ul class="list-service-categories">
+					<li>
+						<h1 class="category-title">Kết quả tìm kiếm</h1>
+						<div class="line-break-news"><span></span></div>
+						<ul class="list-service-items fltlft">
+							<?php foreach ($this->items as $user): ?>
+							<li class="fltlft">
+								<div class="image fltlft">
+									Avatar
+								</div>
+								<div class="fltlft info">
+									<a class="title" href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&user='.$user->id.'-'.$user->username); ?>">
+										<?php echo $user->name; ?>
+									</a>
+									<p>Địa chỉ: </p>
+									<p>Số điện thoại: </p>
+								</div>
+								<div class="clr"></div>
+							</li>
+							<?php endforeach; ?>
+						</ul>
+						<div class="clr"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
-	<?php if($this->items):?>
-	<div class="services-list">
-		<ul>
-			<?php foreach($this->items as $item):?>
-			<li>
-				<div class="service-business-detail">
-					<h3>
-						<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$item->serviceInfo->cat_id.'&bid='.$item->id)?>"><?php echo $item->profile->business_name?></a>
-					</h3>
-					<?php
-					$logo = !empty($item->profile->business_logo) ? 'users/'.$item->id.'/'.$item->profile->business_logo : 'default/logo.png'; 
-					?>
-					<img width="100px" height="90px" alt="<?php echo $item->profile->business_name?>-logo" src="<?php echo JURI::base()?>images/<?php echo $logo?>">
-					<div>
-						<p class="contact">
-							<ul>
-								<li>
-									Địa chỉ: <?php echo $item->profile->business_address?>
-									<br/>
-									<?php echo $item->profile->business_village?> - <?php echo $item->profile->business_district?> - <?php echo $item->profile->business_city?>
-								</li>
-								<li>
-									Email: <?php echo $item->email?>
-								</li>
-								<li>
-									Điện thoại: <?php echo $item->profile->business_phone?>
-								</li>
-							</ul>
-						</p>
+	<div class="float-right right-side">
+		<?php echo JEUtil::loadModule('right', 'module-padding'); ?>
+		
+		<div class="module-title module-padding">THÔNG TIN KHUYẾN MẠI</div>
+		<div class="line-break-promotion"><span></span></div>
+		<div class="box">
+			<ul class="news-other-list">
+				<li>
+					Áo cưới: ....
+				</li>
+			</ul>
+		</div>
+		
+		<div class="module-title module-padding">DOANH NGHIỆP TIÊU BIỂU</div>
+		<div class="line-break"></div>
+		<div class="box">
+			<ul>
+				<li>
+					<div class="img">
+						img here
 					</div>
-				</div>
-			</li>
-			<?php endforeach;?>
-		</ul>
-	</div>
-	<?php else:?>
-	<div class = "services-noservice">
-		Hiện không có danh nghiệp nào cung cấp dịch vụ này!
-	</div>
-	<?php endif;?>
-	<div class="services-pagination">
-		<?php echo $this->pagination->getPagesLinks()?>
-	</div>
+					<div class="bussiness-focus-info">
+						<p class="title">Áo cưới</p>
+						<p class="address">Địa chỉ</p>
+						<p class="phone">Điện thoại</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+    </div>
 </div>
 
-
+<div class="clr"></div>

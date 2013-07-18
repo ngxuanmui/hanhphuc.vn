@@ -31,7 +31,7 @@ if (in_array($extension, $extensions))
 			$obj->setProportionalFlag('V');
 			$obj->setProportional(1);
 // 			$obj->setDegrees(90);
-			$obj->setNewSize(600, 600);
+			$obj->setNewSize(60000, 60000);
 			$obj->make();
 		}
 		catch (Exception $e) 

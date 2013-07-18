@@ -23,6 +23,8 @@ class modJnt_Hanhphuc_Serach_FromHelper
 		$result	= array();
 		$query	= $db->getQuery(true);
 		
+		jimport('joomla.application.categories');
+		
 		$catObj = JCategories::getInstance('JNT_Hanhphuc');
 		
 		$categories = $catObj->get()->getChildren();

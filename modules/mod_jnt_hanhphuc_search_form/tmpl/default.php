@@ -48,9 +48,9 @@ jQuery(function($){
 		<select name="catid">
 			<option value="">Chọn dịch vụ</option>
 			<?php foreach ($categories as $cat): ?>
-			<option value="<?php echo $cat->id; ?>"><?php echo $cat->title; ?></option>
+			<option value="<?php echo $cat->id; ?>" <?php if ($jinput->get('catid') == $cat->id) echo 'selected'; ?>><?php echo $cat->title; ?></option>
 				<?php foreach ($cat->subCategories as $subCat): ?>
-				<option value="<?php echo $subCat->id; ?>">&nbsp; &nbsp; <?php echo $subCat->title; ?></option>
+			<option value="<?php echo $subCat->id; ?>" <?php if ($jinput->get('catid') == $subCat->id) echo 'selected'; ?>>&nbsp; &nbsp; <?php echo $subCat->title; ?></option>
 				<?php endforeach; ?>
 			<?php endforeach; ?>
 		</select>
@@ -68,7 +68,7 @@ jQuery(function($){
 	</div>
 
 	<div>
-		<input type="text" placeholder="Gõ tên nhà cung cấp dịch vụ">
+		<input type="text" placeholder="Gõ tên nhà cung cấp dịch vụ" name="search">
 		
 		<button type="submit">Tìm kiếm dịch vụ</button>
 	</div>

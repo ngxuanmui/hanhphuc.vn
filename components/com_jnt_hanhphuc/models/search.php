@@ -23,7 +23,7 @@ class Jnt_HanhPhucModelSearch extends JModelList {
 	 * @return	string	An SQL query
 	 * @since	1.6
 	 */
-	protected function getListQuery() {
+	protected function ___getListQuery() {
 		$app = JFactory::getApplication();
 		$type 		= $app->getUserState('business.service.search.type');
 		$city 		= $app->getUserState('business.service.search.city');
@@ -52,13 +52,31 @@ class Jnt_HanhPhucModelSearch extends JModelList {
         return $query;
 	}
 	
+	protected function getListQuery()
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+
+		$query->select('*')
+				->from('#__users');
+				
+		$catId = JRequest::getInt('catid');
+		
+		if ($catId)
+			$query->where('id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND category = '. (int) $catId .' ORDER BY id DESC)');
+		
+		#echo $query;
+		
+		return $query;
+	}
+
 	/**
 	 * Method to get an array of data items.
 	 *
 	 * @return	mixed	An array of data items on success, false on failure.
 	 * @since	1.6
 	 */
-	public function getItems() {
+	public function ___getItems() {
 		$serviceInfos = parent::getItems();
 		$businessInfos = array();
 		
