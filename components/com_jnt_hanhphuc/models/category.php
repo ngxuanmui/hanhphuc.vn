@@ -12,6 +12,8 @@
 // No direct access
 defined('_JEXEC') or die;
 
+jimport('joomla.application.component.modellist');
+
 /**
  * Categories model for the je_content component.
  *
@@ -19,24 +21,56 @@ defined('_JEXEC') or die;
  * @subpackage	com_je_content
  * @since		1.6
  */
-class Jnt_HanhphucModelCategory extends JModel
+class Jnt_HanhphucModelCategory extends JModelList
 {
-	public function getCategory()
-	{
-		jimport ('joomla.application.categories');
+// 	public function getCategory()
+// 	{
+// 		jimport ('joomla.application.categories');
 		
+// 		$id = JRequest::getUInt('id');
+		
+// 		$catObj = JCategories::getInstance('JNT_Hanhphuc', array('extension' => 'com_jnt_hanhphuc', 'table' => ''));
+		
+// 		$category = $catObj->get($id);
+		
+// 		$users = FrontJntHanhphucHelper::getUsers($category->id, 60);
+		
+// 		$category->users = $users;
+		
+// 		return $category;
+// 	}
+
+	protected function getListQuery()
+	{
 		$id = JRequest::getUInt('id');
+		
+		jimport ('joomla.application.categories');
 		
 		$catObj = JCategories::getInstance('JNT_Hanhphuc', array('extension' => 'com_jnt_hanhphuc', 'table' => ''));
 		
 		$category = $catObj->get($id);
 		
-		$users = FrontJntHanhphucHelper::getUsers($category->id);
+		$query = FrontJntHanhphucHelper::getUsers($category->id, true);
 		
-		$category->users = $users;
-		
-		return $category;
+		return $query;
 	}
 	
+	public function getItems()
+	{
+		$items = parent::getItems();
+		
+		return $items;
+	}
 	
+	protected function populateState($ordering = 'ordering', $direction = 'ASC')
+	{
+		$app = JFactory::getApplication();
+	
+		// List state information
+		$value = JRequest::getUInt('limit', $app->getCfg('list_limit', 0));
+		$this->setState('list.limit', $value);
+	
+		$value = JRequest::getUInt('limitstart', 0);
+		$this->setState('list.start', $value);
+	}
 }

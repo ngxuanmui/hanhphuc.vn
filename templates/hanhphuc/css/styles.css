@@ -243,3 +243,8 @@ table.gridtable td {
 .frm-shipping ul li input { float: left; padding: 3px 5px; width: 200px; }
 
 fieldset { border: none; }
+
+.right-side ul.menu { border: 1px solid #CCC; border-bottom: none; margin-top: 29px; }
+.right-side ul.menu li { padding: 0; padding-left: 15px; border-bottom: 1px solid #CCC; height: 29px; line-height: 29px; background: url('../images/bg-menu-right-menu.png') repeat-x; }
+.right-side ul.menu li.active { font-weight: bold; }
+.right-side ul.menu li.active a { font-size: 12px !important; }

@@ -12,20 +12,25 @@ $jinput = JFactory::getApplication()->input;
 <script type="text/javascript">
 <!--
 jQuery(function($){
-	$('#province').change(function(){
+	var $p = $('#province');
+	
+	$p.change(function(){
 		
 		$('#district').html('Vui lòng chờ ...');
 
 		var $t = $(this);
 		
 		$.post(
-				'index.php?option=com_jnt_hanhphuc&view=get_district&format=raw',
+				'index.php?option=com_jnt_hanhphuc&view=get_district&format=raw&district=<?php echo $jinput->get('district'); ?>',
 				{ 'id': $t.val() },
 				function(res){
 					$('#district').html(res);
 				}
 		);
 	});
+
+	if ($p.val() != '')
+		$p.change();
 });
 //-->
 </script>
@@ -57,7 +62,7 @@ jQuery(function($){
 		<select name="province" id="province">
 			<option value="">Lựa chọn Tỉnh / Thành</option>
 			<?php foreach ($provinces as $key => $val): ?>
-			<option value="<?php echo $key; ?>"><?php echo $val->title; ?></option>
+			<option value="<?php echo $key; ?>" <?php if ($jinput->get('province') == $val->id) echo 'selected'; ?>><?php echo $val->title; ?></option>
 			<?php endforeach; ?>
 		</select>
 		<span id="district">
@@ -68,7 +73,7 @@ jQuery(function($){
 	</div>
 
 	<div>
-		<input type="text" placeholder="Gõ tên nhà cung cấp dịch vụ" name="search">
+		<input type="text" placeholder="Gõ tên nhà cung cấp dịch vụ" name="search" value="<?php echo $jinput->getString('search', ''); ?>">
 		
 		<button type="submit">Tìm kiếm dịch vụ</button>
 	</div>

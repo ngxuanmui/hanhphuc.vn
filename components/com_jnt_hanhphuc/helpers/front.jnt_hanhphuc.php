@@ -2,17 +2,25 @@
 
 class FrontJntHanhphucHelper
 {
-	public function getUsers($catId)
+	public function getUsers($catId, $getQuery = false, $limit = 6)
 	{
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 
-		$query->select('*')
-				->from('#__users')
-				->where('id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND category = '. (int) $catId .' ORDER BY id DESC)');
-		$db->setQuery($query, 0, 6);
-
+		$query->select('DISTINCT u.id, u.*')
+				->from('#__users u')
+// 				->where('id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND category = '. (int) $catId .' ORDER BY id DESC)')
+				->join('INNER', '#__hp_business_service i ON u.id = i.business_id')
+				->where('i.category = ' . $catId . ' OR i.category IN (SELECT id FROM #__categories WHERE parent_id = '.$catId.')')
+				->order('u.id DESC')
+		;
+		
 // 		echo str_replace('#__', 'hp_', $query) . '; <br>';
+
+		if ($getQuery)
+			return $query;
+		
+		$db->setQuery($query, 0, $limit);
 
 		$rs = $db->loadObjectList();
 

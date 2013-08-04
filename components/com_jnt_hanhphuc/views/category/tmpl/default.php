@@ -19,7 +19,7 @@ $category = $this->category;
 						<h1 class="category-title"><?php echo $category->title; ?></h1>
 						<div class="line-break-news"><span></span></div>
 						<ul class="list-service-items fltlft">
-							<?php foreach ($category->users as $user): ?>
+							<?php foreach ($this->items as $user): ?>
 							<li class="fltlft">
 								<div class="image fltlft">
 									Avatar
@@ -38,6 +38,10 @@ $category = $this->category;
 						<div class="clr"></div>
 					</li>
 				</ul>
+				
+				<?php if (!empty($this->items)): ?>
+				<div class="pagination"><?php echo $this->pagination->getPagesLinks(); ?></div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
