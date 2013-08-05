@@ -3,16 +3,43 @@
 //require thumb lib
 require_once JPATH_ROOT . DS . 'jelibs/phpthumb/ThumbLib.inc.php';
 
-class JEUtil 
+class JEUtil
 {
-	function getRandomString($length = 7) 
+	public static function convertAlias( $str )
+	{
+		$str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $str);
+		$str = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);
+		$str = preg_replace("/(ì|í|ị|ỉ|ĩ)/", 'i', $str);
+		$str = preg_replace("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/", 'o', $str);
+		$str = preg_replace("/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $str);
+		$str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $str);
+		$str = preg_replace("/(đ)/", 'd', $str);
+	
+		$str = preg_replace("/(À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", 'A', $str);
+		$str = preg_replace("/(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)/", 'E', $str);
+		$str = preg_replace("/(Ì|Í|Ị|Ỉ|Ĩ)/", 'I', $str);
+		$str = preg_replace("/(Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/", 'O', $str);
+		$str = preg_replace("/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", 'U', $str);
+		$str = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", 'Y', $str);
+		$str = preg_replace("/(Đ)/", 'D', $str);
+	
+		$str = str_replace(
+				array('"', "'", '#', '!', '@', '$', '%', '^', '&', '*'),
+				'',
+				$str
+		);
+	
+		return $str;
+	}
+	
+	function getRandomString($length = 7)
 	{
 	    $validCharacters = "abcdefghijkmnpqrstuxyvwzABCDEFGHIJKLMNPQRSTUXYVWZ23456789";
 	    $validCharNumber = strlen($validCharacters);
 	 
 	    $result = "";
 	 
-	    for ($i = 0; $i < $length; $i++) 
+	    for ($i = 0; $i < $length; $i++)
 	    {
 	        $index = mt_rand(0, $validCharNumber - 1);
 	        $result .= $validCharacters[$index];
@@ -22,7 +49,7 @@ class JEUtil
 	}
 	
 	public function resizeImage($file, $thumbFile, $thumbW = null, $thumbH = null, $crop = true)
-	{ 
+	{
 		if(!$thumbW) $thumbW = 220;
 		if(!$thumbH) $thumbH = 60;
 		
@@ -40,14 +67,14 @@ class JEUtil
 	}
 	
 	function is_serialized($data)
-	{ 
-	    if (trim($data) == "") 
+	{
+	    if (trim($data) == "")
 	        return false;
 	    
 	    if (preg_match("/^(i|s|a|o|d)(.*);/si",$data))
 	        return true;
 	    
-	    return false; 
+	    return false;
 	}
 	
 	function thumb($images, $pathUpload, $pathThumb, $thumbW, $thumbH = null, $crop = true)

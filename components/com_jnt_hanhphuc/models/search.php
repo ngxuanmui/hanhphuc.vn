@@ -61,11 +61,23 @@ class Jnt_HanhPhucModelSearch extends JModelList {
 				->from('#__users');
 				
 		$catId = JRequest::getInt('catid');
+		$province = JRequest::getInt('province');
+		$district = JRequest::getInt('district');
+		$search = JRequest::getString('search');
 		
 		if ($catId)
 			$query->where('id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND category = '. (int) $catId .' ORDER BY id DESC)');
 		
-		#echo $query;
+		if ($search)
+			$query->where('(username LIKE ' . $db->quote('%' . $search . '%') . ' OR name LIKE '  . $db->quote('%' . $search . '%') . ')');
+		
+		if ($province)
+			$query->where('id IN (SELECT DISTINCT user_id FROM #__hp_business_profile WHERE business_city = '.$province.')');
+		
+		if ($district)
+			$query->where('id IN (SELECT DISTINCT user_id FROM #__hp_business_profile WHERE business_district = '.$district.')');
+		
+		//echo $query;
 		
 		return $query;
 	}
