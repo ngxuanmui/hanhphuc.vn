@@ -33,6 +33,9 @@ defined('_JEXEC') or die;
 								<div class="clr"></div>
 							</li>
 							<?php endforeach; ?>
+							<?php if (empty($this->items)): ?>
+							<li>Xin lỗi bạn. Không có kết quả phù hợp.</li>
+							<?php endif; ?>
 						</ul>
 						<div class="clr"></div>
 					</li>

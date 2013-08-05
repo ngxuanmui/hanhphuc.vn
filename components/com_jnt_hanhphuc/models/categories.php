@@ -33,7 +33,7 @@ class Jnt_HanhphucModelCategories extends JModel
 
 		$arrCat = array();
 		
-		foreach ($categories as $key => & $cat)
+		foreach ($categories as $key => $cat)
 		{
 			$sub = $cat->getChildren();
 			
