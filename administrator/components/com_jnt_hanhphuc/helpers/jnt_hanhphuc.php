@@ -52,7 +52,12 @@ class Jnt_HanhPhucHelper
 			'index.php?option=com_jnt_hanhphuc&view=albums',
 			$vName == 'albums'
 		);
-
+		
+		JSubMenuHelper::addEntry(
+			'Users',
+			'index.php?option=com_jnt_hanhphuc&view=users',
+			$vName == 'users'
+		);
 	}
 
 	/**
