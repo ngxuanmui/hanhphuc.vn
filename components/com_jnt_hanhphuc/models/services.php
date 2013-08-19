@@ -75,6 +75,14 @@ class Jnt_HanhPhucModelServices extends JModelList
 		
 		if ($userId)
 			$query .= ' AND business_id = ' . $userId;
+		
+		$db = JFactory::getDbo();
+		$db->setQuery($query);
+		
+		$rs = $db->loadObjectList();
+		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
 	
         return $query;
 	}

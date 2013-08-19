@@ -33,7 +33,7 @@ class Jnt_HanhphucModelUser extends JModelAdmin
 	 *
 	 * @since   1.6
 	*/
-	public function getTable($type = 'User', $prefix = 'Jnt_HanhphucTable', $config = array())
+	public function getTable($type = 'Hp_User', $prefix = 'Jnt_HanhphucTable', $config = array())
 	{
 		$table = JTable::getInstance($type, $prefix, $config);
 

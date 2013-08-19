@@ -18,7 +18,7 @@ jimport('joomla.database.table');
  * @subpackage  Table
  * @since       11.1
  */
-class Jnt_HanhphucTableUser extends JTable
+class Jnt_HanhphucTableHp_User extends JTable
 {
 	/**
 	 * Associative array of user names => group ids
@@ -515,7 +515,7 @@ class Jnt_HanhphucTableUser extends JTable
 		}
 
 		// Get an instance of the table
-		$table = JTable::getInstance('User', 'Jnt_HanhphucTable');
+		$table = JTable::getInstance('Hp_User', 'Jnt_HanhphucTable');
 
 		// For all keys
 		foreach ($pks as $pk)
