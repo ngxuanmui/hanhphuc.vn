@@ -22,14 +22,24 @@ $category = $this->category;
 							<?php foreach ($this->items as $user): ?>
 							<li class="fltlft">
 								<div class="image fltlft">
-									Avatar
+									<?php
+									$userLogo = $user->business_logo;
+									
+									if ($userLogo):
+									?>
+									<img src="<?php echo JURI::base(); ?>images/business/<?php echo $user->business_logo; ?>" />
+									<?php else: ?>
+									<img src="<?php echo JURI::base(); ?>images/no_business_logo.png" />
+									<?php endif; ?>
 								</div>
 								<div class="fltlft info">
-									<a class="title" href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&user='.$user->id.'-'.$user->username); ?>">
-										<?php echo $user->name; ?>
-									</a>
-									<p>Địa chỉ: </p>
-									<p>Số điện thoại: </p>
+									<h3>
+										<a class="title" href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&user='.$user->id.'-'.$user->username); ?>">
+											<?php echo $user->name; ?>
+										</a>
+									</h3>
+									<p><strong>Địa chỉ</strong>: <?php echo $user->business_address . ', ' . $user->ward_title . ', ' . $user->province_title; ?></p>
+									<p><strong>Số điện thoại</strong>: <?php echo $user->business_phone; ?></p>
 								</div>
 								<div class="clr"></div>
 							</li>
@@ -47,33 +57,6 @@ $category = $this->category;
 	</div>
 	<div class="float-right right-side">
 		<?php echo JEUtil::loadModule('right', 'module-padding'); ?>
-		
-		<div class="module-title module-padding">THÔNG TIN KHUYẾN MẠI</div>
-		<div class="line-break-promotion"><span></span></div>
-		<div class="box">
-			<ul class="news-other-list">
-				<li>
-					Áo cưới: ....
-				</li>
-			</ul>
-		</div>
-		
-		<div class="module-title module-padding">DOANH NGHIỆP TIÊU BIỂU</div>
-		<div class="line-break"></div>
-		<div class="box">
-			<ul>
-				<li>
-					<div class="img">
-						img here
-					</div>
-					<div class="bussiness-focus-info">
-						<p class="title">Áo cưới</p>
-						<p class="address">Địa chỉ</p>
-						<p class="phone">Điện thoại</p>
-					</div>
-				</li>
-			</ul>
-		</div>
     </div>
 </div>
 

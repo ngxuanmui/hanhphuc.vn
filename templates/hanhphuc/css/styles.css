@@ -86,7 +86,7 @@ ul.service li p { text-align: center; padding: 5px 0 10px 0; }
 .content .content-detail img { width: 207px; height: 119px; }
 .content .content-detail > div { width: 209px; }
 
-.image { width: 70px; height: 70px; margin: 10px; border: 1px solid #333; }
+.image { width: 70px; height: 70px; margin: 10px; border: 0px solid #333; }
 
 .sub-container .left { width: 440px; }
 .sub-container .left .items-category {  }
@@ -160,9 +160,10 @@ div.pagination ul li { float: left; padding: 2px 5px; }
 ul.list-service-categories { margin: 20px 0; }
 ul.list-service-categories > li { margin-bottom: 10px; }
 ul.list-service-categories > li > ul { padding: 25px 15px; border: 1px solid #CCC; width: 624px; }
-ul.list-service-categories > li > ul > li { width: 50%; margin-bottom: 10px; }
-ul.list-service-categories > li > ul > li .image { width: 60px; height: 60px; border: 1px solid #999; padding: 1px; overflow: hidden; margin: 0; margin-right: 10px; }
-ul.list-service-categories > li > ul > li .image img { width: 60px; }
+ul.list-service-categories > li > ul > li { width: 50%; margin-bottom: 10px; height: 85px; }
+ul.list-service-categories > li > ul > li .image { width: 60px; height: 60px; border: 0px solid #999; padding: 1px; overflow: hidden; margin: 0; margin-right: 10px; }
+
+.image img { width: 58px; }
 
 h1.category-title { font-size: 12px; padding-bottom: 5px; }
 
@@ -248,3 +249,12 @@ fieldset { border: none; }
 .right-side ul.menu li { padding: 0; padding-left: 15px; border-bottom: 1px solid #CCC; height: 29px; line-height: 29px; background: url('../images/bg-menu-right-menu.png') repeat-x; }
 .right-side ul.menu li.active { font-weight: bold; }
 .right-side ul.menu li.active a { font-size: 12px !important; }
+
+.menu-featured-users { width: 295px; }
+.menu-featured-users li { float: left; width: 50%; text-align: center; }
+.menu-featured-users li a { width: 100%; height: 20px; line-height: 20px; overflow: hidden; }
+
+.list-service-categories .info { width: 230px; }
+.info h3 { font-size: 13px; }
+
+.business-user-menu li a { background: url('../images/plus-icon.png') center right no-repeat; display: block; margin-right: 10px; }

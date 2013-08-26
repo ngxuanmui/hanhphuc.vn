@@ -111,33 +111,6 @@ $profile = $user->profile;
 	
 	<div class="float-right right-side">
 		<?php echo JEUtil::loadModule('right', 'module-padding'); ?>
-		
-		<div class="module-title module-padding">THÔNG TIN KHUYẾN MẠI</div>
-		<div class="line-break-promotion"><span></span></div>
-		<div class="box">
-			<ul class="news-other-list">
-				<li>
-					Áo cưới: ....
-				</li>
-			</ul>
-		</div>
-		
-		<div class="module-title module-padding">DOANH NGHIỆP TIÊU BIỂU</div>
-		<div class="line-break"></div>
-		<div class="box">
-			<ul>
-				<li>
-					<div class="img">
-						img here
-					</div>
-					<div class="bussiness-focus-info">
-						<p class="title">Áo cưới</p>
-						<p class="address">Địa chỉ</p>
-						<p class="phone">Điện thoại</p>
-					</div>
-				</li>
-			</ul>
-		</div>
     </div>
 </div>
 
