@@ -19,14 +19,12 @@ JHtml::_('behavior.keepalive');
 	} else : {
 		echo JText::sprintf('MOD_LOGIN_HINAME', htmlspecialchars($user->get('username')));
 	} endif; ?>
+	
+	<input type="submit" name="Submit" class="button logout-button" value="<?php echo JText::_('[ Thoát ]'); ?>" />
 	</div>
 <?php endif; ?>
 	<div class="logout-button">
-	<?php 
-	if ($user->user_type == 1)
-		echo JEUtil::loadModule('hp-business-menu');
-	?>
-		<input type="submit" name="Submit" class="button" value="<?php echo JText::_('JLOGOUT'); ?>" />
+		
 		<input type="hidden" name="option" value="com_users" />
 		<input type="hidden" name="task" value="user.logout" />
 		<input type="hidden" name="return" value="<?php echo $return; ?>" />
@@ -35,54 +33,43 @@ JHtml::_('behavior.keepalive');
 </form>
 <?php else : ?>
 <form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" method="post" id="login-form" >
-	<?php if ($params->get('pretext')): ?>
-		<div class="pretext">
-		<p><?php echo $params->get('pretext'); ?></p>
-		</div>
-	<?php endif; ?>
+	
 	<fieldset class="userdata">
-	<p id="form-login-username">
-		<label for="modlgn-username"><?php echo JText::_('MOD_LOGIN_VALUE_USERNAME') ?></label>
-		<input id="modlgn-username" type="text" name="username" class="inputbox"  size="18" />
+	<p id="form-login">
+		<input id="modlgn-username" type="text" name="username" class="inputbox"  size="18" placeholder="Email đăng nhập" />
+		
+		<input id="modlgn-passwd" type="password" name="password" class="inputbox" size="18" placeholder="Mật khẩu"  />
+		
+		<input type="submit" name="Submit" class="button login-button" value="&nbsp;" />
 	</p>
 	<p id="form-login-password">
-		<label for="modlgn-passwd"><?php echo JText::_('JGLOBAL_PASSWORD') ?></label>
-		<input id="modlgn-passwd" type="password" name="password" class="inputbox" size="18"  />
+		
 	</p>
 	<?php if (JPluginHelper::isEnabled('system', 'remember')) : ?>
-	<p id="form-login-remember">
-		<label for="modlgn-remember"><?php echo JText::_('MOD_LOGIN_REMEMBER_ME') ?></label>
-		<input id="modlgn-remember" type="checkbox" name="remember" class="inputbox" value="yes"/>
+	<p id="form-login-options">
+		<span class="remember">
+			<input id="modlgn-remember" type="checkbox" name="remember" class="inputbox" value="yes"/> Ghi nhớ
+		</span>
+		
+		<span class="options">
+			<a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>">
+				Quên mật khẩu
+			</a> |
+			<a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>">
+				Quên tên đăng nhập
+			</a> |
+			<a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>">
+				Đăng ký
+			</a>
+		</span>
 	</p>
 	<?php endif; ?>
-	<input type="submit" name="Submit" class="button" value="<?php echo JText::_('JLOGIN') ?>" />
+	
 	<input type="hidden" name="option" value="com_users" />
 	<input type="hidden" name="task" value="user.login" />
 	<input type="hidden" name="return" value="<?php echo $return; ?>" />
 	<?php echo JHtml::_('form.token'); ?>
 	</fieldset>
-	<ul>
-		<li>
-			<a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>">
-			<?php echo JText::_('MOD_LOGIN_FORGOT_YOUR_PASSWORD'); ?></a>
-		</li>
-		<li>
-			<a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>">
-			<?php echo JText::_('MOD_LOGIN_FORGOT_YOUR_USERNAME'); ?></a>
-		</li>
-		<?php
-		$usersConfig = JComponentHelper::getParams('com_users');
-		if ($usersConfig->get('allowUserRegistration')) : ?>
-		<li>
-			<a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>">
-				<?php echo JText::_('MOD_LOGIN_REGISTER'); ?></a>
-		</li>
-		<?php endif; ?>
-	</ul>
-	<?php if ($params->get('posttext')): ?>
-		<div class="posttext">
-		<p><?php echo $params->get('posttext'); ?></p>
-		</div>
-	<?php endif; ?>
+	
 </form>
 <?php endif; ?>

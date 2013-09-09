@@ -7,16 +7,8 @@
 			readonly="true" class="readonly"
 			label="JGLOBAL_FIELD_ID_LABEL" 	description ="JGLOBAL_FIELD_ID_DESC" />
 
-		<field name="name" type="text" class="inputbox" required="true"
-			size="40" label="Album" />
-
-		<field name="catid" type="category" extension="com_jnt_hanhphuc.albums"
-			label="Category"
-			class="inputbox" required="true"
-			addfieldpath="/administrator/components/com_categories/models/fields"
-		>
-			<option value="">Chọn danh mục</option>
-		</field>
+		<field name="nick_yahoo" type="text" class="inputbox" required="true"
+			size="40" label="Nick Yahoo" />
 
 		<field name="images" type="file" class="inputbox"
 			size="40" label="Image" />

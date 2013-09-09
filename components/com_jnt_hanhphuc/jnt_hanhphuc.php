@@ -25,7 +25,7 @@ require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/jnt_hanhphuc.php';
 require_once JPATH_COMPONENT.'/helpers/front.jnt_hanhphuc.php';
 require_once JPATH_COMPONENT.'/helpers/user_toolbar.php';
 
-// var_dump($_POST); die;
+// var_dump($_POST);
 
 // Execute the task.
 $controller	= JController::getInstance('Jnt_HanhPhuc');

@@ -18,6 +18,7 @@ a { text-decoration: none; color: #333; }
 
 .txt-left { text-align: left; }
 .txt-right { text-align: right; }
+.txt-center { text-align: center; }
 
 .margin-5 { margin: 5px; }
 .margin-top-bottom-5 { margin-top: 5px; margin-bottom: 5px; }
@@ -236,6 +237,31 @@ table.gridtable td {
 	background-color: #ffffff;
 }
 
+table.user-gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+	margin-bottom: 10px;
+}
+table.user-gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table.user-gridtable tr { border-bottom: 1px solid #CCC; }
+table.user-gridtable td {
+	border-width: 0px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+
 .shopping-cart h2 { font-size: 14px; margin: 10px 0 20px 0; }
 
 .frm-shipping ul { float: left; width: 650px; }
@@ -258,3 +284,24 @@ fieldset { border: none; }
 .info h3 { font-size: 13px; }
 
 .business-user-menu li a { background: url('../images/plus-icon.png') center right no-repeat; display: block; margin-right: 10px; }
+
+/* login form */
+#login-form { margin-top: 30px; }
+#modlgn-username, #modlgn-passwd { border: 1px solid #CCC; border-radius: 3px; padding: 3px 7px 4px; }
+.login-button { width: 41px !important; height: 24px; background: url('../images/btn-login.png') no-repeat; border: none; }
+.logout-button { background: none; border: none; color: red; padding: 0; }
+.logout-button:hover { border: none; color: red; }
+#form-login-options { margin-top: 5px; }
+#form-login-options .remember { line-height: 24px; }
+#form-login-options .options { margin-left: 15px; }
+
+.registration { margin-top: 10px; }
+.registration h1 { font-size: 13px; padding: 0 0 5px 0; color: #333; border-bottom: 1px solid #CCC; margin-bottom: 10px; }
+.registration label, .registration dt { float: left; width: 150px; margin-bottom: 10px; }
+.registration dd { float: left; width: 500px; }
+span.star { color: red; }
+
+.sub-container { margin: 20px 0; }
+ul.adminformlist li { margin: 5px 0; }
+ul.adminformlist li label { float: left; width: 100px; }
+#jform_description-lbl { float: left; padding-bottom: 5px; }

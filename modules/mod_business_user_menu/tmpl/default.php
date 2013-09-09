@@ -26,4 +26,14 @@ defined('_JEXEC') or die;
 			Album ảnh
 		</a>
 	</li>
+	<li class="item-244">
+		<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&amp;view=user_man_online_nicks&layout=edit', false); ?>">
+			Quản lý tài khoản chát Online
+		</a>
+	</li>
+	<li class="item-244">
+		<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&amp;view=user_man_albums', false); ?>">
+			Quản lý tin khuyến mại
+		</a>
+	</li>
 </ul>
