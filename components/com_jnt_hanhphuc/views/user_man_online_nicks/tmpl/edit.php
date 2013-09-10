@@ -19,61 +19,20 @@ $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 <div class="container">
     <div class="float-left left-side">
 		<div class="sub-container list-items relative">
-			<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_hotel.apply&id='.(int) $this->item->id); ?>" method="post" name="userForm" id="album-form" class="form-validate" enctype="multipart/form-data">
+			<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_online_nicks.apply&id='.(int) $this->item->id); ?>" method="post" name="userForm" id="album-form" class="form-validate" enctype="multipart/form-data">
 				
 					<fieldset class="userform">
-						<legend><?php echo empty($this->item->id) ? JText::_('Thêm mới Album') : JText::sprintf('Thông tin chi tiết', $this->item->id); ?></legend>
+						<legend><?php echo 'Nick chat online'; ?></legend>
 						<ul class="adminformlist">
-							<li><?php echo $this->form->getLabel('name'); ?>
-							<?php echo $this->form->getInput('name'); ?></li>
+							<li><?php echo $this->form->getLabel('nick_yahoo'); ?>
+							<?php echo $this->form->getInput('nick_yahoo'); ?></li>
 
-							<li><?php echo $this->form->getLabel('alias'); ?>
-							<?php echo $this->form->getInput('alias'); ?></li>
+							<li><?php echo $this->form->getLabel('nick_skype'); ?>
+							<?php echo $this->form->getInput('nick_skype'); ?></li>
 							
-							<li><?php echo $this->form->getLabel('catid'); ?>
-							<?php echo $this->form->getInput('catid'); ?></li>
+							<li><?php echo $this->form->getLabel('nick_fb'); ?>
+							<?php echo $this->form->getInput('nick_fb'); ?></li>
 							
-							<?php /*
-
-							<li><?php echo $this->form->getLabel('state'); ?>
-							<?php echo $this->form->getInput('state'); ?></li>
-							 */?>
-
-							<?php /*
-							<li>
-								<?php echo $this->form->getLabel(''); ?>
-								<?php echo $this->form->getInput(''); ?>
-							</li>
-
-							<li>
-								<?php echo $this->form->getLabel(''); ?>
-								<?php echo $this->form->getInput(''); ?>
-							</li>
-							 */ ?>
-
-							<li>
-								<?php echo $this->form->getLabel('images'); ?>
-								<?php echo $this->form->getInput('images'); ?>
-							</li>
-
-							<?php 
-							$introImages = ($this->item->images) ? $this->item->images : false; 
-							?>
-
-							<?php if ($introImages): ?>
-							<li class="control-group form-inline">
-								<?php echo $this->form->getLabel('del_image'); ?>
-								<?php echo $this->form->getInput('del_image'); ?>
-							</li>
-
-							<li>
-								<label>Intro image uploaded</label>
-								<a href="<?php echo JUri::root() . $introImages; ?>" class="modal">
-									<img src="<?php echo JUri::root() . $introImages; ?>" style="width: 100px;" />
-								</a>
-							</li>
-							<?php endif; ?>
-
 							<li><?php echo $this->form->getLabel('id'); ?>
 							<?php echo $this->form->getInput('id'); ?></li>
 						</ul>
@@ -82,7 +41,9 @@ $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 						<input type="hidden" name="task" value="user_man_online_nicks.apply" />
 						<?php echo JHtml::_('form.token'); ?>
 						
-						<?php echo HP_User_Toolbar::buttonEdit('user_man_album'); ?>
+						<div class="user-toolbar">
+							<button id="btn-apply" class="button" rel="user_man_online_nicks.apply">Cập nhật</button>
+						</div>
 
 					</fieldset>
 				

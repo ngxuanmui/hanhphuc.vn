@@ -7,28 +7,14 @@
 			readonly="true" class="readonly"
 			label="JGLOBAL_FIELD_ID_LABEL" 	description ="JGLOBAL_FIELD_ID_DESC" />
 
-		<field name="nick_yahoo" type="text" class="inputbox" required="true"
+		<field name="nick_yahoo" type="text" class="inputbox"
 			size="40" label="Nick Yahoo" />
-
-		<field name="images" type="file" class="inputbox"
-			size="40" label="Image" />
-
-		<field name="del_image" type="checkbox" value="1" label="Delete image" />
-
-		<field name="uploadfile" type="uploadfile" />
-
-		<field name="state" type="list"
-			label="JSTATUS"
-			class="inputbox" size="1" default="1" >
-			<option value="1">JPUBLISHED</option>
-			<option value="0">JUNPUBLISHED</option>
-			<option value="2">JARCHIVED</option>
-			<option value="-2">JTRASHED</option>
-		</field>
-
-		<field name="description" type="editor" class="inputbox"
-			label="JGLOBAL_DESCRIPTION"
-			filter="safehtml" buttons="false" />
+			
+		<field name="nick_skype" type="text" class="inputbox"
+			size="40" label="Nick Skype" />
+			
+		<field name="nick_fb" type="text" class="inputbox"
+			size="40" label="Nick Facebook" />
 
 	</fieldset>
 

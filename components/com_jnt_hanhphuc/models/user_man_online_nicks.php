@@ -81,6 +81,21 @@ class Jnt_HanhphucModelUser_Man_Online_Nicks extends JModelAdmin
 			return parent::canEditState($record);
 		}
 	}
+	
+	public function getItem()
+	{
+		$db = JFactory::getDbo();
+		
+		$query = $db->getQuery(true);
+		
+		$query->select('*')->from('#__hp_business_nicks')->where('user_id = ' . JFactory::getUser()->id);
+		
+		$db->setQuery($query);
+		
+		$obj = $db->loadObject();
+		
+		return $obj;
+	}
 
 	/**
 	 * Returns a JTable object, always creating it.
@@ -93,7 +108,7 @@ class Jnt_HanhphucModelUser_Man_Online_Nicks extends JModelAdmin
 	 *
 	 * @since   1.6
 	 */
-	public function getTable($type = 'Album', $prefix = 'Jnt_HanhphucTable', $config = array())
+	public function getTable($type = 'Nicks', $prefix = 'Jnt_HanhphucTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
@@ -111,29 +126,10 @@ class Jnt_HanhphucModelUser_Man_Online_Nicks extends JModelAdmin
 	public function getForm($data = array(), $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm('com_jnt_hanhphuc.user_man_album', 'user_man_album', array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_jnt_hanhphuc.user_man_online_nicks', 'user_man_online_nicks', array('control' => 'jform', 'load_data' => $loadData));
 		if (empty($form))
 		{
 			return false;
-		}
-
-		// Modify the form based on access controls.
-		if (!$this->canEditState((object) $data))
-		{
-		    // Disable fields for display.
-		    $form->setFieldAttribute('ordering', 'disabled', 'true');
-		    $form->setFieldAttribute('publish_up', 'disabled', 'true');
-		    $form->setFieldAttribute('publish_down', 'disabled', 'true');
-		    $form->setFieldAttribute('state', 'disabled', 'true');
-		    $form->setFieldAttribute('sticky', 'disabled', 'true');
-
-		    // Disable fields while saving.
-		    // The controller has already verified this is a record you can edit.
-		    $form->setFieldAttribute('ordering', 'filter', 'unset');
-		    $form->setFieldAttribute('publish_up', 'filter', 'unset');
-		    $form->setFieldAttribute('publish_down', 'filter', 'unset');
-		    $form->setFieldAttribute('state', 'filter', 'unset');
-		    $form->setFieldAttribute('sticky', 'filter', 'unset');
 		}
 
 		return $form;
@@ -149,7 +145,7 @@ class Jnt_HanhphucModelUser_Man_Online_Nicks extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_jnt_hanhphuc.edit.album.data', array());
+		$data = JFactory::getApplication()->getUserState('com_jnt_hanhphuc.edit.online_nicks.data', array());
 
 		if (empty($data))
 		{
@@ -159,100 +155,55 @@ class Jnt_HanhphucModelUser_Man_Online_Nicks extends JModelAdmin
 		return $data;
 	}
 	
-	/**
-	 * 
-	 * @param int $pk
-	 * @return object
-	 */
-	function getItem($pk = null)
+	public function save($data)
 	{
-	    $item = parent::getItem($pk);
-	    
-	    $id = $item->id;
-	    
-	    if (isset($id) && (int) $id > 0)
-	    {
-	    	if (!FrontJntHanhphucHelper::checkUserPermissionOnItem($id, '#__hp_albums'))
-	    		exit();
-	    }
-	    
-	    $item->other_images = FrontJntHanhphucHelper::getImages($item->id, 'albums');
-	    
-	    return $item;
-	}
-
-	/**
-	 * A protected method to get a set of ordering conditions.
-	 *
-	 * @param   JTable  $table  A record object.
-	 *
-	 * @return  array  An array of conditions to add to add to ordering queries.
-	 *
-	 * @since   1.6
-	 */
-	protected function getReorderConditions($table)
-	{
-		$condition = array();
-		$condition[] = 'catid = '. (int) $table->catid;
-		$condition[] = 'state >= 0';
-		return $condition;
-	}
-	
-	public function save($data) 
-	{
-		// always set state is unpublish for each save
-		$data['state'] = 0;
+		$user = JFactory::getUser();
 		
-		$id = $data['id'];
-			
-		if (isset($id) && (int) $id > 0)
+		if ($user->guest)
+			return false;
+		
+		$db = JFactory::getDbo();
+		
+		$query = $db->getQuery(true);
+		
+		
+		$table = '#__hp_business_nicks';
+		$where = 'user_id = ' . $user->id;
+		
+		// check in table nicks
+		$query->select('id')->from($table)->where($where);
+		
+		$db->setQuery($query);
+		$check = $db->loadObject();
+		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
+		
+		if ($check->id)
 		{
-			if (!FrontJntHanhphucHelper::checkUserPermissionOnItem($id, '#__hp_albums'))
-				exit('Cannot edit this album!');
+			//update
+			$query->clear()
+					->update($table)
+					->set('nick_fb = "'.$data['nick_fb'].'", nick_yahoo = "'.$data['nick_yahoo'].'", nick_skype = "'.$data['nick_skype'].'"')
+					->where($where)
+			;
+		}
+		else
+		{
+			$values = $user->id.', "'.$data['nick_fb'].'", "'.$data['nick_yahoo'].'", "'.$data['nick_skype'].'"';
+			
+			// insert
+			$query->clear()
+					->insert($table)->columns('user_id, nick_fb, nick_yahoo, nick_skype')->values($values);
+			;
 		}
 		
-	    if (parent::save($data))
-	    {
-			$id = (int) $this->getState($this->getName() . '.id');
-
-			// Update images
-			$currentImages = (isset($_POST['current_images'])) ? $_POST['current_images'] : array();
-			$currentDesc = (isset($_POST['current_desc'])) ? $_POST['current_desc'] : array();
-			Jnt_HanhPhucHelper::updateImages($id, $currentImages, $currentDesc, 'albums');
-			
-			// Temp files
-			if (isset($_POST['tmp_other_img']))
-			{
-				// Copy file 
-				Jnt_HanhPhucHelper::copyTempFiles($id, $_POST['tmp_other_img'], 'albums');
-				
-				// Insert images
-				Jnt_HanhPhucHelper::insertImages($id, $_POST['tmp_other_img'], $_POST['tmp_desc'], 'albums');
-			}
-
-			if ($id)
-				$data['id'] = $id;
-
-			$delImage = isset($data['del_image']) ? $data['del_image'] : null;
-
-			// Upload thumb
-			$item = $this->getItem();
-			$data['images'] = Jnt_HanhPhucHelper::uploadImages('images', $item, $delImage, 'albums');
-			
-//			$coordinates = LocaHelper::getGmapCoordinates($data['address']);
-//			
-//			$data['gmap_lat'] = $coordinates['lat'];
-//			$data['gmap_long'] = $coordinates['long'];
-			
-			//TODO: Update count location
-//			Jnt_HanhPhucHelper::updateCountLocations('albums');
-			
-			//TODO: Update count custom field for each location
-//			Jnt_HanhPhucHelper::updateCountCustomFieldLocations('albums');
-
-			return parent::save($data);
-	    }
-
-	    return false;
+		$db->setQuery($query);
+		$db->query();
+		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
+		
+		return true;
 	}
 }
