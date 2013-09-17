@@ -25,7 +25,7 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 	 * @var    string  The prefix to use with controller messages.
 	 * @since  1.6
 	 */
-	protected $text_prefix = 'COM_NTRIP_ALBUM';
+	protected $text_prefix = 'COM_HP_BUSINESS_CONTENT';
 
 	/**
 	 * Method to test whether a record can be deleted.
@@ -111,7 +111,7 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 	public function getForm($data = array(), $loadData = true)
 	{
 		// Get the form.
-		$form = $this->loadForm('com_jnt_hanhphuc.user_man_album', 'user_man_album', array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_jnt_hanhphuc.user_man_content', 'user_man_content', array('control' => 'jform', 'load_data' => $loadData));
 		if (empty($form))
 		{
 			return false;

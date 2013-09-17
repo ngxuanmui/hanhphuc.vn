@@ -38,23 +38,7 @@ class Jnt_HanhphucModelUser_Man_Online_Nicks extends JModelAdmin
 	 */
 	protected function canDelete($record)
 	{
-		if (!empty($record->id))
-		{
-			if ($record->state != -2)
-			{
-				return;
-			}
-			$user = JFactory::getUser();
-
-			if (!empty($record->catid))
-			{
-				return $user->authorise('core.delete', 'com_jnt_hanhphuc.category.' . (int) $record->catid);
-			}
-			else
-			{
-				return parent::canDelete($record);
-			}
-		}
+		return true;
 	}
 
 	/**
@@ -68,18 +52,7 @@ class Jnt_HanhphucModelUser_Man_Online_Nicks extends JModelAdmin
 	 */
 	protected function canEditState($record)
 	{
-		$user = JFactory::getUser();
-
-		// Check against the category.
-		if (!empty($record->catid))
-		{
-			return $user->authorise('core.edit.state', 'com_jnt_hanhphuc.category.' . (int) $record->catid);
-		}
-		// Default to component settings if category not known.
-		else
-		{
-			return parent::canEditState($record);
-		}
+		return true;
 	}
 	
 	public function getItem()
@@ -172,7 +145,7 @@ class Jnt_HanhphucModelUser_Man_Online_Nicks extends JModelAdmin
 		
 		// check in table nicks
 		$query->select('id')->from($table)->where($where);
-		
+				
 		$db->setQuery($query);
 		$check = $db->loadObject();
 		
@@ -185,16 +158,17 @@ class Jnt_HanhphucModelUser_Man_Online_Nicks extends JModelAdmin
 			$query->clear()
 					->update($table)
 					->set('nick_fb = "'.$data['nick_fb'].'", nick_yahoo = "'.$data['nick_yahoo'].'", nick_skype = "'.$data['nick_skype'].'"')
+					->set('nick_fb_alias = "'.$data['nick_fb_alias'].'", nick_yahoo_alias = "'.$data['nick_yahoo_alias'].'", nick_skype_alias = "'.$data['nick_skype_alias'].'"')
 					->where($where)
 			;
 		}
 		else
 		{
-			$values = $user->id.', "'.$data['nick_fb'].'", "'.$data['nick_yahoo'].'", "'.$data['nick_skype'].'"';
+			$values = $user->id.', "'.$data['nick_fb'].'", "'.$data['nick_yahoo'].'", "'.$data['nick_skype'].'", "'.$data['nick_fb_alias'].'", "'.$data['nick_yahoo_alias'].'", "'.$data['nick_skype_alias'].'"';
 			
 			// insert
 			$query->clear()
-					->insert($table)->columns('user_id, nick_fb, nick_yahoo, nick_skype')->values($values);
+					->insert($table)->columns('user_id, nick_fb, nick_yahoo, nick_skype, nick_fb_alias, nick_yahoo_alias, nick_skype_alias')->values($values);
 			;
 		}
 		

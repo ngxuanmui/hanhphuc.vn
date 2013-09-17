@@ -15,6 +15,15 @@
 			
 		<field name="nick_fb" type="text" class="inputbox"
 			size="40" label="Nick Facebook" />
+			
+		<field name="nick_yahoo_alias" type="text" class="inputbox"
+			size="40" label="Nick Yahoo Alias" />
+			
+		<field name="nick_skype_alias" type="text" class="inputbox"
+			size="40" label="Nick Skype Alias" />
+			
+		<field name="nick_fb_alias" type="text" class="inputbox"
+			size="40" label="Nick Facebook Alias" />
 
 	</fieldset>
 

@@ -15,7 +15,7 @@ jimport('joomla.application.component.modellist');
  * @subpackage	com_jnt_hanhphuc
  * @since		1.6
  */
-class Jnt_HanhphucModelUser_Man_Albums extends JModelList
+class Jnt_HanhphucModelUser_Man_Contents extends JModelList
 {
 	/**
 	 * Constructor.
@@ -87,14 +87,14 @@ class Jnt_HanhphucModelUser_Man_Albums extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'a.id AS id, a.name AS name, a.alias AS alias,'.
+				'a.id AS id, a.title AS title, a.alias AS alias,'.
 				'a.checked_out AS checked_out,'.
 				'a.checked_out_time AS checked_out_time, a.catid AS catid,' .
 				'a.state AS state, a.ordering AS ordering,'.
-				'a.language, a.publish_up, a.publish_down'
+				'a.publish_up, a.publish_down'
 			)
 		);
-		$query->from($db->quoteName('#__hp_albums').' AS a');
+		$query->from($db->quoteName('#__hp_business_content').' AS a');
 
 		// Join over the language
 //		$query->select('l.title AS language_title');
@@ -228,6 +228,6 @@ class Jnt_HanhphucModelUser_Man_Albums extends JModelList
 		//$this->setState('params', $params);
 
 		// List state information.
-		parent::populateState('a.name', 'asc');
+		parent::populateState('a.id', 'desc');
 	}
 }

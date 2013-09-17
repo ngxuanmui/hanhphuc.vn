@@ -22,16 +22,10 @@ $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 			<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_hotel.apply&id='.(int) $this->item->id); ?>" method="post" name="userForm" id="album-form" class="form-validate" enctype="multipart/form-data">
 				
 					<fieldset class="userform">
-						<legend><?php echo empty($this->item->id) ? JText::_('Thêm mới Album') : JText::sprintf('Thông tin chi tiết', $this->item->id); ?></legend>
+						<legend><?php echo empty($this->item->id) ? JText::_('Thêm mới Tin khuyến mại') : JText::sprintf('Thông tin chi tiết', $this->item->id); ?></legend>
 						<ul class="adminformlist">
-							<li><?php echo $this->form->getLabel('name'); ?>
-							<?php echo $this->form->getInput('name'); ?></li>
-
-							<li><?php echo $this->form->getLabel('alias'); ?>
-							<?php echo $this->form->getInput('alias'); ?></li>
-							
-							<li><?php echo $this->form->getLabel('catid'); ?>
-							<?php echo $this->form->getInput('catid'); ?></li>
+							<li><?php echo $this->form->getLabel('title'); ?>
+							<?php echo $this->form->getInput('title'); ?></li>
 							
 							<?php /*
 
@@ -129,6 +123,7 @@ $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 				
 			</form>
 		</div>
+	</div>
 	<div class="float-right right-side">
 		<?php echo JEUtil::loadModule('right', 'module-padding'); ?>
 	</div>

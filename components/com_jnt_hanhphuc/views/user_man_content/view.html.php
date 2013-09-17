@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
  * @subpackage	com_ntrip
  * @since		1.5
  */
-class Jnt_HanhphucViewUser_Man_Album extends JViewLegacy
+class Jnt_HanhphucViewUser_Man_Content extends JViewLegacy
 {
 	protected $form;
 	protected $item;

@@ -19,16 +19,25 @@ $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 <div class="container">
     <div class="float-left left-side">
 		<div class="sub-container list-items relative">
-			<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_online_nicks.apply&id='.(int) $this->item->id); ?>" method="post" name="userForm" id="album-form" class="form-validate" enctype="multipart/form-data">
+			<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&layout=edit&task=user_man_online_nicks.apply'); ?>" method="post" name="userForm" id="album-form" class="form-validate" enctype="multipart/form-data">
 				
 					<fieldset class="userform">
 						<legend><?php echo 'Nick chat online'; ?></legend>
 						<ul class="adminformlist">
+							<li><?php echo $this->form->getLabel('nick_yahoo_alias'); ?>
+							<?php echo $this->form->getInput('nick_yahoo_alias'); ?></li>
+							
 							<li><?php echo $this->form->getLabel('nick_yahoo'); ?>
 							<?php echo $this->form->getInput('nick_yahoo'); ?></li>
 
+							<li><?php echo $this->form->getLabel('nick_skype_alias'); ?>
+							<?php echo $this->form->getInput('nick_skype_alias'); ?></li>
+
 							<li><?php echo $this->form->getLabel('nick_skype'); ?>
 							<?php echo $this->form->getInput('nick_skype'); ?></li>
+							
+							<li><?php echo $this->form->getLabel('nick_fb_alias'); ?>
+							<?php echo $this->form->getInput('nick_fb_alias'); ?></li>
 							
 							<li><?php echo $this->form->getLabel('nick_fb'); ?>
 							<?php echo $this->form->getInput('nick_fb'); ?></li>

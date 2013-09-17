@@ -32,7 +32,7 @@ defined('_JEXEC') or die;
 		</a>
 	</li>
 	<li class="item-244">
-		<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&amp;view=user_man_albums', false); ?>">
+		<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&amp;view=user_man_contents', false); ?>">
 			Quản lý tin khuyến mại
 		</a>
 	</li>
