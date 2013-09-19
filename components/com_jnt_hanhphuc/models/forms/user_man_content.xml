@@ -34,10 +34,19 @@
 			<option value="-2">JTRASHED</option>
 		</field>
 
-		<field name="description" type="editor" class="inputbox"
-			label="JGLOBAL_DESCRIPTION"
-			filter="safehtml" buttons="false" />
+		<field name="introtext"
+			type="textarea"
+			cols="50"
+			rows="10"
+			id="introtext"
+			description="Giới thiệu"
+			filter="htmlsafe"
+			required="true"
+		/>
 
+		<field name="fulltext" type="editor" class="inputbox"
+			label="Nội dung"
+			filter="safehtml" buttons="false" />
 	</fieldset>
 
 </form>
