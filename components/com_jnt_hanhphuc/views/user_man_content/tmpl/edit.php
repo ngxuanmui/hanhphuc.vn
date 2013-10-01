@@ -16,16 +16,27 @@ JHtml::_('behavior.formvalidation');
 $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 ?>
 
+<style type="text/css">
+<!--
+form#user-content-form textarea { width: 644px; margin: 5px 0; padding: 5px; }
+-->
+</style>
+
 <div class="container">
     <div class="float-left left-side">
 		<div class="sub-container list-items relative">
-			<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_hotel.apply&id='.(int) $this->item->id); ?>" method="post" name="userForm" id="album-form" class="form-validate" enctype="multipart/form-data">
+			<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_hotel.apply&id='.(int) $this->item->id); ?>" method="post" name="userForm" id="user-content-form" class="form-validate" enctype="multipart/form-data">
 				
 					<fieldset class="userform">
 						<legend><?php echo empty($this->item->id) ? JText::_('Thêm mới Tin khuyến mại') : JText::sprintf('Thông tin chi tiết', $this->item->id); ?></legend>
 						<ul class="adminformlist">
 							<li><?php echo $this->form->getLabel('title'); ?>
 							<?php echo $this->form->getInput('title'); ?></li>
+							
+							<li>
+								<?php echo $this->form->getLabel('alias'); ?>
+								<?php echo $this->form->getInput('alias'); ?>
+							</li>
 							
 							<?php /*
 
@@ -73,51 +84,20 @@ $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 						</ul>
 						<div class="clr"> </div>
 
-						<?php echo $this->form->getLabel('description'); ?>
-						<?php echo $this->form->getInput('description'); ?>
+						<?php echo $this->form->getLabel('introtext'); ?>
+						<?php echo $this->form->getInput('introtext'); ?>
 
 						<div class="clr"> </div>
 						
-						<div class="">Thêm ảnh vào Album</div>
-
-						<ul class="adminformlist">
-							<li>
-								<?php echo $this->form->getInput('uploadfile'); ?>
-							</li>
-							<li>
-								<div id="tmp-uploaded">
-								<?php 
-								$images = $this->item->other_images;
-
-								$path = JURI::root() . 'images/albums/' . $this->item->id . '/';
-
-								if ($images):
-								?>
-								<table width="100%">
-									<?php foreach ($images as $img): ?>
-									<tr>
-									<td width="80" style="background: #FAFAFA;">
-										<img src="<?php echo $path . 'thumbnail/' . $img->images; ?>" />
-										<input type="hidden" name="current_images[<?php echo $img->id; ?>]" value="<?php echo $img->images; ?>" />
-									</td>
-									<td valign="top">
-										<?php echo $img->images . '<br><input type="text" size="40" name="current_desc['.$img->id.']" value="' . $img->description . '" placeholder="Input Description" />'; ?>
-									</td>
-									<td width="50" valign="top"><a href="javascript:;" class="delete-file">Del</a></td>
-									</tr>
-									<?php endforeach; ?>
-								</table>
-								<?php endif; ?>
-								</div>
-							</li>
-						</ul>
+						<?php echo $this->form->getLabel('fulltext'); ?>
+						<?php echo $this->form->getInput('fulltext'); ?>
 						
 						<div class="clr"> </div>
 						
-						<input type="hidden" name="task" value="user_man_album.apply" />
+						<input type="hidden" name="task" value="user_man_content.apply" />
 						<?php echo JHtml::_('form.token'); ?>
 						
-						<?php echo HP_User_Toolbar::buttonEdit('user_man_album'); ?>
+						<?php echo HP_User_Toolbar::buttonEdit('user_man_content'); ?>
 
 					</fieldset>
 				

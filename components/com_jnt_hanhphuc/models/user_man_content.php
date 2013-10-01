@@ -93,7 +93,7 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 	 *
 	 * @since   1.6
 	 */
-	public function getTable($type = 'Album', $prefix = 'Jnt_HanhphucTable', $config = array())
+	public function getTable($type = 'Hp_Content', $prefix = 'Jnt_HanhphucTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
@@ -149,7 +149,7 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_jnt_hanhphuc.edit.album.data', array());
+		$data = JFactory::getApplication()->getUserState('com_jnt_hanhphuc.edit.hp_content.data', array());
 
 		if (empty($data))
 		{
@@ -172,11 +172,11 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 	    
 	    if (isset($id) && (int) $id > 0)
 	    {
-	    	if (!FrontJntHanhphucHelper::checkUserPermissionOnItem($id, '#__hp_albums'))
+	    	if (!FrontJntHanhphucHelper::checkUserPermissionOnItem($id, '#__hp_business_content'))
 	    		exit();
 	    }
 	    
-	    $item->other_images = FrontJntHanhphucHelper::getImages($item->id, 'albums');
+// 	    $item->other_images = FrontJntHanhphucHelper::getImages($item->id, 'albums');
 	    
 	    return $item;
 	}
@@ -207,8 +207,8 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 			
 		if (isset($id) && (int) $id > 0)
 		{
-			if (!FrontJntHanhphucHelper::checkUserPermissionOnItem($id, '#__hp_albums'))
-				exit('Cannot edit this album!');
+			if (!FrontJntHanhphucHelper::checkUserPermissionOnItem($id, '#__hp_business_content'))
+				exit('Cannot edit this content!');
 		}
 		
 	    if (parent::save($data))
@@ -216,19 +216,19 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 			$id = (int) $this->getState($this->getName() . '.id');
 
 			// Update images
-			$currentImages = (isset($_POST['current_images'])) ? $_POST['current_images'] : array();
-			$currentDesc = (isset($_POST['current_desc'])) ? $_POST['current_desc'] : array();
-			Jnt_HanhPhucHelper::updateImages($id, $currentImages, $currentDesc, 'albums');
+// 			$currentImages = (isset($_POST['current_images'])) ? $_POST['current_images'] : array();
+// 			$currentDesc = (isset($_POST['current_desc'])) ? $_POST['current_desc'] : array();
+// 			Jnt_HanhPhucHelper::updateImages($id, $currentImages, $currentDesc, 'hp_content');
 			
-			// Temp files
-			if (isset($_POST['tmp_other_img']))
-			{
-				// Copy file 
-				Jnt_HanhPhucHelper::copyTempFiles($id, $_POST['tmp_other_img'], 'albums');
+// 			// Temp files
+// 			if (isset($_POST['tmp_other_img']))
+// 			{
+// 				// Copy file 
+// 				Jnt_HanhPhucHelper::copyTempFiles($id, $_POST['tmp_other_img'], 'albums');
 				
-				// Insert images
-				Jnt_HanhPhucHelper::insertImages($id, $_POST['tmp_other_img'], $_POST['tmp_desc'], 'albums');
-			}
+// 				// Insert images
+// 				Jnt_HanhPhucHelper::insertImages($id, $_POST['tmp_other_img'], $_POST['tmp_desc'], 'albums');
+// 			}
 
 			if ($id)
 				$data['id'] = $id;
@@ -237,7 +237,7 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 
 			// Upload thumb
 			$item = $this->getItem();
-			$data['images'] = Jnt_HanhPhucHelper::uploadImages('images', $item, $delImage, 'albums');
+			$data['images'] = Jnt_HanhPhucHelper::uploadImages('images', $item, $delImage, 'hp_content');
 			
 //			$coordinates = LocaHelper::getGmapCoordinates($data['address']);
 //			

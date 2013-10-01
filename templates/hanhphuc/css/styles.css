@@ -305,3 +305,7 @@ span.star { color: red; }
 ul.adminformlist li { margin: 5px 0; }
 ul.adminformlist li label { float: left; width: 100px; }
 #jform_description-lbl { float: left; padding-bottom: 5px; }
+
+/* promotion content */
+.left-side-promotion-content { width: 85px; }
+.right-side-promotion-content { width: 210px; }

@@ -25,7 +25,7 @@ class Jnt_HanhphucControllerUser_Man_Content extends JControllerForm
 	 * @var    string  The prefix to use with controller messages.
 	 * @since  1.6
 	 */
-	protected $text_prefix = 'COM_JNT_HANH_PHUC_ALBUM';
+	protected $text_prefix = 'COM_JNT_HANH_PHUC_CONTENT';
 
 	/**
 	 * Method override to check if you can add a new record.

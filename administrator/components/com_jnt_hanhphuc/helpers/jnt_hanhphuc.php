@@ -199,7 +199,7 @@ class Jnt_HanhPhucHelper
 	    return $rs;
 	}
 
-	static function uploadImages($field, $item, $delImage = 0, $itemType = 'hotels')
+	static function uploadImages($field, $item, $delImage = 0, $itemType = 'albums')
 	{
 		$jFileInput = new JInput($_FILES);
 		$file = $jFileInput->get('jform', array(), 'array');

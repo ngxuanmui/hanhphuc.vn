@@ -22,13 +22,13 @@ class NtripControllerUser_Man_Albums extends JControllerAdmin
 	 * @var		string	The prefix to use with controller messages.
 	 * @since	1.6
 	 */
-	protected $text_prefix = 'COM_NTRIP_ALBUMS';
+	protected $text_prefix = 'COM_JNT_HANHPHUC_CONTENT';
 
 	/**
 	 * Proxy for getModel.
 	 * @since	1.6
 	 */
-	public function getModel($name = 'User_Man_Album', $prefix = 'NtripModel', $config = array('ignore_request' => true))
+	public function getModel($name = 'User_Man_Content', $prefix = 'Jnt_HanhphucModel', $config = array('ignore_request' => true))
 	{
 		$model = parent::getModel($name, $prefix, $config);
 		return $model;
