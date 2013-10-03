@@ -13,3 +13,24 @@ $item = $this->item;
 
 ?>
 
+<div class="container">
+    <div class="float-left left-side">
+		<div class="sub-container content">
+			<?php if (is_object($item)): ?>
+			<h1><?php echo $item->title; ?></h1>
+			<div class="view-content">
+				<?php echo $item->content; ?>
+			</div>
+			<?php else: ?>
+			<div class="view-content">
+				<h1>Bài viết không tồn tại.</h1>
+			</div>
+			<?php endif; ?>
+		</div>
+	</div>
+	<div class="float-right right-side">
+		<?php echo JEUtil::loadModule('right', 'module-padding'); ?>
+    </div>
+</div>
+
+<div class="clr"></div>

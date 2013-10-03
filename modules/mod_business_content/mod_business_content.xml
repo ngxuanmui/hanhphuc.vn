@@ -28,6 +28,17 @@
 					type="text"
 					default="5"
 					label="No. of contents" />
+					
+				<field
+					name="featured"
+					type="radio"
+					default="0"
+					label="Featured">
+					<option
+						value="1">JYES</option>
+					<option
+						value="0">JNO</option>
+				</field>
 			</fieldset>
 			<fieldset
 				name="advanced">

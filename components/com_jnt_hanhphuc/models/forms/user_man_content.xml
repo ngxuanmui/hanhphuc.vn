@@ -43,9 +43,15 @@
 			required="true"
 		/>
 
-		<field name="fulltext" type="editor" class="inputbox"
+		<field name="content" type="editor" class="inputbox"
 			label="Nội dung"
 			filter="safehtml" buttons="false" />
+		
+		<field name="images2content" type="front_images2content"
+			label="Images" description="Upload images to content"
+			class="inputbox"
+			addfieldpath="/administrator/components/com_je_content/models/fields/front"
+		/>
 	</fieldset>
 
 </form>

@@ -13,7 +13,6 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 
-$jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 ?>
 
 <style type="text/css">
@@ -89,8 +88,10 @@ form#user-content-form textarea { width: 644px; margin: 5px 0; padding: 5px; }
 
 						<div class="clr"> </div>
 						
-						<?php echo $this->form->getLabel('fulltext'); ?>
-						<?php echo $this->form->getInput('fulltext'); ?>
+						<?php echo $this->form->getLabel('content'); ?>
+						<?php echo $this->form->getInput('content'); ?>
+						
+            			<?php echo $this->form->getInput('images2content'); ?>
 						
 						<div class="clr"> </div>
 						

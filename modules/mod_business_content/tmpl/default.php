@@ -12,9 +12,10 @@ defined('_JEXEC') or die;
 <div class="box">
 	<ul class="promotion-content">
 		<?php 
-		foreach ($list as $item) : 
-			$slug = $item->id.':'.$item->alias;
-			$link = JRoute::_('index.php?option=com_jnt_hanhphuc&view=article&id=' . $slug);
+		if (!empty($list)):
+			foreach ($list as $item) : 
+				$slug = $item->id.':'.$item->alias;
+				$link = JRoute::_('index.php?option=com_jnt_hanhphuc&view=article&id=' . $slug);
 		?>
 		<li>
 			<div class="left-side-promotion-content fltlft">
@@ -42,6 +43,14 @@ defined('_JEXEC') or die;
 			<div class="clr"></div>
 				
 		</li>
-		<?php endforeach; ?>
+		<?php 
+			endforeach; 
+		else: 
+		?>
+		<li>
+			Chưa có tin khuyến mại nào.
+		</li>
+		<?php endif; ?>
+		
 	</ul>
 </div>

@@ -54,6 +54,12 @@ class Jnt_HanhPhucHelper
 		);
 		
 		JSubMenuHelper::addEntry(
+			'User Content',
+			'index.php?option=com_jnt_hanhphuc&view=articles',
+			$vName == 'articles'
+		);
+		
+		JSubMenuHelper::addEntry(
 			'Users',
 			'index.php?option=com_jnt_hanhphuc&view=users',
 			$vName == 'users'

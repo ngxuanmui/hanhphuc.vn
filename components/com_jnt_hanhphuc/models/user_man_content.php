@@ -215,21 +215,6 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 	    {
 			$id = (int) $this->getState($this->getName() . '.id');
 
-			// Update images
-// 			$currentImages = (isset($_POST['current_images'])) ? $_POST['current_images'] : array();
-// 			$currentDesc = (isset($_POST['current_desc'])) ? $_POST['current_desc'] : array();
-// 			Jnt_HanhPhucHelper::updateImages($id, $currentImages, $currentDesc, 'hp_content');
-			
-// 			// Temp files
-// 			if (isset($_POST['tmp_other_img']))
-// 			{
-// 				// Copy file 
-// 				Jnt_HanhPhucHelper::copyTempFiles($id, $_POST['tmp_other_img'], 'albums');
-				
-// 				// Insert images
-// 				Jnt_HanhPhucHelper::insertImages($id, $_POST['tmp_other_img'], $_POST['tmp_desc'], 'albums');
-// 			}
-
 			if ($id)
 				$data['id'] = $id;
 
@@ -239,20 +224,57 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 			$item = $this->getItem();
 			$data['images'] = Jnt_HanhPhucHelper::uploadImages('images', $item, $delImage, 'hp_content');
 			
-//			$coordinates = LocaHelper::getGmapCoordinates($data['address']);
-//			
-//			$data['gmap_lat'] = $coordinates['lat'];
-//			$data['gmap_long'] = $coordinates['long'];
+			// update content
+			$content = $this->copyFilesOnSave($data['content'], $data['id']);
 			
-			//TODO: Update count location
-//			Jnt_HanhPhucHelper::updateCountLocations('albums');
-			
-			//TODO: Update count custom field for each location
-//			Jnt_HanhPhucHelper::updateCountCustomFieldLocations('albums');
+			if ($content)
+				$data['content'] = $content;
 
 			return parent::save($data);
 	    }
 
 	    return false;
+	}
+	
+	private function copyFilesOnSave($content = '', $itemId = 0)
+	{
+		if(!$content || !$itemId)
+			return false;
+	
+		$date = date('Y') . DS . date('m') . DS . date('d');
+	
+		$dest = JPATH_ROOT . DS . 'images' . DS . 'jnt_hanhphuc' . DS . 'business_content' . DS . $itemId . DS;
+		@mkdir($dest, 0777, true);
+	
+		$doc=new DOMDocument();
+	
+		$doc->loadHTML($content);
+	
+		// just to make xpath more simple
+		$xml=simplexml_import_dom($doc);
+	
+		$images=$xml->xpath('//img');
+	
+		$tmpSearch = array();
+		$tmpReplace = array();
+	
+		foreach ($images as $img)
+		{
+			// Explode src to get file name
+			$imgSrc = explode('/', $img['src']);
+			 
+			// Search & Replace
+			$tmpSearch[] = $img['src'];
+			$tmpReplace[] = 'images/jnt_hanhphuc/business_content/' . $itemId . '/' . end($imgSrc);
+	
+			$src = str_replace('/', DS, JPATH_ROOT.'/'.$img['src']);
+	
+			if($imgSrc[0] == 'tmp')
+				JFile::copy($src, $dest.end($imgSrc));
+		}
+	
+		$content = str_replace($tmpSearch, $tmpReplace, $content);
+	
+		return $content;
 	}
 }

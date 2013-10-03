@@ -24,10 +24,16 @@ class modBusinessContentHelper
 		$rows	= array();
 		$query	= $db->getQuery(true);
 		
-		$limit	= $params->get('limit', 5);
+		$limit		= $params->get('limit', 5);
+		$featured	= $params->get('featured', 0);
 		
 		$query->select('c.*')
-				->from('#__hp_business_content c');
+				->from('#__hp_business_content c')
+				->where('c.state = 1')
+		;
+		
+		if ($featured)
+			$query->where('c.featured = 1');
 		
 		$query->order('c.id DESC');
 		
