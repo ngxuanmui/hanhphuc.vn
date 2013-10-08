@@ -36,11 +36,13 @@ $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 							<li><?php echo $this->form->getLabel('nick_skype'); ?>
 							<?php echo $this->form->getInput('nick_skype'); ?></li>
 							
+							<?php /*
 							<li><?php echo $this->form->getLabel('nick_fb_alias'); ?>
 							<?php echo $this->form->getInput('nick_fb_alias'); ?></li>
 							
 							<li><?php echo $this->form->getLabel('nick_fb'); ?>
 							<?php echo $this->form->getInput('nick_fb'); ?></li>
+							*/ ?>
 							
 							<li><?php echo $this->form->getLabel('id'); ?>
 							<?php echo $this->form->getInput('id'); ?></li>

@@ -122,16 +122,16 @@ class Jnt_HanhphucModelUser_Man_Content extends JModelAdmin
 		{
 		    // Disable fields for display.
 		    $form->setFieldAttribute('ordering', 'disabled', 'true');
-		    $form->setFieldAttribute('publish_up', 'disabled', 'true');
-		    $form->setFieldAttribute('publish_down', 'disabled', 'true');
+// 		    $form->setFieldAttribute('publish_up', 'disabled', 'true');
+// 		    $form->setFieldAttribute('publish_down', 'disabled', 'true');
 		    $form->setFieldAttribute('state', 'disabled', 'true');
 		    $form->setFieldAttribute('sticky', 'disabled', 'true');
 
 		    // Disable fields while saving.
 		    // The controller has already verified this is a record you can edit.
 		    $form->setFieldAttribute('ordering', 'filter', 'unset');
-		    $form->setFieldAttribute('publish_up', 'filter', 'unset');
-		    $form->setFieldAttribute('publish_down', 'filter', 'unset');
+// 		    $form->setFieldAttribute('publish_up', 'filter', 'unset');
+// 		    $form->setFieldAttribute('publish_down', 'filter', 'unset');
 		    $form->setFieldAttribute('state', 'filter', 'unset');
 		    $form->setFieldAttribute('sticky', 'filter', 'unset');
 		}

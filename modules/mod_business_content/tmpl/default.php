@@ -26,7 +26,12 @@ defined('_JEXEC') or die;
 			<div class="right-side-promotion-content fltrgt">
 				<h1>
 					<a href="<?php echo $link; ?>" class="promotion-title">
-						<?php echo $item->title;?>
+						<?php 
+						echo $item->name ? $item->name : $item->username;
+						
+						echo  ' - ' . $item->title;
+						
+						?>
 					</a>
 				</h1>
 				<div>

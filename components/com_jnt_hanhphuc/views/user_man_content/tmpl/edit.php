@@ -59,6 +59,16 @@ form#user-content-form textarea { width: 644px; margin: 5px 0; padding: 5px; }
 								<?php echo $this->form->getLabel('images'); ?>
 								<?php echo $this->form->getInput('images'); ?>
 							</li>
+							
+							<li>
+								<?php echo $this->form->getLabel('publish_up'); ?>
+								<?php echo $this->form->getInput('publish_up'); ?>
+							</li>
+							
+							<li>
+								<?php echo $this->form->getLabel('publish_down'); ?>
+								<?php echo $this->form->getInput('publish_down'); ?>
+							</li>
 
 							<?php 
 							$introImages = ($this->item->images) ? $this->item->images : false; 

@@ -35,6 +35,17 @@ class modBusinessContentHelper
 		if ($featured)
 			$query->where('c.featured = 1');
 		
+		// join over user to get username
+		$query->select('u.username, u.name');
+		$query->join('INNER', '#__users u ON u.id = c.created_by');
+		
+		// Filter by start and end dates.
+		$nullDate	= $db->Quote($db->getNullDate());
+		$nowDate	= $db->Quote(JFactory::getDate()->toSql());
+		
+		$query->where('(c.publish_up = '.$nullDate.' OR c.publish_up <= '.$nowDate.')');
+		$query->where('(c.publish_down = '.$nullDate.' OR c.publish_down >= '.$nowDate.')');
+		
 		$query->order('c.id DESC');
 		
 		$db->setQuery($query, 0, $limit);
