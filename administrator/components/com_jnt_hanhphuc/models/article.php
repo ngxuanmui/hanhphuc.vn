@@ -151,12 +151,12 @@ class Jnt_HanhphucModelArticle extends JModelAdmin
 		if (is_object($data))
 		{
 			$data->hidden_image = base64_encode($data->images);
-			$data->hidden_featured_image = base64_encode($data->featured_images);
+// 			$data->hidden_featured_image = base64_encode($data->featured_images);
 		}
 		else
 		{
 			$data['hidden_image'] = base64_encode($data['images']);
-			$data['hidden_featured_image'] = base64_encode($data['featured_images']);
+// 			$data['hidden_featured_image'] = base64_encode($data['featured_images']);
 		}
 
 		return $data;

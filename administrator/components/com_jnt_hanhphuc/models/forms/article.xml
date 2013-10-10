@@ -32,19 +32,11 @@
 			format="%Y-%m-%d" filter="user_utc" />
 		
 		<field name="introtext"
-			type="textarea"
-			rows="10"
-			label="Giới thiệu"
-			filter="htmlsafe"
-			required="true"
-		/>
-
-		<field name="introtext"
-			type="textarea"
-			cols="50"
+			type="editor"
+			cols="100"
 			rows="10"
 			id="introtext"
-			description="Giới thiệu"
+			label="Giới thiệu"
 			filter="htmlsafe"
 			required="true"
 		/>
@@ -58,6 +50,44 @@
 			class="inputbox"
 			addfieldpath="/administrator/components/com_je_content/models/fields/front"
 		/>
+	</fieldset>
+	
+	<fieldset name="publish"
+		label="Publishing"
+	>
+	
+		<field name="created_by" type="user"
+			label="Created by" />
+
+		<field name="created" type="calendar"
+			label="Created"
+			class="inputbox" size="22" format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc" />
+
+		<field name="publish_up" type="calendar"
+			label="Publish up"
+			class="inputbox" format="%Y-%m-%d %H:%M:%S" size="22"
+			filter="user_utc" />
+
+		<field name="publish_down" type="calendar"
+			label="Publish down" 
+			class="inputbox" format="%Y-%m-%d %H:%M:%S" size="22"
+			filter="user_utc" />
+
+	</fieldset>
+
+	<fieldset name="metadata"
+		label="JGLOBAL_FIELDSET_METADATA_OPTIONS"
+	>
+
+		<field name="metakey" type="textarea" class="inputbox"
+			rows="3" cols="30" label="JFIELD_META_KEYWORDS_LABEL"
+			description="COM_JE_CONTENT_FIELD_METAKEYWORDS_DESC" />
+
+		<field name="metadesc" type="textarea"
+			label="JFIELD_META_DESCRIPTION_LABEL" description="JFIELD_META_DESCRIPTION_DESC"
+			class="inputbox" rows="3" cols="30" />
+
 	</fieldset>
 
 </form>

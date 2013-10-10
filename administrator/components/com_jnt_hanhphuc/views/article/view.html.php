@@ -58,9 +58,9 @@ class Jnt_HanhphucViewArticle extends JViewLegacy
 		$userId		= $user->get('id');
 		$isNew		= ($this->item->id == 0);
 		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
-		$canDo		= JE_ContentHelper::getActions($this->state->get('filter.category_id'));
+		$canDo		= Jnt_HanhphucHelper::getActions($this->state->get('filter.category_id'));
 
-		JToolBarHelper::title($isNew ? JText::_('COM_JE_CONTENT_MANAGER_ARTICLE_NEW') : JText::_('COM_JE_CONTENT_MANAGER_ARTICLE_EDIT'), 'article.png');
+		JToolBarHelper::title($isNew ? JText::_('User Content: Edit') : JText::_('User Content: New'), 'article.png');
 
 		// If not checked out, can save the item.
 		if (!$checkedOut && ($canDo->get('core.edit') || count($user->getAuthorisedCategories('com_je_content', 'core.create')) > 0)) {

@@ -29,9 +29,14 @@ $profile = $user->profile;
 				<?php endif; ?>
 				
 				<?php echo $user->info->content; ?>
+				
+				<div>
+					Liên hệ Skype: <a href="skype:echo123?call" class="skype">Nick skype</a>, 
+					Yahoo: <a href="ymsgr:SendIM?jerome_107" class="yahoo">Nick Yahoo</a>
+				</div>
 			</div>
 			
-			
+				
 			
 			<div class="services-list relative">
 				
