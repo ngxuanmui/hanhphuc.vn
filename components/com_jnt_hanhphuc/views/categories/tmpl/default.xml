@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: metadata.xml $ -->
 <metadata>
-	<layout title="com_jnt_hanhphuc_categories_view_default_title">
+	<layout title="Categories">
 		<message>
-			<![CDATA[com_jnt_hanhphuc_categories_view_default_desc]]>
+			<![CDATA[Categories]]>
 		</message>
 	</layout>
 </metadata>

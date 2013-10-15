@@ -13,14 +13,16 @@ defined('_JEXEC') or die;
  * @subpackage	com_content
  * @since		1.5
  */
-class Jnt_HanhphucViewArticle extends JViewLegacy
+class Jnt_HanhphucViewArticles extends JViewLegacy
 {
-	protected $item;
+	protected $items;
+	protected $pagination;
 
 	function display($tpl = null)
 	{
 		// Initialise variables.
-		$this->item		= $this->get('Item');
+		$this->items		= $this->get('Items');
+		$this->pagination	= $this->get('Pagination');
 
 		$this->_prepareDocument();
 
