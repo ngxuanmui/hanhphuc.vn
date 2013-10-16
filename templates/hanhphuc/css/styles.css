@@ -315,3 +315,11 @@ ul.adminformlist li label { float: left; width: 100px; }
 ul.promotion-content li { margin-bottom: 10px; }
 a.skype { background: url('../images/skype_icon.gif') no-repeat; display: inline-block; padding-left: 20px; }
 a.yahoo { background: url('http://opi.yahoo.com/online?u=muinx&m=g&t=1') 0 center no-repeat; display: inline-block; padding-left: 70px; }
+
+#wrapper { width: 600px; }
+.tack { margin-bottom: 10px; }
+.tack img { margin-bottom: 5px; }
+.tack p.description { width: 190px; }
+
+#selector { min-height: 20px; }
+#selector img { border: none; }
