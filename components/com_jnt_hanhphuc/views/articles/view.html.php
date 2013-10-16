@@ -23,6 +23,9 @@ class Jnt_HanhphucViewArticles extends JViewLegacy
 		// Initialise variables.
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
+		
+		if (empty($this->items))
+			return 1;
 
 		$this->_prepareDocument();
 

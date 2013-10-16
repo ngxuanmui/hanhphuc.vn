@@ -42,6 +42,8 @@ $doc->addScript(JURI::base() . 'media/jquery.bxslider/jquery.bxslider.min.js');
 
 <script type="text/javascript">
 	jQuery.noConflict();
+
+	var BASE_URL = '<?php echo JURI::base(); ?>';
 </script>
 
 </head>
