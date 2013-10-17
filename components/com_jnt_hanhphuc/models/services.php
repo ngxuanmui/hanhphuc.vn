@@ -139,7 +139,10 @@ class Jnt_HanhPhucModelServices extends JModelList
 		// get profile
 		$query = $db->getQuery(true);
 		
-		$query->select('*')->from('#__hp_business_profile')->where('user_id = ' . $userId);
+		$query->select('p.*')->from('#__hp_business_profile p')->where('p.user_id = ' . $userId);
+		$query->select('n.nick_yahoo, n.nick_skype, n.nick_yahoo_alias, n.nick_skype_alias');
+		$query->join('LEFT', '#__hp_business_nicks n ON p.user_id = n.user_id');
+		
 		$db->setQuery($query);
 		
 		$profile = $db->loadObject();

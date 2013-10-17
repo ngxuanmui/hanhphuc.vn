@@ -30,12 +30,17 @@ $profile = $user->profile;
 				
 				<?php echo $user->info->content; ?>
 				
-				
-				
+				<?php if (!empty($profile->nick_skype) || !empty($profile->nick_yahoo)): ?>				
 				<div>
-					<strong>Liên hệ</strong> <a href="skype:echo123?call" class="skype">Nick skype</a>, 
-					<a href="ymsgr:SendIM?jerome_107" class="yahoo">Nick Yahoo</a>
+					<strong>Liên hệ: </strong> 
+					<?php if (!empty($profile->nick_skype)): ?>	
+					<a href="skype:<?php echo $profile->nick_skype; ?>?call" class="skype"><?php echo $profile->nick_skype_alias ? $profile->nick_skype_alias : $profile->nick_skype; ?></a>
+					<?php endif; ?>
+					<?php if (!empty($profile->nick_yahoo)): ?>	
+					<a href="ymsgr:SendIM?<?php echo $profile->nick_yahoo; ?>" class="yahoo"><?php echo $profile->nick_yahoo_alias ? $profile->nick_yahoo_alias : $profile->nick_yahoo; ?></a>
+					<?php endif; ?>
 				</div>
+				<?php endif; ?>
 			</div>
 			
 				
