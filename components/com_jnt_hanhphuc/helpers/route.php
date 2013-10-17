@@ -55,6 +55,27 @@ abstract class Jnt_HanhphucHelperRoute
 
 		return $link;
 	}
+	
+	/**
+	 * @param	int	The route of the content item
+	 */
+	public static function getItemRoute($view, $id, $catid = 0)
+	{
+		$needles = array(
+				$view  => array((int) $id)
+		);
+		//Create the link
+		$link = 'index.php?option=com_jnt_hanhphuc&view='.$view.'&id='. $id;
+			
+		if ($item = self::_findItem($needles)) {
+			$link .= '&Itemid='.$item;
+		}
+		elseif ($item = self::_findItem()) {
+			$link .= '&Itemid='.$item;
+		}
+	
+		return $link;
+	}
 
 	public static function getCategoryRoute($catid)
 	{

@@ -1,81 +1,103 @@
 <?php
-// no direct access
-defined('_JEXEC') or die;
+$limitStart = JRequest::getInt('limitstart', 0);
 
-$fields = $this->fields;
+$next = (($limitStart / CFG_LIST_USER_CONTENT) + 1) * CFG_LIST_USER_CONTENT;
 ?>
 
-<div id="top-adv">
-		<img src="<?php echo JURI::base() . 'templates/loca/images/top-adv.jpg'; ?>" />
-	</div>
-	<div class="clear"></div>
+<script type='text/javascript' src='<?php echo JURI::base(); ?>/media/hp/html/js/jquery.masonry.min.js?ver=3.4.1'></script>
+<script type='text/javascript' src='<?php echo JURI::base(); ?>/media/hp/html/js/jquery.infinitescroll.min.js?ver=3.4.1'></script>
 
-<div id="left-content">
-	<div class="margin-bottom5">
-		<div class="title-category">
-			Album Ảnh
-		</div>
-		
-		<div class="item-container">
-			<span class="icons quote fltlft"></span>
-			<span class="fltlft">
-				Hãy chia sẻ những khoảng khắc đáng nhớ của các bạn về những chuyến đi, 
-				các thành viên Loca.vn sẽ trải nghiệm cùng bạn.
-			</span>
+<script type="text/javascript">
+<!--
+jQuery(function($){
+	$('#wrapper').infinitescroll({
+        navSelector : '.infinitescroll',
+        nextSelector : '.infinitescroll a',
+        itemSelector : '#wrapper .tack',
+        loading: {
+            img   : BASE_URL + "/media/hp/html/images/ajax-loader.gif",
+            selector: '#selector',
+            msgText: '',
+            finishedMsg: ''
+			}
+		}, function(arrayOfNewElems) {
+			var $newElems = $( arrayOfNewElems ).css({ opacity: 0 });
+			// ensure that images load before adding to masonry layout
+			$newElems.imagesLoaded(function(){
+				// show elems now they're ready
+				$newElems.css({ opacity: 1 });
+				$('#wrapper').masonry( 'appended', $newElems, true ); 
+			});
+	});
+});
+//-->
+</script>
+<div class="container">
+	<div class="float-left left-side">
+		<h1 class="content-title">
+			Album ảnh
+		</h1>
+
+		<div class="line-break-news"></div>
+
+		<div class="fulltext box">
+
+			<div id="wrapper" class="clearfix">
+				<?php 
+				foreach($this->items as $item): 
+					$item->slug = $item->id . ':' . $item->alias;
+				
+					$link = JRoute::_(Jnt_HanhphucHelperRoute::getItemRoute('album', $item->slug));
+				?>
+				<div class="tack">
+					<div class="tackHolder">
+							
+						<a
+							href="<?php echo $link; ?>"
+							title="<?php echo $this->escape($item->name); ?>">
+							<?php if ($item->images): ?>
+						    <img src="<?php echo JURI::base().$item->images; ?>"
+								style="float: left; margin-right: 10px; width: 190px;" />
+						    <?php endif; ?>
+						</a>
+					</div>
+					<p class="description">
+					<?php echo $this->escape($item->name); ?>					
+					</p>
+					<div class="clear"></div>
+				</div>
+				<?php endforeach; ?>
+			</div>
 			
-			<a href="#" class="icons loca-button loca-button-album fltlft">Chia sẻ Ảnh</a>
+			<div class="clear"></div>
+			
+			<?php 
+			$pagination = $this->pagination;
+			
+			$counter = $pagination->getPagesCounter();
+			
+			if (!empty($counter)):
+			?>
+			<div id="selector">
+				<div class="infinitescroll">
+					<a href="<?php echo 'index.php?option=com_jnt_hanhphuc&view=articles&limitstart=' . $next; ?>" >Next Page</a>
+				</div>
+			</div>
+
+			<div class="pagination">
+				<?php #echo $this->pagination->getPagesLinks(); ?>
+			</div>
+
+			<div class="clear"></div>
+			<?php endif; ?>
+
 		</div>
-		
-		<div class="clr"></div>
-	</div>
-	
-	<div class="album-menu">
-		<ul>
-			<li>
-				<a href="#">Album ảnh mới nhất</a>
-			</li>
-			<li>
-				<a href="#">Nhiều người thích nhất</a>
-			</li>
-		</ul>
-	</div>
-	
-	<div class="clr"></div>
-		
-	<div class="items">
-				
-		<ul class="list-albums">
-			<?php foreach ($this->items as $key => $item): ?>
-			<li <?php if (($key + 1) % 3 == 0) echo 'class="last-item"'; ?>>
-				<div class="img">
-					<img src="<?php echo $item->images; ?>" />
-					
-				</div>		
-				
-				<h2>
-					<a href="<?php echo JRoute::_('index.php?option=com_ntrip&view=album&id=' . $item->id . ':' . $item->alias, false); ?>">
-						<?php echo $item->name; ?>
-					</a>
-				</h2>
-			</li>
-			<?php endforeach; ?>
-		</ul>
-		<div class="clr"></div>
-	</div>
-	
-	<div class="pagination">
-		<?php echo $this->pagination->getPagesLinks(); ?>
-	</div>
-	
-</div>
 
-<div id="right-content">
-	<a class="register" href="<?php echo JRoute::_('index.php?option=com_users&view=registration', false); ?>" style="display: block;">
-		<span class="icon-reg"></span>
-		<span class="txt-register">ĐĂNG KÝ THÀNH VIÊN</span>
-	</a>
+		</div>
 
-	<?php echo LocaHelper::renderModulesOnPosition('right'); ?>
+		<div class="float-right right-side">
+		<?php echo JEUtil::loadModule('right', 'module-padding'); ?>
+    </div>
+	</div>
 
-</div>
-<div class="clear"></div>
+	<div class="clear"></div>
