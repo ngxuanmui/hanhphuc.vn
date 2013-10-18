@@ -101,8 +101,8 @@ class UploadHandler
                 ),
                 */
                 'thumbnail' => array(
-                    'max_width' => 80,
-                    'max_height' => 80
+                    'max_width' => 300,
+                    'max_height' => 300
                 )
             )
         );

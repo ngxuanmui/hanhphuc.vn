@@ -62,13 +62,17 @@ jQuery(function($){
 	});
 
 	var $container = $('#wrapper');
-	$container.imagesLoaded(function() {
-		$container.masonry({
-			itemSelector : '.tack',
-			columnWidth : 200,
-			gutterWidth : 15
-		});
+	
+	if (typeof USE_MASONRY !== 'undefined' && USE_MASONRY)
+	{
+		$container.imagesLoaded(function() {
+			$container.masonry({
+				itemSelector : '.tack',
+				columnWidth : 200,
+				gutterWidth : 15
+			});
 
-		imwb_move_sidebar();
-	});
+			imwb_move_sidebar();
+		});
+	}
 });

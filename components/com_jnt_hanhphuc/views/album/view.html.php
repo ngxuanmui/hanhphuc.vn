@@ -24,7 +24,7 @@ class Jnt_HanhphucViewAlbum extends JViewLegacy
 	function display($tpl = null)
 	{
 		$this->item = $this->get('Item');
-// 		$this->otherImages = $this->get('OtherImages');
+		$this->otherImages = $this->get('OtherImages');
 // 		$this->otherItems = $this->get('OtherItems');
 		
 		$this->_prepareDocument();

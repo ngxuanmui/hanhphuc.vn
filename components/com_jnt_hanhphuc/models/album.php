@@ -1,17 +1,13 @@
 <?php
 
-class NtripModelAlbum extends JModelLegacy
+class Jnt_HanhphucModelAlbum extends JModelLegacy
 {
 	public function getItem()
 	{
-		if (!$type)
-			$type = $this->itemType;
-		
 		$id = JRequest::getInt('id', 0);
 		
 		// Update hits 
-		if ($updateHits)
-			$this->updateHits($id, $type);
+		$this->updateHits($id);
 		
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
@@ -93,15 +89,12 @@ class NtripModelAlbum extends JModelLegacy
 		return $rs;
 	}
 	
-	protected function updateHits($itemId = 0, $itemType = '')
+	protected function updateHits($itemId = 0)
 	{
-		if (!$itemType)
-			$itemType = $this->itemType;
-		
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		
-		$query->update('#__ntrip_' . $itemType)->set('hits = hits + 1')->where('id = ' . $itemId);
+		$query->update('#__hp_albums')->set('hits = hits + 1')->where('id = ' . $itemId);
 		
 		$db->setQuery($query);
 		

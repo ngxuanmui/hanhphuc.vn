@@ -9,6 +9,8 @@ $next = (($limitStart / CFG_LIST_USER_CONTENT) + 1) * CFG_LIST_USER_CONTENT;
 
 <script type="text/javascript">
 <!--
+var USE_MASONRY = true;
+
 jQuery(function($){
 	$('#wrapper').infinitescroll({
         navSelector : '.infinitescroll',
