@@ -13,10 +13,10 @@ jimport('joomla.application.component.controlleradmin');
  * Albums list controller class.
  *
  * @package		Joomla.Administrator
- * @subpackage	com_ntrip
+ * @subpackage	com_jnt_hanhphuc
  * @since		1.6
  */
-class NtripControllerAlbums extends JControllerAdmin
+class Jnt_HanhphucControllerAlbums extends JControllerAdmin
 {
 	/**
 	 * @var		string	The prefix to use with controller messages.
@@ -42,7 +42,7 @@ class NtripControllerAlbums extends JControllerAdmin
 	 * Proxy for getModel.
 	 * @since	1.6
 	 */
-	public function getModel($name = 'Album', $prefix = 'NtripModel', $config = array('ignore_request' => true))
+	public function getModel($name = 'Album', $prefix = 'Jnt_HanhphucModel', $config = array('ignore_request' => true))
 	{
 		$model = parent::getModel($name, $prefix, $config);
 		return $model;
@@ -82,6 +82,6 @@ class NtripControllerAlbums extends JControllerAdmin
 			}
 		}
 
-		$this->setRedirect('index.php?option=com_ntrip&view=albums');
+		$this->setRedirect('index.php?option=com_jnt_hanhphuc&view=albums');
 	}
 }
