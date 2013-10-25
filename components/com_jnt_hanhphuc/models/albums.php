@@ -30,9 +30,10 @@ class Jnt_HanhPhucModelAlbums extends JModelList
 		
 		$query = $db->getQuery(true);
 		
-		$query->select('*')
-				->from('#__hp_albums')
-				->where('state = 1')
+		$query->select('a.*')
+				->from('#__hp_albums a')
+				->where('a.state = 1')
+				->order('a.id DESC')
 		;
 		
 		return $query;

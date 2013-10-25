@@ -30,9 +30,10 @@ class Jnt_HanhPhucModelArticles extends JModelList
 		
 		$query = $db->getQuery(true);
 		
-		$query->select('*')
-				->from('#__hp_business_content')
-				->where('state = 1')
+		$query->select('a.*')
+				->from('#__hp_business_content a')
+				->where('a.state = 1')
+				->order('a.id DESC')
 		;
 		
 		return $query;

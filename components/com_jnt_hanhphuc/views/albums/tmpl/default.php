@@ -82,7 +82,7 @@ jQuery(function($){
 			?>
 			<div id="selector">
 				<div class="infinitescroll">
-					<a href="<?php echo 'index.php?option=com_jnt_hanhphuc&view=articles&limitstart=' . $next; ?>" >Next Page</a>
+					<a href="<?php echo 'index.php?option=com_jnt_hanhphuc&view=albums&limitstart=' . $next; ?>" >Next Page</a>
 				</div>
 			</div>
 

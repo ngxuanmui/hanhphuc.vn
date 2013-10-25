@@ -21,7 +21,7 @@
 
 					html += '<tr>';
 
-					html += '<td width="80"><img src="' + value.thumbnail_url + '" /></td>';
+					html += '<td width="80"><img src="' + value.thumbnail_url + '" style="width: 70px;" /></td>';
 					html += '<td valign="top">'+value.name+'<br><input type="text" name="tmp_desc[]" size="40" placeholder="Input Description" />' + hidden + '</td>';
 					html += '<td width="50"><a href="javascript:;" class="delete-file">Xóa ảnh</a></td>';
 

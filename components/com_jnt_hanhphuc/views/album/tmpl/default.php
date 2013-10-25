@@ -60,7 +60,6 @@ jQuery(function($){
 				?>
 				<div class="tack">
 					<div class="tackHolder">
-							
 						<a title="<?php echo $this->escape($item->description); ?>" href="<?php echo JURI::base(); ?>images/albums/<?php echo $item->id; ?>/<?php echo $img->images; ?>" rel="lightbox[album]">
 							<img src="<?php echo JURI::base(); ?>images/albums/<?php echo $item->id; ?>/thumbnail/<?php echo $img->images; ?>" style="width: 190px;" />
 						</a>
