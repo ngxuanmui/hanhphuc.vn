@@ -46,6 +46,14 @@ class modFeatured_Business_UsersHelper
 		->join('INNER', '#__location_ward ward ON p.business_district = ward.id')
 		;
 		
+		$catId = JRequest::getInt('id', 0);
+		$view = JRequest::getString('view', '');
+		
+		if ($view == 'category' && $catId > 0)
+		{
+			$query->where('i.category = ' . $catId);
+		}
+		
 		$db->setQuery($query, 0, $limit);
 
 		$rs = $db->loadObjectList();

@@ -28,10 +28,23 @@ class Jnt_HanhPhucModelService extends JModelItem
 		$query = 'SELECT s.*, c.id as cat_id, c.title as cat_title FROM #__hp_business_service s
 							 JOIN #__categories c ON c.id = s.category
 						WHERE c.published = 1 AND c.id = '.$catId.' AND s.id = '.$bid;
+		
+		// join over location: province
+		$query->select('province.title AS province_title')
+				->join('INNER', '#__location_province province ON s.business_city = province.id')
+		;
+		
+		// join over location: district
+		$query->select('ward.title AS ward_title')
+				->join('INNER', '#__location_ward ward ON s.business_district = ward.id')
+		;
+		
 		$db->setQuery($query);
 		
 		$obj = $db->loadObject();
 		
 		return $obj;
 	}	
+	
+	
 }
