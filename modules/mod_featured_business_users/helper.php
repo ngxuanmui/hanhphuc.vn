@@ -51,7 +51,7 @@ class modFeatured_Business_UsersHelper
 		
 		if ($view == 'category' && $catId > 0)
 		{
-			$query->where('i.category = ' . $catId);
+			$query->where('(i.category = ' . $catId . ' OR i.category IN (SELECT id FROM #__categories WHERE parent_id = ' . $catId . '))');
 		}
 		
 		$db->setQuery($query, 0, $limit);

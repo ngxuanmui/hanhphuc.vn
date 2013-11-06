@@ -87,7 +87,7 @@ $profile = $user->profile;
 						<li>
 							<label>Địa chỉ</label>
 							<span>
-								: <?php echo $profile->business_address; ?>, <?php echo $profile->business_district; ?>, <?php echo $profile->business_city; ?>
+								: <?php echo $profile->business_address; ?>, <?php echo $profile->ward_title; ?>, <?php echo $profile->province_title; ?>
 							</span>
 						</li>
 						<li>
@@ -114,6 +114,14 @@ $profile = $user->profile;
 								: <?php echo $profile->business_website; ?>	
 							</span>
 						</li>
+						<?php if ($profile->nick_fb): ?>
+						<li>
+							<label>Facebook</label>
+							<span>
+								: <?php echo $profile->nick_fb; ?>	
+							</span>
+						</li>
+						<?php endif; ?>
 					</ul>
 					<div class="clr"></div>
 				</div>

@@ -13,8 +13,31 @@ $doc->addStyleSheet(JURI::base() . 'media/hp/lightbox/css/lightbox.css');
 
 <script type="text/javascript">
 <!--
+var USE_MASONRY = true;
 var fileLoadingImage = '<?php echo JURI::base(); ?>media/hp/lightbox/images/loading.gif';
 var fileCloseImage = '<?php echo JURI::base(); ?>media/hp/lightbox/images/close.png';
+
+jQuery(function($){
+	$('#wrapper').infinitescroll({
+        navSelector : '.infinitescroll',
+        nextSelector : '.infinitescroll a',
+        itemSelector : '#wrapper .tack',
+        loading: {
+            img   : BASE_URL + "/media/hp/html/images/ajax-loader.gif",
+            selector: '#selector',
+            msgText: '',
+            finishedMsg: ''
+			}
+		}, function(arrayOfNewElems) {
+			var $newElems = $( arrayOfNewElems ).css({ opacity: 0 });
+			// ensure that images load before adding to masonry layout
+			$newElems.imagesLoaded(function(){
+				// show elems now they're ready
+				$newElems.css({ opacity: 1 });
+				$('#wrapper').masonry( 'appended', $newElems, true ); 
+			});
+	});
+});
 //-->
 </script>
 

@@ -90,7 +90,21 @@ class Jnt_HanhPhucModelIntro extends JModelForm {
 //        );
 		
 		$query = $db->getQuery(true);
-		$query->select('*')->from('#__hp_business_profile')->where('user_id = ' . $businessId);
+		$query->select('*')->from('#__hp_business_profile p')->where('p.user_id = ' . $businessId);
+		
+		$query->select('n.nick_yahoo, n.nick_skype, n.nick_fb, n.nick_yahoo_alias, n.nick_skype_alias, n.nick_fb_alias');
+		$query->join('LEFT', '#__hp_business_nicks n ON p.user_id = n.user_id');
+
+		// join over location: province
+		$query->select('province.title AS province_title')
+		->join('INNER', '#__location_province province ON p.business_city = province.id')
+		;
+		
+		// join over location: district
+		$query->select('ward.title AS ward_title')
+		->join('INNER', '#__location_ward ward ON p.business_district = ward.id')
+		;
+		
 		$db->setQuery($query);
 //        $results = $db->loadRowList();
 		

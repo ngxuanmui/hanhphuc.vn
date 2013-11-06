@@ -139,7 +139,7 @@ jQuery(function($){
 								<li>
 									<label>Địa chỉ</label>
 									<span>
-										: <?php echo $businessInfo->profile->business_address; ?>, <?php echo $businessInfo->profile->business_district; ?>, <?php echo $businessInfo->profile->business_city; ?>
+										: <?php echo $businessInfo->profile->business_address; ?>, <?php echo $businessInfo->profile->ward_title; ?>, <?php echo $businessInfo->profile->province_title; ?>
 									</span>
 								</li>
 								<li>
@@ -166,6 +166,14 @@ jQuery(function($){
 										: <?php echo $businessInfo->profile->business_website; ?>	
 									</span>
 								</li>
+								<?php if ($businessInfo->profile->nick_fb): ?>
+								<li>
+									<label>Facebook</label>
+									<span>
+										: <?php echo $businessInfo->profile->nick_fb; ?>	
+									</span>
+								</li>
+								<?php endif; ?>
 							</ul>
 							<div class="clr"></div>
 						</div>
