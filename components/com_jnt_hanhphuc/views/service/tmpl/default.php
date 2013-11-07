@@ -163,14 +163,14 @@ jQuery(function($){
 								<li>
 									<label>Website</label>
 									<span>
-										: <?php echo $businessInfo->profile->business_website; ?>	
+										: <a href="http://<?php echo $businessInfo->profile->business_website; ?>" target="_blank"><?php echo $businessInfo->profile->business_website; ?></a>	
 									</span>
 								</li>
 								<?php if ($businessInfo->profile->nick_fb): ?>
 								<li>
 									<label>Facebook</label>
 									<span>
-										: <?php echo $businessInfo->profile->nick_fb; ?>	
+										: <a href="https://www.facebook.com/<?php echo $businessInfo->profile->nick_fb; ?>" target="_blank"><?php echo $businessInfo->profile->nick_fb; ?></a>	
 									</span>
 								</li>
 								<?php endif; ?>
@@ -189,13 +189,7 @@ jQuery(function($){
 	    	<div class="seperator absolute"></div>
 	    	
 	    	<div class="com-comments">
-	    		<?php 
-	    		$comments = JPATH_SITE . DS .'components' . DS . 'com_jcomments' . DS . 'jcomments.php';
-	    		if (file_exists($comments)) {
-	    			require_once($comments);
-	    			echo JComments::showComments($serviceInfo->id, 'com_jnt_hanhphuc', $serviceInfo->name);
-	    		}
-	    		?>
+	    		<?php // JEUtil::showForm($serviceInfo->id, 'service', $serviceInfo->name); ?>
 	    	</div>
 	    </div>
     	

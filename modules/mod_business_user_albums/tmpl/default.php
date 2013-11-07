@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
 <script type="text/javascript">
 	jQuery(function($) {
 		$('#carousel').carouFredSel({
-			width: '100%',
+			width: '100px',
 			items: {
 				visible: '+1'
 			},
@@ -32,23 +32,12 @@ defined('_JEXEC') or die;
 	});
 </script>
 
-<div id="wrapper">
-abc
+<div class="module-title module-padding">Album Ảnh cưới</div>
+<div class="line-break"></div>
+<div id="albums-wrapper">
 	<div id="carousel">
-		<img src="img/dakar-1.jpg" alt="dakar-1" width="250" height="150" /> <img
-			src="img/dakar-2.jpg" alt="dakar-2" width="250" height="150" /> <img
-			src="img/dakar-3.jpg" alt="dakar-3" width="100" height="150" /> <img
-			src="img/dakar-4.jpg" alt="dakar-4" width="250" height="150" /> <img
-			src="img/dakar-5.jpg" alt="dakar-5" width="250" height="150" /> <img
-			src="img/dakar-6.jpg" alt="dakar-6" width="100" height="150" /> <img
-			src="img/dakar-7.jpg" alt="dakar-7" width="250" height="150" /> <img
-			src="img/dakar-8.jpg" alt="dakar-8" width="250" height="150" /> <img
-			src="img/dakar-9.jpg" alt="dakar-9" width="250" height="150" /> <img
-			src="img/dakar-10.jpg" alt="dakar-10" width="250" height="150" /> <img
-			src="img/dakar-11.jpg" alt="dakar-11" width="250" height="150" /> <img
-			src="img/dakar-12.jpg" alt="dakar-12" width="100" height="150" /> <img
-			src="img/dakar-13.jpg" alt="dakar-13" width="250" height="150" /> <img
-			src="img/dakar-14.jpg" alt="dakar-14" width="250" height="150" /> <img
-			src="img/dakar-15.jpg" alt="dakar-15" width="100" height="150" />
+		<?php foreach ($list as $item): ?>
+		<img src="<?php echo $item->images; ?>" alt="<?php echo $item->name; ?>" width="269" />
+		<?php endforeach; ?>
 	</div>
 </div>

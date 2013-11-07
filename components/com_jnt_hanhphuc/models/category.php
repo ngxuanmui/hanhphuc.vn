@@ -23,22 +23,22 @@ jimport('joomla.application.component.modellist');
  */
 class Jnt_HanhphucModelCategory extends JModelList
 {
-// 	public function getCategory()
-// 	{
-// 		jimport ('joomla.application.categories');
+	public function getCategory()
+	{
+		jimport ('joomla.application.categories');
 		
-// 		$id = JRequest::getUInt('id');
+		$id = JRequest::getUInt('id');
 		
-// 		$catObj = JCategories::getInstance('JNT_Hanhphuc', array('extension' => 'com_jnt_hanhphuc', 'table' => ''));
+		$catObj = JCategories::getInstance('JNT_Hanhphuc', array('extension' => 'com_jnt_hanhphuc', 'table' => ''));
 		
-// 		$category = $catObj->get($id);
+		$category = $catObj->get($id);
 		
-// 		$users = FrontJntHanhphucHelper::getUsers($category->id, 60);
+		$users = FrontJntHanhphucHelper::getUsers($category->id, true);
 		
-// 		$category->users = $users;
+		$category->users = $users;
 		
-// 		return $category;
-// 	}
+		return $category;
+	}
 
 	protected function getListQuery()
 	{

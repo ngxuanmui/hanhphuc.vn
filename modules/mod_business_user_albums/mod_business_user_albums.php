@@ -11,4 +11,13 @@ defined('_JEXEC') or die;
 
 $user = JFactory::getUser();
 
+// Include the syndicate functions only once
+require_once dirname(__FILE__).'/helper.php';
+
+$list = modBusinessUserAlbumsHelper::getList($params);
+$moduleclass_sfx = htmlspecialchars($params->get('moduleclass_sfx'));
+
+if (empty($list))
+	return false;
+
 require JModuleHelper::getLayoutPath('mod_business_user_albums', $params->get('layout', 'default'));

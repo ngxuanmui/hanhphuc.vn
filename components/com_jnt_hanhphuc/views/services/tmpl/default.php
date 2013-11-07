@@ -53,7 +53,7 @@ $profile = $user->profile;
 				<ul class="items">
 					<?php foreach($this->items as $item):?>
 					<li class="service-business-detail">
-							<a title="<?php echo htmlspecialchars($item->name); ?>" href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$item->category.'&bid='.$item->id)?>">
+							<a title="<?php echo htmlspecialchars($item->name); ?>" href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&id='.$item->category.'&bid='.$item->id.'&user=' . JRequest::getString('user'))?>">
 								<?php if ($item->img): ?>
 								<div class="img">
 									<img src='<?php echo JURI::base()?>images/users/<?php echo $user->id?>/services/<?php echo $item->id?>/<?php echo $item->img; ?>' />
@@ -111,14 +111,14 @@ $profile = $user->profile;
 						<li>
 							<label>Website</label>
 							<span>
-								: <?php echo $profile->business_website; ?>	
+								: <a href="<?php echo $profile->business_website; ?>" target="_blank"><?php echo $profile->business_website; ?>	</a>
 							</span>
 						</li>
 						<?php if ($profile->nick_fb): ?>
 						<li>
 							<label>Facebook</label>
 							<span>
-								: <?php echo $profile->nick_fb; ?>	
+								: <a href="<?php echo $profile->nick_fb; ?>" target="_blank"><?php echo $profile->nick_fb; ?></a>
 							</span>
 						</li>
 						<?php endif; ?>

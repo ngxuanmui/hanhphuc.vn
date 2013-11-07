@@ -25,7 +25,7 @@ class Jnt_HanhPhucViewCategory extends JViewLegacy {
 	function display($tpl = null)
 	{
         // Get some data from the models
-//         $this->category 	= $this->get('Category');
+        $this->category 	= $this->get('Category');
 		$this->state		= $this->get('State');
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');

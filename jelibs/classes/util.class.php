@@ -5,6 +5,21 @@
 
 class JEUtil
 {
+	/* show comment form */
+	public static function showForm($itemId, $itemType, $title = '')
+	{
+		JModelLegacy::addIncludePath(JPATH_ROOT.'/components/com_hp_comment/models', 'Hp_CommentModel');
+	
+		$model = JModel::getInstance('Comment', 'Hp_CommentModel');
+		$listComments = $model->getListComments($itemId, $itemType, $title);
+	
+		$isItemOwner = $model->isItemOwner($itemId, $itemType);
+	
+		//		var_dump($listComments); die;
+	
+		include_once JPATH_ROOT . DS . 'components/com_ntrip_comment/views/forms/comment.php';
+	}
+	
 	public static function thumbnail($image_path, $thumb_path, $image_name, $thumbnail_width = 0, $thumbnail_height = 0)
 	{
 		require_once(JPATH_ROOT . '/jelibs/phpthumb/phpthumb.class.php');
