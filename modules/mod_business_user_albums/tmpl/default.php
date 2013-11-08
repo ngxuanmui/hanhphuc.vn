@@ -11,33 +11,32 @@ defined('_JEXEC') or die;
 ?>
 
 <style type="text/css">
-	
+	.bx-pager-item { float: left; }
+	.album-bxslider li { width: 269px; overflow: hidden; }
 </style>
 
 <script src="<?php echo JURI::base(); ?>media/hp/caroufredsel/jquery.carouFredSel-6.2.1-packed.js" type="text/javascript"></script>
 <script type="text/javascript">
 	jQuery(function($) {
-		$('#carousel').carouFredSel({
-			width: '100px',
-			items: {
-				visible: '+1'
-			},
-			auto: {
-				items: 1
-			},
-			prev: '#prev',
-			next: '#next'
-		});
-
+		$('.album-bxslider').bxSlider({auto: true, controls: false, pager: false});
 	});
 </script>
 
 <div class="module-title module-padding">Album Ảnh cưới</div>
 <div class="line-break"></div>
 <div id="albums-wrapper">
-	<div id="carousel">
-		<?php foreach ($list as $item): ?>
-		<img src="<?php echo $item->images; ?>" alt="<?php echo $item->name; ?>" width="269" />
+	<ul class="album-bxslider">
+		<?php 
+		foreach ($list as $item): 
+			$img = getimagesize(JPATH_ROOT . DS . $item->images);
+		
+			$w = 269;
+			
+			$h = round(( $img[1] * $w ) / $img[0]);			
+		?>
+		<li><img src="<?php echo $item->images; ?>" alt="<?php echo $item->name; ?>" style="border: none; height: <?php echo $h . 'px'; ?>; width: <?php echo $w . 'px'; ?>" /></li>
 		<?php endforeach; ?>
-	</div>
+	</ul>
 </div>
+
+<div class="clr"></div>
