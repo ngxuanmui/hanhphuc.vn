@@ -18,7 +18,51 @@ defined('_JEXEC') or die;
 <script src="<?php echo JURI::base(); ?>media/hp/caroufredsel/jquery.carouFredSel-6.2.1-packed.js" type="text/javascript"></script>
 <script type="text/javascript">
 	jQuery(function($) {
-		$('.album-bxslider').bxSlider({auto: true, controls: false, pager: false});
+		slider = $('.album-bxslider').bxSlider({
+			auto: true, 
+			controls: false, 
+			pager: false,
+			onSlideNext: function($slideElement, oldIndex, newIndex){
+				changeCounterActive(newIndex);
+			},
+			onSlidePrev: function($slideElement, oldIndex, newIndex){
+				changeCounterActive(newIndex);
+			}
+		});
+
+		function changeCounterActive(newIndex)
+		{
+			$('#slider-slide-container span').removeClass('active');
+
+			slideQty = slider.getSlideCount();
+
+			idx = newIndex;
+
+			if (newIndex > slideQty)
+				idx = 0;
+
+			var id = 's-' + idx;
+
+			$('#' + id).addClass('active');
+		}
+
+		$('#slider-next').click(function(){
+			slider.goToNextSlide();
+		});
+
+		$('#slider-prev').click(function(){
+			slider.goToPrevSlide();
+		});
+
+		$('#slider-slide-container span').click(function(){
+			var id = $(this).attr('id').replace('s-', '');
+
+			$('#slider-slide-container span').removeClass('active');
+
+			$(this).addClass('active');
+
+			slider.goToSlide(id);
+		});
 	});
 </script>
 
@@ -50,7 +94,7 @@ defined('_JEXEC') or die;
 	
 	<div id="slider-slide-container" class="absolute">
 		<?php for ($i = 0; $i < count($list); $i ++): ?>
-		<span <?php if ($i == 1) echo 'class="active"'; ?>></span>
+		<span id="s-<?php echo $i; ?>" <?php if ($i == 0) echo 'class="active"'; ?>></span>
 		<?php endfor; ?>
 	</div>
 </div>
