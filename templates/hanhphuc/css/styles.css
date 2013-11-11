@@ -325,5 +325,15 @@ a.yahoo { background: url('http://opi.yahoo.com/online?u=muinx&m=g&t=1') 0 cente
 #selector img { border: none; }
 
 /* ################# User albums ############### */
-#albums-wrapper { width: 229px; overflow: hidden; margin: 10px 0 10px 50px; height: 150px; }
+#albums-wrapper { width: 229px; /* overflow: hidden; */ margin: 10px 0 10px 50px; height: 150px; }
 #albums-wrapper .caroufredsel_wrapper {  }
+
+#slider-next, #slider-prev { border: 0px solid #CCC; width: 30px; height: 30px; top: 60px; }
+
+#slider-next { right: -40px; background: url('../images/icon_next.png') no-repeat; }
+
+#slider-prev { left: -40px; background: url('../images/icon_previous.png') no-repeat; }
+
+#slider-slide-container { top: -30px; right: -50px; border: 0px solid #000; height: 10px; }
+#slider-slide-container span { display: inline-block; width: 5px; height: 5px; border: 1px solid #333; }
+#slider-slide-container span.active { background: #333; }

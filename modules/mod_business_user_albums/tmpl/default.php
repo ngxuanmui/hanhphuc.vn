@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 <style type="text/css">
 	.bx-pager-item { float: left; }
-	.album-bxslider li { width: 269px; overflow: hidden; }
+	.album-bxslider li { width: 269px; overflow: hidden; height: 150px; }
 </style>
 
 <script src="<?php echo JURI::base(); ?>media/hp/caroufredsel/jquery.carouFredSel-6.2.1-packed.js" type="text/javascript"></script>
@@ -24,7 +24,7 @@ defined('_JEXEC') or die;
 
 <div class="module-title module-padding">Album Ảnh cưới</div>
 <div class="line-break"></div>
-<div id="albums-wrapper">
+<div id="albums-wrapper" class="relative">
 	<ul class="album-bxslider">
 		<?php 
 		foreach ($list as $item): 
@@ -32,11 +32,27 @@ defined('_JEXEC') or die;
 		
 			$w = 269;
 			
-			$h = round(( $img[1] * $w ) / $img[0]);			
+			$frameHeight = 150;
+			
+			$h = round(( $img[1] * $w ) / $img[0]);	
+
+			if ($h < $frameHeight)
+				$margin = round (($frameHeight - $h) / 2);
+			
 		?>
-		<li><img src="<?php echo $item->images; ?>" alt="<?php echo $item->name; ?>" style="border: none; height: <?php echo $h . 'px'; ?>; width: <?php echo $w . 'px'; ?>" /></li>
+		<li><img src="<?php echo $item->thumb; ?>" alt="<?php echo $item->name; ?>" style="border: none; height: <?php echo $h . 'px'; ?>; width: <?php echo $w . 'px'; ?>; margin-top: <?php echo (int) $margin . 'px'; ?>" /></li>
 		<?php endforeach; ?>
 	</ul>
+	
+	
+	<div id="slider-next" class="absolute"></div>
+	<div id="slider-prev" class="absolute"></div>
+	
+	<div id="slider-slide-container" class="absolute">
+		<?php for ($i = 0; $i < count($list); $i ++): ?>
+		<span <?php if ($i == 1) echo 'class="active"'; ?>></span>
+		<?php endfor; ?>
+	</div>
 </div>
 
 <div class="clr"></div>
