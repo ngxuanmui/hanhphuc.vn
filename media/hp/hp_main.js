@@ -75,4 +75,49 @@ jQuery(function($){
 			imwb_move_sidebar();
 		});
 	}
+	
+	// comments
+$('#hp-btn-post-comment').click(function(){
+		
+		var t = $(this);
+		var comment = $('#hp-textarea-comment');
+		var msg = $('#comment-msg');
+		
+		if (t.hasClass('processing'))
+			return false;
+		
+		t.addClass('processing');
+		
+		if ($.trim(comment.val()) == '')
+		{
+			t.removeClass('processing');
+			msg.removeClass('success').addClass('error').html('Vui lòng nhập vào thông tin bình luận của bạn');
+			return false;
+		}
+		else
+		{
+			msg.removeClass('error').html('Vui lòng đợi ...');
+		}
+		
+		$.post(
+				'index.php?option=com_hp_comment&task=comment.post',
+				/* ITEM_ID, ITEM_TYPE was defined in form */
+				{content: comment.val(), item_id: ITEM_ID_COMMENT, item_type: ITEM_TYPE_COMMENT, parent_id: $('#comment-parent-id').val()},
+				function(res)
+				{
+					t.removeClass('processing');
+					
+					if (res == 'OK')
+					{
+						comment.val('');
+						msg.removeClass('error').addClass('success').html('Cảm ơn bạn. Bình luận của bạn đã được gửi!');
+					}
+					else
+						msg.removeClass('success').addClass('error').html('Xin lỗi bạn. Có lỗi xảy ra. Vui lòng thử lại sau!');
+						
+				}
+		);
+		
+		return false;
+	});
 });

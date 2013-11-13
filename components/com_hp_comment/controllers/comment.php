@@ -15,7 +15,7 @@ class Ntrip_CommentControllerComment extends JControllerLegacy
 		$parentId	= JRequest::getInt('parent_id');
 		$content	= JRequest::getString('content');
 		
-		$model = $this->getModel('Comment', 'Ntrip_CommentModel');
+		$model = $this->getModel('Comment', 'Hp_CommentModel');
 		
 		$saveResult = $model->save($itemId, $itemType, $parentId, $content);
 		

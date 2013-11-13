@@ -13,11 +13,11 @@ class JEUtil
 		$model = JModel::getInstance('Comment', 'Hp_CommentModel');
 		$listComments = $model->getListComments($itemId, $itemType, $title);
 	
-		$isItemOwner = $model->isItemOwner($itemId, $itemType);
+// 		$isItemOwner = $model->isItemOwner($itemId, $itemType);
 	
 		//		var_dump($listComments); die;
 	
-		include_once JPATH_ROOT . DS . 'components/com_ntrip_comment/views/forms/comment.php';
+		include_once JPATH_ROOT . DS . 'components/com_hp_comment/views/forms/comment.php';
 	}
 	
 	public static function thumbnail($image_path, $thumb_path, $image_name, $thumbnail_width = 0, $thumbnail_height = 0)

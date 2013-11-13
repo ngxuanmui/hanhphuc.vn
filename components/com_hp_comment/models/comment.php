@@ -1,6 +1,6 @@
 <?php
 
-class Ntrip_CommentModelComment extends JModelLegacy
+class Hp_CommentModelComment extends JModelLegacy
 {
 	public function getListComments($itemId, $itemType, $title = '')
 	{
@@ -8,9 +8,8 @@ class Ntrip_CommentModelComment extends JModelLegacy
 		$query = $db->getQuery(true);
 		
 		$query->select('c.*')
-				->select('(SELECT COUNT(id) FROM #__ntrip_rating WHERE item_type = "'.$itemType.'" AND item_id = '.(int) $itemId.') AS count_rating')
-				->select('(SELECT COUNT(id) FROM #__ntrip_comments WHERE item_type = "'.$itemType.'" AND item_id = '.(int) $itemId.') AS count_comment')
-				->from('#__ntrip_comments c')
+				->select('(SELECT COUNT(id) FROM #__hp_comments WHERE item_type = "'.$itemType.'" AND item_id = '.(int) $itemId.') AS count_comment')
+				->from('#__hp_comments c')
 				->select('u.username')
 				->join('LEFT', '#__users u ON c.created_by = u.id')
 				->where('c.item_type = ' . $db->quote($itemType))
@@ -24,13 +23,16 @@ class Ntrip_CommentModelComment extends JModelLegacy
 		$db->setQuery($query);
 		$rs = $db->loadObjectList();
 		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
+		
 		// load sub comment
 		foreach ($rs as & $comment)
 		{
 			$query = $db->getQuery(true);
 		
 			$query->select('c.*, ' . $db->quote($title) . ' AS item_title')
-					->from('#__ntrip_comments c')
+					->from('#__hp_comments c')
 					->select('u.username')
 					->join('LEFT', '#__users u ON c.created_by = u.id')
 					->where('c.item_type = ' . $db->quote($itemType))
@@ -44,22 +46,6 @@ class Ntrip_CommentModelComment extends JModelLegacy
 		}
 		
 		return $rs;
-	}
-	
-	public function isItemOwner($itemId, $itemType)
-	{
-		$db = JFactory::getDbo();
-		$query = $db->getQuery(true);
-		
-		$query->select('id, created_by')->from('#__ntrip_' . $itemType)->where('id = ' . $itemId);
-		$db->setQuery($query);
-		
-		$item = $db->loadObject();
-		
-		if ($item->created_by == JFactory::getUser()->id)
-			return true;
-		
-		return false;
 	}
 
 	public function save($itemId, $itemType, $parentId, $content)
@@ -75,7 +61,7 @@ class Ntrip_CommentModelComment extends JModelLegacy
 		$obj->created_by = JFactory::getUser()->id;
 		
 		$db = JFactory::getDbo();
-		$result = $db->insertObject('#__ntrip_comments', $obj, 'id');
+		$result = $db->insertObject('#__hp_comments', $obj, 'id');
 		
 		if (!$result)
 			return array('error' => 1, 'msg' => $db->getErrorMsg ());

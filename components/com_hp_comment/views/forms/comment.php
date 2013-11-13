@@ -4,12 +4,6 @@
 
 <div class="clr"></div>
 
-<ul class="tab-list-main tab-comments">
-	<li class="active">Đánh giá mới nhất</li>
-	<li>Nhiều người thích nhất</li>
-	<div class="clr"></div>
-</ul>
-
 <div class="comments">
 	
 	<div class="list-comments">
@@ -17,22 +11,11 @@
 		<div class="comment-content">
 			<?php foreach ($listComments as $comment): ?>
 			<div class="avatar fltlft">
-				<img src="<?php echo NtripFrontHelper::getAvatar($comment->created_by); ?>" />
+				<img src="<?php // echo NtripFrontHelper::getAvatar($comment->created_by); ?>" />
 			</div>
 			<div class="comment-content-container fltlft">
 				<div class="comment-user-info">
 					<div class="fltlft"><?php echo $comment->username ? $comment->username : 'Anonymous'; ?> &bull; </div>
-					<div class="fltlft">
-						<?php 
-				
-						echo LocaHelper::renderModulesOnPosition(
-									'loca-rating', 
-									array(	'item' => $comment, 
-											'item_type' => 'comments'
-									)
-								); 
-						?>
-					</div>
 					<div class="fltlft"> &bull; <?php echo $comment->created; ?></div>
 					<div class="clr"></div>
 				</div>
@@ -40,18 +23,6 @@
 				<p><?php echo $comment->content; ?></p>
 				
 				<div class="clr"></div>
-				
-				<div class="comment-like">
-					<?php 
-				
-					echo LocaHelper::renderModulesOnPosition(
-								'loca-like', 
-								array(	'item' => $comment, 
-										'item_type' => 'comments'
-								)
-							); 
-					?>
-				</div>
 				
 				<div class="clr"></div>
 				
@@ -96,11 +67,11 @@
 	</div>
 	
 	<?php if (JFactory::getUser()->id): ?>
-	<form action="<?php echo JRoute::_('index.php'); ?>" id="loca-frm-comment">
+	<form action="<?php echo JRoute::_('index.php'); ?>" id="hp-frm-comment">
 		<div class="post-comment" style="margin: 10px 0;">
-			<?php if ($isItemOwner): ?>
+			<?php /*if ($isItemOwner): ?>
 			Gửi bình luận: 
-			<select name="loca_comment_parent_id" id="comment-parent-id">
+			<select name="hp_comment_parent_id" id="comment-parent-id">
 				<option value="">Bình luận mới</option>
 				<?php 
 				foreach ($listComments as $comment): 
@@ -109,11 +80,11 @@
 				<option value="<?php echo $comment->id; ?>"><?php echo JHtml::_('string.truncate', $comment->content, 50) . '('.$author.')'; ?></option>
 				<?php endforeach; ?>
 			</select>
-			<?php endif; ?>
-			<textarea style="height: 100px; width: 100%; margin: 10px 0 0;" id="loca-textarea-comment"></textarea>
+			<?php endif; */ ?>
+			<textarea style="height: 100px; width: 100%; margin: 10px 0 0;" id="hp-textarea-comment"></textarea>
 			<div class="clr"></div>
 		</div>
-		<button class="icons button fltrgt" id="loca-btn-post-comment">
+		<button class="xicons button fltrgt" id="hp-btn-post-comment" type="button">
 			Bình luận
 		</button>
 		<div class="fltlft error comment-msg" id="comment-msg"></div>

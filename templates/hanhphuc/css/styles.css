@@ -337,3 +337,7 @@ a.yahoo { background: url('http://opi.yahoo.com/online?u=muinx&m=g&t=1') 0 cente
 #slider-slide-container { top: -30px; right: -50px; border: 0px solid #000; height: 10px; }
 #slider-slide-container span { display: inline-block; width: 5px; height: 5px; border: 1px solid #333; cursor: pointer; }
 #slider-slide-container span.active { background: #333; }
+
+.comments-container { margin-top: 10px; border: 1px solid #CCC; }
+
+.error { color: red; }

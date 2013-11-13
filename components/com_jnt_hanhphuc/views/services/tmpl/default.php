@@ -126,6 +126,18 @@ $profile = $user->profile;
 					<div class="clr"></div>
 				</div>
 			</div>
+			
+			<div class="comments-container relative box">
+		    	<div class="seperator absolute"></div>
+		    	
+		    	<div class="com-comments">
+		    		<script type="text/javascript">
+		    			var ITEM_ID_COMMENT = '<?php echo $user->id; ?>';
+		    			var ITEM_TYPE_COMMENT = 'user';
+		    		</script>
+		    		<?php JEUtil::showForm($user->id, 'user', $user->name); ?>
+		    	</div>
+		    </div>
 		</div>
 	</div>
 	
