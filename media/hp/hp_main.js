@@ -2,6 +2,11 @@ jQuery.noConflict();
 
 function imwb_move_sidebar() {}
 
+function isEmail(email) {
+	var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	return regex.test(email);
+}
+
 jQuery(function($){
 	$('.user-toolbar button').click(function(){
 		
@@ -82,22 +87,53 @@ $('#hp-btn-post-comment').click(function(){
 		var t = $(this);
 		var comment = $('#hp-textarea-comment');
 		var msg = $('#comment-msg');
+		var guestFullName = $('#guest_fullname');
+		var guestEmail = $('#guest_email');
 		
 		if (t.hasClass('processing'))
 			return false;
 		
 		t.addClass('processing');
 		
+		// remove all error
+		$('span.error').remove();
+		
+		var validForm = true;
+		
+		if (guestFullName.length && $.trim(guestFullName.val()) == '')
+		{
+			validForm = false;			
+			guestFullName.after('<span class="error" style="padding-left: 5px;">Vui lòng nhập vào họ tên của bạn.</span>');
+		}
+		
+		if (guestEmail.length)
+		{
+			if ($.trim(guestEmail.val()) == '')
+			{
+				validForm = false;				
+				guestEmail.after('<span class="error" style="padding-left: 5px;">Vui lòng nhập vào email của bạn.</span>');
+			}
+			else
+			{
+				if (!isEmail(guestEmail.val()))
+				{
+					validForm = false;				
+					guestEmail.after('<span class="error" style="padding-left: 5px;">Email không đúng.</span>');
+				}
+			}
+		}
+		
 		if ($.trim(comment.val()) == '')
 		{
+			validForm = false;		
 			t.removeClass('processing');
 			msg.removeClass('success').addClass('error').html('Vui lòng nhập vào thông tin bình luận của bạn');
+		}
+		
+		if (!validForm)
 			return false;
-		}
-		else
-		{
-			msg.removeClass('error').html('Vui lòng đợi ...');
-		}
+		
+		msg.removeClass('error').html('Vui lòng đợi ...');
 		
 		$.post(
 				'index.php?option=com_hp_comment&task=comment.post',

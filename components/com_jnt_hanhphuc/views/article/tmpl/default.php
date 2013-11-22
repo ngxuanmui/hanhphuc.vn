@@ -21,12 +21,16 @@ $item = $this->item;
 			<div class="view-content">
 				<?php echo $item->content; ?>
 			</div>
+			<div class="com-comments">
+	    		<?php JEUtil::showForm($item->id, 'article', $item->title); ?>
+	    	</div>
 			<?php else: ?>
 			<div class="view-content">
 				<h1>Bài viết không tồn tại.</h1>
 			</div>
 			<?php endif; ?>
 		</div>
+		
 	</div>
 	<div class="float-right right-side">
 		<?php echo JEUtil::loadModule('right', 'module-padding'); ?>

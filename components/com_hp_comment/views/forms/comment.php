@@ -81,6 +81,22 @@
 				<?php endforeach; ?>
 			</select>
 			<?php endif; */ ?>
+			<?php if (JFactory::getUser()->guest): ?>
+			<ul class="guest-info">
+				<li>
+					<label><span>*</span> Họ tên:</label>
+					<input type="text" name="guest_fullname" id="guest_fullname" class="required" />
+				</li>
+				<li>
+					<label><span>*</span> Email:</label>
+					<input type="text" name="guest_email" id="guest_email" class="required email" />
+				</li>
+				<li>
+					<label>Website:</label>
+					<input type="text" name="guest_website" />
+				</li>
+			</ul>
+			<?php endif; ?>
 			<textarea style="height: 100px; width: 100%; margin: 10px 0 0;" id="hp-textarea-comment"></textarea>
 			<div class="clr"></div>
 		</div>

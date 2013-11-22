@@ -341,3 +341,7 @@ a.yahoo { background: url('http://opi.yahoo.com/online?u=muinx&m=g&t=1') 0 cente
 .comments-container { margin-top: 10px; border: 1px solid #CCC; }
 
 .error { color: red; }
+
+.guest-info li { margin: 5px 0; }
+.guest-info li label { display: inline-block; width: 100px; }
+.guest-info li label span { color: red; }
