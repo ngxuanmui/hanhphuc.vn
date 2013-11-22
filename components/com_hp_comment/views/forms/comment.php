@@ -66,7 +66,7 @@
 		<div class="clr"></div>
 	</div>
 	
-	<?php if (JFactory::getUser()->id): ?>
+	<?php /* if (JFactory::getUser()->id): */ ?>
 	<form action="<?php echo JRoute::_('index.php'); ?>" id="hp-frm-comment">
 		<div class="post-comment" style="margin: 10px 0;">
 			<?php /*if ($isItemOwner): ?>
@@ -90,9 +90,9 @@
 		<div class="fltlft error comment-msg" id="comment-msg"></div>
 		<?php echo JHtml::_('form.token'); ?>
 	</form>
-	<?php else: ?>
+	<?php /* else: ?>
 	<div class="user-comment-not-login">Vui lòng đăng nhập để gửi bình luận của bạn.</div>
-	<?php endif; ?>
+	<?php endif; */ ?>
 
 	<div class="clr"></div>
 </div>

@@ -103,6 +103,7 @@ jQuery(function($){
 			    		</li>
 			    	</ul>
 			    
+			    <?php if ($serviceInfo->current_price > 0): ?>
 			    <form id="add-service-to-cart" name="add-service-to-cart" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=cart.add') ?>" method="post">
 		            <input type="hidden" name="option" value="com_jnt_hanhphuc"/>
 		            <input type="hidden" name="task" value="cart.add"/>
@@ -112,7 +113,7 @@ jQuery(function($){
 		            	Thêm vào giỏ hàng
 		            </button>
 		        </form>
-			    	
+			    <?php endif; ?>
 			    	
 			    </div>
 			    
@@ -189,7 +190,7 @@ jQuery(function($){
 	    	<div class="seperator absolute"></div>
 	    	
 	    	<div class="com-comments">
-	    		<?php // JEUtil::showForm($serviceInfo->id, 'service', $serviceInfo->name); ?>
+	    		<?php JEUtil::showForm($serviceInfo->id, 'service', $serviceInfo->name); ?>
 	    	</div>
 	    </div>
     	
