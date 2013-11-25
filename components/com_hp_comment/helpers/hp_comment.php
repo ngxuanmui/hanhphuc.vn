@@ -1,6 +1,6 @@
 <?php
 
-class Ntrip_CommentHelper 
+class HP_CommentHelper
 {
 	public function __construct()
 	{
