@@ -36,4 +36,9 @@ defined('_JEXEC') or die;
 			Quản lý tin khuyến mại
 		</a>
 	</li>
+	<li class="item-244">
+		<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&amp;view=user_man_comments', false); ?>">
+			Quản lý bình luận
+		</a>
+	</li>
 </ul>

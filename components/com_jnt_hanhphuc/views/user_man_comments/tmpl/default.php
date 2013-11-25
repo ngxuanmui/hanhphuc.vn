@@ -13,6 +13,9 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 
 $items = $this->items;
+
+$arrItems = array('article' => 'Tin khuyến mại', 'service' => 'Sản phẩm', 'user' => 'Doanh nghiệp');
+
 ?>
 
 <div class="container">
@@ -26,11 +29,35 @@ $items = $this->items;
 							<th width="1%" nowrap="nowrap">Trạng thái</th>
 						</tr>
 						<?php if (!empty($items)): ?>
-						<?php foreach ($items as $key => $item): ?>
+						<?php
+						foreach ($items as $key => $item):
+							$itemType = $item->item_type;
+							
+							switch ($itemType)
+							{
+								case 'article':
+									$link = JRoute::_('index.php?option=com_jnt_hanhphuc&view=article&id=' . $item->item_id . ':' . $item->comment_alias);
+									break;
+									
+								case 'service':
+									$link = JRoute::_('index.php?option=com_jnt_hanhphuc&view=service&bid=' . $item->item_id);
+									break;
+							
+								default:
+									$link = JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&user='.$item->item_id.'-'.$item->comment_alias);
+									break;
+							}
+						?>
 						<tr class="<?php if (($key+1) %2 == 0) echo 'oven' ?>">
 							<td>
-								<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_content.edit&id='. $item->id . '&Itemid=' . JRequest::getInt('Itemid'), false); ?>">
-									<?php echo $item->title; ?>
+								<div>
+									Bình luận trong: <?php echo $arrItems[$item->item_type]; ?>
+									(<a href="<?php echo $link; ?>">
+										<?php echo $item->comment_for; ?>
+									</a>)
+								</div>
+								<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_comment.edit&id='. $item->id . '&Itemid=' . JRequest::getInt('Itemid'), false); ?>">
+									<?php echo $item->content; ?>
 								</a>
 							</td>
 							<td><?php echo ($item->state == 1) ? 'Yes' : 'No'; ?></td>
@@ -38,21 +65,12 @@ $items = $this->items;
 						<?php endforeach; ?>
 						<?php else: ?>
 						<tr>
-							<td colspan="5">	
-								Chưa có thông tin nào mới						
+							<td colspan="5">
+								Chưa có thông tin nào mới
 							</td>
 						</tr>
 						<?php endif; ?>
 					</table>
-					<div class="clear">
-						<div class="pagination fltleft" style="background: #fff;"><?php echo $this->pagination->getPagesLinks();//$this->pagination->getListFooter(); ?></div>
-						<div class="fltright">
-							<input type="hidden" name="task" value="" />
-							<?php echo JHtml::_('form.token'); ?>
-							<?php echo HP_User_Toolbar::buttonList('user_man_content'); ?>
-						</div>
-						<div class="clear"></div>
-					</div>
 				</form>
 			</div>
 		</div>

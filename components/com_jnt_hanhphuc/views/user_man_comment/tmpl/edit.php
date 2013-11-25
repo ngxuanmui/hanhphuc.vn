@@ -36,12 +36,6 @@ form#user-content-form textarea { width: 644px; margin: 5px 0; padding: 5px; }
 								<?php echo $this->form->getLabel('alias'); ?>
 								<?php echo $this->form->getInput('alias'); ?>
 							</li>
-							
-							<?php /*
-
-							<li><?php echo $this->form->getLabel('state'); ?>
-							<?php echo $this->form->getInput('state'); ?></li>
-							 */?>
 
 							<?php /*
 							<li>
@@ -54,55 +48,20 @@ form#user-content-form textarea { width: 644px; margin: 5px 0; padding: 5px; }
 								<?php echo $this->form->getInput(''); ?>
 							</li>
 							 */ ?>
-
-							<li>
-								<?php echo $this->form->getLabel('images'); ?>
-								<?php echo $this->form->getInput('images'); ?>
-							</li>
-							
-							<li>
-								<?php echo $this->form->getLabel('publish_up'); ?>
-								<?php echo $this->form->getInput('publish_up'); ?>
-							</li>
-							
-							<li>
-								<?php echo $this->form->getLabel('publish_down'); ?>
-								<?php echo $this->form->getInput('publish_down'); ?>
-							</li>
-
-							<?php 
-							$introImages = ($this->item->images) ? $this->item->images : false; 
-							?>
-
-							<?php if ($introImages): ?>
-							<li class="control-group form-inline">
-								<?php echo $this->form->getLabel('del_image'); ?>
-								<?php echo $this->form->getInput('del_image'); ?>
+							 
+							 <li>
+								<?php echo nl2br($this->item->content); ?>
 							</li>
 
 							<li>
-								<label>Intro image uploaded</label>
-								<a href="<?php echo JUri::root() . $introImages; ?>" class="modal">
-									<img src="<?php echo JUri::root() . $introImages; ?>" style="width: 100px;" />
-								</a>
+								<?php echo $this->form->getLabel('reply_content'); ?>
+								<?php echo $this->form->getInput('reply_content'); ?>
 							</li>
-							<?php endif; ?>
 
 							<li><?php echo $this->form->getLabel('id'); ?>
 							<?php echo $this->form->getInput('id'); ?></li>
 						</ul>
-						<div class="clr"> </div>
 
-						<?php echo $this->form->getLabel('introtext'); ?>
-						<?php echo $this->form->getInput('introtext'); ?>
-
-						<div class="clr"> </div>
-						
-						<?php echo $this->form->getLabel('content'); ?>
-						<?php echo $this->form->getInput('content'); ?>
-						
-            			<?php echo $this->form->getInput('images2content'); ?>
-						
 						<div class="clr"> </div>
 						
 						<input type="hidden" name="task" value="user_man_content.apply" />

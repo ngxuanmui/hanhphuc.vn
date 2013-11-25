@@ -15,7 +15,7 @@ jimport('joomla.application.component.modellist');
  * @subpackage	com_jnt_hanhphuc
  * @since		1.6
  */
-class Jnt_HanhphucModelUser_Man_Contents extends JModelList
+class Jnt_HanhphucModelUser_Man_COMMENTS extends JModelList
 {
 	/**
 	 * Constructor.
@@ -32,7 +32,6 @@ class Jnt_HanhphucModelUser_Man_Contents extends JModelList
 				'name', 'a.name',
 				'alias', 'a.alias',
 				'state', 'a.state',
-				'ordering', 'a.ordering',
 				'catid', 'a.catid', 'category_title',
 				'checked_out', 'a.checked_out',
 				'checked_out_time', 'a.checked_out_time',
@@ -62,26 +61,43 @@ class Jnt_HanhphucModelUser_Man_Contents extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'a.id AS id, a.title AS title, a.alias AS alias,'.
-				'a.checked_out AS checked_out,'.
-				'a.checked_out_time AS checked_out_time, a.catid AS catid,' .
-				'a.state AS state, a.ordering AS ordering,'.
-				'a.publish_up, a.publish_down'
+				'a.id AS id, a.content, a.item_type, a.item_id,'.
+				'a.checked_out AS checked_out, a.created_by,'.
+				'a.checked_out_time AS checked_out_time,' .
+				'a.state AS state, a.ordering AS ordering'
 			)
 		);
-		$query->from($db->quoteName('#__hp_business_content').' AS a');
-
-		// Join over the language
-//		$query->select('l.title AS language_title');
-//		$query->join('LEFT', $db->quoteName('#__languages').' AS l ON l.lang_code = a.language');
-
-		// Join over the users for the checked out user.
-		$query->select('uc.name AS editor');
-		$query->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
-
-		// Join over the categories.
-		$query->select('c.title AS category_title');
-		$query->join('LEFT', '#__categories AS c ON c.id = a.catid');
+		$query->from($db->quoteName('#__hp_comments').' AS a');
+		
+		// Join over the users for the author.
+		$query->select('ua.name AS author_name');
+		$query->join('LEFT', '#__users AS ua ON ua.id = a.created_by');
+		
+		// select title
+		$strCase = ' CASE a.item_type';
+		
+		$strCase .= ' WHEN "user" THEN (SELECT username FROM #__users WHERE id = a.item_id)';
+		
+		$strCase .= ' WHEN "service" THEN (SELECT name FROM #__hp_business_service WHERE id = a.item_id)';
+		
+		$strCase .= ' WHEN "article" THEN (SELECT title FROM #__hp_business_content WHERE id = a.item_id)';
+		
+		$strCase .= ' END AS comment_for';
+		
+		$query->select($strCase);
+		
+		// select alias
+		$strCase = ' CASE a.item_type';
+		
+		$strCase .= ' WHEN "user" THEN (SELECT username FROM #__users WHERE id = a.item_id)';
+		
+		$strCase .= ' WHEN "service" THEN (SELECT alias FROM #__hp_business_service WHERE id = a.item_id)';
+		
+		$strCase .= ' WHEN "article" THEN (SELECT alias FROM #__hp_business_content WHERE id = a.item_id)';
+		
+		$strCase .= ' END AS comment_alias';
+		
+		$query->select($strCase);
 
 		// Filter by published state
 		$published = $this->getState('filter.state');
@@ -89,18 +105,6 @@ class Jnt_HanhphucModelUser_Man_Contents extends JModelList
 			$query->where('a.state = '.(int) $published);
 		} elseif ($published === '') {
 			$query->where('(a.state IN (0, 1))');
-		}
-
-		// Filter by category.
-		$categoryId = $this->getState('filter.category_id');
-		if (is_numeric($categoryId)) {
-			$query->where('a.catid = '.(int) $categoryId);
-		}
-
-		// Filter by client.
-		$clientId = $this->getState('filter.client_id');
-		if (is_numeric($clientId)) {
-			$query->where('a.cid = '.(int) $clientId);
 		}
 
 		// Filter by search in title
@@ -113,11 +117,6 @@ class Jnt_HanhphucModelUser_Man_Contents extends JModelList
 				$query->where('(a.name LIKE '.$search.' OR a.alias LIKE '.$search.')');
 			}
 		}
-		
-		// Filter by user
-		$userId = JFactory::getUser()->id;
-		
-		$query->where('a.created_by = ' . (int) $userId);
 
 		// Add the list ordering clause.
 		$orderCol	= $this->state->get('list.ordering', 'ordering');
@@ -128,6 +127,8 @@ class Jnt_HanhphucModelUser_Man_Contents extends JModelList
 		if($orderCol == 'client_name')
 			$orderCol = 'cl.name';
 		$query->order($db->escape($orderCol.' '.$orderDirn));
+		
+// 		echo $query->dump();
 
 		//echo nl2br(str_replace('#__','jos_',$query));
 		return $query;
@@ -150,8 +151,6 @@ class Jnt_HanhphucModelUser_Man_Contents extends JModelList
 		$id	.= ':'.$this->getState('filter.search');
 		$id	.= ':'.$this->getState('filter.access');
 		$id	.= ':'.$this->getState('filter.state');
-		$id	.= ':'.$this->getState('filter.category_id');
-		$id .= ':'.$this->getState('filter.language');
 
 		return parent::getStoreId($id);
 	}

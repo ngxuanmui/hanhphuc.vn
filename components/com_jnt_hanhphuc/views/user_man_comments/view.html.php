@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
  * @subpackage  com_jnt_hanhphuc
  * @since       1.6
  */
-class Jnt_HanhphucViewUser_Man_Contents extends JViewLegacy
+class Jnt_HanhphucViewUser_Man_Comments extends JViewLegacy
 {
 	protected $categories;
 	protected $items;

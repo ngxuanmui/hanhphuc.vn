@@ -10,10 +10,10 @@ defined('_JEXEC') or die;
  * View to edit a album.
  *
  * @package		Joomla.Administrator
- * @subpackage	com_ntrip
+ * @subpackage	com_jnt_hanhphuc
  * @since		1.5
  */
-class Jnt_HanhphucViewUser_Man_Content extends JViewLegacy
+class Jnt_HanhphucViewUser_Man_Comment extends JViewLegacy
 {
 	protected $form;
 	protected $item;
