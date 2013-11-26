@@ -138,7 +138,15 @@ $('#hp-btn-post-comment').click(function(){
 		$.post(
 				'index.php?option=com_hp_comment&task=comment.post',
 				/* ITEM_ID, ITEM_TYPE was defined in form */
-				{content: comment.val(), item_id: ITEM_ID_COMMENT, item_type: ITEM_TYPE_COMMENT, parent_id: $('#comment-parent-id').val()},
+				{
+					content: comment.val(), 
+					item_id: $('#item_id').val(), 
+					item_type: $('#item_type').val(), 
+					parent_id: $('#comment-parent-id').val(),
+					guest_fullname: $.trim(guestFullName.val()),
+					guest_email: $.trim(guestEmail.val()),
+					guest_website: $.trim($('#guest_website').val()) 
+				},
 				function(res)
 				{
 					t.removeClass('processing');

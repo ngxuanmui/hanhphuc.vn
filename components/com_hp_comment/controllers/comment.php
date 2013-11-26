@@ -15,9 +15,15 @@ class Ntrip_CommentControllerComment extends JControllerLegacy
 		$parentId	= JRequest::getInt('parent_id');
 		$content	= JRequest::getString('content');
 		
+		$guest = array();
+		
+		$guest['fullname'] = JRequest::getString('guest_fullname');
+		$guest['email'] = JRequest::getString('guest_email');
+		$guest['website'] = JRequest::getString('guest_website');
+		
 		$model = $this->getModel('Comment', 'Hp_CommentModel');
 		
-		$saveResult = $model->save($itemId, $itemType, $parentId, $content);
+		$saveResult = $model->save($itemId, $itemType, $parentId, $content, $guest);
 		
 		if (is_array($saveResult) && $saveResult['error'] == 1)
 			echo 'Error: ' . $saveResult['msg'];

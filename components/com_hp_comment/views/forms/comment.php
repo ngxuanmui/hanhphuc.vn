@@ -1,5 +1,7 @@
 <?php
 //var_dump($listComments);
+
+// $itemId & $itemType was get in JEUtile::showForm
 ?>
 
 <div class="clr"></div>
@@ -15,7 +17,7 @@
 			</div>
 			<div class="comment-content-container fltlft">
 				<div class="comment-user-info">
-					<div class="fltlft"><?php echo $comment->username ? $comment->username : 'Anonymous'; ?> &bull; </div>
+					<div class="fltlft"><?php echo $comment->username ? $comment->username : $comment->guest_fullname; ?> &bull; </div>
 					<div class="fltlft"> &bull; <?php echo $comment->created; ?></div>
 					<div class="clr"></div>
 				</div>
@@ -68,6 +70,10 @@
 	
 	<?php /* if (JFactory::getUser()->id): */ ?>
 	<form action="<?php echo JRoute::_('index.php'); ?>" id="hp-frm-comment">
+	
+		<input type="hidden" id="item_id" value="<?php echo $itemId; ?>" />
+		<input type="hidden" id="item_type" value="<?php echo $itemType; ?>" />
+		
 		<div class="post-comment" style="margin: 10px 0;">
 			<?php /*if ($isItemOwner): ?>
 			Gửi bình luận: 
@@ -93,7 +99,7 @@
 				</li>
 				<li>
 					<label>Website:</label>
-					<input type="text" name="guest_website" />
+					<input type="text" name="guest_website" id="guest_website" />
 				</li>
 			</ul>
 			<?php endif; ?>
