@@ -59,6 +59,19 @@ $arrItems = array('article' => 'Tin khuyến mại', 'service' => 'Sản phẩm'
 								<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_comment.edit&id='. $item->id . '&Itemid=' . JRequest::getInt('Itemid'), false); ?>">
 									<?php echo $item->content; ?>
 								</a>
+								<?php
+								$sub = $item->sub;
+								
+								if (!empty($sub)):
+								?>
+								<ul style="margin-left: 20px;">
+									<?php foreach ($sub as $sub_item): ?>
+									<li>
+										<?php echo $sub_item->content; ?>
+									</li>
+									<?php endforeach; ?>
+								</ul>
+								<?php endif; ?>
 							</td>
 							<td><?php echo ($item->state == 1) ? 'Yes' : 'No'; ?></td>
 						</tr>
@@ -66,7 +79,7 @@ $arrItems = array('article' => 'Tin khuyến mại', 'service' => 'Sản phẩm'
 						<?php else: ?>
 						<tr>
 							<td colspan="5">
-								Chưa có thông tin nào mới
+								Chưa có bình luận nào
 							</td>
 						</tr>
 						<?php endif; ?>

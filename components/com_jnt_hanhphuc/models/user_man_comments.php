@@ -44,6 +44,30 @@ class Jnt_HanhphucModelUser_Man_COMMENTS extends JModelList
 
 		parent::__construct($config);
 	}
+	
+	public function getItems()
+	{
+		$items = parent::getItems();
+		
+		$db = JFactory::getDbo();
+		
+		$query = $db->getQuery(true);
+		
+		foreach ($items as & $item)
+		{
+			$query->clear()
+					->select('*')
+					->from('#__hp_comments')
+					->where('parent_id = ' . $item->id)
+			;
+			
+			$db->setQuery($query);
+
+			$item->sub = $db->loadObjectList();
+		}
+		
+		return $items;
+	}
 
 	/**
 	 * Build an SQL query to load the list data.
@@ -98,6 +122,9 @@ class Jnt_HanhphucModelUser_Man_COMMENTS extends JModelList
 		$strCase .= ' END AS comment_alias';
 		
 		$query->select($strCase);
+		
+		// only get parent comment
+		$query->where('parent_id = 0');
 
 		// Filter by published state
 		$published = $this->getState('filter.state');
@@ -117,15 +144,29 @@ class Jnt_HanhphucModelUser_Man_COMMENTS extends JModelList
 				$query->where('(a.name LIKE '.$search.' OR a.alias LIKE '.$search.')');
 			}
 		}
-
+		
+		// filter by user
+		
+		$user = JFactory::getUser();
+		
+		$strWhere  = '(';
+		
+		$strWhere .= ' item_id = ' . $user->id;
+		
+		// business content
+		$strWhere .= ' OR item_id iN (SELECT created_by FROM #__hp_business_content WHERE created_by = '.$user->id.') ';
+		
+		// service
+		$strWhere .= ' OR item_id IN (SELECT id FROM #__hp_business_service WHERE business_id = '.$user->id.') ';
+		
+		$strWhere .= ')';
+		
+		$query->where($strWhere);
+		
 		// Add the list ordering clause.
 		$orderCol	= $this->state->get('list.ordering', 'ordering');
 		$orderDirn	= $this->state->get('list.direction', 'ASC');
-		if ($orderCol == 'ordering' || $orderCol == 'category_title') {
-			$orderCol = 'c.title '.$orderDirn.', a.ordering';
-		}
-		if($orderCol == 'client_name')
-			$orderCol = 'cl.name';
+		
 		$query->order($db->escape($orderCol.' '.$orderDirn));
 		
 // 		echo $query->dump();
@@ -164,7 +205,7 @@ class Jnt_HanhphucModelUser_Man_COMMENTS extends JModelList
 	 * @return	JTable	A database object
 	 * @since	1.6
 	 */
-	public function getTable($type = 'Album', $prefix = 'NtripTable', $config = array())
+	public function getTable($type = 'Comment', $prefix = 'Jnt_HanhphucTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
@@ -190,16 +231,6 @@ class Jnt_HanhphucModelUser_Man_COMMENTS extends JModelList
 
 		$categoryId = $this->getUserStateFromRequest($this->context.'.filter.category_id', 'filter_category_id', '');
 		$this->setState('filter.category_id', $categoryId);
-
-		$clientId = $this->getUserStateFromRequest($this->context.'.filter.client_id', 'filter_client_id', '');
-		$this->setState('filter.client_id', $clientId);
-
-		$language = $this->getUserStateFromRequest($this->context.'.filter.language', 'filter_language', '');
-		$this->setState('filter.language', $language);
-
-		// Load the parameters.
-		//$params = JComponentHelper::getParams('com_jnt_hanhphuc');
-		//$this->setState('params', $params);
 
 		// List state information.
 		parent::populateState('a.id', 'desc');

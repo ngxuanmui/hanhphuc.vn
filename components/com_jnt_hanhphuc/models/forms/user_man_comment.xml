@@ -23,6 +23,8 @@
 			label="Trả lời"
 			filter="htmlsafe"
 		/>
+		
+		<field name="reply_id" type="hidden" default="0" class="readonly" />
 	</fieldset>
 
 </form>

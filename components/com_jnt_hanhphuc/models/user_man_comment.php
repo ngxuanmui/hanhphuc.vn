@@ -112,30 +112,12 @@ class Jnt_HanhphucModelUser_Man_Comment extends JModelAdmin
 	{
 		// Get the form.
 		$form = $this->loadForm('com_jnt_hanhphuc.user_man_comment', 'user_man_comment', array('control' => 'jform', 'load_data' => $loadData));
+		
 		if (empty($form))
 		{
 			return false;
 		}
-
-		// Modify the form based on access controls.
-		if (!$this->canEditState((object) $data))
-		{
-		    // Disable fields for display.
-		    $form->setFieldAttribute('ordering', 'disabled', 'true');
-// 		    $form->setFieldAttribute('publish_up', 'disabled', 'true');
-// 		    $form->setFieldAttribute('publish_down', 'disabled', 'true');
-		    $form->setFieldAttribute('state', 'disabled', 'true');
-		    $form->setFieldAttribute('sticky', 'disabled', 'true');
-
-		    // Disable fields while saving.
-		    // The controller has already verified this is a record you can edit.
-		    $form->setFieldAttribute('ordering', 'filter', 'unset');
-// 		    $form->setFieldAttribute('publish_up', 'filter', 'unset');
-// 		    $form->setFieldAttribute('publish_down', 'filter', 'unset');
-		    $form->setFieldAttribute('state', 'filter', 'unset');
-		    $form->setFieldAttribute('sticky', 'filter', 'unset');
-		}
-
+		
 		return $form;
 	}
 
@@ -149,14 +131,38 @@ class Jnt_HanhphucModelUser_Man_Comment extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_jnt_hanhphuc.edit.hp_content.data', array());
+		$data = JFactory::getApplication()->getUserState('com_jnt_hanhphuc.edit.hp_comment.data', array());
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
 		}
-
+		
+		$subComment = $this->getSubComment($data->id);
+		
+		$data->reply_id = 0;
+		$data->reply_content = '';
+		
+		if (!empty($subComment))
+		{
+			$data->reply_id = $subComment->id;
+			$data->reply_content = $subComment->content;
+		}
+		
 		return $data;
+	}
+	
+	protected function getSubComment($parentId)
+	{
+		$db = JFactory::getDbo();
+		
+		$query = $db->getQuery(true);
+		
+		$query->select('*')->from('#__hp_comments')->where('parent_id = ' . $parentId);
+		
+		$db->setQuery($query);
+		
+		return $db->loadObject();
 	}
 	
 	/**
@@ -201,41 +207,38 @@ class Jnt_HanhphucModelUser_Man_Comment extends JModelAdmin
 	public function save($data)
 	{
 		// always set state is unpublish for each save
-		$data['state'] = 0;
+		$db = JFactory::getDbo();
 		
-		$id = $data['id'];
-			
-// 		if (isset($id) && (int) $id > 0)
-// 		{
-// 			if (!FrontJntHanhphucHelper::checkUserPermissionOnItem($id, '#__hp_comments'))
-// 				exit('Cannot edit this content!');
-// 		}
-
+		$query = $db->getQuery(true);
+		
+		$table = '#__hp_comments';
+		
+		$obj = new stdClass();
+		
+		$obj->id 		= $data['reply_id'];
+		$obj->parent_id = $data['id'];
+		$obj->content 	= $data['reply_content'];
 		
 		
-	    if (parent::save($data))
-	    {
-			$id = (int) $this->getState($this->getName() . '.id');
-
-			if ($id)
-				$data['id'] = $id;
-
-			$delImage = isset($data['del_image']) ? $data['del_image'] : null;
-
-			// Upload thumb
-			$item = $this->getItem();
-			$data['images'] = Jnt_HanhPhucHelper::uploadImages('images', $item, $delImage, 'hp_content');
+		if (empty($obj->id))
+		{
+			$obj->created 		= date('Y-m-d H:i:s');
+			$obj->created_by	= JFactory::getUser()->id;
 			
-			// update content
-			$content = $this->copyFilesOnSave($data['content'], $data['id']);
+			$result = $db->insertObject($table, $obj);
+		}
+		else
+		{
+			$obj->modified 		= date('Y-m-d H:i:s');
+			$obj->modified_by	= JFactory::getUser()->id;
 			
-			if ($content)
-				$data['content'] = $content;
-
+			$result = $db->updateObject($table, $obj, 'id');
+		}
+		
+		if ($result)
 			return parent::save($data);
-	    }
-
-	    return false;
+		
+		return false;
 	}
 	
 	private function copyFilesOnSave($content = '', $itemId = 0)

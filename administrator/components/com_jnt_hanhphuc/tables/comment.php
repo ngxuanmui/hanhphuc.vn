@@ -59,14 +59,14 @@ class Jnt_HanhphucTableComment extends JTable
 		else
 		{
 			// Get the old row
-			$oldrow = JTable::getInstance('Comment', 'Hp_CommentTable');
+			$oldrow = JTable::getInstance('Comment', 'Jnt_HanhphucTable');
 			if (!$oldrow->load($this->id) && $oldrow->getError())
 			{
 				$this->setError($oldrow->getError());
 			}
 
 			// Verify that the alias is unique
-			$table = JTable::getInstance('Comment', 'Hp_CommentTable');
+			$table = JTable::getInstance('Comment', 'Jnt_HanhphucTable');
 			if ($table->load(array('alias'=>$this->alias, 'catid'=>$this->catid)) && ($table->id != $this->id || $this->id==0)) {
 				$this->setError(JText::_('COM_BANNERS_ERROR_UNIQUE_ALIAS'));
 				return false;
@@ -121,7 +121,7 @@ class Jnt_HanhphucTableComment extends JTable
 		}
 
 		// Get an instance of the table
-		$table = JTable::getInstance('Comment', 'Hp_CommentTable');
+		$table = JTable::getInstance('Comment', 'Jnt_HanhphucTable');
 
 		// For all keys
 		foreach ($pks as $pk)
