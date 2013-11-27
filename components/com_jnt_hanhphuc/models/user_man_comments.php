@@ -154,7 +154,7 @@ class Jnt_HanhphucModelUser_Man_COMMENTS extends JModelList
 		$strWhere .= ' item_id = ' . $user->id;
 		
 		// business content
-		$strWhere .= ' OR item_id iN (SELECT created_by FROM #__hp_business_content WHERE created_by = '.$user->id.') ';
+		$strWhere .= ' OR item_id iN (SELECT id FROM #__hp_business_content WHERE created_by = '.$user->id.') ';
 		
 		// service
 		$strWhere .= ' OR item_id IN (SELECT id FROM #__hp_business_service WHERE business_id = '.$user->id.') ';
