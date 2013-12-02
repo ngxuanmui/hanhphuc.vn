@@ -89,6 +89,7 @@ $('#hp-btn-post-comment').click(function(){
 		var msg = $('#comment-msg');
 		var guestFullName = $('#guest_fullname');
 		var guestEmail = $('#guest_email');
+		var captcha = $('#captcha_code');
 		
 		if (t.hasClass('processing'))
 			return false;
@@ -123,6 +124,15 @@ $('#hp-btn-post-comment').click(function(){
 			}
 		}
 		
+		if (captcha.length)
+		{
+			if ($.trim(captcha.val()) == '')
+			{
+				validForm = false;			
+				captcha.after('<span class="error" style="padding-left: 5px;">Vui lòng nhập vào mã xác nhận.</span>');
+			}
+		}
+		
 		if ($.trim(comment.val()) == '')
 		{
 			validForm = false;		
@@ -136,31 +146,61 @@ $('#hp-btn-post-comment').click(function(){
 		msg.removeClass('error').html('Vui lòng đợi ...');
 		
 		$.post(
-				'index.php?option=com_hp_comment&task=comment.post',
-				/* ITEM_ID, ITEM_TYPE was defined in form */
-				{
-					content: comment.val(), 
-					item_id: $('#item_id').val(), 
-					item_type: $('#item_type').val(), 
-					parent_id: $('#comment-parent-id').val(),
-					guest_fullname: $.trim(guestFullName.val()),
-					guest_email: $.trim(guestEmail.val()),
-					guest_website: $.trim($('#guest_website').val()) 
-				},
+				'index.php?option=com_hp_comment&task=check_captcha',
+				{ 'captcha_code': captcha.val() },
 				function(res)
 				{
-					t.removeClass('processing');
+					$('span.error').remove();
 					
 					if (res == 'OK')
 					{
-						comment.val('');
-						msg.removeClass('error').addClass('success').html('Cảm ơn bạn. Bình luận của bạn đã được gửi!');
+						$.post(
+								'index.php?option=com_hp_comment&task=comment.post',
+								/* ITEM_ID, ITEM_TYPE was defined in form */
+								{
+									content: comment.val(), 
+									item_id: $('#item_id').val(), 
+									item_type: $('#item_type').val(), 
+									parent_id: $('#comment-parent-id').val(),
+									guest_fullname: $.trim(guestFullName.val()),
+									guest_email: $.trim(guestEmail.val()),
+									guest_website: $.trim($('#guest_website').val()) 
+								},
+								function(res)
+								{
+									t.removeClass('processing');
+									
+									if (res == 'OK')
+									{
+										comment.val('');
+										captcha.val('');
+										
+										// reload captcha
+										jQuery('#img_captcha').attr('src', 'index.php?option=com_hp_comment&task=captcha&rand=' + Math.floor((Math.random()*10000)+1));
+										
+										msg.removeClass('error').addClass('success').html('Cảm ơn bạn. Bình luận của bạn đã được gửi!');
+									}
+									else
+										msg.removeClass('success').addClass('error').html('Xin lỗi bạn. Có lỗi xảy ra. Vui lòng thử lại sau!');
+										
+								}
+						);
 					}
 					else
-						msg.removeClass('success').addClass('error').html('Xin lỗi bạn. Có lỗi xảy ra. Vui lòng thử lại sau!');
+					{
+						t.removeClass('processing');
 						
+						msg.removeClass('error').html('');
+						
+						captcha.after('<span class="error" style="padding-left: 5px;">Mã xác nhận không đúng.</span>');
+						
+						// reload captcha
+						jQuery('#img_captcha').attr('src', 'index.php?option=com_hp_comment&task=captcha&rand=' + Math.floor((Math.random()*10000)+1));
+					}
 				}
-		);
+			);
+		
+		
 		
 		return false;
 	});

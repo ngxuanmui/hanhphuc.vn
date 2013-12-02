@@ -11,9 +11,6 @@ defined('_JEXEC') or die;
 // Include dependancies
 //require_once JPATH_COMPONENT.'/helpers/route.php';
 
-// get helper from admin
-require_once JPATH_COMPONENT . DS . 'helpers' . DS . 'ntrip_comment.php';
-
-$controller = JControllerLegacy::getInstance('Ntrip_Comment');
+$controller = JControllerLegacy::getInstance('Hp_Comment');
 $controller->execute(JRequest::getCmd('task'));
 $controller->redirect();

@@ -1,6 +1,6 @@
 <?php
 
-class Ntrip_CommentControllerComment extends JControllerLegacy
+class Hp_CommentControllerComment extends JControllerLegacy
 {
 	public function post()
 	{

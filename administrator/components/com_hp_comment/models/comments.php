@@ -99,7 +99,7 @@ class Hp_CommentModelComments extends JModelList
 		$query->select('ua.name AS author_name');
 		$query->join('LEFT', '#__users AS ua ON ua.id = a.created_by');
 		
-		// 
+		//
 		$strCase = ' CASE a.item_type';
 		
 		$strCase .= ' WHEN "user" THEN (SELECT username FROM #__users WHERE id = a.item_id)';
@@ -128,6 +128,8 @@ class Hp_CommentModelComments extends JModelList
 				$query->where('(a.name LIKE '.$search.' OR a.alias LIKE '.$search.')');
 			}
 		}
+		
+		$query->where('a.parent_id = 0');
 
 		// Add the list ordering clause.
 		$orderCol	= $this->state->get('list.ordering', 'ordering');

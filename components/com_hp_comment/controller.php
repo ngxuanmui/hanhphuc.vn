@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		Joomla.Site
- * @subpackage	com_ntrip
+ * @subpackage	com_hp_comment
  * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -12,10 +12,13 @@ defined('_JEXEC') or die;
  * Content Component Controller
  *
  * @package		Joomla.Site
- * @subpackage	com_ntrip
+ * @subpackage	com_hp_comment
  * @since		1.5
  */
-class Ntrip_CommentController extends JControllerLegacy
+
+require_once JPATH_ROOT . DS . 'components/com_hp_comment/helpers/simple_captcha/captcha.php';
+
+class Hp_CommentController extends JControllerLegacy
 {
 	function __construct($config = array())
 	{
@@ -42,4 +45,35 @@ class Ntrip_CommentController extends JControllerLegacy
 
 		return $this;
 	}
+	
+	public function captcha()
+	{
+		
+		$captcha = new SimpleCaptcha();
+		$captcha->resourcesPath = JPATH_ROOT . DS . 'components' . DS . 'com_hp_comment' . DS . 'helpers' . DS . 'simple_captcha' . DS . 'resources';
+		$captcha->CreateImage();
+		
+		exit();
+	}
+	
+	public function check_captcha()
+	{
+		if (JFactory::getUser()->id)
+		{
+			echo 'OK';
+			exit();
+		}
+		
+		$captcha = new SimpleCaptcha();
+		
+// 		var_dump(JFactory::getSession()->get($captcha->session_var), JRequest::getString('captcha_code'));
+		
+		if (JFactory::getSession()->get($captcha->session_var) == JRequest::getString('captcha_code'))
+			echo 'OK';
+		else
+			echo 'FAILED';
+		
+		exit();
+	}
+	
 }

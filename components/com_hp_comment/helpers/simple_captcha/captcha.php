@@ -164,8 +164,9 @@ class SimpleCaptcha {
         $text = $this->GetCaptchaText();
         $fontcfg  = $this->fonts[array_rand($this->fonts)];
         $this->WriteText($text, $fontcfg);
-
-        $_SESSION[$this->session_var] = $text;
+        
+        JFactory::getSession()->set($this->session_var, $text);
+//         $_SESSION[$this->session_var] = $text;
 
         /** Transformations */
         if (!empty($this->lineWidth)) {
@@ -189,6 +190,8 @@ class SimpleCaptcha {
         /** Output */
         $this->WriteImage();
         $this->Cleanup();
+        
+        
     }
 
     /**
