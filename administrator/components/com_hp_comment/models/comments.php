@@ -147,6 +147,23 @@ class Hp_CommentModelComments extends JModelList
 	{
 		$items = parent::getItems();
 		
+		$db = JFactory::getDbo();
+		
+		$query = $db->getQuery(true);
+		
+		foreach ($items as & $item)
+		{
+			$query->clear()
+					->select('*')
+					->from('#__hp_comments')
+					->where('parent_id = ' . $item->id)
+			;
+			
+			$db->setQuery($query);
+
+			$item->sub = $db->loadObjectList();
+		}
+		
 		return $items;
 	}
 

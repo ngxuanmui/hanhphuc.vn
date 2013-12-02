@@ -112,43 +112,47 @@ class Hp_CommentModelComment extends JModelAdmin
 	{
 		// Get the form.
 		$form = $this->loadForm('com_hp_comment.comment', 'comment', array('control' => 'jform', 'load_data' => $loadData));
+		
 		if (empty($form))
 		{
 			return false;
 		}
-
-		// Determine correct permissions to check.
-		if ($this->getState('comment.id'))
+		
+		return $form;
+	}
+	
+	public function save($data)
+	{
+		$db = JFactory::getDbo();
+		
+		$table = '#__hp_comments';
+		
+		$obj = new stdClass();
+		
+		$obj->id 		= $data['reply_id'];
+		$obj->parent_id = $data['id'];
+		$obj->content 	= $data['reply_content'];
+		
+		
+		if (empty($obj->id))
 		{
-			// Existing record. Can only edit in selected categories.
-			$form->setFieldAttribute('catid', 'action', 'core.edit');
+			$obj->created 		= date('Y-m-d H:i:s');
+			$obj->created_by	= JFactory::getUser()->id;
+				
+			$result = $db->insertObject($table, $obj);
 		}
 		else
 		{
-			// New record. Can only create in selected categories.
-			$form->setFieldAttribute('catid', 'action', 'core.create');
+			$obj->modified 		= date('Y-m-d H:i:s');
+			$obj->modified_by	= JFactory::getUser()->id;
+				
+			$result = $db->updateObject($table, $obj, 'id');
 		}
-
-		// Modify the form based on access controls.
-		if (!$this->canEditState((object) $data))
-		{
-			// Disable fields for display.
-			$form->setFieldAttribute('ordering', 'disabled', 'true');
-			$form->setFieldAttribute('publish_up', 'disabled', 'true');
-			$form->setFieldAttribute('publish_down', 'disabled', 'true');
-			$form->setFieldAttribute('state', 'disabled', 'true');
-			$form->setFieldAttribute('sticky', 'disabled', 'true');
-
-			// Disable fields while saving.
-			// The controller has already verified this is a record you can edit.
-			$form->setFieldAttribute('ordering', 'filter', 'unset');
-			$form->setFieldAttribute('publish_up', 'filter', 'unset');
-			$form->setFieldAttribute('publish_down', 'filter', 'unset');
-			$form->setFieldAttribute('state', 'filter', 'unset');
-			$form->setFieldAttribute('sticky', 'filter', 'unset');
-		}
-
-		return $form;
+		
+		if ($result)
+			return parent::save($data);
+		
+		return false;
 	}
 
 	/**
@@ -166,73 +170,34 @@ class Hp_CommentModelComment extends JModelAdmin
 		if (empty($data))
 		{
 			$data = $this->getItem();
-
-			// Prime some default values.
-			if ($this->getState('comment.id') == 0)
-			{
-				$app = JFactory::getApplication();
-				$data->set('catid', JRequest::getInt('catid', $app->getUserState('com_hp_comment.comments.filter.category_id')));
-			}
+		}
+		
+		$parentId = is_object($data) ? $data->id : $data['id'];
+		
+		$subComment = $this->getSubComment($parentId);
+		
+		$data->reply_id = 0;
+		$data->reply_content = '';
+		
+		if (!empty($subComment))
+		{
+			$data->reply_id = $subComment->id;
+			$data->reply_content = $subComment->content;
 		}
 
 		return $data;
 	}
-
-	/**
-	 * Method to stick records.
-	 *
-	 * @param   array    &$pks   The ids of the items to publish.
-	 * @param   integer  $value  The value of the published state
-	 *
-	 * @return  boolean  True on success.
-	 *
-	 * @since   1.6
-	 */
-	function stick(&$pks, $value = 1)
+	
+	protected function getSubComment($parentId)
 	{
-		// Initialise variables.
-		$user = JFactory::getUser();
-		$table = $this->getTable();
-		$pks = (array) $pks;
-
-		// Access checks.
-		foreach ($pks as $i => $pk)
-		{
-			if ($table->load($pk))
-			{
-				if (!$this->canEditState($table))
-				{
-					// Prune items that you can't change.
-					unset($pks[$i]);
-					JError::raiseWarning(403, JText::_('JLIB_APPLICATION_ERROR_EDITSTATE_NOT_PERMITTED'));
-				}
-			}
-		}
-
-		// Attempt to change the state of the records.
-		if (!$table->stick($pks, $value, $user->get('id')))
-		{
-			$this->setError($table->getError());
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * A protected method to get a set of ordering conditions.
-	 *
-	 * @param   JTable  $table  A record object.
-	 *
-	 * @return  array  An array of conditions to add to add to ordering queries.
-	 *
-	 * @since   1.6
-	 */
-	protected function getReorderConditions($table)
-	{
-		$condition = array();
-		$condition[] = 'catid = '. (int) $table->catid;
-		$condition[] = 'state >= 0';
-		return $condition;
+		$db = JFactory::getDbo();
+		
+		$query = $db->getQuery(true);
+		
+		$query->select('*')->from('#__hp_comments')->where('parent_id = ' . $parentId);
+		
+		$db->setQuery($query);
+		
+		return $db->loadObject();
 	}
 }

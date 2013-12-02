@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_comments
+ * @subpackage  com_hp_comment
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -18,7 +18,7 @@ $user		= JFactory::getUser();
 $userId		= $user->get('id');
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
-$canOrder	= $user->authorise('core.edit.state', 'com_comments.category');
+$canOrder	= $user->authorise('core.edit.state', 'com_hp_comment.category');
 $saveOrder	= $listOrder=='ordering';
 $params		= (isset($this->state->params)) ? $this->state->params : new JObject();
 ?>
@@ -87,14 +87,28 @@ $params		= (isset($this->state->params)) ? $this->state->params : new JObject();
 				</td>
 				<td>
 					<?php if ($item->checked_out) : ?>
-						<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'comments.', $canCheckin); ?>
+						<?php echo JHtml::_('jgrid.checkedout', $i, null, $item->checked_out_time, 'comments.', $canCheckin); ?>
 					<?php endif; ?>
 					<?php if ($canEdit) : ?>
-						<a href="<?php echo JRoute::_('index.php?option=com_comments&task=comment.edit&id='.(int) $item->id); ?>">
+						<a href="<?php echo JRoute::_('index.php?option=com_hp_comment&task=comment.edit&id='.(int) $item->id); ?>">
 							<?php echo $this->escape($item->content); ?></a>
 					<?php else : ?>
 							<?php echo $this->escape($item->content); ?>
 					<?php endif; ?>
+					
+						<?php
+						$sub = $item->sub;
+						
+						if (!empty($sub)):
+						?>
+						<ul style="margin-left: 0px;">
+							<?php foreach ($sub as $sub_item): ?>
+							<li>
+								<?php echo $sub_item->content; ?>
+							</li>
+							<?php endforeach; ?>
+						</ul>
+						<?php endif; ?>
 				</td>
 				<td class="center">
 					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'comments.', $canChange, 'cb', null, null); ?>

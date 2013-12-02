@@ -206,7 +206,6 @@ class Jnt_HanhphucModelUser_Man_Comment extends JModelAdmin
 	
 	public function save($data)
 	{
-		// always set state is unpublish for each save
 		$db = JFactory::getDbo();
 		
 		$query = $db->getQuery(true);

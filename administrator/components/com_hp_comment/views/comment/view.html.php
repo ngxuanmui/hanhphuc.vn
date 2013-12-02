@@ -6,7 +6,7 @@
 
 defined('_JEXEC') or die;
 
-JLoader::register('CommentsHelper', JPATH_COMPONENT.'/helpers/hp_comment.php');
+JLoader::register('Hp_CommentHelper', JPATH_COMPONENT.'/helpers/hp_comment.php');
 
 /**
  * View to edit a comment.
@@ -55,7 +55,7 @@ class Hp_CommentViewComment extends JViewLegacy
 		$isNew		= ($this->item->id == 0);
 		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
 		// Since we don't track these assets at the item level, use the category id.
-		$canDo		= Hp_CommentHelper::getActions($this->item->catid,0);
+		$canDo		= Hp_CommentHelper::getActions(0, 0);
 
 		JToolBarHelper::title($isNew ? JText::_('COM_BANNERS_MANAGER_BANNER_NEW') : JText::_('COM_BANNERS_MANAGER_BANNER_EDIT'), 'comments.png');
 
@@ -63,15 +63,6 @@ class Hp_CommentViewComment extends JViewLegacy
 		if (!$checkedOut && ($canDo->get('core.edit') || count($user->getAuthorisedCategories('com_hp_comment', 'core.create')) > 0)) {
 			JToolBarHelper::apply('comment.apply');
 			JToolBarHelper::save('comment.save');
-
-			if ($canDo->get('core.create')) {
-				JToolBarHelper::save2new('comment.save2new');
-			}
-		}
-
-		// If an existing item, can save to a copy.
-		if (!$isNew && $canDo->get('core.create')) {
-			JToolBarHelper::save2copy('comment.save2copy');
 		}
 
 		if (empty($this->item->id))  {
@@ -80,8 +71,5 @@ class Hp_CommentViewComment extends JViewLegacy
 		else {
 			JToolBarHelper::cancel('comment.cancel', 'JTOOLBAR_CLOSE');
 		}
-
-		JToolBarHelper::divider();
-		JToolBarHelper::help('JHELP_COMPONENTS_BANNERS_BANNERS_EDIT');
 	}
 }
