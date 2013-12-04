@@ -18,8 +18,8 @@
 			</div>
 			<div class="comment-content-container fltlft">
 				<div class="comment-user-info">
-					<div class="fltlft"><?php echo $comment->username ? $comment->username : $comment->guest_fullname; ?> &bull; </div>
-					<div class="fltlft"> &bull; <?php echo $comment->created; ?></div>
+					<div class="fltlft bold"><?php echo $comment->username ? $comment->username : $comment->guest_fullname; ?></div>
+					<div class="fltlft"> (<?php echo $comment->created; ?>)</div>
 					<div class="clr"></div>
 				</div>
 				
@@ -88,8 +88,10 @@
 				<?php endforeach; ?>
 			</select>
 			<?php endif; */ ?>
-			<?php if (JFactory::getUser()->guest): ?>
+			<h1>Gửi bình luận của bạn</h1>
+			
 			<ul class="guest-info">
+				<?php if (JFactory::getUser()->guest): ?>
 				<li>
 					<label><span>*</span> Họ tên:</label>
 					<input type="text" name="guest_fullname" id="guest_fullname" class="required" />
@@ -98,29 +100,45 @@
 					<label><span>*</span> Email:</label>
 					<input type="text" name="guest_email" id="guest_email" class="required email" />
 				</li>
+				<?php /*?>
 				<li>
 					<label>Website:</label>
 					<input type="text" name="guest_website" id="guest_website" />
 				</li>
+				*/ ?>
 				<li>
-					<label>Mã xác nhận:</label>
+					<label><span>*</span> Mã xác nhận:</label>
 					<input type="text" name="captcha_code" id="captcha_code" />
+				</li>
+				<li>
+					<label>&nbsp;</label>
+					<small>Nhập dãy ký tự bên dưới vào ô Mã xác nhận</small>
 				</li>
 				<li>
 					<label>&nbsp;</label>
 					
 					<img id="img_captcha" src="<?php echo JRoute::_('index.php?option=com_hp_comment&task=captcha&rand=' . rand(0, 10000)); ?>" />
+					<a href="#" class="refresh-captcha">Đổi mã xác nhận</a>
+				</li>
+				<?php endif; ?>
+				<li style="position: relative;">
+					<label style="position: relative; top: -90px;"><span>*</span> Nội dung</label>
 					
+					<textarea style="resize: none; height: 100px; width: 400px; margin: 10px 0 0;" id="hp-textarea-comment"></textarea>
+					<div class="fltlft error comment-msg" id="comment-msg" style="margin-left: 103px; padding: 5px 0;"></div>
+				</li>
+				<li>
+					<label>&nbsp;</label>
+					<button class="xicons button" id="hp-btn-post-comment" type="button">
+						Bình luận
+					</button>
 				</li>
 			</ul>
-			<?php endif; ?>
-			<textarea style="height: 100px; width: 100%; margin: 10px 0 0;" id="hp-textarea-comment"></textarea>
+			
 			<div class="clr"></div>
 		</div>
-		<button class="xicons button fltrgt" id="hp-btn-post-comment" type="button">
-			Bình luận
-		</button>
-		<div class="fltlft error comment-msg" id="comment-msg"></div>
+					
+		
 		<?php echo JHtml::_('form.token'); ?>
 	</form>
 	<?php /* else: ?>

@@ -36,6 +36,10 @@ h1 { font-size: 20px; font-weight: bold; margin-bottom: 10px; }
 
 a.title { font-weight: bold; padding-bottom: 5px; display: block; }
 
+.bold { font-weight: bold; }
+
+small { font-size: .8em; }
+
 .round-4-conners-5 {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -345,3 +349,4 @@ a.yahoo { background: url('http://opi.yahoo.com/online?u=muinx&m=g&t=1') 0 cente
 .guest-info li { margin: 5px 0; }
 .guest-info li label { display: inline-block; width: 100px; }
 .guest-info li label span { color: red; }
+.guest-info li input { width: 200px; }

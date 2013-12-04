@@ -81,6 +81,13 @@ jQuery(function($){
 		});
 	}
 	
+	$('.refresh-captcha').click(function(){
+		// reload captcha
+		jQuery('#img_captcha').attr('src', 'index.php?option=com_hp_comment&task=captcha&rand=' + Math.floor((Math.random()*10000)+1));
+		
+		return false;
+	});
+	
 	// comments
 $('#hp-btn-post-comment').click(function(){
 		

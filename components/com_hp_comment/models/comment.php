@@ -39,7 +39,7 @@ class Hp_CommentModelComment extends JModelLegacy
 					->where('c.item_type = ' . $db->quote($itemType))
 					->where('c.item_id = ' . $itemId)
 					->where('c.parent_id = ' . $comment->id)
-					->where('c.state = 1')
+// 					->where('c.state = 1')
 					->order('c.id ASC')
 				;
 			
