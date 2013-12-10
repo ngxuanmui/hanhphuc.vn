@@ -148,7 +148,10 @@ $('#hp-btn-post-comment').click(function(){
 		}
 		
 		if (!validForm)
+		{
+			t.removeClass('processing');
 			return false;
+		}
 		
 		msg.removeClass('error').html('Vui lòng đợi ...');
 		

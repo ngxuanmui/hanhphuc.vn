@@ -30,14 +30,13 @@ class Hp_CommentModelComment extends JModelLegacy
 		// load sub comment
 		foreach ($rs as & $comment)
 		{
-			$query = $db->getQuery(true);
-		
-			$query->select('c.*, ' . $db->quote($title) . ' AS item_title')
+			$query->clear()
+					->select('c.*, ' . $db->quote($title) . ' AS item_title')
 					->from('#__hp_comments c')
 					->select('u.username')
 					->join('LEFT', '#__users u ON c.created_by = u.id')
-					->where('c.item_type = ' . $db->quote($itemType))
-					->where('c.item_id = ' . $itemId)
+// 					->where('c.item_type = ' . $db->quote($itemType))
+// 					->where('c.item_id = ' . $itemId)
 					->where('c.parent_id = ' . $comment->id)
 // 					->where('c.state = 1')
 					->order('c.id ASC')

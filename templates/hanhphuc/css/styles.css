@@ -18,6 +18,8 @@ h1 { font-size: 20px; font-weight: bold; margin-bottom: 10px; }
 .absolute { position: absolute; }
 .relative { position: relative; }
 
+.display-none { display: none; }
+
 .txt-left { text-align: left; }
 .txt-right { text-align: right; }
 .txt-center { text-align: center; }
@@ -350,3 +352,5 @@ a.yahoo { background: url('http://opi.yahoo.com/online?u=muinx&m=g&t=1') 0 cente
 .guest-info li label { display: inline-block; width: 100px; }
 .guest-info li label span { color: red; }
 .guest-info li input { width: 200px; }
+
+.list-other-comments { margin-left: 30px; }

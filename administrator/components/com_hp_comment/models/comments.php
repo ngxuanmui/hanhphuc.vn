@@ -99,14 +99,31 @@ class Hp_CommentModelComments extends JModelList
 		$query->select('ua.name AS author_name');
 		$query->join('LEFT', '#__users AS ua ON ua.id = a.created_by');
 		
-		//
+		// select title
 		$strCase = ' CASE a.item_type';
 		
 		$strCase .= ' WHEN "user" THEN (SELECT username FROM #__users WHERE id = a.item_id)';
 		
 		$strCase .= ' WHEN "service" THEN (SELECT name FROM #__hp_business_service WHERE id = a.item_id)';
 		
+		$strCase .= ' WHEN "article" THEN (SELECT title FROM #__hp_business_content WHERE id = a.item_id)';
+		
 		$strCase .= ' END AS comment_for';
+		
+		$query->select($strCase);
+		
+		// select alias
+		$strCase = ' CASE a.item_type';
+		
+		$strCase .= ' WHEN "user" THEN (SELECT username FROM #__users WHERE id = a.item_id)';
+		
+		$strCase .= ' WHEN "service" THEN (SELECT alias FROM #__hp_business_service WHERE id = a.item_id)';
+		
+		$strCase .= ' WHEN "article" THEN (SELECT alias FROM #__hp_business_content WHERE id = a.item_id)';
+		
+		$strCase .= ' END AS comment_alias';
+		
+		$query->select($strCase);
 		
 		$query->select($strCase);
 

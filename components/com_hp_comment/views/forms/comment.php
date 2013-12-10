@@ -12,14 +12,19 @@
 	<div class="list-comments">
 		
 		<div class="comment-content">
+			<?php
+			if (!empty($listComments)):
+			?>
+			<h1>Thông tin bình luận</h1>
+			<?php endif; ?>
 			<?php foreach ($listComments as $comment): ?>
 			<div class="avatar fltlft">
 				<img src="<?php // echo NtripFrontHelper::getAvatar($comment->created_by); ?>" />
 			</div>
 			<div class="comment-content-container fltlft">
 				<div class="comment-user-info">
-					<div class="fltlft bold"><?php echo $comment->username ? $comment->username : $comment->guest_fullname; ?></div>
-					<div class="fltlft"> (<?php echo $comment->created; ?>)</div>
+					<div class="fltlft bold"><?php echo $comment->username ? $comment->username : $comment->guest_fullname; ?> </div>
+					<div class="fltlft">&nbsp;(<?php echo date('H:i d/m/Y', strtotime($comment->created)); ?>)</div>
 					<div class="clr"></div>
 				</div>
 				
@@ -27,7 +32,6 @@
 				
 				<div class="clr"></div>
 				
-				<div class="clr"></div>
 				
 				<?php
 				$subComments = $comment->subComments ? $comment->subComments : array();
@@ -35,13 +39,15 @@
 					foreach ($subComments as $sub):
 				?>
 				<div class="list-other-comments">
-					<div class="comment-user-info fltlft">
+					<div class="comment-user-info fltlft display-none">
 						Quản lý <?php echo $sub->item_title; ?>
 					</div>
-					
+					<div class="clr"></div>
 					<div class="fltlft">
-						<div class="avatar fltlft">
-							<img src="<?php echo NtripFrontHelper::getAvatar($sub->created_by); ?>" class="fltlft" />
+						<div class="comment-user-info">
+							<div class="fltlft bold"><?php echo $sub->username; ?> </div>
+							<div class="fltlft">&nbsp;(<?php echo date('H:i d/m/Y', strtotime($sub->created)); ?>)</div>
+							<div class="clr"></div>
 						</div>
 						
 						<div class="sub-comment-content fltlft">
@@ -50,9 +56,6 @@
 						
 						<div class="clr"></div>
 					</div>
-					
-					<div class="clr"></div>
-					<div class="sub-comment-created">Phản hồi <?php echo $sub->created; ?></div>
 					
 					<div class="clr"></div>
 				</div>
@@ -125,7 +128,10 @@
 					<label style="position: relative; top: -90px;"><span>*</span> Nội dung</label>
 					
 					<textarea style="resize: none; height: 100px; width: 400px; margin: 10px 0 0;" id="hp-textarea-comment"></textarea>
-					<div class="fltlft error comment-msg" id="comment-msg" style="margin-left: 103px; padding: 5px 0;"></div>
+					
+				</li>
+				<li>
+					<div class="error comment-msg" id="comment-msg" style="margin-left: 103px; padding: 5px 0; clear: both;"></div>
 				</li>
 				<li>
 					<label>&nbsp;</label>
