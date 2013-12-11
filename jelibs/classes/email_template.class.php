@@ -1,62 +1,69 @@
 <?php
 
+/**
+ * Class to get content and send email
+ * @author Nguyen Xuan Mui
+ *
+ */
 class EmailTemplate
 {
+	protected $content;
+
 	/**
-	 * This var will be used to get default template that website use
-	 * @var String
+	 * Get content for email body
+	 *
+	 * @param string $filename File name
+	 * @param array $vars Array variable to replace
+	 * @param array $values Array value to replace
+	 * @return content replaced
 	 */
-	public $templateDir;
-	
-	/**
-	 * Construct function to get template
-	 */
-	function __construct()
+	function getContent($filename, $vars = array(), $values = array())
 	{
-		$app = JFactory::getApplication();
-		$this->templateDir = JPATH_ROOT . DS . 'templates' . DS . $app->getTemplate();
-	}
-	
-	/**
-	 * Function to get email template
-	 * @param String $tmpl
-	 * 
-	 * @return String: Content of file $tmpl.php
-	 */
-	function getEmailTemplate($tmpl = null)
-	{
-		if(!$tmpl)
-			return false;
-			
-		$fileName = $this->templateDir . DS . 'email_templates' . DS . $tmpl . '.php';
+		$content = file_get_contents($filename);
 		
-		$content = file_get_contents($fileName);
-		
-		return $content;
-	}
-	
-	/**
-	 * Function to return content after process template
-	 * @param String $tmpl
-	 * @param Array $vars Should be array('username' => $username, 'email' => $email);
-	 * 
-	 * @return String with full info
-	 */
-	function content($tmpl, $vars = array())
-	{
-		$content = $this->getEmailTemplate($tmpl);
-		
-		$arrSearch = array();
-		$arrReplace = array();
-		
-		foreach ($vars as $key => $var)
+		foreach ($vars as $key => $tmp)
 		{
-			$arrSearch[] = '%%'.$key.'%%';
-			$arrReplace[] = $var;
+			$search[] = '%%' . $tmp . '%%';
+			$replace[] = $values[$key];
 		}
+
+		$this->content = str_replace($search, $replace, $content);
+
+		return $this->content;
+	}
+
+	/**
+	 * Send email to recipient
+	 *
+	 * @param mix $recipient Recipients (array or string)
+	 * @return boolean true or false
+	 */
+	function send($recipient)
+	{
+		$mailer = JFactory::getMailer();
+
+		$config = JFactory::getConfig();
+		$sender = array(
+							$config->getValue('config.mailfrom'),
+							$config->getValue('config.fromname')
+					);
+
+		$mailer->setSender($sender);
+
+		$mailer->addRecipient($recipient);
+
+		$body = $this->content;
+
+		$mailer->isHTML(true);
+		$mailer->Encoding = 'base64';
+		$mailer->setBody($body);
+
+		$send = $mailer->Send();
 		
-		$content = str_replace($arrSearch, $arrReplace, $content);
-		
-		return $content;
+		if ( $send !== true ) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

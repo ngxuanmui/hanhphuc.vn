@@ -106,6 +106,8 @@ class Jnt_HanhphucModelUser_Man_COMMENTS extends JModelList
 		
 		$strCase .= ' WHEN "article" THEN (SELECT title FROM #__hp_business_content WHERE id = a.item_id)';
 		
+		$strCase .= ' WHEN "album" THEN (SELECT name FROM #__hp_albums WHERE id = a.item_id)';
+		
 		$strCase .= ' END AS comment_for';
 		
 		$query->select($strCase);
@@ -118,6 +120,8 @@ class Jnt_HanhphucModelUser_Man_COMMENTS extends JModelList
 		$strCase .= ' WHEN "service" THEN (SELECT alias FROM #__hp_business_service WHERE id = a.item_id)';
 		
 		$strCase .= ' WHEN "article" THEN (SELECT alias FROM #__hp_business_content WHERE id = a.item_id)';
+		
+		$strCase .= ' WHEN "album" THEN (SELECT alias FROM #__hp_albums WHERE id = a.item_id)';
 		
 		$strCase .= ' END AS comment_alias';
 		

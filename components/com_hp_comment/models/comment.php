@@ -76,6 +76,20 @@ class Hp_CommentModelComment extends JModelLegacy
 		if (!$result)
 			return array('error' => 1, 'msg' => $db->getErrorMsg ());
 		
+		/* variables */
+		$vars = array('fullname', 'content', 'created', 'created_by', 'owner');
+		$values = array();
+		
+		$emailTemplate = new EmailTemplate();
+		
+		//TODO send email to poster
+		$emailTemplate->getContent('comment_send_to_poster.php', $vars, $values);
+		$emailTemplate->send($recipient);
+		
+		//TODO send email to owner
+		
+		//TODO send email to amdin
+		
 		return $result;
 	}
 }

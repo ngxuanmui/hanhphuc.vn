@@ -34,7 +34,7 @@ jQuery(function($){
 			$newElems.imagesLoaded(function(){
 				// show elems now they're ready
 				$newElems.css({ opacity: 1 });
-				$('#wrapper').masonry( 'appended', $newElems, true ); 
+				$('#wrapper').masonry( 'appended', $newElems, true );
 			});
 	});
 });
@@ -55,7 +55,7 @@ jQuery(function($){
 		
 			<?php if (!empty($this->otherImages)): ?>
 			<div id="wrapper" class="clearfix">
-				<?php 
+				<?php
 				foreach ($this->otherImages as $img):
 					
 				?>
@@ -66,14 +66,18 @@ jQuery(function($){
 						</a>
 					</div>
 					<p class="description">
-					<?php echo $this->escape($item->description); ?>					
+					<?php echo $this->escape($item->description); ?>
 					</p>
 					<div class="clear"></div>
 				</div>
 				<?php endforeach; ?>
 			</div>
+			
+			<div class="com-comments">
+	    		<?php JEUtil::showForm($item->id, 'album', $item->name); ?>
+	    	</div>
 
-			<?php endif; ?>			
+			<?php endif; ?>
 			
 			<div class="clear"></div>
 
