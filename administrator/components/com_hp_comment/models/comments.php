@@ -128,8 +128,6 @@ class Hp_CommentModelComments extends JModelList
 		$strCase .= ' END AS comment_alias';
 		
 		$query->select($strCase);
-		
-		$query->select($strCase);
 
 		// Filter by published state
 		$published = $this->getState('filter.state');

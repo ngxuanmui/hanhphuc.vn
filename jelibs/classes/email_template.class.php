@@ -17,14 +17,16 @@ class EmailTemplate
 	 * @param array $values Array value to replace
 	 * @return content replaced
 	 */
-	function getContent($filename, $vars = array(), $values = array())
+	function getContent($filename, $values = array())
 	{
 		$content = file_get_contents($filename);
 		
-		foreach ($vars as $key => $tmp)
+		$values = array_unique($values);
+		
+		foreach ($values as $key => $val)
 		{
-			$search[] = '%%' . $tmp . '%%';
-			$replace[] = $values[$key];
+			$search[] = '%%' . $key . '%%';
+			$replace[] = $val;
 		}
 
 		$this->content = str_replace($search, $replace, $content);
