@@ -41,4 +41,9 @@ defined('_JEXEC') or die;
 			Quản lý bình luận
 		</a>
 	</li>
+	<li class="item-244">
+		<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&amp;view=user_man_orders', false); ?>">
+			Quản lý Đơn hàng
+		</a>
+	</li>
 </ul>

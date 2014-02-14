@@ -11,8 +11,31 @@ defined('_JEXEC') or die;
 
 jimport('joomla.application.component.controllerform');
 
-class Jnt_HanhPhucControllerOrder extends JController {
-	protected function isLoggedIn($task = '') {
+class Jnt_HanhPhucControllerOrder extends JController 
+{
+    public function confirm_delivered()
+    {
+	$post = JRequest::get('post');
+	
+	$model = $this->getModel('Order');
+	
+	$delivered = $post['delivered'];
+	
+	$saveResult = $model->confirmDelivered($delivered);
+	
+	if ($saveResult)
+	{
+	    $url = JRoute::_('index.php?option=com_jnt_hanhphuc&view=user_man_order_items&order_id=' . $post['order_id'], false);
+	    
+	    $this->setRedirect($url, 'Cập nhật trạng thái chuyển hàng thành công');
+	    
+	    return true;
+	}
+	
+	die;
+    }
+
+    protected function isLoggedIn($task = '') {
 		$user = JFactory::getUser();
 		
 		if (!$view)
@@ -96,15 +119,17 @@ class Jnt_HanhPhucControllerOrder extends JController {
 		$db->insertObject('#__hp_order', $orderData);
 		$orderData->id = $db->insertid();
 		
+//		var_dump($order->items); die;
+		
 		$orderItemDatas = array();
 		foreach($order->items as $orderItem) {
 			$orderItemData = array();
 			$orderItemData['order_id'] 			= $orderData->id;
 			$orderItemData['item_id'] 			= $orderItem->id;
 			$orderItemData['business_id'] 		= $orderItem->business_id;
-			$orderItemData['business_name'] 	= $orderItem->businessProfile->business_name;
-			$orderItemData['service_id'] 		= $orderItem->category;
-			$orderItemData['service_name'] 		= $orderItem->name;
+//			$orderItemData['business_name'] 	= $orderItem->businessProfile->business_name;
+//			$orderItemData['service_id'] 		= $orderItem->category;
+//			$orderItemData['service_name'] 		= $orderItem->name;
 			$orderItemData['qty'] 				= $orderItem->number;
 			$orderItemData['origin_price'] 		= $orderItem->price;
 			$orderItemData['price'] 			= $orderItem->current_price;
@@ -115,6 +140,10 @@ class Jnt_HanhPhucControllerOrder extends JController {
 			
 			$orderItemData = (object)$orderItemData;
 			$db->insertObject('#__hp_order_items', $orderItemData);
+			
+			if ($db->getErrorMsg())
+			    die ($db->getErrorMsg ());
+			
 			$orderItemDatas[] = $orderItemData;
 		}
 		

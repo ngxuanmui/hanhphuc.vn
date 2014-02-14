@@ -44,23 +44,17 @@ class EmailTemplate
 	{
 		$mailer = JFactory::getMailer();
 
-		$config = JFactory::getConfig();
-		$sender = array(
-							$config->getValue('config.mailfrom'),
-							$config->getValue('config.fromname')
-					);
-
-		$mailer->setSender($sender);
-
+		
 		$mailer->addRecipient($recipient);
 
+		$subject = 'hello';
 		$body = $this->content;
 
 		$mailer->isHTML(true);
 		$mailer->Encoding = 'base64';
 		$mailer->setBody($body);
 
-		$send = $mailer->Send();
+		$send = $mailer->sendMail('abc@test.com', 'Test mail', $recipient, $subject, $body);
 		
 		if ( $send !== true ) {
 			return false;
