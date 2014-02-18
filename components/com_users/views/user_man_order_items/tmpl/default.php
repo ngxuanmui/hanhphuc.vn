@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Administrator
- * @subpackage  com_jnt_hanhphuc
+ * @subpackage  com_users
  *
  * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -20,6 +20,7 @@ if (is_array($items))
     $firstItem = $items[0];
 
 $allowDelivered = false;
+
 ?>
 
 <div class="container">
@@ -33,11 +34,12 @@ $allowDelivered = false;
 	    
 		<div class="sub-container list-items relative">
 			<div class="list-items-container" style="padding: 10px 0; margin-top: 0">
-			    <form method="post" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.confirm_delivered'); ?>" name="userForm">
+			    <form method="post" action="<?php echo JRoute::_('index.php?option=com_users&task=order.confirm_delivered'); ?>" name="userForm">
 					<table class="list-user-hotels" cellpadding="10" border="0" cellspacing="0" width="98%">
 						<tr class="oven">
 							<th>#</th>
 							<th>Dịch vụ</th>
+							<th>Doanh nghiệp</th>
 							<th>Chuyển hàng</th>
 						</tr>
 						<?php foreach ($items as $key => $item): ?>
@@ -46,14 +48,12 @@ $allowDelivered = false;
 								<?php echo $key + 1; ?>
 							</td>
 							<td><?php echo $item->service_name; ?></td>
+							<td><?php echo $item->user_business_name; ?></td>
 							<td>
 							    <?php if ($item->delivered == 1): ?>
 							    [v]
-							    <?php 
-							    else: 
-								$allowDelivered = true;
-							    ?>
-							    <input type="checkbox" name="delivered[]" value="<?php echo $item->id; ?>" />
+							    <?php else: ?>
+							    Chưa
 							    <?php endif; ?>
 							</td>
 						</tr>
@@ -65,12 +65,7 @@ $allowDelivered = false;
 					</table>
 					<div class="clear">
 						<div class="pagination fltleft" style="background: #fff;"><?php echo $this->pagination->getPagesLinks();//$this->pagination->getListFooter(); ?></div>
-						<input type="hidden" name="order_id" value="<?php echo JRequest::getInt('order_id'); ?>" />
-						<?php if ($allowDelivered): ?>
-						<input type="submit" name="btn-confirm" value="Xác nhận" />
-						| 
-						<?php endif; ?>
-						<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=user_man_orders', false); ?>">Quản lý Đơn hàng</a>
+						<a href="<?php echo JRoute::_('index.php?option=com_users&view=user_man_orders', false); ?>">Quản lý Đơn hàng</a>
 						<div class="clear"></div>
 					</div>
 				</form>
