@@ -106,6 +106,7 @@ JHtml::_('behavior.formvalidation');
                     <th>Qty</th>
                     <th>Origin price</th>
                     <th>Price</th>
+		    <th>Delivered</th>
                 </tr>
             </thead>
             <tbody>
@@ -116,6 +117,11 @@ JHtml::_('behavior.formvalidation');
                     <td><?php echo $item->qty ?></td>
                     <td><?php echo $item->origin_price ?></td>
                     <td><?php echo $item->price ?></td>
+		    <td>
+			<?php $checked = ($item->delivered == 1) ? 'checked="checked"' : ''; ?>
+			<input type="checkbox" name="delivered[<?php echo $item->id; ?>]" value="<?php echo $item->id; ?>" <?php echo $checked; ?> />
+			<input type="hidden" name="item_delivered[<?php echo $item->id; ?>]" value="<?php echo $item->id; ?>" />
+		    </td>
                 </tr>
                 <?php endforeach;?>
             </tbody>

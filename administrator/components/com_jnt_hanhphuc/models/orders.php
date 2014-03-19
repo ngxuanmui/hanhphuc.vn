@@ -29,6 +29,7 @@ class Jnt_HanhPhucModelOrders extends JModelList
 	{
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
+			    'id'
 			);
 		}
 
@@ -53,11 +54,58 @@ class Jnt_HanhPhucModelOrders extends JModelList
 				'o.*'
 			)
 		);
+		
+		
+		// Join over the users for the checked out user.
+		$query->select('uc.name AS editor');
+		$query->join('LEFT', '#__users AS uc ON uc.id=o.checked_out');
 
 		$query->from('`#__hp_order` AS o');
+		
+		// Add the list ordering clause.
+		$orderCol	= $this->state->get('list.ordering', 'o.id');
+		$orderDirn	= $this->state->get('list.direction', 'asc');
+		
+		$query->order($db->escape($orderCol.' '.$orderDirn));
 
 		//echo nl2br(str_replace('#__','jos_',$query));
 		return $query;
+	}
+	
+	public function getItems() {
+	    $items = parent::getItems();
+	    
+	    $db = JFactory::getDbo();
+	    $query = $db->getQuery(true);
+	    
+	    foreach ($items as & $item)
+	    {
+		// get all items in order
+		$query->clear()
+			->select('COUNT(id)')
+			->from('#__hp_order_items')
+			->where('order_id = ' . $item->id)
+			;
+		
+		$db->setQuery($query);
+		$item->count_items = $db->loadResult();
+		
+		// get all items which delivered in order
+		$query->clear()
+			->select('COUNT(id)')
+			->from('#__hp_order_items')
+			->where('order_id = ' . $item->id)
+			->where('delivered = 1')
+			;
+		
+		$db->setQuery($query);
+		$item->count_delivered_items = $db->loadResult();
+		
+		if ($db->getErrorMsg())
+		    die ($db->getErrorMsg ());
+	    }
+	    
+	    return $items;
 	}
 
 	/**
@@ -91,20 +139,7 @@ class Jnt_HanhPhucModelOrders extends JModelList
 		$state = $this->getUserStateFromRequest($this->context.'.filter.state', 'filter_state', '', 'string');
 		$this->setState('filter.state', $state);
 
-		$categoryId = $this->getUserStateFromRequest($this->context.'.filter.category_id', 'filter_category_id', '');
-		$this->setState('filter.category_id', $categoryId);
-
-		$clientId = $this->getUserStateFromRequest($this->context.'.filter.client_id', 'filter_client_id', '');
-		$this->setState('filter.client_id', $clientId);
-
-		$language = $this->getUserStateFromRequest($this->context.'.filter.language', 'filter_language', '');
-		$this->setState('filter.language', $language);
-
-		// Load the parameters.
-		$params = JComponentHelper::getParams('com_banners');
-		$this->setState('params', $params);
-
 		// List state information.
-		parent::populateState('name', 'asc');
+		parent::populateState('id', 'desc');
 	}
 }

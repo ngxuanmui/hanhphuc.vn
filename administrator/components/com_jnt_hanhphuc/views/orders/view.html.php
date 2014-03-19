@@ -36,7 +36,21 @@ class Jnt_HanhPhucViewOrders extends JView {
 			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
+		
+		$this->addToolbar();
 
 		parent::display($tpl);
 	}
+	
+	/**
+     * Add the page title and toolbar.
+     *
+     * @return  void
+     *
+     * @since   1.6
+     */
+    protected function addToolbar() {
+      
+        JToolBarHelper::title(JText::_('Orders Manager'), 'banners.png');
+    }
 }

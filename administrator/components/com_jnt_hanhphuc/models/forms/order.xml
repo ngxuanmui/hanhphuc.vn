@@ -67,7 +67,7 @@
 			readonly="true" class="readonly"
 			label="Phone" 	description ="Phone" />
 			
-		<field name="state" type="list"
+		<field name="state" type="list" readonly="true"
 			label="Order State" description="Order State"
 			class="inputbox" size="1" default="1" >
 			<option value="0">Confirmed</option>

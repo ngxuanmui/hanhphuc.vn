@@ -109,8 +109,8 @@ class Jnt_HanhPhucControllerOrder extends JController
 		$orderData['phone'] 				= $order->shippingAddress->mobile;
 		$orderData['email'] 				= $order->shippingAddress->email;
 		$orderData['state'] 				= 0;
-		$orderData['checked_out'] 			= JFactory::getDate()->toMySQL();
-		$orderData['checked_out_by'] 		= $user->id;
+//		$orderData['checked_out'] 			= JFactory::getDate()->toMySQL();
+//		$orderData['checked_out_by'] 		= $user->id;
 		$orderData['created'] 				= JFactory::getDate()->toMySQL();
 		$orderData['created_by'] 			= $user->id;
 		$orderData['modified'] 				= null;

@@ -70,7 +70,7 @@ $saveOrder	= $listOrder=='ordering';
 					<?php echo JHtml::_('grid.sort', 'Total Price', 'total_price', $listDirn, $listOrder); ?>
 				</th>
 				<th width="10%" class="nowrap">
-					<?php echo JHtml::_('grid.sort', 'Price', 'price', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'Current Price', 'price', $listDirn, $listOrder); ?>
 				</th>
 				<th width="10%">
 					<?php echo JHtml::_('grid.sort', 'Pay method', 'payment_method_name', $listDirn, $listOrder); ?>
@@ -103,23 +103,30 @@ $saveOrder	= $listOrder=='ordering';
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 				</td>
 				<td>
+				    <?php if ($item->checked_out) : ?>
+						<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out, 'orders.', $canCheckin); ?>
+					<?php endif; ?>
 					<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.edit&id='.(int) $item->id); ?>">
-						<?php echo $this->escape($item->id); ?></a>
+						Order: <?php echo $this->escape($item->id); ?></a>
 				</td>
 				<td class="center">
 					<?php echo $item->username;?>
 				</td>
 				<td class="center">
-					<?php echo $item->total_price;?>
+					<?php echo number_format($item->total_price);?>
 				</td>
 				<td class="center">
-					<?php echo $item->price;?>
+					<?php echo number_format($item->price);?>
 				</td>
 				<td class="center">
 					<?php echo $item->payment_method_name;?>
 				</td>
 				<td class="center">
+				    <?php if ($item->count_items == $item->count_delivered_items && $item->state != 1): ?>
 					<?php echo JHtml::_('jgrid.published', $item->state, $i, 'orders.', $canChange, 'cb'); ?>
+				    <?php elseif ($item->state == 1): ?>
+					Done
+				    <?php endif; ?>
 				</td>
 				<td class="center">
 					<?php echo $item->username;?>
