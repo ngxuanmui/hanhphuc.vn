@@ -19,15 +19,13 @@ class Jnt_HanhPhucControllerOrder extends JController
 	
 	$model = $this->getModel('Order');
 	
-	$delivered = $post['delivered'];
-	
-	$saveResult = $model->confirmDelivered($delivered);
+	$saveResult = $model->confirmDelivered($post);
 	
 	if ($saveResult)
 	{
 	    $url = JRoute::_('index.php?option=com_jnt_hanhphuc&view=user_man_order_items&order_id=' . $post['order_id'], false);
 	    
-	    $this->setRedirect($url, 'Cập nhật trạng thái chuyển hàng thành công');
+	    $this->setRedirect($url, 'Cập nhật thông tin thành công');
 	    
 	    return true;
 	}

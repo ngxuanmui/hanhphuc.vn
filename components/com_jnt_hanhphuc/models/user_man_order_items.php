@@ -87,14 +87,14 @@ class Jnt_HanhphucModelUser_Man_Order_Items extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'a.id AS id, a.order_id,'.
-				'a.delivered AS delivered'
+				'a.id AS id, a.order_id, a.price,'.
+				'a.delivered AS delivered, a.qty'
 			)
 		);
 		$query->from($db->quoteName('#__hp_order_items').' AS a');
 
 		// Join over the language
-		$query->select('o.created');
+		$query->select('o.created, o.payment_method, o.payment_method_name, o.address, o.city, o.district, o.phone, o.email');
 		$query->join('INNER', $db->quoteName('#__hp_order').' AS o ON o.id = a.order_id');
 
 		// Join over the users for the checked out user.
@@ -160,6 +160,47 @@ class Jnt_HanhphucModelUser_Man_Order_Items extends JModelList
 
 		//echo nl2br(str_replace('#__','jos_',$query));
 		return $query;
+	}
+	
+	public function getNotes()
+	{
+	    return $this->_getInfo('notes');
+	}
+	
+	public function getFiles()
+	{
+	    return $this->_getInfo('files');
+	}
+	
+	/**
+	 * Function to get order's extra info
+	 * 
+	 * @return array List of objects
+	 */
+	private function _getInfo($info = 'notes')
+	{
+	    $orderId = JRequest::getInt('order_id');
+	    
+	    $db = JFactory::getDbo();
+	    $query = $db->getQuery(true);
+	    
+	    $table = ($info == 'notes') ? '#__hp_order_notes' : '#__files';
+	    $relationKey = ($info == 'notes') ? 'order_id' : 'item_id';
+	    
+	    // get info
+	    $query->clear()
+		    ->select('*')
+		    ->from($table)
+		    ->where($relationKey . '=' . $orderId)
+		;
+	    
+	    $db->setQuery($query);
+	    $rs = $db->loadObjectList();
+	    
+	    if ($db->getErrorMsg())
+		die ($db->getErrorMsg());
+	    
+	    return $rs;
 	}
 
 	/**

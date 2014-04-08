@@ -25,6 +25,7 @@ $items = $this->items;
 							<th>Order ID</th>
 							<th>Khách hàng</th>
 							<th>Ngày lập</th>
+							<th>Tổng tiền</th>
 							<th>Trạng thái</th>
 						</tr>
 						<?php foreach ($items as $key => $item): ?>
@@ -36,6 +37,7 @@ $items = $this->items;
 							</td>
 							<td><?php echo $item->user_created; ?></td>
 							<td><?php echo $item->created; ?></td>
+							<td><?php echo $item->total_price; ?></td>
 							<td><?php echo ($item->order_state == 1) ? 'Yes' : 'No'; ?></td>
 						</tr>
 						<?php endforeach; ?>

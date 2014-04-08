@@ -78,7 +78,7 @@ class Jnt_HanhPhucModelOrder extends JModelAdmin {
 	$db = JFactory::getDbo();
 //	$query = 'SELECT i.* FROM #__hp_order_items i
 //                  WHERE i.order_id = ' . $id;
-	
+
 	$query = $db->getQuery(true);
 	$query->clear()
 		->select('i.*, s.name AS service_name, u.username AS business_name')
@@ -86,55 +86,91 @@ class Jnt_HanhPhucModelOrder extends JModelAdmin {
 		->join('INNER', '#__hp_business_service s ON i.item_id = s.id')
 		->join('LEFT', '#__users u ON i.business_id = u.id')
 		->where('i.order_id = ' . $id)
-		;
-	
+	;
+
 	$db->setQuery($query);
 	$items = $db->loadObjectList();
-	
+
 	if ($db->getErrorMsg())
-	    die ($db->getErrorMsg ());
-	
+	    die($db->getErrorMsg());
+
 	return $items;
     }
-    
+
+    public function getNotes() {
+	return $this->_getInfo('notes');
+    }
+
+    public function getFiles() {
+	return $this->_getInfo('files');
+    }
+
+    /**
+     * Function to get order's extra info
+     * 
+     * @return array List of objects
+     */
+    private function _getInfo($info = 'notes') {
+	$orderId = JRequest::getInt('id');
+
+	$db = JFactory::getDbo();
+	$query = $db->getQuery(true);
+
+	$table = ($info == 'notes') ? '#__hp_order_notes' : '#__files';
+	$relationKey = ($info == 'notes') ? 'order_id' : 'item_id';
+
+	// get info
+	$query->clear()
+		->select('*')
+		->from($table)
+		->where($relationKey . '=' . $orderId)
+	;
+
+	$db->setQuery($query);
+	$rs = $db->loadObjectList();
+
+	if ($db->getErrorMsg())
+	    die($db->getErrorMsg());
+
+	return $rs;
+    }
+
     public function save($data) {
 	$save = parent::save($data);
-	
-	if ($save)
-	{
+
+	if ($save) {
 	    $post = JRequest::get('post');
-	    
+
 	    // Update delivered
-	    
+
 	    $db = JFactory::getDbo();
 	    $query = $db->getQuery(true);
 
-	    foreach ($post['item_delivered'] as $key => $d)
-	    {
+	    foreach ($post['item_delivered'] as $key => $d) {
 		$query->clear();
 
 		$query->update('#__hp_order_items');
-		
+
 		if (isset($post['delivered'][$key]))
-		    $query->set ('delivered = 1');
+		    $query->set('delivered = 1');
 		else
-		    $query->set ('delivered = 0');
-		
+		    $query->set('delivered = 0');
+
 		$query->where('id = ' . $d);
 
 		$db->setQuery($query);
 		$db->query();
 
 		if ($db->getErrorMsg())
-		    die ($db->getErrorMsg ());
+		    die($db->getErrorMsg());
 	    }
-	    
+
 	    return $save;
 	}
-	
+
 	return false;
     }
-	        
+
     function emailTemplate($user, $order, $isAdmin = false) {
 	$template = '';
 	if (!$isAdmin) {

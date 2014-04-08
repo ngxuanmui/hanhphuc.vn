@@ -22,6 +22,8 @@ class Jnt_HanhphucViewUser_Man_Order_Items extends JViewLegacy
 	protected $items;
 	protected $pagination;
 	protected $state;
+	protected $notes;
+	protected $files;
 
 	/**
 	 * Method to display the view.
@@ -39,6 +41,8 @@ class Jnt_HanhphucViewUser_Man_Order_Items extends JViewLegacy
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
 		$this->state		= $this->get('State');
+		$this->notes		= $this->get('Notes');
+		$this->files		= $this->get('Files');
 		
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

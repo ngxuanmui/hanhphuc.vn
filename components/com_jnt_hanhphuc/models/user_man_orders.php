@@ -74,7 +74,7 @@ class Jnt_HanhphucModelUser_Man_Orders extends JModelList
 		$query->from($db->quoteName('#__hp_order_items').' AS a');
 
 		// Join over the language
-		$query->select('o.created, o.state AS order_state');
+		$query->select('o.created, o.state AS order_state, o.price, o.total_price');
 		$query->join('INNER', $db->quoteName('#__hp_order').' AS o ON o.id = a.order_id');
 
 		// Join over the users for the checked out user.

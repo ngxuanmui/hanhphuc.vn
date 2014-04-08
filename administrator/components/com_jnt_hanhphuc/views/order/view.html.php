@@ -1,10 +1,10 @@
 <?php
+
 /**
  * @version		$Id: view.html.php 20196 2011-01-09 02:40:25Z ian $
  * @copyright	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
-
 // No direct access
 defined('_JEXEC') or die;
 
@@ -17,66 +17,68 @@ jimport('joomla.application.component.view');
  * @subpackage	com_banners
  * @since		1.5
  */
-class Jnt_HanhPhucViewOrder extends JView
-{
-	protected $form;
-	protected $item;
-	protected $state;
+class Jnt_HanhPhucViewOrder extends JView {
+
+    protected $form;
+    protected $item;
+    protected $state;
     protected $orderItems;
+    protected $notes;
+    protected $files;
 
-	/**
-	 * Display the view
-	 */
-	public function display($tpl = null)
-	{
-		// Initialiase variables.
-		$this->form		= $this->get('Form');
-		$this->item		= $this->get('Item');
-		$this->state	= $this->get('State');
-        
-        $this->orderItems = $this->get('OrderItems');
+    /**
+     * Display the view
+     */
+    public function display($tpl = null) {
+	// Initialiase variables.
+	$this->form = $this->get('Form');
+	$this->item = $this->get('Item');
+	$this->state = $this->get('State');
+	$this->notes = $this->get('Notes');
+	$this->files = $this->get('Files');
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode("\n", $errors));
-			return false;
-		}
+	$this->orderItems = $this->get('OrderItems');
 
-		$this->addToolbar();
-		parent::display($tpl);
+	// Check for errors.
+	if (count($errors = $this->get('Errors'))) {
+	    JError::raiseError(500, implode("\n", $errors));
+	    return false;
 	}
 
-	/**
-	 * Add the page title and toolbar.
-	 *
-	 * @since	1.6
-	 */
-	protected function addToolbar()
-	{
-		JRequest::setVar('hidemainmenu', true);
+	$this->addToolbar();
+	parent::display($tpl);
+    }
 
-		$user		= JFactory::getUser();
-		$userId		= $user->get('id');
-		$isNew		= ($this->item->id == 0);
-		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
-		$canDo		= Jnt_HanhPhucHelper::getActions($this->state->get('filter.category_id'));
+    /**
+     * Add the page title and toolbar.
+     *
+     * @since	1.6
+     */
+    protected function addToolbar() {
+	JRequest::setVar('hidemainmenu', true);
 
-		JToolBarHelper::title($isNew ? 'New order' : 'HP: Order detail', 'banners.png');
+	$user = JFactory::getUser();
+	$userId = $user->get('id');
+	$isNew = ($this->item->id == 0);
+	$checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
+	$canDo = Jnt_HanhPhucHelper::getActions($this->state->get('filter.category_id'));
 
-		// If not checked out, can save the item.
-		if (!$checkedOut && ($canDo->get('core.edit') || $canDo->get('core.create'))) {
-			JToolBarHelper::apply('order.apply', 'JTOOLBAR_APPLY');
-			JToolBarHelper::save('order.save', 'JTOOLBAR_SAVE');
-		}
+	JToolBarHelper::title($isNew ? 'New order' : 'HP: Order detail', 'banners.png');
 
-		if (empty($this->item->id))  {
-			JToolBarHelper::cancel('order.cancel','JTOOLBAR_CANCEL');
-		}
-		else {
-			JToolBarHelper::cancel('order.cancel', 'JTOOLBAR_CLOSE');
-		}
-
-		JToolBarHelper::divider();
-		JToolBarHelper::help('JHELP_COMPONENTS_BANNERS_BANNERS_EDIT');
+	// If not checked out, can save the item.
+	if (!$checkedOut && ($canDo->get('core.edit') || $canDo->get('core.create'))) {
+	    JToolBarHelper::apply('order.apply', 'JTOOLBAR_APPLY');
+	    JToolBarHelper::save('order.save', 'JTOOLBAR_SAVE');
 	}
+
+	if (empty($this->item->id)) {
+	    JToolBarHelper::cancel('order.cancel', 'JTOOLBAR_CANCEL');
+	} else {
+	    JToolBarHelper::cancel('order.cancel', 'JTOOLBAR_CLOSE');
+	}
+
+	JToolBarHelper::divider();
+	JToolBarHelper::help('JHELP_COMPONENTS_BANNERS_BANNERS_EDIT');
+    }
+
 }
