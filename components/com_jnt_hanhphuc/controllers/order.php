@@ -36,9 +36,6 @@ class Jnt_HanhPhucControllerOrder extends JController
     protected function isLoggedIn($task = '') {
 		$user = JFactory::getUser();
 		
-		if (!$view)
-			$view = 'checkout';
-		
 		if($user->guest) {
 			$returnURL = JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.'.$task.(!empty($step) ? '&step='.$step : ''));
 			$returnURL = base64_encode($returnURL);
@@ -121,6 +118,7 @@ class Jnt_HanhPhucControllerOrder extends JController
 		
 		$orderItemDatas = array();
 		foreach($order->items as $orderItem) {
+		    
 			$orderItemData = array();
 			$orderItemData['order_id'] 			= $orderData->id;
 			$orderItemData['item_id'] 			= $orderItem->id;
@@ -128,7 +126,7 @@ class Jnt_HanhPhucControllerOrder extends JController
 //			$orderItemData['business_name'] 	= $orderItem->businessProfile->business_name;
 //			$orderItemData['service_id'] 		= $orderItem->category;
 //			$orderItemData['service_name'] 		= $orderItem->name;
-			$orderItemData['qty'] 				= $orderItem->number;
+			$orderItemData['qty'] 				= $orderItem->qty;
 			$orderItemData['origin_price'] 		= $orderItem->price;
 			$orderItemData['price'] 			= $orderItem->current_price;
 			$orderItemData['created'] 			= JFactory::getDate()->toMySQL();
@@ -137,6 +135,7 @@ class Jnt_HanhPhucControllerOrder extends JController
 			$orderItemData['modified_by'] 		= null;
 			
 			$orderItemData = (object)$orderItemData;
+			
 			$db->insertObject('#__hp_order_items', $orderItemData);
 			
 			if ($db->getErrorMsg())

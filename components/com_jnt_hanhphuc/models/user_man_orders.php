@@ -62,6 +62,8 @@ class Jnt_HanhphucModelUser_Man_Orders extends JModelList
 		// Initialise variables.
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
+		
+		$userId = JFactory::getUser()->id;
 
 		// Select the required fields from the table.
 		$query->select(
@@ -71,6 +73,12 @@ class Jnt_HanhphucModelUser_Man_Orders extends JModelList
 				'a.delivered AS delivered'
 			)
 		);
+		
+		$query->select('(SELECT SUM(qty * price) '
+			. ' FROM #__hp_order_items '
+			. ' WHERE order_id = a.order_id AND business_id = ' . $userId . ') '
+			. ' AS private_order_price');
+		
 		$query->from($db->quoteName('#__hp_order_items').' AS a');
 
 		// Join over the language
@@ -111,9 +119,7 @@ class Jnt_HanhphucModelUser_Man_Orders extends JModelList
 //		}
 		
 		// Filter by user
-		$userId = JFactory::getUser()->id;
-		
-		$query->where('a.created_by = ' . (int) $userId);
+		$query->where('a.business_id = ' . (int) $userId);
 
 		// Add the list ordering clause.
 		$orderCol	= $this->state->get('list.ordering', 'ordering');
@@ -127,7 +133,7 @@ class Jnt_HanhphucModelUser_Man_Orders extends JModelList
 		// order by order id
 		$query->group('a.order_id');
 
-//		echo nl2br(str_replace('#__','jos_',$query));
+//		echo nl2br(str_replace('#__','hp_',$query));
 		return $query;
 	}
 

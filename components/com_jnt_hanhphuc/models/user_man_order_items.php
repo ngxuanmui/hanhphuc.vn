@@ -140,11 +140,6 @@ class Jnt_HanhphucModelUser_Man_Order_Items extends JModelList
 //				$query->where('(a.name LIKE '.$search.' OR a.alias LIKE '.$search.')');
 //			}
 //		}
-		
-		// Filter by user
-		$userId = JFactory::getUser()->id;
-		
-		$query->where('a.created_by = ' . (int) $userId);
 
 		// Add the list ordering clause.
 		$orderCol	= $this->state->get('list.ordering', 'ordering');

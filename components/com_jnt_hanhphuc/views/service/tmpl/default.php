@@ -108,7 +108,7 @@ jQuery(function($){
 		            <input type="hidden" name="option" value="com_jnt_hanhphuc"/>
 		            <input type="hidden" name="task" value="cart.add"/>
 		            <input type="hidden" name="id" value="<?php echo $serviceInfo->id ?>"/>
-		            <input type="hidden" name="qty" value="1" size="5"/>
+		            <input type="text" name="qty" value="1" size="5"/>
 		            <button type="submit">
 		            	Thêm vào giỏ hàng
 		            </button>

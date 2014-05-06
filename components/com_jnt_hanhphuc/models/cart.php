@@ -23,6 +23,7 @@ class Jnt_HanhPhucModelCart extends JModel {
         require_once JPATH_COMPONENT.DS.'helpers'.DS.'shoppingcart.class.php';
         $basket = new ShoppingBasket();
         $items = $basket->getBasket();
+	
         if(empty($items)) {
             return false;
         }
@@ -34,12 +35,12 @@ class Jnt_HanhPhucModelCart extends JModel {
             $itemInfo = $this->getServiceInfo($id);
             $itemInfo->qty = $qty;
             
-            $totalPrice += $itemInfo->price;
+            $totalPrice += $itemInfo->price * $qty;
             $price += $itemInfo->current_price;
             
             $orderItems[] = $itemInfo;
         }
-        
+	
         $return->items = $orderItems;
         $return->totalPrice = $totalPrice;
         $return->price = $price;

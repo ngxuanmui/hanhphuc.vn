@@ -56,14 +56,14 @@ $allowDelivered = false;
     			    </td>
     			    <td><?php echo $item->service_name; ?></td>
 			    <td><?php echo $item->qty; ?></td>
-    			    <td><?php echo $item->price; ?></td>
+    			    <td><?php echo number_format($item->price) . ' VNĐ'; ?></td>
 			    <td>
 				<?php 
 				$price = $item->qty * $item->price;
 				
 				$totalPrice += $price;
 				
-				echo $price;
+				echo number_format($price) . ' VNĐ';
 				?>
 			    </td>
     			    <td>
@@ -85,7 +85,7 @@ $allowDelivered = false;
 		    </table>
 		    
 		    <div>
-			Tổng thành tiền: <?php echo $totalPrice; ?>
+			Tổng thành tiền: <?php echo number_format($totalPrice) . ' VNĐ'; ?>
 		    </div>
 		    
 		    <?php if (!empty($this->files)): ?>
@@ -95,7 +95,10 @@ $allowDelivered = false;
 			<ul>
 			    <?php foreach ($this->files as $file): ?>
 			    <li>
-				File: <?php echo $file->file_upload; ?> 
+				File: 
+				<a target="_blank" href="<?php echo JURI::root() . 'upload/orders/' . $firstItem->order_id . '/' . $file->file_upload; ?>">
+				    <?php echo $file->file_upload; ?>
+				</a>
 				<?php if (!empty($file->description)): ?>
 				<br>
 				Chú thích: <?php echo $file->description; ?>

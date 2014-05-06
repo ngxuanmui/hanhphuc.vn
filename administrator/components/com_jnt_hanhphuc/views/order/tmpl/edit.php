@@ -143,7 +143,10 @@ JHtml::_('behavior.formvalidation');
 			<input type="checkbox" name="del_file" />
 		    </td>
 		    <td>
-			File: <?php echo $file->file_upload; ?> 
+			File: 
+			<a target="_blank" href="<?php echo JURI::root() . 'upload/orders/' . $firstItem->order_id . '/' . $file->file_upload; ?>">
+			    <?php echo $file->file_upload; ?>
+			</a>
 			<?php if (!empty($file->description)): ?>
 			<br>
 			Chú thích: <?php echo $file->description; ?>
