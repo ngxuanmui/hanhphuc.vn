@@ -354,3 +354,11 @@ a.yahoo { background: url('http://opi.yahoo.com/online?u=muinx&m=g&t=1') 0 cente
 .guest-info li input { width: 200px; }
 
 .list-other-comments { margin-left: 30px; }
+
+/* new */
+.new-h2 { color: #c61054; font-size: 12px; text-transform: uppercase; margin: 10px 0 5px 0; }
+.new-container { border: 1px solid #CCC; border-top: 3px solid #CCC; padding: 10px 15px; }
+.new-container .customer-info h2 { border: 1px solid #CCC; background: url('../images/bg-news-content.png') repeat-x; padding: 5px 10px; text-transform: uppercase; }
+.new-container .customer-info .customer-container { padding: 10px; border: 1px solid #CCC; border-top: none; }
+.new-container .customer-info .customer-container p { padding: 3px 0; }
+.new-container .customer-info .customer-container p span { font-weight: bold; }

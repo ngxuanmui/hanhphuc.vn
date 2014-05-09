@@ -7,149 +7,176 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 // no direct access
-defined('_JEXEC') or die;
+defined ( '_JEXEC' ) or die ();
 
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+JHtml::addIncludePath ( JPATH_COMPONENT . '/helpers/html' );
 
 $items = $this->items;
 
 $firstItem = NULL;
 
-if (is_array($items))
-    $firstItem = $items[0];
+if (is_array ( $items ))
+	$firstItem = $items [0];
 
 $allowDelivered = false;
 ?>
 
 <div class="container">
-    <div class="float-left left-side">
-	<?php if (isset($firstItem)): ?>
-    	<div>
-    	    Order ID: <?php echo $firstItem->order_id; ?>
-    	    Khách hàng: <?php echo $firstItem->user_created; ?>
-	    <p>Phương thức thanh toán: <?php echo $firstItem->payment_method_name; ?></p>
-	    <p>Địa chỉ: <?php echo $firstItem->address; ?></p>
-	    <p>Quận/Huyện: <?php echo $firstItem->district; ?></p>
-	    <p>Tỉnh/Thành: <?php echo $firstItem->city; ?></p>
-	    <p>Điện thoại: <?php echo $firstItem->phone; ?></p>
-	    <p>Email: <?php echo $firstItem->email; ?></p>
-    	</div>
-	<?php endif; ?>
+	<div class="float-left left-side">
 
-	<div class="sub-container list-items relative">
-	    <div class="list-items-container" style="padding: 10px 0; margin-top: 0">
-		<form method="post" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.confirm_delivered'); ?>" name="userForm" enctype="multipart/form-data">
-		    <?php $totalPrice = 0; ?>
-		    <table class="list-user-hotels" cellpadding="10" border="0" cellspacing="0" width="98%">
-			<tr class="oven">
-			    <th>#</th>
-			    <th>Dịch vụ</th>
-			    <th>Số lượng</th>
-			    <th>Giá tiền</th>
-			    <th>Thành tiền</th>
-			    <th>Chuyển hàng</th>
-			</tr>
-			<?php foreach ($items as $key => $item): ?>
-    			<tr class="<?php if (($key + 1) % 2 == 0) echo 'oven' ?>">
-    			    <td>
-				    <?php echo $key + 1; ?>
-    			    </td>
-    			    <td><?php echo $item->service_name; ?></td>
-			    <td><?php echo $item->qty; ?></td>
-    			    <td><?php echo number_format($item->price) . ' VNĐ'; ?></td>
-			    <td>
-				<?php 
-				$price = $item->qty * $item->price;
-				
-				$totalPrice += $price;
-				
-				echo number_format($price) . ' VNĐ';
-				?>
-			    </td>
-    			    <td>
-				    <?php if ($item->delivered == 1): ?>
-					[v]
-					<?php
-				    else:
-					$allowDelivered = true;
-					?>
-					<input type="checkbox" name="delivered[]" value="<?php echo $item->id; ?>" />
-				    <?php endif; ?>
-    			    </td>
-    			</tr>
-			<?php endforeach; ?>
-			<tr>
-			    <td colspan="5">							
-			    </td>
-			</tr>
-		    </table>
-		    
-		    <div>
-			Tổng thành tiền: <?php echo number_format($totalPrice) . ' VNĐ'; ?>
-		    </div>
-		    
-		    <?php if (!empty($this->files)): ?>
-		    <div>
-			<h3>File đã upload</h3>
-			
-			<ul>
-			    <?php foreach ($this->files as $file): ?>
-			    <li>
-				File: 
-				<a target="_blank" href="<?php echo JURI::root() . 'upload/orders/' . $firstItem->order_id . '/' . $file->file_upload; ?>">
-				    <?php echo $file->file_upload; ?>
-				</a>
-				<?php if (!empty($file->description)): ?>
-				<br>
-				Chú thích: <?php echo $file->description; ?>
+		<h2 class="new-h2">Quản lý đơn hàng</h2>
+
+		<div class="new-container">
+			<div class="customer-info">
+				<h2>Thông tin người mua</h2>
+				<div class="customer-container">
+				<?php if (isset($firstItem)): ?>
+			    	<p>
+						<span>Order ID</span>: <?php echo $firstItem->order_id; ?></p>
+					<p>
+						<span>Khách hàng</span>: <?php echo $firstItem->user_created; ?></p>
+					<p>
+						<span>Phương thức thanh toán</span>: <?php echo $firstItem->payment_method_name; ?></p>
+					<p>
+						<span>Địa chỉ</span>: <?php echo $firstItem->address; ?></p>
+					<p>
+						<span>Quận/Huyện</span>: <?php echo $firstItem->district; ?></p>
+					<p>
+						<span>Tỉnh/Thành</span>: <?php echo $firstItem->city; ?></p>
+					<p>
+						<span>Điện thoại</span>: <?php echo $firstItem->phone; ?></p>
+					<p>
+						<span>Email</span>: <a
+							href="mailto:<?php echo $firstItem->email; ?>"><?php echo $firstItem->email; ?></a>
+					</p>
+				</div>
 				<?php endif; ?>
-			    </li>
-			    <?php endforeach; ?>
-			</ul>
+			</div>
 			
-		    </div>
-		    <?php endif; ?>
-		    
-		    <?php if (!empty($this->notes)): ?>
-		    <div>
-			<h3>Ghi chú</h3>
+			<div class="sub-container list-items relative">
+				<div class="list-items-container"
+					style="padding: 10px 0; margin-top: 0">
+					<form method="post"
+						action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.confirm_delivered'); ?>"
+						name="userForm" enctype="multipart/form-data">
+				    <?php $totalPrice = 0; ?>
+				    <table class="list-user-hotels" cellpadding="10" border="0"
+							cellspacing="0" width="98%">
+							<tr class="oven">
+								<th>#</th>
+								<th>Dịch vụ</th>
+								<th>Số lượng</th>
+								<th>Giá tiền</th>
+								<th>Thành tiền</th>
+								<th>Chuyển hàng</th>
+							</tr>
+					<?php foreach ($items as $key => $item): ?>
+		    			<tr class="<?php if (($key + 1) % 2 == 0) echo 'oven' ?>">
+								<td>
+						    <?php echo $key + 1; ?>
+		    			    </td>
+								<td><?php echo $item->service_name; ?></td>
+								<td><?php echo $item->qty; ?></td>
+								<td><?php echo number_format($item->price) . ' VNĐ'; ?></td>
+								<td>
+						<?php
+						$price = $item->qty * $item->price;
+						
+						$totalPrice += $price;
+						
+						echo number_format ( $price ) . ' VNĐ';
+						?>
+					    </td>
+								<td>
+						    <?php if ($item->delivered == 1): ?>
+							[v]
+							
+						 <?phpelse :
+							$allowDelivered = true;
+							?>
+							<input type="checkbox" name="delivered[]"
+									value="<?php echo $item->id; ?>" />
+						    <?php endif; ?>
+		    			    </td>
+							</tr>
+					<?php endforeach; ?>
+					<tr>
+								<td colspan="5"></td>
+							</tr>
+						</table>
+	
+						<div>
+					Tổng thành tiền: <?php echo number_format($totalPrice) . ' VNĐ'; ?>
+				    </div>
+				    
+				    <?php if (!empty($this->files)): ?>
+				    <div>
+							<h3>File đã upload</h3>
+	
+							<ul>
+					    <?php foreach ($this->files as $file): ?>
+					    <li>File: <a target="_blank"
+									href="<?php echo JURI::root() . 'upload/orders/' . $firstItem->order_id . '/' . $file->file_upload; ?>">
+						    <?php echo $file->file_upload; ?>
+						</a>
+						<?php if (!empty($file->description)): ?>
+						<br>
+						Chú thích: <?php echo $file->description; ?>
+						<?php endif; ?>
+					    </li>
+					    <?php endforeach; ?>
+					</ul>
+	
+						</div>
+				    <?php endif; ?>
+				    
+				    <?php if (!empty($this->notes)): ?>
+				    <div>
+							<h3>Ghi chú</h3>
+	
+							<ul>
+					    <?php foreach ($this->notes as $note): ?>
+					    <li><?php echo $note->note; ?></li>
+					    <?php endforeach; ?>
+					</ul>
+	
+						</div>
+				    <?php endif; ?>
+				    
+				    <div class="clear">
+							<div>
+								Upload file: <input type="file" name="jform[file_upload]" />
+							</div>
+							<div>
+								Chú thích: <input type="text" name="description" />
+							</div>
+							<div>Ghi chú</div>
+							<div>
+								<textarea name="business_note"></textarea>
+							</div>
+							<div class="pagination fltleft" style="background: #fff;"><?php echo $this->pagination->getPagesLinks(); //$this->pagination->getListFooter();  ?></div>
+							<input type="hidden" name="order_id"
+								value="<?php echo JRequest::getInt('order_id'); ?>" />
+					<?php /*if ($allowDelivered):*/ ?>
+		    			<input type="submit" name="btn-confirm" value="Cập nhật" />
+		    			| 
+					<?php /*endif;*/ ?>
+					<a
+								href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=user_man_orders', false); ?>">Quản
+								lý Đơn hàng</a>
+							<div class="clear"></div>
+						</div>
+					</form>
+				</div>
+			</div>
 			
-			<ul>
-			    <?php foreach ($this->notes as $note): ?>
-			    <li><?php echo $note->note; ?></li>
-			    <?php endforeach; ?>
-			</ul>
-			
-		    </div>
-		    <?php endif; ?>
-		    
-		    <div class="clear">
-			<div>
-			    Upload file: <input type="file" name="jform[file_upload]" />
-			</div>
-			<div>
-			    Chú thích: <input type="text" name="description" />
-			</div>
-			<div>
-			    Ghi chú
-			</div>
-			<div>
-			    <textarea name="business_note"></textarea>
-			</div>
-			<div class="pagination fltleft" style="background: #fff;"><?php echo $this->pagination->getPagesLinks(); //$this->pagination->getListFooter();  ?></div>
-			<input type="hidden" name="order_id" value="<?php echo JRequest::getInt('order_id'); ?>" />
-			<?php /*if ($allowDelivered):*/ ?>
-    			<input type="submit" name="btn-confirm" value="Cập nhật" />
-    			| 
-			<?php /*endif;*/ ?>
-			<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=user_man_orders', false); ?>">Quản lý Đơn hàng</a>
-			<div class="clear"></div>
-		    </div>
-		</form>
-	    </div>
+		</div>
+
+		
+		<div class="clear"></div>
 	</div>
-    </div>
-    <div class="float-right right-side">
+</div>
+<div class="float-right right-side">
 	<?php echo JEUtil::loadModule('right', 'module-padding'); ?>
     </div>
 </div>
