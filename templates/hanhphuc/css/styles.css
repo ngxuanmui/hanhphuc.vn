@@ -354,3 +354,27 @@ a.yahoo { background: url('http://opi.yahoo.com/online?u=muinx&m=g&t=1') 0 cente
 .guest-info li input { width: 200px; }
 
 .list-other-comments { margin-left: 30px; }
+
+/* new */
+.new-h2 { color: #c61054; font-size: 12px; text-transform: uppercase; margin: 10px 0 5px 0; }
+.new-container { border: 1px solid #CCC; border-top: 3px solid #CCC; padding: 10px 15px; }
+.new-container h2 { border: 1px solid #CCC; background: url('../images/bg-news-content.png') repeat-x; padding: 5px 10px; text-transform: uppercase; }
+.new-container { border: 1px solid #CCC; border-top: 3px solid #CCC; padding: 10px 15px; }
+.new-container .sub-container h2.txt-order-info { border-bottom: none; }
+.new-container .customer-info .customer-container { padding: 10px; border: 1px solid #CCC; border-top: none; }
+.new-container .customer-info .customer-container li { padding: 3px 0; }
+.new-container .customer-info .customer-container li span { font-weight: bold; width: 150px; display: inline-block; }
+.customer-info ul { list-style: square; margin: 0 15px; }
+table { border-collapse:collapse; }
+.new-container table td, .new-container table th { border: 1px solid #CCC; padding: 10px; }
+.deliver-state { margin: 0px 0 20px 0; }
+.deliver-info-container { border: 1px solid #CCC; border-top: none; padding: 20px; }
+.file-uploaded ul li { margin: 5px 0 ;}
+.deliver-info-container h3 { font-size: 11px; background: #E6E6E6; padding: 5px 10px; margin: 10px 0; }
+.upload-file { border-top: 1px dashed #CCC; padding-top: 10px; margin-top: 10px;  }
+.upload-file > div { margin: 10px 0; }
+.upload-file > div label { display: inline-block; width: 100px; float: left; }
+.upload-file > div textarea { width: 300px; height: 50px; }
+.new-container .btn-update { padding: 3px 10px; margin-left: 50px; }
+ul.noted { list-style: disc; margin-left: 15px; }
+ul.noted li { margin: 5px 0; }
