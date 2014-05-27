@@ -62,7 +62,7 @@ class UsersModelUser_Man_Orders extends JModelList
 		// Initialise variables.
 		$db		= $this->getDbo();
 		$query	= $db->getQuery(true);
-
+		
 		// Select the required fields from the table.
 		$query->select(
 			$this->getState(
@@ -127,7 +127,7 @@ class UsersModelUser_Man_Orders extends JModelList
 		// order by order id
 		$query->group('a.order_id');
 
-//		echo nl2br(str_replace('#__','jos_',$query));
+// 		echo nl2br(str_replace('#__','jos_',$query)); die;
 		return $query;
 	}
 

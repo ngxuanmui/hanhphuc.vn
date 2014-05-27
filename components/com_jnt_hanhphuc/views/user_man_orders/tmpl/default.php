@@ -41,10 +41,6 @@ $items = $this->items;
 							<td><?php echo ($item->order_state == 1) ? 'Yes' : 'No'; ?></td>
 						</tr>
 						<?php endforeach; ?>
-						<tr>
-							<td colspan="5">							
-							</td>
-						</tr>
 					</table>
 					<div class="clear">
 						<div class="pagination fltleft" style="background: #fff;"><?php echo $this->pagination->getPagesLinks();//$this->pagination->getListFooter(); ?></div>

@@ -111,7 +111,15 @@ class plgUserHpuser extends JPlugin {
 	 * @return	boolean
 	 * @since	1.6
 	 */
-	public function onContentPrepareForm($form, $data) {
+	public function onContentPrepareForm($form, $data) 
+	{
+		$formName = $form->getName();
+		
+// 		var_dump($formName);
+		
+		if ($formName == 'com_users.reset_request' || $formName == 'com_users.remind')
+			return 1;
+		
 		if (!($form instanceof JForm)) {
 			$this->_subject->setError('JERROR_NOT_A_FORM');
 			return false;
@@ -121,7 +129,6 @@ class plgUserHpuser extends JPlugin {
 		
 		$user = JFactory::getUser();
 		
-		$formName = $form->getName();
 		$userType = JRequest::getInt('type', -1);
 		if(is_object($data) && isset($data->user_type)) {
 			$userType = $data->user_type;

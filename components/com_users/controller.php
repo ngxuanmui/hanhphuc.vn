@@ -60,7 +60,9 @@ class UsersController extends JControllerLegacy
 					break;
 
 				// Handle view specific models.
-				case ('profile' || 'user_man_orders' || 'user_man_order_items'):
+				case 'profile':
+				case 'user_man_orders':
+				case 'user_man_order_items':
 
 					// If the user is a guest, redirect to the login page.
 					$user = JFactory::getUser();

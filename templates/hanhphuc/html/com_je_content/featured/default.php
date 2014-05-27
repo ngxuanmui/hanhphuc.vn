@@ -55,15 +55,16 @@ jQuery().ready(function($){
 	</div>
 	
 	<div class="right-panel float-right padding-5">
-		<div class="blogger">
+		<div>
 			<?php 
-			$modules = JModuleHelper::getModules('blogger');
+			$modules = JModuleHelper::getModules('business_user_home_albums');
 			foreach($modules as $module)
 			{
 				echo JModuleHelper::renderModule($module);
 			}
 			?>
 		</div>
+		<div class="clr"></div>
 	</div>
 </div>
 

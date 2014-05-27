@@ -18,7 +18,9 @@ defined('_JEXEC') or die;
     <div class="bussiness-blog-box box">
         <?php if(!empty($blogs)): ?>
         <?php foreach($blogs as $blog): ?>
-        <a href="#" class="image float-left margin-right-20" style="background: #FFF url('<?php echo $blog->business_logo ?>') center no-repeat;"></a>
+        <a href="#" class="image float-left margin-right-20" style="background: #FFF url('<?php echo JURI::base() . 'images/business/' . $blog->business_logo ?>') center no-repeat;">
+        	<?php echo $blog->business_name; ?>
+        </a>
         <?php endforeach; ?>
 		
 		<div class="clear"></div>

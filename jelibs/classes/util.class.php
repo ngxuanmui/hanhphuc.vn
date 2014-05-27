@@ -39,6 +39,8 @@ class JEUtil
 	
 		if ($thumbnail_height)
 			$phpThumb->setParameter('h', $thumbnail_height);
+		
+		$phpThumb->setParameter('zc', 'l');
 	
 		// set parameters
 		$phpThumb->setParameter('config_output_format', 'jpeg');

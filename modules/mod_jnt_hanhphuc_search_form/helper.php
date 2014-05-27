@@ -14,6 +14,12 @@ defined('_JEXEC') or die;
  * @subpackage	mod_jnt_hanhphuc_search_form
  * @since		1.5
  */
+
+if (!class_exists(''))
+{
+	require_once JPATH_ROOT .'/components/com_jnt_hanhphuc/helpers/front.jnt_hanhphuc.php';
+}
+
 class modJnt_Hanhphuc_Serach_FromHelper
 {
 	static function getList($params)

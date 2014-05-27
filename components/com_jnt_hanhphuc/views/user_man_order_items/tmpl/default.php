@@ -92,11 +92,11 @@ $allowDelivered = false;
 					    </td>
 								<td>
 						    <?php if ($item->delivered == 1): ?>
-							[v]
+							Đã chuyển
 							
-						 <?phpelse :
+						 <?php else :
 							$allowDelivered = true;
-							?>
+						?>
 							<input type="checkbox" name="delivered[]"
 									value="<?php echo $item->id; ?>" />
 						    <?php endif; ?>
