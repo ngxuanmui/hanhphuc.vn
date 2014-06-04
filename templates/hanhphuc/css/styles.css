@@ -97,7 +97,7 @@ ul.service li p { text-align: center; padding: 5px 0 10px 0; }
 .content .content-detail img { width: 207px; height: 119px; }
 .content .content-detail > div { width: 209px; }
 
-.image { width: 70px; height: 70px; margin: 10px; border: 0px solid #333; }
+.image { width: 200px; height: 200px; margin: 10px; border: 0px solid #333; }
 
 .sub-container .left { width: 440px; }
 .sub-container .left .items-category {  }
@@ -281,10 +281,11 @@ table.user-gridtable td {
 
 fieldset { border: none; }
 
-.right-side ul.menu { border: 1px solid #CCC; border-bottom: none; margin-top: 29px; }
-.right-side ul.menu li { padding: 0; padding-left: 15px; border-bottom: 1px solid #CCC; height: 29px; line-height: 29px; background: url('../images/bg-menu-right-menu.png') repeat-x; }
-.right-side ul.menu li.active { font-weight: bold; }
+.right-side ul.menu, .right ul.menu { border: 1px solid #CCC; border-bottom: none; margin-top: 29px; }
+.right-side ul.menu li, .right ul.menu li { padding: 0; padding-left: 15px; border-bottom: 1px solid #CCC; height: 29px; line-height: 29px; background: url('../images/bg-menu-right-menu.png') repeat-x; }
+.right-side ul.menu li.active, .right ul.menu li.active { font-weight: bold; }
 .right-side ul.menu li.active a { font-size: 12px !important; }
+.right ul.menu { margin-top: 0; margin-bottom: 5px; }
 
 .menu-featured-users { width: 295px; }
 .menu-featured-users li { float: left; width: 50%; text-align: center; }
