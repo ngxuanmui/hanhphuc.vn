@@ -38,8 +38,8 @@ jQuery(document).ready(function(){
         <ul class="b_blogs">
         <?php foreach($blogs as $blog): ?>
         	<li style="width: 100px;">
-		        <a href="#" class="image float-left" style="background: #FFF url('<?php echo JURI::base() . 'images/business/' . $blog->business_logo ?>') center no-repeat;" title="<?php echo $blog->business_name; ?>">
-		        	
+		        <a href="#" class="image float-left" title="<?php echo $blog->business_name; ?>">
+		        	<img src="<?php echo JURI::base() . 'images/business/' . $blog->business_logo ?>" />
 		        </a>
 		        <?php endforeach; ?>
 				

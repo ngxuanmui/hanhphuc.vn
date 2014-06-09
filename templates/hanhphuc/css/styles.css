@@ -97,7 +97,9 @@ ul.service li p { text-align: center; padding: 5px 0 10px 0; }
 .content .content-detail img { width: 207px; height: 119px; }
 .content .content-detail > div { width: 209px; }
 
-.image { width: 70px; height: 70px; margin: 5px; border: 1px solid #CCC; }
+.image { width: 70px; height: 70px; margin: 5px; border: 0px solid #CCC; }
+
+.image img { width: 70px; max-height: 70px; }
 
 .sub-container .left { width: 440px; }
 .sub-container .left .items-category {  }

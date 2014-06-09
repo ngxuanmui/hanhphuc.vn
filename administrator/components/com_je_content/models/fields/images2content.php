@@ -42,7 +42,7 @@ window.addEvent('domready', function(){
 		startUpload();
 
 		document.adminForm.submit();
-		$$('form[name="adminForm"]').set('target', '').set('action', 'index.php?option=com_je_content&view=deal&layout=edit&id=<?php echo JRequest::getInt('id'); ?>');
+		$$('form[name="adminForm"]').set('target', '').set('action', 'index.php?option=com_je_content&layout=edit&id=<?php echo JRequest::getInt('id'); ?>');
 	});
 });
 //-->
