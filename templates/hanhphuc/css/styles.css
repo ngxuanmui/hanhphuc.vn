@@ -97,7 +97,7 @@ ul.service li p { text-align: center; padding: 5px 0 10px 0; }
 .content .content-detail img { width: 207px; height: 119px; }
 .content .content-detail > div { width: 209px; }
 
-.image { width: 200px; height: 200px; margin: 10px; border: 0px solid #333; }
+.image { width: 70px; height: 70px; margin: 5px; border: 1px solid #CCC; }
 
 .sub-container .left { width: 440px; }
 .sub-container .left .items-category {  }
@@ -337,11 +337,11 @@ a.yahoo { background: url('http://opi.yahoo.com/online?u=muinx&m=g&t=1') 0 cente
 #albums-wrapper { width: 229px; /* overflow: hidden; */ margin: 10px 0 10px 50px; height: 150px; }
 #albums-wrapper .caroufredsel_wrapper {  }
 
-#slider-next, #slider-prev { border: 0px solid #CCC; width: 30px; height: 30px; top: 60px; cursor: pointer; }
+#slider-next, #slider-prev { border: 0px solid #CCC; width: 30px; height: 30px; top: 60px; cursor: pointer; margin-top: 25px; }
+#slider-next a, #slider-prev a { text-indent: -100000px; float: left; width: 30px; height: 30px; }
+#slider-next { right: -40px; background: url('../images/icon_next.png') no-repeat; float: right; }
 
-#slider-next { right: -40px; background: url('../images/icon_next.png') no-repeat; }
-
-#slider-prev { left: -40px; background: url('../images/icon_previous.png') no-repeat; }
+#slider-prev { left: -40px; background: url('../images/icon_previous.png') no-repeat; float: left; }
 
 #slider-slide-container { top: -30px; right: -50px; border: 0px solid #000; height: 10px; }
 #slider-slide-container span { display: inline-block; width: 5px; height: 5px; border: 1px solid #333; cursor: pointer; }
@@ -391,3 +391,7 @@ ul.noted li { margin: 5px 0; }
 .list-items ul li { float: left; width: 100px; height: 70px; overflow: hidden; border: 1px solid #CCC; margin: 5px 19px 5px 0; padding: 2px; }
 .list-items ul li div { width: 100px; height: 70px; overflow: hidden; }
 .list-items ul li img { width: 100px; }
+
+.b_blogs { float: left; }
+
+.bx-wrapper { width: 870px; float: left; margin-left: 25px; }
