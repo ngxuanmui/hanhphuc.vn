@@ -126,7 +126,7 @@
 				id="business_sitename"
 				description="Tên website"
 				filter="string"
-				label="Tên website"
+				label="Địa chỉ Facebook"
 				message="Tên website"
 				size="30"
 			/>

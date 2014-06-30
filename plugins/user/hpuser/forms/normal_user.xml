@@ -3,7 +3,8 @@
 <form>
 	<fields name="user_profile">
 		<fieldset name="user_profile"
-			label="Thông tin cá nhân">
+			label="Thông tin cá nhân"
+			addfieldpath="/administrator/components/com_jnt_hanhphuc/models/fields">
 			<field name="name_of_yours" type="text"
 				autocomplete="off"
 				default="Hanhphuc.vn"
@@ -24,6 +25,42 @@
 				label="Ngày tổ chức"
 				size="30"
 				validate="username"
+			/>
+			
+			<field
+				name="user_city"
+				type="location"
+                location_type="province"
+				id="user_city"
+				description="Tỉnh/Thành Phố"
+				filter="string"
+				label="Tỉnh/Thành Phố"
+				message="Tỉnh/Thành Phố"
+				size="1"
+
+			/>
+	        <field
+				name="user_district"
+				type="location"
+                location_type="district"
+                location_parent_field="user_city"
+                location_parent_column="province_id"
+				id="user_district"
+				description="Quận/Huyện"
+				filter="string"
+				label="Quận/Huyện"
+				message="Quận/Huyện"
+				size="1"
+			/>
+	        <field
+				name="user_village"
+				type="text"
+				id="user_village"
+				description="Xã/Phường"
+				filter="string"
+				label="Xã/Phường"
+				message="Xã/Phường"
+				size="30"
 			/>
 
             <field

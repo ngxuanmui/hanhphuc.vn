@@ -13,7 +13,7 @@ class modBusinessBlogHelper {
         $limit = 24; // $params->get('limit');
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('p.*')
+        $query->select('p.*, u.id AS userid, u.username')
             ->from('#__hp_business_profile p')
             ->innerJoin('#__users u ON p.user_id = u.id')
             ->where('block != 1')

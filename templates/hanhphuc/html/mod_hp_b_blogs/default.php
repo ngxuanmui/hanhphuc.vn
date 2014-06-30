@@ -36,9 +36,12 @@ jQuery(document).ready(function(){
         <?php if(!empty($blogs)): ?>
         <a href="#" id="slider-prev"></a>
         <ul class="b_blogs">
-        <?php foreach($blogs as $blog): ?>
+        <?php 
+        foreach($blogs as $blog): 
+        	$url = JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&user='.$blog->userid.'-' . $blog->username);
+        ?>
         	<li style="width: 100px;">
-		        <a href="#" class="image float-left" title="<?php echo $blog->business_name; ?>">
+		        <a href="<?php echo $url; ?>" class="image float-left" title="<?php echo $blog->business_name; ?>">
 		        	<img src="<?php echo JURI::base() . 'images/business/' . $blog->business_logo ?>" />
 		        </a>
 		        <?php endforeach; ?>

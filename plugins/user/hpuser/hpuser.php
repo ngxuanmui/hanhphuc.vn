@@ -26,19 +26,17 @@ class plgUserHpuser extends JPlugin {
         JHTML::register('users.jform_user_profile_avatar', function($value){
             echo '<img
                     width="100"
-                    height="100"
-                    src="'.JURI::root().'/images/users/'.$value.'"/>';
+                    src="'.JURI::root().'images/users/'.$value.'?rand='.rand(0, 99999).'"/>';
         });
         JHtml::register('users.jform_business_profile_business_logo', function($value) {
             echo '<img
                     width="100"
-                    height="100"
-                    src="'.JURI::root().'/images/business/'.$value.'"/>';
+                    src="'.JURI::root().'images/business/'.$value.'?rand='.rand(0, 99999).'"/>';
         });
         JHtml::register('users.jform_business_profile_business_banner', function($value) {
             echo '<img
                     height="100"
-                    src="'.JURI::root().'/images/business/'.$value.'"/>';
+                    src="'.JURI::root().'images/business/'.$value.'?rand='.rand(0, 99999).'"/>';
         });
     }
 
@@ -69,14 +67,16 @@ class plgUserHpuser extends JPlugin {
 			}
 			$userType = $data['user_type'];
 		}
-
+		
+		$layout = JRequest::getString('layout');
 
         if(!empty($data->id)) {
             $db = JFactory::getDbo();
             if($userType == 0) {
                 //Normal user
                 $query = $db->getQuery(true);
-                $query->select('*')
+                $query->clear()
+                	->select('*')
                     ->from('#__user_profiles')
                     ->where('user_id = '.(int)$data->id);
                 $db->setQuery($query);
@@ -85,9 +85,46 @@ class plgUserHpuser extends JPlugin {
                 foreach($userProfile as $profile) {
                     $key = $profile->profile_key;
                     $val = $profile->profile_value;
+                    
+                    if ($key == 'user_city')
+                    {
+                    	$query->clear()
+                    		->select('*')
+		                    ->from('#__location_province')
+		                    ->where('id = '. (int) $val);
+                    	
+		                $db->setQuery($query);
+		                $obj = $db->loadObject();
+		                
+		                if ($db->getErrorMsg())
+		                	die ($db->getErrorMsg());
+		                
+		                if ($layout != 'edit')
+		                	$val = $obj->title;
+                    }
+                    
+                    if ($key == 'user_district')
+                    {
+                    	$query->clear()
+                    		->select('*')
+		                    ->from('#__location_district')
+		                    ->where('id = '. (int) $val);
+                    	
+		                $db->setQuery($query);
+		                $obj = $db->loadObject();
+		                
+		                if ($db->getErrorMsg())
+		                	die ($db->getErrorMsg());
+		                
+		                if ($layout != 'edit')
+		                	$val = $obj->title;
+                    }
+                    
                     $data->user_profile->$key = $val;
                 }
+                
                 $data->user_profile->avatar_old = $data->avatar;
+                
             } else if($userType == 1) {
                 $query = $db->getQuery(true);
                 $query->select('*')
@@ -95,8 +132,38 @@ class plgUserHpuser extends JPlugin {
                     ->where('user_id = '.(int)$data->id);
                 $db->setQuery($query);
                 $profile = $db->loadObject();
+                
+                $query->clear()
+		                ->select('*')
+		                ->from('#__location_province')
+		                ->where('id = '. (int) $profile->business_city);
+                 
+                $db->setQuery($query);
+                $obj = $db->loadObject();
+                
+                if ($db->getErrorMsg())
+                	die ($db->getErrorMsg());
+                
+                if ($layout != 'edit')
+                	$profile->business_city = $obj->title;
+                
+                $query->clear()
+		                ->select('*')
+		                ->from('#__location_district')
+		                ->where('id = '. (int) $profile->business_district);
+                
+                $db->setQuery($query);
+                $obj = $db->loadObject();
+                
+                if ($db->getErrorMsg())
+                	die ($db->getErrorMsg());
+                
+                if ($layout != 'edit')
+                	$profile->business_district = $obj->title;
+                
                 $profile->business_logo_old = $profile->business_logo;
                 $profile->business_banner_old = $profile->business_banner;
+                
                 $data->business_profile = $profile;
             }
         }
@@ -218,7 +285,7 @@ class plgUserHpuser extends JPlugin {
         } elseif(!empty($formData['user_profile'])) {
             $db->setQuery(
                 'DELETE FROM #__user_profiles WHERE user_id = '.(int)$data['id'] .
-                    " AND profile_key IN ('website_slogan', 'name_of_yours', 'date_organization')"
+                    " AND profile_key IN ('website_slogan', 'name_of_yours', 'date_organization', 'user_city', 'user_district', 'user_village')"
             );
             if(!$db->query()) {
                 throw new Exception($db->getErrorMsg());

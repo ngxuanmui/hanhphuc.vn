@@ -15,6 +15,18 @@ JHtml::_('behavior.formvalidation');
 
 
 ?>
+
+<script type="text/javascript">
+<!--
+	window.addEvent('domready', function(){
+		   document.formvalidator.setHandler('name', function(value) {
+		      regex=/^\d{4}-\d{2}-\d{2}$/;
+		      return regex.test(value);
+		   });
+		});
+//-->
+</script>
+
 <div class="container">
     <div class="float-left left-side">
     
