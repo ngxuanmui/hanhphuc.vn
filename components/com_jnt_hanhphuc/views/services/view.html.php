@@ -36,6 +36,9 @@ class Jnt_HanhPhucViewServices extends JView {
 		$this->pagination	= $this->get('Pagination');
 		$this->user_info	= $this->get('UserInfo');
 		
+		if (empty($this->user_info->id))
+			$tpl = 'all';
+		
 		parent::display($tpl);
 	}
 

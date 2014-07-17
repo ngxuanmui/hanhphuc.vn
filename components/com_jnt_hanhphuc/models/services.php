@@ -23,9 +23,6 @@ class Jnt_HanhPhucModelServices extends JModelList
 		parent::populateState($ordering, $direction);
 		
 		// List state information
-		$value = JRequest::getUInt('limit', 8);
-		$this->setState('list.limit', $value);
-		
 		$value = JRequest::getUInt('limitstart', 0);
 		$this->setState('list.start', $value);
 		
@@ -34,6 +31,14 @@ class Jnt_HanhPhucModelServices extends JModelList
 		
 		$userId = JRequest::getInt('user', 0);
 		$this->setState('filter.user_id', $userId);
+		
+		if (empty($userId))
+			$defaultValue = 40;
+		else 
+			$defaultValue = 8;
+		
+		$value = JRequest::getUInt('limit', $defaultValue);
+		$this->setState('list.limit', $value);
 	}
 	
 	/**
@@ -76,13 +81,15 @@ class Jnt_HanhPhucModelServices extends JModelList
 		if ($userId)
 			$query .= ' AND business_id = ' . $userId;
 		
-		$db = JFactory::getDbo();
-		$db->setQuery($query);
+// 		echo str_replace('#__', 'hp_', $query);
 		
-		$rs = $db->loadObjectList();
+// 		$db = JFactory::getDbo();
+// 		$db->setQuery($query);
 		
-		if ($db->getErrorMsg())
-			die ($db->getErrorMsg());
+// 		$rs = $db->loadObjectList();
+		
+// 		if ($db->getErrorMsg())
+// 			die ($db->getErrorMsg());
 	
         return $query;
 	}
