@@ -45,9 +45,9 @@ class Jnt_HanhPhucModelSearch extends JModelList {
 											 )";
 		}
 		
-		if($search) {
-			$query .= " AND s.business_id IN (SELECT user_id FROM #__user_profiles p WHERE p.profile_key = 'profile.business_name' AND p.profile_value like ".$db->quote("%$search%").")";
-		}
+// 		if($search) {
+// 			$query .= " AND s.business_id IN (SELECT user_id FROM #__user_profiles p WHERE p.profile_key = 'profile.business_name' AND p.profile_value like ".$db->quote("%$search%").")";
+// 		}
 		
         return $query;
 	}
@@ -68,8 +68,11 @@ class Jnt_HanhPhucModelSearch extends JModelList {
 		if ($catId)
 			$query->where('id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND category = '. (int) $catId .' ORDER BY id DESC)');
 		
+// 		if ($search)
+// 			$query->where('(username LIKE ' . $db->quote('%' . $search . '%') . ' OR name LIKE '  . $db->quote('%' . $search . '%') . ' OR id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND name LIKE '  . $db->quote('%' . $search . '%') . ')) ');
+		
 		if ($search)
-			$query->where('(username LIKE ' . $db->quote('%' . $search . '%') . ' OR name LIKE '  . $db->quote('%' . $search . '%') . ' OR id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND name LIKE '  . $db->quote('%' . $search . '%') . ')) ');
+			$query->where('(username LIKE ' . $db->quote('%' . $search . '%') . ' OR name LIKE '  . $db->quote('%' . $search . '%') . ') ');
 		
 		if ($province)
 			$query->where('id IN (SELECT DISTINCT user_id FROM #__hp_business_profile WHERE business_city = '.$province.')');

@@ -82,9 +82,16 @@ defined('_JEXEC') or die;
 
 			if ($h < $frameHeight)
 				$margin = round (($frameHeight - $h) / 2);
+                
+            $item->slug = $item->id . ':' . $item->alias;
+    			
+			$link = JRoute::_(Jnt_HanhphucHelperRoute::getItemRoute('album', $item->slug));
 			
 		?>
-		<li><img src="<?php echo $item->thumb; ?>" alt="<?php echo $item->name; ?>" style="border: none; height: <?php echo $h . 'px'; ?>; width: <?php echo $w . 'px'; ?>; margin-top: <?php echo (int) $margin . 'px'; ?>" /></li>
+		<li>
+            <a href="<?php echo $link; ?>" title="<?php echo htmlspecialchars($item->name); ?>">
+                <img src="<?php echo $item->thumb; ?>" alt="<?php echo $item->name; ?>" style="border: none; height: <?php echo $h . 'px'; ?>; width: <?php echo $w . 'px'; ?>; margin-top: <?php echo (int) $margin . 'px'; ?>" /></li>
+            </a>
 		<?php endforeach; ?>
 	</ul>
 	

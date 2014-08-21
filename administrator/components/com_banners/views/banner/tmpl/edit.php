@@ -39,7 +39,7 @@ JHtml::_('behavior.formvalidation');
 	});
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_banners&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="banner-form" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_banners&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="banner-form" class="form-validate" enctype="multipart/form-data">
 	<div class="width-60 fltlft">
 		<fieldset class="adminform">
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_BANNERS_NEW_BANNER') : JText::sprintf('COM_BANNERS_BANNER_DETAILS', $this->item->id); ?></legend>
@@ -68,6 +68,8 @@ JHtml::_('behavior.formvalidation');
 						<?php echo $field->label; ?>
 						<?php echo $field->input; ?>
 					<?php endforeach; ?>
+					
+					
 				</div>
 				</li>
 
@@ -99,6 +101,27 @@ JHtml::_('behavior.formvalidation');
 
 <div class="width-40 fltrt">
 	<?php echo JHtml::_('sliders.start', 'banner-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
+	
+	<?php 
+	$imgUrl = $this->item->params['imageurl'];
+	
+	if ($imgUrl): 
+	?>
+	
+	<?php echo JHtml::_('sliders.panel', JText::_('Image Uploaded'), 'metadata'); ?>
+		<fieldset class="panelform">
+			<ul class="adminformlist">
+				
+				<li>
+					<label>&nbsp;</label>
+					<a href="<?php echo JURI::root() . $imgUrl; ?>" class="modal">
+						<img src="<?php echo JURI::root() . $imgUrl; ?>" style="float: left; width: 100px;" />
+					</a>
+				</li>
+				
+			</ul>
+		</fieldset>
+		<?php endif; ?>
 
 	<?php echo JHtml::_('sliders.panel', JText::_('COM_BANNERS_GROUP_LABEL_PUBLISHING_DETAILS'), 'publishing-details'); ?>
 		<fieldset class="panelform">
@@ -119,7 +142,7 @@ JHtml::_('behavior.formvalidation');
 				<?php endforeach; ?>
 			</ul>
 		</fieldset>
-
+		
 	<?php echo JHtml::_('sliders.end'); ?>
 	<input type="hidden" name="task" value="" />
 	<?php echo JHtml::_('form.token'); ?>

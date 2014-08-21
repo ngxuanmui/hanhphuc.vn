@@ -76,10 +76,34 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 									<?php echo $listArticles[0]->title; ?>
 								</a>
 							</h2>
-							<?php echo $listArticles[0]->introtext; ?>
+							<div class="news-intro-content">
+								<?php if (!empty($listArticles[0]->images)): ?>
+								<div class="img-intro">
+									<img src="<?php echo $listArticles[0]->images; ?>" />
+								</div>
+								<?php endif; ?>
+								<div class="intro-content">
+									<?php echo $listArticles[0]->introtext; ?>
+								</div>
+							</div>
 							
 							<div class="clear"></div>
 						</div>
+						
+						<ul class="news-other-list">
+							<?php 
+							foreach ($listArticles as $key => $article):
+							if ($key == 0) continue;
+
+							$article->slug = $article->alias ? ($article->id . ':' . $article->alias) : $article->id;
+							?>
+							<li>
+							<a href="<?php echo JRoute::_(JE_ContentHelperRoute::getArticleRoute($article->slug, $article->catid)); ?>">
+								<?php echo $article->title; ?>
+							</a>
+							</li>
+							<?php endforeach; ?>
+						</ul>
 					</div>
 					
 						

@@ -140,7 +140,17 @@ jQuery().ready(function($){
 									<?php echo $listArticles[0]->title; ?>
 								</a>
 							</h2>
-							<?php echo $listArticles[0]->introtext; ?>
+							<div class="news-intro-content">
+								<?php if (!empty($listArticles[0]->images)): ?>
+								<div class="img-intro">
+									<img src="<?php echo $listArticles[0]->images; ?>" />
+								</div>
+								<?php endif; ?>
+								<div class="intro-content">
+									<?php echo $listArticles[0]->introtext; ?>
+								</div>
+							</div>
+							
 							
 							<div class="clear"></div>
 						</div>

@@ -46,6 +46,7 @@ class JE_ContentModelFeatured extends JModelList
 		$query->join('INNER', '#__categories AS c ON c.id = a.catid');
 		
 		$query->where('a.featured = 1');
+		$query->where('a.state = 1');
 		
 		$query->order('a.id DESC');
 
@@ -97,6 +98,7 @@ class JE_ContentModelFeatured extends JModelList
 			    ->from('#__je_content')
 			    ->where('catid = ' . $category->id)
 			    ->where('state = 1')
+			    ->order('id DESC')
 			;
 		    
 		    $db->setQuery($query, 0, 3);

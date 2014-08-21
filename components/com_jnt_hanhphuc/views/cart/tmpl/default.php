@@ -31,7 +31,8 @@ JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 	    			<th>Dịch vụ</th>
 	    			<th>Doanh nghiệp cung cấp</th>
 	    			<th width="50" nowrap="nowrap">Số lượng</th>
-	    			<th width="120">Giá</th>
+	    			<th width="100">Giá</th>
+	    			<th width="120">Thành Tiền</th>
     			</tr>
     		</thead>
     		<tbody>
@@ -41,8 +42,19 @@ JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 	    			<td><?php echo $item->businessProfile->business_name?></td>
 	    			<td class="txt-right"><?php echo $item->qty?></td>
 	    			<td class="txt-right"><?php echo $item->current_price?></td>
+	    			<td class="txt-right">
+	    				<?php 
+	    				$price = $item->current_price * $item->qty; 
+	    				$totalPrice += $price;
+	    				
+	    				echo number_format($price);
+	    				?>
+	    			</td>
 	    		</tr>
 	    	<?php endforeach;?>
+	    		<tr>
+	    			<td colspan="8">Tổng thành tiền: <?php echo number_format($totalPrice); ?></td>
+	    		</tr>
     		</tbody>
     	</table>
     	<?php else:?>

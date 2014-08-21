@@ -156,8 +156,8 @@ class Jnt_HanhPhucModelServices extends JModelList
 		;
 		
 		// join over location: district
-		$query->select('ward.title AS ward_title')
-		->join('INNER', '#__location_ward ward ON p.business_district = ward.id')
+		$query->select('district.title AS district_title')
+		->join('INNER', '#__location_district district ON p.business_district = district.id')
 		;
 		
 		$db->setQuery($query);

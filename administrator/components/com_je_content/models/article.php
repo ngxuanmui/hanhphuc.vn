@@ -222,14 +222,17 @@ class JE_ContentModelArticle extends JModelAdmin
 			// Explode src to get file name
 			$imgSrc = explode('/', $img['src']);
 			
-			// Search & Replace
-			$tmpSearch[] = $img['src'];			
-			$tmpReplace[] = 'images/je_content/' . str_replace(DS, '/', $date) . '/' . $itemId . '/' . end($imgSrc);
-				
-			$src = str_replace('/', DS, JPATH_ROOT.'/'.$img['src']);
-				
 			if($imgSrc[0] == 'tmp')
+			{
+			
+				// Search & Replace
+				$tmpSearch[] = $img['src'];			
+				$tmpReplace[] = 'images/je_content/' . str_replace(DS, '/', $date) . '/' . $itemId . '/' . end($imgSrc);
+					
+				$src = str_replace('/', DS, JPATH_ROOT.'/'.$img['src']);
+			
 				JFile::copy($src, $dest.end($imgSrc));
+			}
 		}
 		
 		$content = str_replace($tmpSearch, $tmpReplace, $content);

@@ -51,7 +51,8 @@ class Jnt_HanhphucModelAlbum extends JModelLegacy
 				->from('#__hp_images')
 				->where('item_type = "' . $type . '"')
 				->where('item_id = ' . (int) $item->id)
-				->order('id DESC');
+				->order('id ASC')
+		;
 		
 		$db->setQuery($query);
 		$rs = $db->loadObjectList();

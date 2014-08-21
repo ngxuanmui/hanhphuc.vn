@@ -167,10 +167,16 @@
 
 	<fields name="params">
 		<fieldset name="image">
-			<field name="imageurl" type="media" directory="banners"
+			<!-- field name="imageurl" type="media" directory="banners"
 				hide_none="1" label="COM_BANNERS_FIELD_IMAGE_LABEL"
 				size="40"
-				description="COM_BANNERS_FIELD_IMAGE_DESC" />
+				description="COM_BANNERS_FIELD_IMAGE_DESC" /-->
+				
+			<field name="banner_image" type="file" label="COM_BANNERS_FIELD_IMAGE_LABEL" description="COM_BANNERS_FIELD_IMAGE_DESC" />
+			
+			<field name="del_image" type="checkbox" value="1" label="Delete Image?" />
+			<field name="hidden_image" type="hidden" />
+			
 			<field name="width" type="text"
 				class="inputbox validate-numeric" label="COM_BANNERS_FIELD_WIDTH_LABEL"
 				description="COM_BANNERS_FIELD_WIDTH_DESC" />

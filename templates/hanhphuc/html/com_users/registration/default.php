@@ -12,17 +12,41 @@ defined('_JEXEC') or die;
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.modal');
 
+jimport('joomla.form.formfield');
 
 ?>
+
+<style>
+<!--
+#jform_tos-lbl { width: 425px; }
+#jform_tos-lbl a { font-weight: bold; }
+.tos-invalid, .tos-invalid a { color: red; }
+-->
+</style>
 
 <script type="text/javascript">
 <!--
 	window.addEvent('domready', function(){
-		   document.formvalidator.setHandler('name', function(value) {
-		      regex=/^\d{4}-\d{2}-\d{2}$/;
+		   document.formvalidator.setHandler('username', function(value) {
+		      regex=/^[A-Za-z][A-Za-z0-9]{5,22}$/;
 		      return regex.test(value);
 		   });
+
+		   document.formvalidator.setHandler('tos', function(value) {
+			    var checkTos = document.getElementById("jform_tos").checked;
+			    if (checkTos)
+			    {
+			    	$('jform_tos-lbl').removeClass('tos-invalid');
+				    return true;
+			    }
+			    else
+			    {
+				    $('jform_tos-lbl').addClass('tos-invalid');
+				    return false;
+			    }
+			   });
 		});
 //-->
 </script>
@@ -40,7 +64,8 @@ JHtml::_('behavior.formvalidation');
 				<?php if (count($fields)):?>
 					<ul>				
 						
-					<?php foreach($fields as $field):// Iterate through the fields in the set and display them.?>
+					<?php foreach($fields as $field): // Iterate through the fields in the set and display them.?>
+						<?php if ($field->fieldname == 'tos'): continue; endif; ?>
 						<?php if ($field->hidden):// If the field is hidden, just display the input.?>
 							<?php echo $field->input;?>
 						<?php else:?>
@@ -60,6 +85,22 @@ JHtml::_('behavior.formvalidation');
 					</ul>
 				<?php endif;?>
 			<?php endforeach;?>
+			
+			<ul style="margin: 10px 0;">
+				<li>
+					<label>&nbsp;</label>
+					<span style="float: left; margin-right: 5px;">
+					<?php echo $this->form->getInput('tos'); ?> 
+					</span>
+					<span style="float: left;">
+						<?php 
+						$link = '<a href="tos.html" class="modal" rel="{handler: \'iframe\', size: {x: 500, y: 400}}">Nội quy thành viên</a>';
+						printf($this->form->getLabel('tos'), $link);
+						?>
+					</span>
+					<div class="clr"></div>
+				</li>
+			</ul>
 					
 			</div>
 		</div>

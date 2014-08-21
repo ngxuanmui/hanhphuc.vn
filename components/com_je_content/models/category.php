@@ -62,18 +62,20 @@ class JE_ContentModelCategory extends JModelList
 
 	    $query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')');
 	    $query->where('(a.publish_down = ' . $nullDate . ' OR a.publish_down >= ' . $nowDate . ')');
+	    
+	    $query->where('a.state = 1');
 
 	    // Filter by category
 	    $catid = JRequest::getInt('id');
 
 	    if ($catid)
-		$query->where ('a.catid = ' . $catid . ' OR a.catid IN (SELECT id FROM #__categories WHERE parent_id = '. (int) $catid .')');
+			$query->where ('(a.catid = ' . $catid . ' OR a.catid IN (SELECT id FROM #__categories WHERE parent_id = '. (int) $catid .'))');
 	    
 	    $query->where('extension = "com_je_content"');
 	    
 	    $query->order('a.id DESC');
 	    
-//	    echo str_replace('#__', 'hp_', $query);
+// 	    echo str_replace('#__', 'hp_', $query);
 
 	    return $query;
 	}

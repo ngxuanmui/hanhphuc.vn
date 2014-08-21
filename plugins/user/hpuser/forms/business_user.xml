@@ -60,7 +60,7 @@
 				message="Quận/Huyện"
 				size="1"
 			/>
-	        <field
+	        <!-- field
 				name="business_village"
 				type="text"
 				id="business_village"
@@ -69,7 +69,7 @@
 				label="Xã/Phường"
 				message="Xã/Phường"
 				size="30"
-			/>
+			/-->
 	        <field
 				name="business_phone"
 				type="text"

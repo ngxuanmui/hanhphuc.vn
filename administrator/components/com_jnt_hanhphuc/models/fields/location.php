@@ -119,7 +119,7 @@ class JFormFieldLocation extends JFormFieldList
 		// Merge any additional options in the XML definition.
 		//$options = array_merge(parent::getOptions(), $options);
 
-		array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_JNT_HANHPHUC_NO_LOCATION')));
+		array_unshift($options, JHtml::_('select.option', '0', JText::_('- Lựa chọn -')));
 
 		return $options;
 	}

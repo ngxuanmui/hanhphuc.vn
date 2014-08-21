@@ -426,6 +426,81 @@ class BannersModelBanner extends JModelAdmin
 
 		return $data;
 	}
+	
+	public function save($data)
+	{
+		// Upload img
+		$data['params']['imageurl'] = $this->uploadImages('banner_image', $data['del_image'], base64_decode($data['hidden_image']));
+		
+		return parent::save($data);
+	}
+	
+	private function uploadImages($field = 'images', $delImage = 0, $oldImg = '')
+	{
+		$jFileInput = new JInput($_FILES);
+		$file = $jFileInput->get('jform', array(), 'array');
+		
+		var_dump($file);
+	
+		// If there is no uploaded file, we have a problem...
+		if (!is_array($file)) {
+			//			JError::raiseWarning('', 'No file was selected.');
+			return '';
+		}
+	
+		// Build the paths for our file to move to the components 'upload' directory
+		$fileName = $file['name'][params][$field];
+		$tmp_src    = $file['tmp_name'][params][$field];
+	
+		$image = '';
+	
+		// if delete old image checked or upload new file
+		if ($delImage || $fileName)
+		{
+			$item = $this->getItem();
+				
+			$oldImage = JPATH_ROOT . DS . str_replace('/', DS, $item->$field);
+				
+			// unlink file
+			@unlink($oldImage);
+				
+			$image = '';
+		}
+		else
+			$image = $oldImg;
+	
+		$dest = JPATH_ROOT . DS . 'images' . DS . 'banners' . DS;
+	
+		// Make directory
+		@mkdir($dest, 0777, true);
+	
+		if (isset($fileName) && $fileName) {
+				
+			$filepath = JPath::clean($dest.$fileName);
+	
+			/*
+				if (JFile::exists($filepath)) {
+			JError::raiseWarning(100, JText::_('COM_MEDIA_ERROR_FILE_EXISTS'));	// File exists
+			}
+			*/
+	
+			// Move uploaded file
+			jimport('joomla.filesystem.file');
+				
+			if (!JFile::upload($tmp_src, $filepath))
+			{
+				JError::raiseWarning(100, JText::_('COM_MEDIA_ERROR_UNABLE_TO_UPLOAD_FILE')); // Error in upload
+				return '';
+			}
+	
+			// set value to return
+			$image = 'images/banners/' . $fileName;
+				
+			//			return $image;
+		}
+	
+		return $image;
+	}
 
 	/**
 	 * Method to stick records.

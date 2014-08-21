@@ -8,9 +8,16 @@
 
 // no direct access
 defined('_JEXEC') or die;
+
+$user = JFactory::getUser();
 ?>
 
 <ul class="menu business-user-menu">
+	<li class="item-238">
+		<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&user='.$user->id.'-'.$user->username, false); ?>">
+			Xem trang Nhà cung cấp
+		</a>
+	</li>
 	<li class="item-238">
 		<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&amp;view=intro&amp;layout=edit', false); ?>">
 			Giới thiệu doanh nghiệp

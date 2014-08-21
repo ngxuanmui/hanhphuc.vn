@@ -26,6 +26,16 @@
 				size="30"
 				validate="username"
 			/>
+	        <field
+				name="user_village"
+				type="text"
+				id="user_village"
+				description="Địa chỉ"
+				filter="string"
+				label="Địa chỉ"
+				message="Địa chỉ"
+				size="30"
+			/>
 			
 			<field
 				name="user_city"
@@ -51,16 +61,6 @@
 				label="Quận/Huyện"
 				message="Quận/Huyện"
 				size="1"
-			/>
-	        <field
-				name="user_village"
-				type="text"
-				id="user_village"
-				description="Xã/Phường"
-				filter="string"
-				label="Xã/Phường"
-				message="Xã/Phường"
-				size="30"
 			/>
 
             <field
