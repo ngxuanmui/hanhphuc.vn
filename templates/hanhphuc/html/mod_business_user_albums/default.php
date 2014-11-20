@@ -90,8 +90,9 @@ defined('_JEXEC') or die;
 		?>
 		<li>
             <a href="<?php echo $link; ?>" title="<?php echo htmlspecialchars($item->name); ?>">
-                <img src="<?php echo $item->thumb; ?>" alt="<?php echo $item->name; ?>" style="border: none; height: <?php echo $h . 'px'; ?>; width: <?php echo $w . 'px'; ?>; margin-top: <?php echo (int) $margin . 'px'; ?>" /></li>
+                <img src="<?php echo $item->thumb; ?>" alt="<?php echo $item->name; ?>" style="border: none; height: <?php echo $h . 'px'; ?>; width: <?php echo $w . 'px'; ?>; margin-top: <?php echo (int) $margin . 'px'; ?>" />
             </a>
+            </li>
 		<?php endforeach; ?>
 	</ul>
 	

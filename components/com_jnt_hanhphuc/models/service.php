@@ -28,6 +28,7 @@ class Jnt_HanhPhucModelService extends JModelItem
 		$query = 'SELECT s.*, c.id as cat_id, c.title as cat_title FROM #__hp_business_service s
 							 JOIN #__categories c ON c.id = s.category
 						WHERE c.published = 1 AND c.id = '.$catId.' AND s.id = '.$bid;
+		
 		$db->setQuery($query);
 		
 		$obj = $db->loadObject();

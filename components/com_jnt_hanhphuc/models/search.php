@@ -57,8 +57,28 @@ class Jnt_HanhPhucModelSearch extends JModelList {
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 
-		$query->select('*')
-				->from('#__users');
+		$query->select('DISTINCT u.id, u.*')
+				->from('#__users u')
+// 				->where('id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND category = '. (int) $catId .' ORDER BY id DESC)')
+// 				->join('INNER', '#__hp_business_service i ON u.id = i.business_id')
+// 				->where('i.category = ' . $catId . ' OR i.category IN (SELECT id FROM #__categories WHERE parent_id = '.$catId.')')
+				->order('u.id DESC')
+		;
+		
+		// join over profile
+		$query->select('p.business_logo, p.business_address, p.business_phone')
+				->join('INNER', '#__hp_business_profile p ON u.id = p.user_id')
+		;
+		
+		// join over location: province
+		$query->select('province.title AS province_title')
+				->join('INNER', '#__location_province province ON p.business_city = province.id')
+		;
+		
+		// join over location: district
+		$query->select('ward.title AS ward_title')
+				->join('INNER', '#__location_ward ward ON p.business_district = ward.id')
+		;
 				
 		$catId = JRequest::getInt('catid');
 		$province = JRequest::getInt('province');
@@ -66,19 +86,19 @@ class Jnt_HanhPhucModelSearch extends JModelList {
 		$search = JRequest::getString('search');
 		
 		if ($catId)
-			$query->where('id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND category = '. (int) $catId .' ORDER BY id DESC)');
+			$query->where('u.id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND category = '. (int) $catId .' ORDER BY id DESC)');
 		
 // 		if ($search)
 // 			$query->where('(username LIKE ' . $db->quote('%' . $search . '%') . ' OR name LIKE '  . $db->quote('%' . $search . '%') . ' OR id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND name LIKE '  . $db->quote('%' . $search . '%') . ')) ');
 		
 		if ($search)
-			$query->where('(username LIKE ' . $db->quote('%' . $search . '%') . ' OR name LIKE '  . $db->quote('%' . $search . '%') . ') ');
+			$query->where('(u.username LIKE ' . $db->quote('%' . $search . '%') . ' OR u.name LIKE '  . $db->quote('%' . $search . '%') . ') ');
 		
 		if ($province)
-			$query->where('id IN (SELECT DISTINCT user_id FROM #__hp_business_profile WHERE business_city = '.$province.')');
+			$query->where('u.id IN (SELECT DISTINCT user_id FROM #__hp_business_profile WHERE business_city = '.$province.')');
 		
 		if ($district)
-			$query->where('id IN (SELECT DISTINCT user_id FROM #__hp_business_profile WHERE business_district = '.$district.')');
+			$query->where('u.id IN (SELECT DISTINCT user_id FROM #__hp_business_profile WHERE business_district = '.$district.')');
 		
 		//echo $query;
 		

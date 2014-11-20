@@ -140,7 +140,7 @@ jQuery(function($){
 								<li>
 									<label>Địa chỉ</label>
 									<span>
-										: <?php echo $businessInfo->profile->business_address; ?>, <?php echo $businessInfo->profile->ward_title; ?>, <?php echo $businessInfo->profile->province_title; ?>
+										: <?php echo $businessInfo->profile->business_address; ?>, <?php echo $businessInfo->profile->district_title; ?>, <?php echo $businessInfo->profile->province_title; ?>
 									</span>
 								</li>
 								<li>
