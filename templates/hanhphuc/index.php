@@ -78,7 +78,7 @@ $doc->addScript(JURI::base() . 'media/jquery.bxslider/jquery.bxslider.min.js');
 				<jdoc:include type="component" />
 			</div>
 		</div>
-		<div id="footer">
+		<div class="footer">
 			<p>Thông tin bản quyền</p>
 			<p>&copy; 2012 - Hanhphuc.vn</p>
 		</div>

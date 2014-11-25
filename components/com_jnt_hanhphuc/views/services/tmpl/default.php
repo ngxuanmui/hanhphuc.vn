@@ -43,7 +43,8 @@ $profile = $user->profile;
 				<?php endif; ?>
 			</div>
 			
-				
+			
+			<?php if (count($this->items) > 0): ?>
 			
 			<div class="services-list relative">
 				
@@ -74,6 +75,7 @@ $profile = $user->profile;
 				
 				<div class="clr"></div>
 			</div>
+			<?php endif; ?>
 			
 			<div class="business-info relative">
 				
@@ -90,31 +92,39 @@ $profile = $user->profile;
 								: <?php echo $profile->business_address; ?>, <?php echo $profile->ward_title; ?>, <?php echo $profile->province_title; ?>
 							</span>
 						</li>
+						<?php if (!empty($profile->business_phone)): ?>
 						<li>
 							<label>Số điện thoại</label>
 							<span>
 								: <?php echo $profile->business_phone; ?>
 							</span>
 						</li>
+						<?php endif; ?>
+						<?php if (!empty($profile->business_fax)): ?>
 						<li>
 							<label>Fax</label>
 							<span>
 								: <?php echo $profile->business_fax; ?>
 							</span>
 						</li>
+						<?php endif; ?>
+						<?php if (!empty($user->email)): ?>
 						<li>
 							<label>Email</label>
 							<span>
 								: <?php echo $user->email; ?>
 							</span>
 						</li>
+						<?php endif; ?>
+						<?php if (!empty($profile->business_website)): ?>
 						<li>
 							<label>Website</label>
 							<span>
 								: <a href="<?php echo $profile->business_website; ?>" target="_blank"><?php echo $profile->business_website; ?>	</a>
 							</span>
 						</li>
-						<?php if ($profile->nick_fb): ?>
+						<?php endif; ?>
+						<?php if (!empty($profile->nick_fb)): ?>
 						<li>
 							<label>Facebook</label>
 							<span>

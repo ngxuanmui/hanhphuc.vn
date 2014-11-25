@@ -73,10 +73,12 @@ jQuery(function($){
 			    			<label>Danh mục</label>
 			    			<span>: </span>
 			    		</li>
+			    		<?php if (intval($serviceInfo->price) > 0): ?>
 			    		<li>
 			    			<label>Giá cũ</label>
 			    			<span>: <?php echo $serviceInfo->price?></span>
 			    		</li>
+			    		<?php endif; ?>
 			    		<li>
 			    			<label>Giá mới</label>
 			    			<span>: <?php echo $serviceInfo->current_price?></span>
@@ -103,7 +105,7 @@ jQuery(function($){
 			    		</li>
 			    	</ul>
 			    
-			    <?php if ($serviceInfo->current_price >= 0): ?>
+			    <?php if ($serviceInfo->current_price > 0): ?>
 			    <form id="add-service-to-cart" name="add-service-to-cart" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=cart.add') ?>" method="post">
 		            <input type="hidden" name="option" value="com_jnt_hanhphuc"/>
 		            <input type="hidden" name="task" value="cart.add"/>
