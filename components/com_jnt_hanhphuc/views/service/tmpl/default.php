@@ -20,27 +20,16 @@ $paymentTypeName = array(
 	2 => 'Địa chỉ bưu điện',
 	//3 => 'Thanh toán qua website nganluong'
 );
+
 ?>
 
-<script type="text/javascript">
-<!--
-jQuery(function($){
-	$('ul.tabs li').click(function(){
-		$('ul.tabs li').removeClass('active');
-		$(this).addClass('active');
-
-		// show content
-		$('ul.tab-content-container li').removeClass('tab-display');
-
-		var rel = 'tab-content-' + $(this).attr('rel').replace('tab-', '');
-
-		$('ul.tab-content-container li[rel="'+rel+'"]').addClass('tab-display');
-	});
-});
-//-->
-</script>
-
-
+<style>
+      #map_canvas {
+        width: 590px;
+        height: 400px;
+      }
+    </style>
+    
 <div class="container view-service">
 	
     <div class="float-left left-side view-service-left">
@@ -61,7 +50,7 @@ jQuery(function($){
 			    	<?php endif;?>
 			    </div>
 			    
-			    <div class="fltlft service-info">
+			    <div class="fltlft service-info" style="width: 410px;">
 			    	<h3><?php echo $serviceInfo->name?></h3>
 			    	
 			    	<ul class="fltlft">
@@ -73,20 +62,23 @@ jQuery(function($){
 			    			<label>Danh mục</label>
 			    			<span>: </span>
 			    		</li>
-			    		<?php if (intval($serviceInfo->price) > 0): ?>
+                        <?php if (intval($serviceInfo->price) > 0): ?>
 			    		<li>
 			    			<label>Giá cũ</label>
 			    			<span>: <?php echo $serviceInfo->price?></span>
 			    		</li>
-			    		<?php endif; ?>
+                        <?php endif; ?>
+                        <?php if (intval($serviceInfo->current_price) > 0): ?>
 			    		<li>
 			    			<label>Giá mới</label>
 			    			<span>: <?php echo $serviceInfo->current_price?></span>
 			    		</li>
+                        <?php endif; ?>
 			    		<li>
 			    			<label>Khuyến mại</label>
 			    			<span>: <?php echo empty($serviceInfo->promotion) ? 'Không' : $serviceInfo->promotion?></span>
 			    		</li>
+                        <?php if (intval($serviceInfo->current_price) > 0): ?>
 			    		<li>
 			    			<label>Hình thức thanh toán</label>
 			    			<div>
@@ -103,9 +95,10 @@ jQuery(function($){
 				    			<?php endif;?>
 			    			</div>
 			    		</li>
+                        <?php endif; ?>
 			    	</ul>
 			    
-			    <?php if ($serviceInfo->current_price > 0): ?>
+			    <?php if ($serviceInfo->current_price >= 0): ?>
 			    <form id="add-service-to-cart" name="add-service-to-cart" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=cart.add') ?>" method="post">
 		            <input type="hidden" name="option" value="com_jnt_hanhphuc"/>
 		            <input type="hidden" name="task" value="cart.add"/>
@@ -126,7 +119,7 @@ jQuery(function($){
 	    	<ul class="tabs">
 	    		<li rel="tab-1" class="active">Thông tin sản phẩm</li>
 	    		<li rel="tab-2">Thông tin liên hệ</li>
-	    		<li rel="tab-3">Bản đồ</li>
+	    		<?php /* <li rel="tab-3">Bản đồ</li> */ ?>
 	    	</ul>
 	    	
 	    	<div class="clr"></div>
@@ -134,6 +127,10 @@ jQuery(function($){
 	    	<ul class="tab-content-container">
 	    		<li rel="tab-content-1" class="tab-content tab-display">
 	    			<?php echo $serviceInfo->description?>
+                    
+                    <div class="has-map">
+                        <div id="map_canvas"></div>
+                    </div>
 	    		</li>
 	    		<li rel="tab-content-2" class="tab-content">
 	    			<div class="business-info relative">
@@ -142,38 +139,46 @@ jQuery(function($){
 								<li>
 									<label>Địa chỉ</label>
 									<span>
-										: <?php echo $businessInfo->profile->business_address; ?>, <?php echo $businessInfo->profile->district_title; ?>, <?php echo $businessInfo->profile->province_title; ?>
+										: <?php echo $businessInfo->profile->business_address; ?> - <?php echo $businessInfo->profile->district_title; ?> - <?php echo $businessInfo->profile->province_title; ?>
 									</span>
 								</li>
+                                <?php if (!empty($businessInfo->profile->business_phone)): ?>
 								<li>
 									<label>Số điện thoại</label>
 									<span>
 										: <?php echo $businessInfo->profile->business_phone; ?>
 									</span>
 								</li>
+                                <?php endif; ?>
+                                <?php if (!empty($businessInfo->profile->business_fax)): ?>
 								<li>
 									<label>Fax</label>
 									<span>
 										: <?php echo $businessInfo->profile->business_fax; ?>
 									</span>
 								</li>
+                                <?php endif; ?>
+                                <?php if (!empty($businessInfo->email)): ?>
 								<li>
 									<label>Email</label>
 									<span>
 										: <?php echo $businessInfo->email; ?>
 									</span>
 								</li>
+                                <?php endif; ?>
+                                <?php if (!empty($businessInfo->profile->business_website)): ?>
 								<li>
 									<label>Website</label>
 									<span>
 										: <a href="http://<?php echo $businessInfo->profile->business_website; ?>" target="_blank"><?php echo $businessInfo->profile->business_website; ?></a>	
 									</span>
 								</li>
-								<?php if ($businessInfo->profile->nick_fb): ?>
+                                <?php endif; ?>
+                                <?php if (!empty($businessInfo->profile->business_sitename)): ?>
 								<li>
 									<label>Facebook</label>
 									<span>
-										: <a href="https://www.facebook.com/<?php echo $businessInfo->profile->nick_fb; ?>" target="_blank"><?php echo $businessInfo->profile->nick_fb; ?></a>	
+										: <a href="https://www.facebook.com/<?php echo $businessInfo->profile->business_sitename; ?>" target="_blank"><?php echo $businessInfo->profile->business_sitename; ?></a>	
 									</span>
 								</li>
 								<?php endif; ?>
@@ -183,7 +188,7 @@ jQuery(function($){
 					</div>
 	    		</li>
 	    		<li rel="tab-content-3" class="tab-content">
-	    			Bản đồ đang được cập nhật
+	    			
 	    		</li>
 	    	</ul>
 	    </div>	

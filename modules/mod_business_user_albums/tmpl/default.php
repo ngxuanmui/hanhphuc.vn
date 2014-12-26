@@ -46,11 +46,11 @@ defined('_JEXEC') or die;
 			$('#' + id).addClass('active');
 		}
 
-		$('#slider-next').click(function(){
+		$('#album-slider-next').click(function(){
 			slider.goToNextSlide();
 		});
 
-		$('#slider-prev').click(function(){
+		$('#album-slider-prev').click(function(){
 			slider.goToPrevSlide();
 		});
 

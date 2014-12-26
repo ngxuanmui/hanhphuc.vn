@@ -42,10 +42,14 @@ class JFormFieldLocation extends JFormFieldList
                 $document = JFactory::getDocument();
                 $document->addScript('http://code.jquery.com/jquery-1.9.1.min.js');
             }
+            
+           $formElement = (!empty($this->group)) ? '#jform_'.$this->group.'_'.$this->element['location_parent_field'] : '#jform_'.$this->element['location_parent_field'];
+           $thisElement = (!empty($this->group)) ? '#jform_'.$this->group.'_'.$this->element['id'] : '#jform_'.$this->element['id'];
+            
             //TODO: #nttuyen JS load ajax
             $script = '<script type="text/javascript">
                             jQuery(document).ready(function($){
-                                jQuery("#jform_'.$this->group.'_'.$this->element['location_parent_field'].'").change(function(){
+                                jQuery("'.$formElement.'").change(function(){
                                     value = jQuery(this).val();
                                     jQuery.get(
                                         "'.JURI::root().'index.php?option=com_jnt_hanhphuc&task=location.getLocations&type='.$this->element['location_type'].'&parent_column='.$this->element['location_parent_column'].'&parent="+value
@@ -61,7 +65,7 @@ class JFormFieldLocation extends JFormFieldList
                                                 $input += element.text;
                                                 $input += "</option>";
                                             });
-                                            jQuery("#jform_'.$this->group.'_'.$this->element['id'].'").html($input);
+                                            jQuery("'.$thisElement.'").html($input);
                                         }
                                         , "json"
                                     );

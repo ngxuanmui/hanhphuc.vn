@@ -61,7 +61,7 @@ class FrontJntHanhphucHelper
 
 		return false;
 	}
-
+	
 	static function getImages($itemId, $itemType = 'hotels')
 	{
 		$db = JFactory::getDbo();

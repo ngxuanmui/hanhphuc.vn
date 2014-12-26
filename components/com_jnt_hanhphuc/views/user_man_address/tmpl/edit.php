@@ -24,18 +24,24 @@ form#user-content-form textarea { width: 644px; margin: 5px 0; padding: 5px; }
 <div class="container">
     <div class="float-left left-side">
 		<div class="sub-container relative">
-			<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_hotel.apply&id='.(int) $this->item->id); ?>" method="post" name="userForm" id="user-content-form" class="form-validate" enctype="multipart/form-data">
+			<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_address.apply&id='.(int) $this->item->id); ?>" method="post" name="userForm" id="user-content-form" class="form-validate" enctype="multipart/form-data">
 				
 					<fieldset class="userform">
-						<legend><?php echo empty($this->item->id) ? JText::_('Thêm mới Tin khuyến mại') : JText::sprintf('Thông tin chi tiết', $this->item->id); ?></legend>
+						<legend><?php echo empty($this->item->id) ? JText::_('Thông tin địa chỉ') : JText::sprintf('Thông tin chi tiết', $this->item->id); ?></legend>
 						<ul class="adminformlist">
-							<li><?php echo $this->form->getLabel('title'); ?>
-							<?php echo $this->form->getInput('title'); ?></li>
+							<li><?php echo $this->form->getLabel('address'); ?>
+							<?php echo $this->form->getInput('address'); ?></li>
 							
 							<li>
-								<?php echo $this->form->getLabel('alias'); ?>
-								<?php echo $this->form->getInput('alias'); ?>
+								<?php echo $this->form->getLabel('city'); ?>
+								<?php echo $this->form->getInput('city'); ?>
 							</li>
+							
+							<li>
+								<?php echo $this->form->getLabel('district'); ?>
+								<?php echo $this->form->getInput('district'); ?>
+							</li>
+							
 							
 							<?php /*
 
@@ -88,27 +94,22 @@ form#user-content-form textarea { width: 644px; margin: 5px 0; padding: 5px; }
 							</li>
 							<?php endif; ?>
 
+							<li><?php echo $this->form->getLabel('state'); ?>
+							<?php echo $this->form->getInput('state'); ?></li>
+							
+							<li><?php echo $this->form->getLabel('sticky'); ?>
+							<?php echo $this->form->getInput('sticky'); ?></li>
+							
 							<li><?php echo $this->form->getLabel('id'); ?>
 							<?php echo $this->form->getInput('id'); ?></li>
 						</ul>
-						<div class="clr"> </div>
-
-						<?php echo $this->form->getLabel('introtext'); ?>
-						<?php echo $this->form->getInput('introtext'); ?>
-
-						<div class="clr"> </div>
-						
-						<?php echo $this->form->getLabel('content'); ?>
-						<?php echo $this->form->getInput('content'); ?>
-						
-            			<?php echo $this->form->getInput('images2content'); ?>
 						
 						<div class="clr"> </div>
 						
-						<input type="hidden" name="task" value="user_man_content.apply" />
+						<input type="hidden" name="task" value="user_man_address.apply" />
 						<?php echo JHtml::_('form.token'); ?>
 						
-						<?php echo HP_User_Toolbar::buttonEdit('user_man_content'); ?>
+						<?php echo HP_User_Toolbar::buttonEdit('user_man_address'); ?>
 
 					</fieldset>
 				

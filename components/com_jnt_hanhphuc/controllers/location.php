@@ -40,7 +40,7 @@ class Jnt_HanhPhucControllerLocation extends JController {
         $db->setQuery($query);
 
         $options = $db->loadObjectList();
-        array_unshift($options, JHtml::_('select.option', '0', JText::_('COM_JNT_HANHPHUC_NO_LOCATION')));
+        array_unshift($options, JHtml::_('select.option', '0', JText::_('- Lựa chọn -')));
         echo json_encode($options);
         die;
     }

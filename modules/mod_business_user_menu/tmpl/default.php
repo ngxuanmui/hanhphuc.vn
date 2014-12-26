@@ -52,5 +52,10 @@ $user = JFactory::getUser();
 		<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&amp;view=user_man_orders', false); ?>">
 			Quản lý Đơn hàng
 		</a>
+	</li>	
+	<li class="item-244">
+		<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&amp;view=user_man_addresses', false); ?>">
+			Quản lý Địa chỉ
+		</a>
 	</li>
 </ul>

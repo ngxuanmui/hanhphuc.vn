@@ -117,7 +117,7 @@ class ShoppingBasket {
 	 * @param mixed $qty - Qty of items in basket
 	 * @return bool
 	 */
-	function updateBasket($id, $params = 1) 
+	function updateBasket($id, $qty = 1) 
 	{
 
 		//$qty = (is_numeric($qty)) ? (int)$qty : 0;

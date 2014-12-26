@@ -55,6 +55,11 @@ class plgUserHpuser extends JPlugin {
 			return true;
 		}
 		
+		$option = JRequest::getString('option');
+		
+		if ($option == 'com_contact')
+			return 1;
+		
 		$userType = JRequest::getInt('type', 0);
 		if (is_object($data)) {
 			if(!isset($data->user_type)) {
@@ -184,7 +189,7 @@ class plgUserHpuser extends JPlugin {
 		
 // 		var_dump($formName);
 		
-		if ($formName == 'com_users.reset_request' || $formName == 'com_users.remind')
+		if ($formName == 'com_users.reset_request' || $formName == 'com_users.remind' || $formName == 'com_contact.contact')
 			return 1;
 		
 		if (!($form instanceof JForm)) {

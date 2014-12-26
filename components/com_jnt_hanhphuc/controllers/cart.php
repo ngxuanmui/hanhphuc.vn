@@ -15,6 +15,7 @@ jimport('joomla.application.component.controllerform');
  * @author nttuyen
  *
  */
+
 class Jnt_HanhPhucControllerCart extends JController {
 	
 	public function add() {
@@ -40,13 +41,50 @@ class Jnt_HanhPhucControllerCart extends JController {
         }
         
         require_once JPATH_COMPONENT.DS.'helpers'.DS.'shoppingcart.class.php';
+        
         $basket = new ShoppingBasket();
         if(!$basket->addToBasket($id, $qty)) {
-            $this->setRedirect(JRoute::_('index.php?option=com_jnt_hanhphuc&view=cart'), 'Add vào giỏ hàng bị lỗi, vui lòng thử lại!', 'error');
+            $this->setRedirect(JRoute::_('index.php?option=com_jnt_hanhphuc&view=cart'), 'Thêm vào giỏ hàng bị lỗi, vui lòng thử lại!', 'error');
 			return false;
         }
         
         $this->setRedirect(JRoute::_('index.php?option=com_jnt_hanhphuc&view=cart'), 'Đã thêm dịch vụ vào giỏ hàng của bạn!');
         return true;
+	}
+	
+	public function update()
+	{
+		require_once JPATH_COMPONENT.DS.'helpers'.DS.'shoppingcart.class.php';
+		
+		$basket = new ShoppingBasket();
+		
+		$post = JRequest::get('post');
+		
+		$qties = $post['qty'];
+		
+		foreach ($qties as $id => $qty)
+		{
+			$basket->updateBasket($id, $qty);
+		}
+		
+		$this->setRedirect(JRoute::_('index.php?option=com_jnt_hanhphuc&view=cart', false), 'Đã cập nhật giỏ hàng của bạn!');
+		return true;
+	}
+	
+	public function delete()
+	{
+		require_once JPATH_COMPONENT.DS.'helpers'.DS.'shoppingcart.class.php';
+		
+		$success = null;
+		
+		$id = JRequest::getInt('id', 0);
+		$basket = new ShoppingBasket();
+		
+        if(!$basket->deleteFromBasket($id)) {
+        	$success = 'error';
+        }
+		
+		$this->setRedirect(JRoute::_('index.php?option=com_jnt_hanhphuc&view=cart', false), 'Đã cập nhật giỏ hàng của bạn!', $success);
+		return true;
 	}
 }

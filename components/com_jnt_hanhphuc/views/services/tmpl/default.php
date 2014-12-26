@@ -81,6 +81,59 @@ $profile = $user->profile;
 				
 				<div class="seperator absolute"></div>
 				
+				<?php 
+				// map
+				$address = $profile->business_address . '+' . $profile->district_title . '+' . $profile->province_title;
+				
+				$address = urlencode($address);
+				
+				$geocodeURL = "http://maps.google.com/maps/api/geocode/json?address=" . $address . "&sensor=false&region=VN";
+				
+				$ch = curl_init($geocodeURL);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				$result = curl_exec($ch);
+				
+				$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+				
+				curl_close($ch);
+				
+				if ($httpCode == 200) {
+					$geocode = json_decode($result);
+				
+					$lat = $geocode->results[0]->geometry->location->lat;
+					$lng = $geocode->results[0]->geometry->location->lng;
+				}
+				else
+				{
+					$lat = 0;
+					$lng = 0;
+				}
+				?>
+				
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+
+<script type="text/javascript">
+<!--
+function initialize() {
+    var map_canvas = document.getElementById('map_canvas');
+    var myLatlng = new google.maps.LatLng(<?php echo $lat; ?>, <?php echo $lng; ?>);
+    var map_options = {
+      center: myLatlng,
+      zoom: 14,
+      scrollwheel: false
+    }
+    var map = new google.maps.Map(map_canvas, map_options);
+    
+    var marker = new google.maps.Marker({
+                      position: myLatlng,
+                      map: map
+                  });
+  }
+
+google.maps.event.addDomListener(window, 'load', initialize);
+//-->
+</script>
+				
 				<div class="business-profile">
 					<ul>
 						<li>
@@ -89,7 +142,7 @@ $profile = $user->profile;
 						<li>
 							<label>Địa chỉ</label>
 							<span>
-								: <?php echo $profile->business_address; ?>, <?php echo $profile->ward_title; ?>, <?php echo $profile->province_title; ?>
+								: <?php echo $profile->business_address; ?>, <?php echo $profile->district_title; ?>, <?php echo $profile->province_title; ?>
 							</span>
 						</li>
 						<?php if (!empty($profile->business_phone)): ?>
@@ -132,6 +185,13 @@ $profile = $user->profile;
 							</span>
 						</li>
 						<?php endif; ?>
+						
+						<li>
+							<label>Bản đồ</label>
+							<div class="fltlft">
+			                        <div id="map_canvas" style="width: 520px; height: 230px;"></div>
+							</div>
+						</li>
 					</ul>
 					<div class="clr"></div>
 				</div>
