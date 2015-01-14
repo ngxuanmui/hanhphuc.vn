@@ -24,6 +24,7 @@ class Jnt_HanhPhucViewServices extends JView {
 	protected $items;
 	protected $pagination;
 	protected $user_info;
+	protected $addresses;
     
 	function display($tpl = null) {
 		
@@ -35,6 +36,7 @@ class Jnt_HanhPhucViewServices extends JView {
 		$this->items		= $this->get('Items');
 		$this->pagination	= $this->get('Pagination');
 		$this->user_info	= $this->get('UserInfo');
+		$this->addresses	= $this->get('Addresses');
 		
 		if (empty($this->user_info->id))
 			$tpl = 'all';

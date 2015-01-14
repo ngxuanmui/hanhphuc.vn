@@ -219,4 +219,17 @@ class JEUtil
 			echo JModuleHelper::renderModule($module);
 		}
 	}
+	
+	public function getAdminInfo()
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		
+		$query->select('*')->from('#__users')->where('usertype = "deprecated"');
+		$db->setQuery($query);
+		
+		$obj = $db->loadObject();
+		
+		return $obj;
+	}
 }

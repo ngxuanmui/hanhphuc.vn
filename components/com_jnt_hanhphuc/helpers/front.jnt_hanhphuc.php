@@ -16,18 +16,22 @@ class FrontJntHanhphucHelper
 		;
 		
 		// join over profile
-		$query->select('p.business_logo, p.business_address, p.business_phone')
+		$query->select('p.business_logo')
 				->join('INNER', '#__hp_business_profile p ON u.id = p.user_id')
 		;
 		
+		// join over addresses
+		$query->select('ua.subname, ua.address, ua.phone')->join('INNER', '#__user_addresses ua ON ua.created_by = u.id');
+		
+		
 		// join over location: province
 		$query->select('province.title AS province_title')
-				->join('INNER', '#__location_province province ON p.business_city = province.id')
+				->join('INNER', '#__location_province province ON ua.city = province.id')
 		;
 		
 		// join over location: district
-		$query->select('ward.title AS ward_title')
-				->join('INNER', '#__location_ward ward ON p.business_district = ward.id')
+		$query->select('district.title AS district_title')
+				->join('INNER', '#__location_district district ON ua.district = district.id')
 		;
 		
 // 		echo $query->dump();

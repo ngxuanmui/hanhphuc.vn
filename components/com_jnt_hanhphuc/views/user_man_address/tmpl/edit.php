@@ -29,6 +29,9 @@ form#user-content-form textarea { width: 644px; margin: 5px 0; padding: 5px; }
 					<fieldset class="userform">
 						<legend><?php echo empty($this->item->id) ? JText::_('Thông tin địa chỉ') : JText::sprintf('Thông tin chi tiết', $this->item->id); ?></legend>
 						<ul class="adminformlist">
+							<li><?php echo $this->form->getLabel('subname'); ?>
+							<?php echo $this->form->getInput('subname'); ?></li>
+							
 							<li><?php echo $this->form->getLabel('address'); ?>
 							<?php echo $this->form->getInput('address'); ?></li>
 							

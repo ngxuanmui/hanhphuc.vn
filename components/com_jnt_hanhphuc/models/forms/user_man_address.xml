@@ -7,6 +7,9 @@
 			readonly="true" class="readonly"
 			label="JGLOBAL_FIELD_ID_LABEL" 	description ="JGLOBAL_FIELD_ID_DESC" />
 
+		<field name="subname" type="text" class="inputbox"
+			size="40" label="Tên cơ sở" />
+			
 		<field name="address" type="text" class="inputbox" required="true"
 			size="40" label="Địa chỉ" />
 			

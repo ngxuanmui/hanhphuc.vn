@@ -77,62 +77,80 @@ $profile = $user->profile;
 			</div>
 			<?php endif; ?>
 			
+<script type="text/javascript">
+<!--
+jQuery(function($){
+	$('.show-map-address').click(function(){
+		var rel = $(this).attr('rel');
+		
+		$.post('<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&layout=map&tmpl=component'); ?>',
+				{},
+				function(res)
+				{
+					$('.content-' + rel).html(res);
+				}
+			);
+
+		return false;
+	});
+});
+//-->
+</script>
+			
+			<div class="business-info relative">
+				
+				<div class="seperator absolute"></div>
+					<ul>
+						<?php foreach ($this->addresses as $add): ?>
+						<li>
+							<a href="#" class="show-map-address" rel="<?php echo $add->id; ?>">
+								<?php echo $add->address; ?>
+							</a>
+							
+							<div class="map-content content-<?php echo $add->id; ?>">
+								
+							</div>
+						</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+				
+			</div>
+			
 			<div class="business-info relative">
 				
 				<div class="seperator absolute"></div>
 				
 				<?php 
 				// map
-				$address = $profile->business_address . '+' . $profile->district_title . '+' . $profile->province_title;
+// 				$address = $profile->business_address . '+' . $profile->district_title . '+' . $profile->province_title;
 				
-				$address = urlencode($address);
+// 				$address = urlencode($address);
 				
-				$geocodeURL = "http://maps.google.com/maps/api/geocode/json?address=" . $address . "&sensor=false&region=VN";
+// 				$geocodeURL = "http://maps.google.com/maps/api/geocode/json?address=" . $address . "&sensor=false&region=VN";
 				
-				$ch = curl_init($geocodeURL);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-				$result = curl_exec($ch);
+// 				$ch = curl_init($geocodeURL);
+// 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+// 				$result = curl_exec($ch);
 				
-				$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+// 				$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				
-				curl_close($ch);
+// 				curl_close($ch);
 				
-				if ($httpCode == 200) {
-					$geocode = json_decode($result);
+// 				if ($httpCode == 200) {
+// 					$geocode = json_decode($result);
 				
-					$lat = $geocode->results[0]->geometry->location->lat;
-					$lng = $geocode->results[0]->geometry->location->lng;
-				}
-				else
-				{
-					$lat = 0;
-					$lng = 0;
-				}
+// 					$lat = $geocode->results[0]->geometry->location->lat;
+// 					$lng = $geocode->results[0]->geometry->location->lng;
+// 				}
+// 				else
+// 				{
+// 					$lat = 0;
+// 					$lng = 0;
+// 				}
 				?>
 				
-<script src="https://maps.googleapis.com/maps/api/js"></script>
 
-<script type="text/javascript">
-<!--
-function initialize() {
-    var map_canvas = document.getElementById('map_canvas');
-    var myLatlng = new google.maps.LatLng(<?php echo $lat; ?>, <?php echo $lng; ?>);
-    var map_options = {
-      center: myLatlng,
-      zoom: 14,
-      scrollwheel: false
-    }
-    var map = new google.maps.Map(map_canvas, map_options);
-    
-    var marker = new google.maps.Marker({
-                      position: myLatlng,
-                      map: map
-                  });
-  }
-
-google.maps.event.addDomListener(window, 'load', initialize);
-//-->
-</script>
 				
 				<div class="business-profile">
 					<ul>

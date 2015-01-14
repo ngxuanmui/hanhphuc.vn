@@ -39,8 +39,14 @@ $categories = $this->categories;
 											<?php echo $user->name; ?>
 										</a>
 									</h3>
-									<p><strong>Địa chỉ</strong>: <?php echo $user->business_address . ', ' . $user->ward_title . ', ' . $user->province_title; ?></p>
-									<p><strong>Số điện thoại</strong>: <?php echo $user->business_phone; ?></p>
+									<?php 
+									if (!empty($user->subname)):
+									?>
+									<p><?php echo '<strong>' . $user->subname . '</strong>'; ?></p>
+									<?php endif; ?>
+									
+									<p><strong>Địa chỉ</strong>: <?php echo $user->address . ', ' . $user->district_title . ', ' . $user->province_title; ?></p>
+									<p><strong>Số điện thoại</strong>: <?php echo $user->phone; ?></p>
 								</div>
 								<div class="clr"></div>
 							</li>

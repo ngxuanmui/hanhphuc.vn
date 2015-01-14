@@ -171,4 +171,23 @@ class Jnt_HanhPhucModelServices extends JModelList
 		
 		return $user;
 	}
+	
+	public function getAddresses()
+	{
+		$userId = $this->getState('filter.user_id');
+		
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		
+		$query->select('*')
+				->from('#__user_addresses')
+				->where('created_by = ' . $userId)
+				->where('state = 1')
+		;
+		
+		$db->setQuery($query);
+		$rs = $db->loadObjectList();
+		
+		return $rs;
+	}
 }

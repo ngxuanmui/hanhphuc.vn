@@ -33,6 +33,10 @@ $items = $this->items;
 						<tr class="<?php if (($key+1) %2 == 0) echo 'oven' ?>">
 							<td>
 								<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_address.edit&id='. $item->id . '&Itemid=' . JRequest::getInt('Itemid'), false); ?>">
+									<?php 
+									if (!empty($item->subname))
+										echo $item->subname . ' - ';
+									?>
 									<?php echo $item->address; ?>,
 									<?php echo $item->district_name; ?>,
 									<?php echo $item->city_name; ?>
