@@ -38,7 +38,11 @@ class Jnt_HanhPhucViewServices extends JView {
 		$this->user_info	= $this->get('UserInfo');
 		$this->addresses	= $this->get('Addresses');
 		
-		if (empty($this->user_info->id))
+		$getMap = JRequest::getInt('getmap');
+		
+		if (!empty($getMap))
+			$tpl = 'map';
+		elseif (empty($this->user_info->id))
 			$tpl = 'all';
 		
 		parent::display($tpl);

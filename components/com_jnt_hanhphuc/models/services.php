@@ -180,9 +180,19 @@ class Jnt_HanhPhucModelServices extends JModelList
 		$query = $db->getQuery(true);
 		
 		$query->select('*')
-				->from('#__user_addresses')
-				->where('created_by = ' . $userId)
-				->where('state = 1')
+				->from('#__user_addresses ua')
+				->where('ua.created_by = ' . $userId)
+				->where('ua.state = 1')
+		;
+		
+		// join over location: province
+		$query->select('province.title AS province_title')
+				->join('INNER', '#__location_province province ON ua.city = province.id')
+		;
+		
+		// join over location: district
+		$query->select('district.title AS district_title')
+				->join('INNER', '#__location_district district ON ua.district = district.id')
 		;
 		
 		$db->setQuery($query);

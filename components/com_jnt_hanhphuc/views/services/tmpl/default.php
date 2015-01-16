@@ -76,35 +76,99 @@ $profile = $user->profile;
 				<div class="clr"></div>
 			</div>
 			<?php endif; ?>
+
+<script type="text/javascript" src="http://www.google.com/jsapi?key=AIzaSyAAVKaGv0Tn_kz-xPSjLl66dznQuLssKqM"></script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAVKaGv0Tn_kz-xPSjLl66dznQuLssKqM&sensor=false"></script>
 			
 <script type="text/javascript">
 <!--
+
+google.load("maps", "2");
+
+function addmarker(latilongi) {
+    
+}
+
 jQuery(function($){
 	$('.show-map-address').click(function(){
-		var rel = $(this).attr('rel');
 		
-		$.post('<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&layout=map&tmpl=component'); ?>',
-				{},
+		// var rel = $(this).attr('rel');
+		
+		var address = $(this).attr('add');
+
+		$('.show-map-address').css('font-weight', 'normal');
+		$(this).css('font-weight', 'bold');
+		
+		$.post('<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&layout=map&tmpl=component&getmap=1', false); ?>',
+				{'address': address},
 				function(res)
 				{
-					$('.content-' + rel).html(res);
+					
+					var mapContainer = $('.map-container');
+
+					if (mapContainer.hasClass('not-display'))
+					{
+						mapContainer.slideToggle( "slow").removeClass('not-display');
+					}						
+					
+					$('#map_canvas').html('loading');
+					
+					res = $.parseJSON(res);
+
+					var myLatlng = new google.maps.LatLng(res.lat, res.lng);
+					
+					var mapOptions = {
+					    zoom: 4,
+					    center: myLatlng,
+					    scrollwheel: false
+					};
+					
+					var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+					
+					map.setCenter(myLatlng, 14);
+
+					map.disableScrollWheelZoom()
+
+					var marker = new GMarker(myLatlng, {draggable: false});
+
+					map.addOverlay(marker);
 				}
 			);
 
 		return false;
 	});
 });
+
+//google.maps.event.addDomListener(window, 'load', initialize);
+
 //-->
 </script>
 			
 			<div class="business-info relative">
 				
 				<div class="seperator absolute"></div>
-					<ul>
+					<h3 style="font-size: 14px; padding: 0 0 10px;"><?php echo $profile->business_name; ?></h3>
+					
+					<div style="color: #CCC;">
+					(Click vào địa chỉ để xem bản đồ)
+					</div>
+					
+					<ul class="list-address">
 						<?php foreach ($this->addresses as $add): ?>
+						
+						<?php 
+						// map
+						$address = $add->address . '+' . $add->district_title . '+' . $add->province_title;
+						$address = base64_encode(urlencode($address));
+						?>
 						<li>
-							<a href="#" class="show-map-address" rel="<?php echo $add->id; ?>">
-								<?php echo $add->address; ?>
+							<a href="#" class="show-map-address" rel="<?php echo $add->id; ?>" add="<?php echo $address; ?>">
+								<?php 
+								if (!empty($add->subname))
+									echo $add->subname . ': ';
+								?>
+								<?php echo $add->address; ?>, <?php echo $add->district_title; ?>, <?php echo $add->province_title; ?>
 							</a>
 							
 							<div class="map-content content-<?php echo $add->id; ?>">
@@ -112,108 +176,18 @@ jQuery(function($){
 							</div>
 						</li>
 						<?php endforeach; ?>
+						<li>
+							
+						</li>
 					</ul>
-				</div>
-				
+					
+					<div class="map-container not-display" style="width: 630px; display: none; ">
+						<div id="map-canvas" style="width: 630px; height: 330px;"></div>
+					</div>
+			
+				<div class="clr"></div>
 			</div>
 			
-			<div class="business-info relative">
-				
-				<div class="seperator absolute"></div>
-				
-				<?php 
-				// map
-// 				$address = $profile->business_address . '+' . $profile->district_title . '+' . $profile->province_title;
-				
-// 				$address = urlencode($address);
-				
-// 				$geocodeURL = "http://maps.google.com/maps/api/geocode/json?address=" . $address . "&sensor=false&region=VN";
-				
-// 				$ch = curl_init($geocodeURL);
-// 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-// 				$result = curl_exec($ch);
-				
-// 				$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-				
-// 				curl_close($ch);
-				
-// 				if ($httpCode == 200) {
-// 					$geocode = json_decode($result);
-				
-// 					$lat = $geocode->results[0]->geometry->location->lat;
-// 					$lng = $geocode->results[0]->geometry->location->lng;
-// 				}
-// 				else
-// 				{
-// 					$lat = 0;
-// 					$lng = 0;
-// 				}
-				?>
-				
-
-				
-				<div class="business-profile">
-					<ul>
-						<li>
-							<h3><?php echo $profile->business_name; ?></h3>
-						</li>
-						<li>
-							<label>Địa chỉ</label>
-							<span>
-								: <?php echo $profile->business_address; ?>, <?php echo $profile->district_title; ?>, <?php echo $profile->province_title; ?>
-							</span>
-						</li>
-						<?php if (!empty($profile->business_phone)): ?>
-						<li>
-							<label>Số điện thoại</label>
-							<span>
-								: <?php echo $profile->business_phone; ?>
-							</span>
-						</li>
-						<?php endif; ?>
-						<?php if (!empty($profile->business_fax)): ?>
-						<li>
-							<label>Fax</label>
-							<span>
-								: <?php echo $profile->business_fax; ?>
-							</span>
-						</li>
-						<?php endif; ?>
-						<?php if (!empty($user->email)): ?>
-						<li>
-							<label>Email</label>
-							<span>
-								: <?php echo $user->email; ?>
-							</span>
-						</li>
-						<?php endif; ?>
-						<?php if (!empty($profile->business_website)): ?>
-						<li>
-							<label>Website</label>
-							<span>
-								: <a href="<?php echo $profile->business_website; ?>" target="_blank"><?php echo $profile->business_website; ?>	</a>
-							</span>
-						</li>
-						<?php endif; ?>
-						<?php if (!empty($profile->nick_fb)): ?>
-						<li>
-							<label>Facebook</label>
-							<span>
-								: <a href="<?php echo $profile->nick_fb; ?>" target="_blank"><?php echo $profile->nick_fb; ?></a>
-							</span>
-						</li>
-						<?php endif; ?>
-						
-						<li>
-							<label>Bản đồ</label>
-							<div class="fltlft">
-			                        <div id="map_canvas" style="width: 520px; height: 230px;"></div>
-							</div>
-						</li>
-					</ul>
-					<div class="clr"></div>
-				</div>
-			</div>
 			
 			<div class="comments-container relative box">
 		    	<div class="seperator absolute"></div>
