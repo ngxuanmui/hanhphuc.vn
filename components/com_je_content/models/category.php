@@ -75,6 +75,8 @@ class JE_ContentModelCategory extends JModelList
 	    
 	    $query->order('a.id DESC');
 	    
+// 	    echo $query->dump();
+	    
 // 	    echo str_replace('#__', 'hp_', $query);
 
 	    return $query;

@@ -179,7 +179,7 @@ class Jnt_HanhPhucModelServices extends JModelList
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		
-		$query->select('*')
+		$query->select('ua.*')
 				->from('#__user_addresses ua')
 				->where('ua.created_by = ' . $userId)
 				->where('ua.state = 1')

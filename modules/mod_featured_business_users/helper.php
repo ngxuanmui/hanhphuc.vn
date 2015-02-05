@@ -46,10 +46,11 @@ class modFeatured_Business_UsersHelper
 		->join('INNER', '#__location_ward ward ON p.business_district = ward.id')
 		;
 		
+		$option = JRequest::getString('option', '');
 		$catId = JRequest::getInt('id', 0);
 		$view = JRequest::getString('view', '');
 		
-		if ($view == 'category' && $catId > 0)
+		if ($option == 'com_jnt_hanhphuc' && $view == 'category' && $catId > 0)
 		{
 			$query->where('(i.category = ' . $catId . ' OR i.category IN (SELECT id FROM #__categories WHERE parent_id = ' . $catId . '))');
 		}

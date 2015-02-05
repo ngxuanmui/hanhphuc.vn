@@ -30,9 +30,9 @@ form#user-content-form textarea { width: 644px; margin: 5px 0; padding: 5px; }
 						<legend><?php echo empty($this->item->id) ? JText::_('Thông tin địa chỉ') : JText::sprintf('Thông tin chi tiết', $this->item->id); ?></legend>
 						<ul class="adminformlist">
 							<li><?php echo $this->form->getLabel('subname'); ?>
-							<?php echo $this->form->getInput('subname'); ?></li>
-							
-							<li><?php echo $this->form->getLabel('address'); ?>
+    						<?php echo $this->form->getInput('subname'); ?></li>
+                            
+                            <li><?php echo $this->form->getLabel('address'); ?>
 							<?php echo $this->form->getInput('address'); ?></li>
 							
 							<li>
@@ -44,7 +44,21 @@ form#user-content-form textarea { width: 644px; margin: 5px 0; padding: 5px; }
 								<?php echo $this->form->getLabel('district'); ?>
 								<?php echo $this->form->getInput('district'); ?>
 							</li>
-							
+                            
+    						<li>
+								<?php echo $this->form->getLabel('phone'); ?>
+								<?php echo $this->form->getInput('phone'); ?>
+							</li>
+
+							<li>
+								<?php echo $this->form->getLabel('fax'); ?>
+								<?php echo $this->form->getInput('fax'); ?>
+							</li>		
+                            
+                            <li>
+    							<?php echo $this->form->getLabel('hotline'); ?>
+								<?php echo $this->form->getInput('hotline'); ?>
+							</li>
 							
 							<?php /*
 

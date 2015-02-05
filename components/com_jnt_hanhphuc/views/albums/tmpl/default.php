@@ -28,7 +28,7 @@ jQuery(function($){
 			$newElems.imagesLoaded(function(){
 				// show elems now they're ready
 				$newElems.css({ opacity: 1 });
-				$('#wrapper').masonry( 'appended', $newElems, true ); 
+				$('#wrapper').masonry( 'appended', $newElems, {columnWidth: 300} ); 
 			});
 	});
 });
@@ -59,7 +59,7 @@ jQuery(function($){
 							title="<?php echo $this->escape($item->name); ?>">
 							<?php if ($item->images): ?>
 						    <img src="<?php echo JURI::base().$item->images; ?>"
-								style="float: left; margin-right: 10px; width: 190px;" />
+								style="float: left; margin-right: 10px; width: 50%;" />
 						    <?php endif; ?>
 						</a>
 					</div>

@@ -15,6 +15,8 @@ defined('_JEXEC') or die;
 		<?php foreach ($list as $user): ?>
 		<li class="fltlft">
 			<div class="image" style="margin: 10px auto;">
+				<a class="title" style="width: 60px; height: 60px;" href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&user='.$user->id.'-'.$user->username); ?>">
+						
 				<?php
 				$userLogo = $user->business_logo;
 				
@@ -24,6 +26,7 @@ defined('_JEXEC') or die;
 				<?php else: ?>
 				<img src="<?php echo JURI::base(); ?>images/no_business_logo.png" />
 				<?php endif; ?>
+				</a>
 			</div>
 			<div>
 				<h3>

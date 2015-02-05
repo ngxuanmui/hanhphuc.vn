@@ -29,8 +29,16 @@ class JE_ContentModelArticle extends JModel
 	 * @return	#x# object or false.
 	 * @since	1.6
 	 */
+	
+	protected static $_item;
+	
 	function getItem()
 	{
+		if (!empty($this->_item))
+		{
+			$this->hit();
+			return $this->_item;
+		}
 		//init vars
 		$db		= $this->getDbo();
 		$id 		= JRequest::getInt('id');
@@ -49,12 +57,12 @@ class JE_ContentModelArticle extends JModel
 		$query->where('`a`.id = ' . $id);
 		
 		$db->setQuery($query);
-		$record = $db->loadObject();
+		$this->_item = $db->loadObject();
 		
 //		echo str_replace('#__', 'hp_', $query);
 		
-		if($record)
-		    return $record;
+		if($this->_item)
+		    return $this->_item;
 		
 		// Update hit
 		$this->hit();
@@ -98,6 +106,10 @@ class JE_ContentModelArticle extends JModel
 	{
 		$db			= $this->getDbo();
 		$query		= $db->getQuery(true);
+		
+		$item = $this->_item;
+		
+// 		var_dump($item);
 
 		$query->select(
 			'a.id , a.title, a.alias, a.introtext, a.featured_images, a.catid'
@@ -109,9 +121,13 @@ class JE_ContentModelArticle extends JModel
 		$query->select('c.title AS category_title');
 		$query->join('INNER', '#__categories AS c ON c.id = a.catid');
 		$query->where('state = 1');
+		$query->where('a.id < ' . $this->_item->id);
+		$query->where('a.catid = ' . $this->_item->catid);
 		$query->order('a.id DESC');
+		
+// 		echo $query->dump();
 
-		$db->setQuery($query, 0, 10);
+		$db->setQuery($query, 0, 5);
 		$rs = $db->loadObjectList();
 
 		if ($db->getErrorMsg())

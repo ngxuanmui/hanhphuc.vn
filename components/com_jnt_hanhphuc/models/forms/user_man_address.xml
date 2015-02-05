@@ -8,7 +8,7 @@
 			label="JGLOBAL_FIELD_ID_LABEL" 	description ="JGLOBAL_FIELD_ID_DESC" />
 
 		<field name="subname" type="text" class="inputbox"
-			size="40" label="Tên cơ sở" />
+    		size="40" label="Tên cơ sở" />
 			
 		<field name="address" type="text" class="inputbox" required="true"
 			size="40" label="Địa chỉ" />
@@ -36,6 +36,15 @@
 				message="Quận/Huyện"
 				size="1"
 			/>
+            
+        <field name="phone" type="text" class="inputbox"
+    		size="40" label="Điện thoại" />
+        
+        <field name="fax" type="text" class="inputbox"
+    		size="40" label="Fax" />
+            
+        <field name="hotline" type="text" class="inputbox"
+    		size="40" label="Hot line" />
 			
 		<field name="state" type="list"
 			label="Hiển thị"

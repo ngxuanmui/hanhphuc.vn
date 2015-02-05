@@ -93,11 +93,29 @@ function addmarker(latilongi) {
 jQuery(function($){
 	$('.show-map-address').click(function(){
 		
-		// var rel = $(this).attr('rel');
+		var rel = $(this).attr('rel');
+
+		if ($('.content-' + rel).hasClass('remain-display'))
+		{
+			$('.address-content').removeClass('remain-display');
+			$('.content-' + rel).addClass('remain-display');
+			return false;
+		}
 		
 		var address = $(this).attr('add');
 
+		$('ul.list-address li').css({'border-top': 'none', 'border-bottom': 'none'});
+		
+		$('.address-content').css('display', 'none');
+
+		var htmlContent = $('.content-' + rel).html();
+
+		$('.content-' + rel).parent().css({'border-top': '1px solid #CCC', 'border-bottom': '1px solid #CCC'});
+		
+		$('.content-' + rel).toggle().html('Đang tải ...');
+
 		$('.show-map-address').css('font-weight', 'normal');
+		
 		$(this).css('font-weight', 'bold');
 		
 		$.post('<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&layout=map&tmpl=component&getmap=1', false); ?>',
@@ -133,6 +151,9 @@ jQuery(function($){
 					var marker = new GMarker(myLatlng, {draggable: false});
 
 					map.addOverlay(marker);
+					
+					$('.address-content').removeClass('remain-display');
+					$('.content-' + rel).html(htmlContent).addClass('remain-display');
 				}
 			);
 
@@ -149,6 +170,32 @@ jQuery(function($){
 				
 				<div class="seperator absolute"></div>
 					<h3 style="font-size: 14px; padding: 0 0 10px;"><?php echo $profile->business_name; ?></h3>
+					
+					<?php if (!empty($profile->business_sitename) || !empty($profile->business_website)): ?>
+					<ul>
+						<?php if (!empty($profile->business_sitename)): ?>
+						<li>
+							<?php 
+							$business_sitename = $profile->business_sitename;
+							
+							if (strpos($business_sitename, 'facebook') === false)
+								$business_sitename = 'https://www.facebook.com/' . $business_sitename;
+							?>
+							Facebook: <a href="<?php echo $business_sitename ?>" target="_blank"><?php echo $profile->business_sitename; ?></a></li>
+						<?php endif; ?>
+						
+						<?php if (!empty($profile->business_website)): ?>
+						<li>
+							<?php 
+							$business_website = $profile->business_website;
+							
+							if (strpos($business_website, '://') === false)
+								$business_website = 'http://' . $business_website;
+							?>
+							Website: <a href="<?php echo $business_website; ?>" target="_blank"><?php echo $profile->business_website; ?></a></li>
+						<?php endif; ?>
+					</ul>
+					<?php endif; ?>
 					
 					<div style="color: #CCC;">
 					(Click vào địa chỉ để xem bản đồ)
@@ -171,18 +218,29 @@ jQuery(function($){
 								<?php echo $add->address; ?>, <?php echo $add->district_title; ?>, <?php echo $add->province_title; ?>
 							</a>
 							
-							<div class="map-content content-<?php echo $add->id; ?>">
+							<?php if (!empty($add->phone) || !empty($add->fax) || !empty($add->hotline)): ?>
+							<div class="hidden address-content content-<?php echo $add->id; ?>">
+								<?php if (!empty($add->phone)): ?>
+								<span>Điện thoại: <?php echo $add->phone; ?></span>
+								<?php endif; ?>
 								
+								<?php if (!empty($add->fax)): ?>
+								<span>Fax: <?php echo $add->fax; ?></span>
+								<?php endif; ?>
+								
+								<?php if (!empty($add->hotline)): ?>
+								<span>Hot line: <?php echo $add->hotline; ?></span>
+								<?php endif; ?>
 							</div>
+							<?php endif; ?>
 						</li>
 						<?php endforeach; ?>
-						<li>
-							
-						</li>
+						
+						
 					</ul>
 					
-					<div class="map-container not-display" style="width: 630px; display: none; ">
-						<div id="map-canvas" style="width: 630px; height: 330px;"></div>
+					<div class="map-container not-display" style="width: 635px; display: none; ">
+						<div id="map-canvas" style="width: 635px; height: 330px;"></div>
 					</div>
 			
 				<div class="clr"></div>

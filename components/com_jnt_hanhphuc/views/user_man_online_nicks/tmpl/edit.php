@@ -18,7 +18,7 @@ $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 
 <div class="container">
     <div class="float-left left-side">
-		<div class="sub-container list-items relative">
+		<div class="sub-container relative">
 			<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&layout=edit&task=user_man_online_nicks.apply'); ?>" method="post" name="userForm" id="album-form" class="form-validate" enctype="multipart/form-data">
 				
 					<fieldset class="userform">
@@ -35,12 +35,6 @@ $jqueryFileUploadPath = JURI::root() . 'media/hp/jquery-ui-upload/';
 
 							<li><?php echo $this->form->getLabel('nick_skype'); ?>
 							<?php echo $this->form->getInput('nick_skype'); ?></li>
-							
-							<li><?php echo $this->form->getLabel('nick_fb_alias'); ?>
-							<?php echo $this->form->getInput('nick_fb_alias'); ?></li>
-							
-							<li><?php echo $this->form->getLabel('nick_fb'); ?>
-							<?php echo $this->form->getInput('nick_fb'); ?></li>
 							
 							<li><?php echo $this->form->getLabel('id'); ?>
 							<?php echo $this->form->getInput('id'); ?></li>

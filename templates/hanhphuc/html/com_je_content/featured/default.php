@@ -101,13 +101,16 @@ jQuery().ready(function($){
 						
 					    $firstCategory = array_shift($item['sub']);
 					    echo '<a href="'.$linkToCategory.'">'.$firstCategory->title.'</a>';
-
+					    
+					    /*
 					    $tmp = array_reverse($item['sub']);
 					    array_pop($tmp);
 					    $categories = array_reverse($tmp);
 
 					    $check = 0;
+					    */
 					    ?>
+					    <?php /*
 					    <span>
 						    <?php foreach ($categories as $cat): ?>
 						    <a href="#"><?php echo $cat->title; ?></a>
@@ -121,6 +124,7 @@ jQuery().ready(function($){
 						    endforeach; 
 						    ?>
 					    </span>
+					    */ ?>
 					</h1>
 					
 					<div class="line-break-news"><span></span></div>

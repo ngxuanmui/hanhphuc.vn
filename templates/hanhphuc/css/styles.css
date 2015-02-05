@@ -399,3 +399,15 @@ ul.noted li { margin: 5px 0; }
 .bussiness-blog-box .bx-wrapper { width: 870px; float: left; margin-left: 25px; }
 
 .img-intro img { float: left; width: 100px; margin-right: 5px; }
+
+.item-title { overflow: hidden; font-weight: bold; padding: 5px 0; height: 40px; }
+
+.has-map { margin: 10px 0; }
+
+.a-login { text-decoration: underline; color: #860200; }
+
+#album-slider-next { width: 100px; height: 100px; background: url('../images/icon_next.png') no-repeat; right: -115px; top: 60px; cursor: pointer; }
+#album-slider-prev { width: 100px; height: 100px; background: url('../images/icon_previous.png') no-repeat; left: -45px; top: 60px; cursor: pointer;  }
+
+.address-content { display: none; }
+.address-content span { display: inline-block; padding-right: 15px; }

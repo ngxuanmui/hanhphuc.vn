@@ -38,11 +38,14 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 					    $firstCategory = array_shift($item['sub']);
 					    echo '<a href="'.$linkToCategory.'">'.$firstCategory->title.'</a>';
 
+					    /*
 					    $tmp = array_reverse($item['sub']);
 					    array_pop($tmp);
 					    $categories = array_reverse($tmp);
 
 					    $check = 0;
+					    */
+					    /*
 					    ?>
 					    <span>
 						    <?php foreach ($categories as $cat): ?>
@@ -57,6 +60,7 @@ JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
 						    endforeach; 
 						    ?>
 					    </span>
+					    */ ?>
 					</h1>
 					
 					<div class="line-break-news"><span></span></div>
