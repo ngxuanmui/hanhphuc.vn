@@ -12,6 +12,10 @@ jimport('joomla.plugin.plugin');
 
 define('JPATH_PLUGIN_HPUSER', dirname(__FILE__));
 
+// business logo
+define('CFG_BUSINESS_LOGO_WIDTH', 200);
+define('CFG_BUSINESS_LOGO_HEIGHT', 200);
+
 /**
  * Example User Plugin
  *
@@ -20,17 +24,18 @@ define('JPATH_PLUGIN_HPUSER', dirname(__FILE__));
  * @since		1.5
  */
 class plgUserHpuser extends JPlugin {
+	
     public function __construct(&$subject, $config = array()) {
         parent::__construct($subject, $config);
         
         JHTML::register('users.jform_user_profile_avatar', function($value){
             echo '<img
-                    width="100"
+                    
                     src="'.JURI::root().'images/users/'.$value.'?rand='.rand(0, 99999).'"/>';
         });
         JHtml::register('users.jform_business_profile_business_logo', function($value) {
             echo '<img
-                    width="100"
+                    
                     src="'.JURI::root().'images/business/'.$value.'?rand='.rand(0, 99999).'"/>';
         });
         JHtml::register('users.jform_business_profile_business_banner', function($value) {
@@ -381,20 +386,75 @@ class plgUserHpuser extends JPlugin {
         if($deleteOld && $oldFilename) {
             $oldFilename = is_array($oldFilename) ? $oldFilename : array($oldFilename);
             foreach($oldFilename as $key => &$value) {
-                $value = $baseDir.DS.$oldFilename;
-                $oldFilename[$key] = $value;
+                $value = $baseDir.DS.$oldFilename[$key];
+//                 $oldFilename[$key] = $value;
+                
+                JFile::delete($value);
             }
-            JFile::delete($oldFilename);
+            
         }
 
         $uploadFileExt = JFile::getExt($uploadFileName);
+        
         if(!is_dir($baseDir)) {
-            if(!mkdir($baseDir, 0777, true)) return false;
+            if(!mkdir($baseDir, 0777, true)) 
+            	return false;
         }
 
         $fileName = ($newFileName) ? $newFileName.'.'.$uploadFileExt : $uploadFileName;
         $filePath = $baseDir.DS.$fileName;
+        
+        $resultUpload = JFile::upload($uploadFileTemp, $filePath);
+        
+        if ($resultUpload)
+        {
+        	// resize
+        	require_once(JPATH_ROOT . '/jelibs/phpthumb/phpthumb.class.php');
+        	
+        	// create phpThumb object
+        	$phpThumb = new phpThumb();
+        	
+        	if (file_exists(JPATH_ROOT . '/jelibs/phpthumb/phpThumb.config.php') && include_once(JPATH_ROOT . '/jelibs/phpthumb/phpThumb.config.php')) {
+        		foreach ($PHPTHUMB_CONFIG as $key => $value) {
+        			$keyname = 'config_'.$key;
+        			$phpThumb->setParameter($keyname, $value);
+        		}
+        	} else {
+        		echo '<div style="color: red; border: 1px red dashed; font-weight: bold; padding: 10px; margin: 10px; display: inline-block;">Error reading ../phpThumb.config.php</div><br>';
+        	}
+        	
+        	// this is very important when using a single object to process multiple images
+        	$phpThumb->resetObject();
+        	
+        	// set data source
+        	$phpThumb->setSourceFilename($filePath);
+        	
+        	// set parameters (see "URL Parameters" in phpthumb.readme.txt)
+        	$phpThumb->setParameter('w', CFG_BUSINESS_LOGO_WIDTH);        	
+        	$phpThumb->setParameter('h', CFG_BUSINESS_LOGO_HEIGHT);
+        	
+        	$phpThumb->setParameter('zc', 'l');
+        	
+        	// set parameters
+        	$phpThumb->setParameter('config_output_format', 'jpeg');
+        	
+        	// generate & output thumbnail
+        	//$output_filename = 't-' . CFG_BUSINESS_LOGO_WIDTH . 'x' . CFG_BUSINESS_LOGO_HEIGHT . '-' . $fileName;
+        	
+        	
+        	$capture_raw_data = false;
+        	
+        	if ($phpThumb->GenerateThumbnail()) {
+        		$phpThumb->RenderToFile($filePath);
+        	} else {
+//         		do something with debug/error messages
+        		echo 'Failed (size='.$thumbnail_width.').<br>';
+        		echo '<div style="background-color:#FFEEDD; font-weight: bold; padding: 10px;">'.$phpThumb->fatalerror.'</div>';
+        		echo '<form><textarea rows="40" cols="180" wrap="off">'.htmlentities(implode("\n* ", $phpThumb->debugmessages)).'</textarea></form><hr>';
+        		die;
+        	}
+        }
 
-        return JFile::upload($uploadFileTemp, $filePath) ? $fileName : false;
+        return $fileName;
     }
 }

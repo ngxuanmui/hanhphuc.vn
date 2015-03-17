@@ -66,56 +66,43 @@ class JE_ContentModelFeatured extends JModelList
 	
 	public function getArticles()
 	{
-	    $db = JFactory::getDbo();
-	    $query = $db->getQuery(true);
-	    
-	    $query->select('*')
-		    ->from('#__categories')
-		    ->where('extension = "com_je_content"')
-		    ->where('published = 1')
-		    ->order('lft')
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+	  
+		$query->select('*')
+				->from('#__categories')
+				->where('extension = "com_je_content"')
+				->where('published = 1')
+				->where('featured = 1')
+				->order('lft')
 		;
-	    
-	    $db->setQuery($query);
-	    $categories = $db->loadObjectList();
-	    
-	    $arrCat = array();
-	    
-	    $idx = 0;
-	    
-	    foreach ($categories as $category)
-	    {
-		if ($category->level == 1)
-		    $arrCat[$category->id]['category'] = $category;
-		else
+	  
+		$db->setQuery($query);
+		$categories = $db->loadObjectList();
+	  
+		$arrCat = array();
+	  
+		foreach ($categories as $key => $category)
 		{
-		    if ($category->featured == 0)
-			continue;
-		    
-		    $query = $db->getQuery(true);
-		    
-		    $query->select('id, catid, title, alias, introtext, images')
-			    ->from('#__je_content')
-			    ->where('catid = ' . $category->id)
-			    ->where('state = 1')
-			    ->order('id DESC')
+			$query->clear()
+					->select('id, catid, title, alias, introtext, images')
+					->from('#__je_content')
+					->where('catid = ' . $category->id)
+					->where('state = 1')
+					->order('id DESC')
 			;
-		    
-		    $db->setQuery($query, 0, 3);
-		    $rs = $db->loadObjectList();
-		    
-		    if (!empty($rs))
-		    {
-			$arrCat[$category->parent_id]['sub'][$category->id] = $category;
-			$arrCat[$category->parent_id]['articles'][$category->id] = $rs;
-		    }
 			
+			$db->setQuery($query, 0, 3);
+			$rs = $db->loadObjectList();
+
+			if (!empty($rs))
+			{
+				$arrCat[$key]['sub'][$category->id] = $category;
+				$arrCat[$key]['articles'][$category->id] = $rs;
+			}
 		}
-		
-		$idx ++;
-	    }
-	    
-	    return $arrCat;
+				
+		return $arrCat;
 	}
 	
 }

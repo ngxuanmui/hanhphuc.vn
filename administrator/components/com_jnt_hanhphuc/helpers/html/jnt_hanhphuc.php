@@ -58,5 +58,57 @@ abstract class JHtmlJnt_Hanhphuc
 
 		return JHtml::_('jgrid.state', $states, $value, $i, 'users.', $enabled, true, $checkbox);
 	}
+	
+	public static function is_verify_user($value, $i, $enabled = true, $checkbox = 'cb')
+	{
+		$states	= array(
+				1	=> array(
+						'is_verify_user_unpublish',
+						'User verified. Click to un-verify',
+						'User un-verified. Click to verify',
+						'COM_BANNERS_BANNERS_PINNED',
+						false,
+						'publish',
+						'publish'
+				),
+				0	=> array(
+						'is_verify_user_publish',
+						'User un-verified. Click to verify',
+						'User un-verified. Click to verify',
+						'COM_BANNERS_BANNERS_UNPINNED',
+						false,
+						'unpublish',
+						'unpublish'
+				),
+		);
+	
+		return JHtml::_('jgrid.state', $states, $value, $i, 'users.', $enabled, true, $checkbox);
+	}
+	
+	public static function is_verify_transaction($value, $i, $enabled = true, $checkbox = 'cb')
+	{
+		$states	= array(
+				1	=> array(
+						'is_verify_transaction_unpublish',
+						'User verified. Click to un-verify',
+						'User un-verified. Click to verify',
+						'COM_BANNERS_BANNERS_PINNED',
+						false,
+						'publish',
+						'publish'
+				),
+				0	=> array(
+						'is_verify_transaction_publish',
+						'User un-verified. Click to verify',
+						'User un-verified. Click to verify',
+						'COM_BANNERS_BANNERS_UNPINNED',
+						false,
+						'unpublish',
+						'unpublish'
+				),
+		);
+	
+		return JHtml::_('jgrid.state', $states, $value, $i, 'users.', $enabled, true, $checkbox);
+	}
 
 }

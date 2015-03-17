@@ -12,8 +12,17 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 
-// Create shortcuts to some parameters.
+$paymentMethods = FrontJntHanhphucHelper::getPaymentMethods();
+
 ?>
+
+<script type="text/javascript">
+<!--
+jQuery(function($){
+	
+});
+//-->
+</script>
 
 
 <div class="container">
@@ -59,19 +68,27 @@ JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 		    <div class="clr"></div>
 		    
 		    <div>
-		    	<h3>Chọn hình thức thanh toán:</h3>
 		    	<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.choicePayMethodSubmit')?>" method="post">
 		    		<input type="hidden" name="option" value="com_jnt_hanhphuc"/>
 		    		<input type="hidden" name="task" value="order.choicePayMethodSubmit"/>
 		    		
-		    		<input id="payment_method_1" type="radio" name="payment_method" value="1" />
+		    		<?php /*?>
+		    		<input id="payment_method_1" type="radio" name="payment_method" value="1" checked="checked" />
 		    		<label for="payment_method_1">Chuyển tiền qua bưu điện</label>
-		    			
-		    		<br/>
-		    		<input id="payment_method_2" type="radio" name="payment_method" value="2" />
-		    		<label for="payment_method_2">Thanh toán qua chuyển khoản</label>
 		    		
-		    		<br/>
+		    		<div class="payment_method_info">
+		    			<?php echo nl2br($paymentMethods->get('payment_method_1')); ?>
+		    		</div>
+		    		*/ ?>
+		    		
+		    		<input id="payment_method_1" type="hidden" name="payment_method" value="1" />
+		    		<label for="payment_method_1">Thanh toán qua chuyển khoản</label>
+		    		
+		    		
+		    		<div class="payment_method_info">
+		    			<?php echo nl2br($paymentMethods->get('payment_method_1')); ?>
+		    		</div>
+		    		
 		    		<input class="button" type="submit" value="Tiếp tục thanh toán"/>
 		    	</form>
 		    </div>

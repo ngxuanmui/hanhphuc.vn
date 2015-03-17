@@ -20,10 +20,13 @@ jimport('joomla.application.component.view');
 class Jnt_HanhPhucViewCart_Shipinfo extends JView {
 
 	protected $order;
+	protected $provinces;
 
 	function display($tpl = null) {
 		$cartModel = JModel::getInstance('Cart', 'Jnt_HanhPhucModel');
 		$this->order = $cartModel->getOrder();
+		
+		$this->provinces = FrontJntHanhphucHelper::getProvinces();
 		
 		parent::display($tpl);
 	}

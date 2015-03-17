@@ -56,4 +56,31 @@ class Jnt_HanhphucControllerUser_Man_Address extends JControllerForm
 		
 		return true;
 	}
+	
+	public function delete_address()
+	{
+		$user = JFactory::getUser();
+		$id = JRequest::getInt('id');
+		
+		$model = $this->getModel();
+		
+		$result = $model->deleteAddress($user->id, $id);
+		
+		$msg = '';
+		$type = '';
+		
+		if (!$result)
+		{
+			$msg = 'Bạn không có quyền xóa thông tin này!';
+			$type = 'error';
+		}
+		else
+		{
+			$msg = 'Thông tin đã được xóa';
+		}
+		
+		$this->setRedirect(JRoute::_('index.php?option=com_jnt_hanhphuc&view=user_man_addresses'), $msg, $type);
+		
+		return true;
+	}
 }

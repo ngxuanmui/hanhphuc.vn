@@ -13,7 +13,36 @@ defined('_JEXEC') or die;
 $user = $this->user_info;
 $profile = $user->profile;
 
+$checkInfo = $this->checkInfo;
+
+// check info
+$hasAddresses = (!empty($this->addresses)) ? true : false;
+$hasServices = (!empty($this->items)) ? true : false;
+$hasPromotions = $checkInfo['has_promotions'];
+$hasWeddingImages = $checkInfo['has_albums'];
+$hasVerifyBusiness = $user->is_verify_user > 0 ? true : false;
+$hasVerifyTransaction = $user->is_verify_transaction ? true : false;
+
 ?>
+
+<script type="text/javascript">
+<!--
+jQuery(function($) {
+	  $('a[href*=#]:not([href=#])').click(function() {
+	    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+	      var target = $(this.hash);
+	      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+	      if (target.length) {
+	        $('html,body').animate({
+	          scrollTop: target.offset().top
+	        }, 1000);
+	        return false;
+	      }
+	    }
+	  });
+	});
+//-->
+</script>
 
 <div class="container">
     <div class="float-left left-side">
@@ -22,12 +51,43 @@ $profile = $user->profile;
 			
 			<div class="business-intro-desc">
 			
-				<?php if ($profile->business_logo != ''): ?>
-				<div class="business-logo">
+				<?php if ($profile->business_logo != ''): ?>				
+				<div class="business-intro-logo fltlft">
 					<img src="<?php echo JURI::base();?>images/business/<?php echo $profile->business_logo; ?>" />
-				</div>				
+				</div>
 				<?php endif; ?>
+			
+				<ul class="business-verify-info fltrgt">
+					<li class="business-contact<?php if (!$hasAddresses) echo '-disable'; ?>">
+						<?php if ($hasAddresses): ?>
+						<a href="#contact-info">&nbsp</a>
+						<?php endif; ?>
+					</li>
+					<li class="business-promotion<?php if (!$hasPromotions) echo '-disable'; ?>">
+						<?php if ($hasPromotions): ?>
+						<a href="#business-promotion">&nbsp</a>
+						<?php endif; ?>
+					</li>
+					<li class="business-verify-business<?php if (!$hasVerifyBusiness) echo '-disable'; ?>">
+						
+					</li>
+					<li class="business-wedding-image<?php if (!$hasWeddingImages) echo '-disable'; ?>">
+						<?php if ($hasWeddingImages): ?>
+						<a href="#business-user-albums">&nbsp</a>
+						<?php endif; ?>
+					</li>
+					<li class="business-service<?php if (!$hasServices) echo '-disable'; ?>">
+						<?php if ($hasServices): ?>
+						<a href="#product-service">&nbsp</a>
+						<?php endif; ?>
+					</li>
+					<li class="business-verify-transaction<?php if (!$hasVerifyTransaction) echo '-disable'; ?>">
+						
+					</li>
+				</ul>
 				
+				<div class="clr"></div>
+			
 				<?php echo $user->info->content; ?>
 				
 				<?php if (!empty($profile->nick_skype) || !empty($profile->nick_yahoo)): ?>				
@@ -50,7 +110,7 @@ $profile = $user->profile;
 				
 				<div class="seperator absolute"></div>
 				
-				<h2>SẢN PHẨM VÀ DỊCH VỤ</h2>
+				<h2 id="product-service">SẢN PHẨM VÀ DỊCH VỤ</h2>
 				<ul class="items">
 					<?php foreach($this->items as $item):?>
 					<li class="service-business-detail">
@@ -76,97 +136,8 @@ $profile = $user->profile;
 				<div class="clr"></div>
 			</div>
 			<?php endif; ?>
-
-<script type="text/javascript" src="http://www.google.com/jsapi?key=AIzaSyAAVKaGv0Tn_kz-xPSjLl66dznQuLssKqM"></script>
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAVKaGv0Tn_kz-xPSjLl66dznQuLssKqM&sensor=false"></script>
 			
-<script type="text/javascript">
-<!--
-
-google.load("maps", "2");
-
-function addmarker(latilongi) {
-    
-}
-
-jQuery(function($){
-	$('.show-map-address').click(function(){
-		
-		var rel = $(this).attr('rel');
-
-		if ($('.content-' + rel).hasClass('remain-display'))
-		{
-			$('.address-content').removeClass('remain-display');
-			$('.content-' + rel).addClass('remain-display');
-			return false;
-		}
-		
-		var address = $(this).attr('add');
-
-		$('ul.list-address li').css({'border-top': 'none', 'border-bottom': 'none'});
-		
-		$('.address-content').css('display', 'none');
-
-		var htmlContent = $('.content-' + rel).html();
-
-		$('.content-' + rel).parent().css({'border-top': '1px solid #CCC', 'border-bottom': '1px solid #CCC'});
-		
-		$('.content-' + rel).toggle().html('Đang tải ...');
-
-		$('.show-map-address').css('font-weight', 'normal');
-		
-		$(this).css('font-weight', 'bold');
-		
-		$.post('<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&view=services&layout=map&tmpl=component&getmap=1', false); ?>',
-				{'address': address},
-				function(res)
-				{
-					
-					var mapContainer = $('.map-container');
-
-					if (mapContainer.hasClass('not-display'))
-					{
-						mapContainer.slideToggle( "slow").removeClass('not-display');
-					}						
-					
-					$('#map_canvas').html('loading');
-					
-					res = $.parseJSON(res);
-
-					var myLatlng = new google.maps.LatLng(res.lat, res.lng);
-					
-					var mapOptions = {
-					    zoom: 4,
-					    center: myLatlng,
-					    scrollwheel: false
-					};
-					
-					var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-					
-					map.setCenter(myLatlng, 14);
-
-					map.disableScrollWheelZoom()
-
-					var marker = new GMarker(myLatlng, {draggable: false});
-
-					map.addOverlay(marker);
-					
-					$('.address-content').removeClass('remain-display');
-					$('.content-' + rel).html(htmlContent).addClass('remain-display');
-				}
-			);
-
-		return false;
-	});
-});
-
-//google.maps.event.addDomListener(window, 'load', initialize);
-
-//-->
-</script>
-			
-			<div class="business-info relative">
+			<div class="business-info relative" id="contact-info">
 				
 				<div class="seperator absolute"></div>
 					<h3 style="font-size: 14px; padding: 0 0 10px;"><?php echo $profile->business_name; ?></h3>
@@ -196,6 +167,8 @@ jQuery(function($){
 						<?php endif; ?>
 					</ul>
 					<?php endif; ?>
+					
+					<?php if ($hasAddresses): ?>
 					
 					<div style="color: #CCC;">
 					(Click vào địa chỉ để xem bản đồ)
@@ -242,6 +215,8 @@ jQuery(function($){
 					<div class="map-container not-display" style="width: 635px; display: none; ">
 						<div id="map-canvas" style="width: 635px; height: 330px;"></div>
 					</div>
+					
+					<?php endif; ?>
 			
 				<div class="clr"></div>
 			</div>

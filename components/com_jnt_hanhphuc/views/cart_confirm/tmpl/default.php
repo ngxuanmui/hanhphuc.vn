@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 
-// Create shortcuts to some parameters.
+$paymentMethods = FrontJntHanhphucHelper::getPaymentMethods();
 ?>
 
 <div class="container">
@@ -63,11 +63,9 @@ JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 		    </div>
 		    <div>
 		    	<h3>Thông tin thanh toán</h3>
-		    	<?php if($this->payMethod == 1):?>
-		    	<p>Thông tin tài khoản để chuyển tiền qua bưu điện.</p>
-		    	<?php else :?>
-		    	<p>Thông tin tài khoản để chuyển khoản qua ngân hàng</p>
-		    	<?php endif;?>
+		    	<div class="payment_method_info">
+		    		<?php echo nl2br($paymentMethods->get('payment_method_' . $this->payMethod)); ?>
+		    	</div>
 		    	<form action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.confirm')?>" method="post">
 		    		<input type="hidden" name="option" value="com_jnt_hanhphuc"/>
 		    		<input type="hidden" name="task" value="order.confirm"/>

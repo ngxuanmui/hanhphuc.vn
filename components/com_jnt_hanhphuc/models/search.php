@@ -54,6 +54,23 @@ class Jnt_HanhPhucModelSearch extends JModelList {
 	
 	protected function getListQuery()
 	{
+		$catId = JRequest::getInt('catid');
+		$province = JRequest::getInt('province');
+		$district = JRequest::getInt('district');
+		$search = JRequest::getString('search');
+		
+		if (empty($catId) && empty($province) && empty($district) && empty($search))
+		{
+			$link = JRoute::_('index.php?option=com_jnt_hanhphuc&view=categories');
+			$msg = 'Vui lòng chọn ít nhất 1 điều kiện tìm kiếm';
+			
+			$app = JFactory::getApplication();
+			$app->redirect($link, $msg, 'warning');
+			
+			return true;
+		}
+		
+		
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 
@@ -98,11 +115,6 @@ class Jnt_HanhPhucModelSearch extends JModelList {
 		$query->select('district.title AS district_title')
 		->join('INNER', '#__location_district district ON ua.district = district.id')
 		;
-				
-		$catId = JRequest::getInt('catid');
-		$province = JRequest::getInt('province');
-		$district = JRequest::getInt('district');
-		$search = JRequest::getString('search');
 		
 		if ($catId)
 			$query->where('u.id IN (SELECT DISTINCT business_id FROM #__hp_business_service WHERE state = 1 AND category = '. (int) $catId .' ORDER BY id DESC)');

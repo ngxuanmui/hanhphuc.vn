@@ -20,6 +20,13 @@
 			validate="contactemail"
 			required="true"
 		/>
+		<field name="contact_phone"
+			type="text"
+			id="contact-email"
+			size="30"
+			label="Phone"
+			filter="string"
+		/>
 		<field name="contact_subject"
 			type="text"
 			id="contact-emailmsg"

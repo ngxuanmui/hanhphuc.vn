@@ -12,6 +12,10 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 
+// $paymentMethods = FrontJntHanhphucHelper::getPaymentMethods();
+
+// var_dump($paymentMethods->get('payment_method_1'));
+
 // Create shortcuts to some parameters.
 ?>
 
@@ -29,8 +33,42 @@ defined('_JEXEC') or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 
-// Create shortcuts to some parameters.
 ?>
+
+<script type="text/javascript">
+<!--
+jQuery(function(){
+	jQuery("#frm_shipping").validate(
+			{
+				messages: {
+					'address[address]': "Vui lòng nhập vào địa chỉ",
+					'address[city]': "Vui lòng chọn Tỉnh/Thành phố",
+					'address[district]': "Vui lòng chọn Quận/Huyện",
+					'address[mobile]': "Vui lòng nhập vào Điện thoại"
+				}
+			}
+	);
+
+	jQuery("#address_city").change(function(){
+        value = jQuery(this).val();
+        jQuery.get(
+        	BASE_URL + 'index.php?option=com_jnt_hanhphuc&task=location.getLocations&type=district&parent_column=province_id&parent='+value, 
+        	function(data){
+                $input = "";
+                jQuery(data).each(function(index, element){
+                    $input += "<option value=\""+element.value+"\">";
+                    $input += element.text;
+                    $input += "</option>";
+                });
+                jQuery("#address_district").html($input);
+            }, 
+            "json"
+        );
+    });
+});
+//-->
+</script>
+
 
 <div class="container">
     <div class="float-left left-side">
@@ -76,24 +114,31 @@ JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 		    
 		    <div>
 		    	<h2>Địa chỉ nhận hàng:</h2>
-		    	<form class="frm-shipping" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.shippingInfoSubmit')?>" method="post">
+		    	<form id="frm_shipping" class="frm-shipping form-validate" action="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=order.shippingInfoSubmit')?>" method="post">
 		    		<input type="hidden" name="option" value="com_jnt_hanhphuc"/>
 		    		<input type="hidden" name="task" value="order.shippingInfoSubmit"/>
 		    		
 		    		<ul>
 		    			<li>
 		    				<label for="address_address">Địa chỉ:</label>
-		    				<input id="address_address" type="text" name="address[address]"/>
+		    				<input id="address_address" type="text" name="address[address]" required />
 		    			</li>
 		    			
 		    			<li>
 		    				<label for="address_city">Tỉnh/Thành Phố:</label>
-		    				<input id="address_city" type="text" name="address[city]"/>
+		    				<select id="address_city" name="address[city]" required>
+		    					<option value="">- Lựa chọn -</option>
+		    					<?php foreach ($this->provinces as $p): ?>
+		    					<option value="<?php echo $p->id; ?>"><?php echo $p->title; ?></option>
+		    					<?php endforeach; ?>
+		    				</select>
 		    			</li>
 		    			
 		    			<li>
 		    				<label for="address_district">Quận/Huyện:</label>
-		    				<input id="address_district" type="text" name="address[district]"/>
+		    				<select id="address_district" name="address[district]" required>
+		    					<option value="">- Lựa chọn -</option>
+		    				</select>
 		    			</li>
 		    			
 		    			<li>
@@ -103,7 +148,7 @@ JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
 		    			
 		    			<li>
 		    				<label for="address_mobile">Điện thoại:</label>
-		    				<input id="address_mobile" type="text" name="address[mobile]"/>
+		    				<input id="address_mobile" type="text" name="address[mobile]" required />
 		    			</li>
 		    			
 		    			<li>

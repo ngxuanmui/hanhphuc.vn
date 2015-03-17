@@ -30,6 +30,11 @@ class Jnt_HanhphucViewAlbums extends JViewLegacy
 		$this->category = $this->get('Category');
 		
 		$this->_prepareDocument();
+		
+		$layout = JRequest::getString('layout');
+		
+		if ($layout == 'mansory')
+			$tpl = 'mansory';
 
 		parent::display($tpl);
 	}

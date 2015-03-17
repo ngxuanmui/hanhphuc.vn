@@ -205,7 +205,7 @@ class Jnt_HanhPhucHelper
 	    return $rs;
 	}
 
-	static function uploadImages($field, $item, $delImage = 0, $itemType = 'albums')
+	static function uploadImages($field, $item, $delImage = 0, $itemType = 'albums', $width = 0, $height = 0)
 	{
 		$jFileInput = new JInput($_FILES);
 		$file = $jFileInput->get('jform', array(), 'array');
@@ -265,9 +265,67 @@ class Jnt_HanhPhucHelper
 				JError::raiseWarning(100, JText::_('COM_MEDIA_ERROR_UNABLE_TO_UPLOAD_FILE')); // Error in upload
 				return '';
 			}
-
-			// set value to return
-			$image = 'images/'.$itemType.'/' . str_replace(DS, '/', $date) . '/' . $item->id . '/' . $fileName;
+			
+			
+			
+			// if upload success, resize image
+			if ($width)
+			{
+				require_once JPATH_ROOT . DS . 'jelibs/phpthumb/phpthumb.class.php';
+				
+				// create phpThumb object
+				$phpThumb = new phpThumb();
+				
+				if (include_once(JPATH_ROOT . DS . 'jelibs/phpthumb/phpThumb.config.php')) {
+					foreach ($PHPTHUMB_CONFIG as $key => $value) {
+						$keyname = 'config_'.$key;
+						$phpThumb->setParameter($keyname, $value);
+					}
+				}
+				
+				// this is very important when using a single object to process multiple images
+				$phpThumb->resetObject();
+				
+				$phpThumb->setSourceFilename($filepath);
+				
+				// set parameters (see "URL Parameters" in phpthumb.readme.txt)
+				$phpThumb->setParameter('w', $width);
+				
+				if ($height)
+					$phpThumb->setParameter('h', $height);
+				
+				$phpThumb->setParameter('config_output_format', 'jpeg');
+				
+				// set value to return
+				$image = 'images/'.$itemType.'/' . str_replace(DS, '/', $date) . '/' . $item->id . '/' . $fileName;
+				
+				if ($phpThumb->GenerateThumbnail()) 
+				{
+					if ($image) 
+					{
+						if (!$phpThumb->RenderToFile($filepath)) 
+						{
+							// do something on failed
+							die('Failed (size='.$width.'):<pre>'.implode("\n\n", $phpThumb->debugmessages).'</pre>');
+						}
+						
+						$phpThumb->purgeTempFiles();
+					}
+				} else {
+					// do something with debug/error messages
+					echo 'Failed (size='.$width.').<br>';
+					echo '<div style="background-color:#FFEEDD; font-weight: bold; padding: 10px;">'.$phpThumb->fatalerror.'</div>';
+					echo '<form><textarea rows="100" cols="300" wrap="off">'.htmlentities(implode("\n* ", $phpThumb->debugmessages)).'</textarea></form><hr>';
+					
+					die;
+				}
+			}
+			else
+			{
+				// set value to return
+				$image = 'images/'.$itemType.'/' . str_replace(DS, '/', $date) . '/' . $item->id . '/' . $fileName;
+			}
+			
 		}
 		else
 			if (!$flagDelete)

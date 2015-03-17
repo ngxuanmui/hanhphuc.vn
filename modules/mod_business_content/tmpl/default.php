@@ -9,7 +9,14 @@
 // no direct access
 defined('_JEXEC') or die;
 ?>
+
+<div class="module-title module-padding" id="business-promotion">THÔNG TIN KHUYẾN MẠI</div>
+
+<div class="line-break"></div>
+
 <div class="box">
+	
+	
 	<ul class="promotion-content">
 		<?php 
 		if (!empty($list)):

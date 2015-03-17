@@ -66,7 +66,7 @@ defined('_JEXEC') or die;
 	});
 </script>
 
-<div class="module-title module-padding">Album Ảnh cưới</div>
+<div class="module-title module-padding" id="business-user-albums">Album Ảnh cưới</div>
 <div class="line-break"></div>
 <div id="albums-wrapper" class="relative">
 	<ul class="album-bxslider">

@@ -1,7 +1,5 @@
 <?php
-$limitStart = JRequest::getInt('limitstart', 0);
 
-$next = (($limitStart / CFG_LIST_USER_CONTENT) + 1) * CFG_LIST_USER_CONTENT;
 ?>
 
 <script type='text/javascript' src='<?php echo JURI::base(); ?>/media/hp/html/js/jquery.masonry.min.js?ver=3.4.1'></script>
@@ -10,6 +8,8 @@ $next = (($limitStart / CFG_LIST_USER_CONTENT) + 1) * CFG_LIST_USER_CONTENT;
 <script type="text/javascript">
 <!--
 var USE_MASONRY = true;
+
+var $nextPage = 0;
 
 jQuery(function($){
 	$('#wrapper').infinitescroll({
@@ -23,11 +23,21 @@ jQuery(function($){
             finishedMsg: ''
 			}
 		}, function(arrayOfNewElems) {
+			
 			var $newElems = $( arrayOfNewElems ).css({ opacity: 0 });
+
+			$nextPage ++;
+
+			var next = $nextPage * <?php echo CFG_LIST_USER_CONTENT; ?>;
+
+			$('#selector .infinitescroll a').attr('href', next);
+
 			// ensure that images load before adding to masonry layout
 			$newElems.imagesLoaded(function(){
+
 				// show elems now they're ready
 				$newElems.css({ opacity: 1 });
+				
 				$('#wrapper').masonry( 'appended', $newElems, {columnWidth: 300} ); 
 			});
 	});
@@ -79,10 +89,14 @@ jQuery(function($){
 			$counter = $pagination->getPagesCounter();
 			
 			if (!empty($counter)):
+			
+			$limitStart = JRequest::getInt('limitstart', 0);
+			
+			$next = (($limitStart / CFG_LIST_USER_CONTENT) + 1) * CFG_LIST_USER_CONTENT;
 			?>
 			<div id="selector">
 				<div class="infinitescroll">
-					<a href="<?php echo 'index.php?option=com_jnt_hanhphuc&view=albums&limitstart=' . $next; ?>" >Next Page</a>
+					<a href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&limitstart='.$next.'&view=albums&tmpl=component&layout=mansory', false); ?>" >Next Page</a>
 				</div>
 			</div>
 

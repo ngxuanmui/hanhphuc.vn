@@ -15,6 +15,19 @@ JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 $items = $this->items;
 ?>
 
+<script type="text/javascript">
+<!--
+jQuery(function($){
+	$('a.delete-address').click(function(){
+		if (confirm('Bạn chắc chắn xóa địa chỉ này?'))
+			return true;
+
+		return false;
+	});
+});
+//-->
+</script>
+
 <h1>Danh sách địa chỉ</h1>
 
 <div class="container">
@@ -26,7 +39,7 @@ $items = $this->items;
 						<tr class="oven">
 							<th>Tiêu đề</th>
 							<th width="1%" nowrap="nowrap">Hiển thị</th>
-							<th width="1%" nowrap="nowrap">Mặc định</th>
+							<th width="1%" nowrap="nowrap">Xóa</th>
 						</tr>
 						<?php if (!empty($items)): ?>
 						<?php foreach ($items as $key => $item): ?>
@@ -43,7 +56,11 @@ $items = $this->items;
 								</a>
 							</td>
 							<td><?php echo ($item->state == 1) ? 'Có' : 'Không'; ?></td>
-							<td><?php echo ($item->sticky == 1) ? 'Có' : 'Không'; ?></td>
+							<td>
+								<a class="delete-address" href="<?php echo JRoute::_('index.php?option=com_jnt_hanhphuc&task=user_man_address.delete_address&id=' . $item->id); ?>">
+									Xóa
+								</a>
+							</td>
 						</tr>
 						<?php endforeach; ?>
 						<?php else: ?>

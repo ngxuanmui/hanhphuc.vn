@@ -44,7 +44,6 @@ class JEUtil
 	
 		// set parameters
 		$phpThumb->setParameter('config_output_format', 'jpeg');
-		$phpThumb->setParameter('config_imagemagick_path', '/usr/local/bin/convert');
 	
 		// generate & output thumbnail
 		$output_filename = str_replace('/', DS, $thumb_path) . DS . 't-' . $thumbnail_width . 'x' . $thumbnail_height . '-' . $image_name; # .'_'.$thumbnail_width.'.'.$phpThumb->config_output_format;

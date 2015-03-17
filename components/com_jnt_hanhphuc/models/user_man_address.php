@@ -190,4 +190,35 @@ class Jnt_HanhphucModelUser_Man_Address extends JModelAdmin
 	{
 		
 	}
+	
+	public function deleteAddress($userId, $addressId)
+	{
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		
+		$table = '#__user_addresses';
+		
+		// check before delete
+		$query->select('id')->from($table)->where('id = ' . (int) $addressId)->where('created_by = ' . (int) $userId);
+		
+		$db->setQuery($query);
+		
+		$obj = $db->loadObject();
+		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
+		
+		if (!$obj->id)
+			return false;
+		
+		$query->clear()->delete($table)->where('id = ' . (int) $addressId)->where('created_by = ' . (int) $userId);
+		$db->setQuery($query);
+		
+		$db->query();
+		
+		if ($db->getErrorMsg())
+			die ($db->getErrorMsg());
+		
+		return true;
+	}
 }

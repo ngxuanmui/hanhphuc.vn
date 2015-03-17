@@ -52,6 +52,12 @@ $loggeduser = JFactory::getUser();
 				<th class="nowrap" width="5%">
 					<?php echo JHtml::_('grid.sort', 'Activated', 'a.activation', $listDirn, $listOrder); ?>
 				</th>
+				<th width="5%">
+					<?php echo JText::_('Verify User'); ?>
+				</th>
+				<th width="5%">
+					<?php echo JText::_('Verify Transaction'); ?>
+				</th>
 				<th class="nowrap" width="10%">
 					<?php echo JText::_('Group'); ?>
 				</th>
@@ -124,6 +130,12 @@ $loggeduser = JFactory::getUser();
 				</td>
 				<td class="center">
 					<?php echo JHtml::_('grid.boolean', $i, !$item->activation, 'users.activate', null); ?>
+				</td>
+				<td class="center">
+					<?php echo JHtml::_('jnt_hanhphuc.is_verify_user', $item->is_verify_user, $i, $canChange); ?>
+				</td>
+				<td class="center">
+					<?php echo JHtml::_('jnt_hanhphuc.is_verify_transaction', $item->is_verify_transaction, $i, $canChange); ?>
 				</td>
 				<td class="center">
 					<?php if (substr_count($item->group_names, "\n") > 1) : ?>

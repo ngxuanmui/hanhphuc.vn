@@ -411,3 +411,72 @@ ul.noted li { margin: 5px 0; }
 
 .address-content { display: none; }
 .address-content span { display: inline-block; padding-right: 15px; }
+
+label.error { width: 400px !important; padding-left: 150px; }
+input.error, textarea.error, select.error { border: 1px solid red; }
+
+.payment_method_info { padding: 5px; margin: 0 12px; }
+
+.business-intro-logo { width: 200px; height: 200px; overflow: hidden; margin-bottom: 20px; }
+.img-business-intro-logo { border: none !important; }
+ul.business-verify-info { width: 434px; margin-bottom: 20px; }
+ul.business-verify-info li { float: left; width: 100px; height: 100px; }
+ul.business-verify-info li a { float: left; width: 100%; height: 100px; }
+
+ul.business-verify-info li.business-contact { background: url('../images/business-verify/contact-normal.png') no-repeat; }
+ul.business-verify-info li.business-promotion { background: url('../images/business-verify/promotion-normal.png') no-repeat; }
+ul.business-verify-info li.business-verify-business { background: url('../images/business-verify/verify-business.png') no-repeat; width: 234px; }
+ul.business-verify-info li.business-wedding-image { background: url('../images/business-verify/wedding-image-normal.png') no-repeat; }
+ul.business-verify-info li.business-service { background: url('../images/business-verify/service-normal.png') no-repeat; }
+ul.business-verify-info li.business-verify-transaction { background: url('../images/business-verify/verify-transaction.png') no-repeat; width: 234px; }
+
+ul.business-verify-info li.business-contact:hover { background: url('../images/business-verify/contact-hover.png') no-repeat; }
+ul.business-verify-info li.business-promotion:hover { background: url('../images/business-verify/promotion-hover.png') no-repeat; }
+ul.business-verify-info li.business-wedding-image:hover { background: url('../images/business-verify/wedding-image-hover.png') no-repeat; }
+ul.business-verify-info li.business-service:hover { background: url('../images/business-verify/service-hover.png') no-repeat; }
+
+/* disable */
+ul.business-verify-info li.business-contact-disable { background: url('../images/business-verify/contact-disable.png') no-repeat; }
+ul.business-verify-info li.business-promotion-disable { background: url('../images/business-verify/promotion-disable.png') no-repeat; }
+ul.business-verify-info li.business-verify-business-disable { background: url('../images/business-verify/verify-business-disable.png') no-repeat; width: 234px; }
+ul.business-verify-info li.business-wedding-image-disable { background: url('../images/business-verify/wedding-image-disable.png') no-repeat; }
+ul.business-verify-info li.business-service-disable { background: url('../images/business-verify/service-disable.png') no-repeat; }
+ul.business-verify-info li.business-verify-transaction-disable { background: url('../images/business-verify/verify-transaction-disable.png') no-repeat; width: 234px; }
+
+.cd-top {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  position: fixed;
+  bottom: 40px;
+  right: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  /* image replacement properties */
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  background: rgba(232, 98, 86, 0.8) url(../images/cd-top-arrow.svg) no-repeat center 50%;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: opacity .3s 0s, visibility 0s .3s;
+  -moz-transition: opacity .3s 0s, visibility 0s .3s;
+  transition: opacity .3s 0s, visibility 0s .3s;
+}
+.cd-top.cd-is-visible, .cd-top.cd-fade-out, .no-touch .cd-top:hover {
+  -webkit-transition: opacity .3s 0s, visibility 0s 0s;
+  -moz-transition: opacity .3s 0s, visibility 0s 0s;
+  transition: opacity .3s 0s, visibility 0s 0s;
+}
+.cd-top.cd-is-visible {
+  /* the button becomes visible */
+  visibility: visible;
+  opacity: 1;
+}
+.cd-top.cd-fade-out {
+  /* if the user keeps scrolling down, the button is out of focus and becomes less visible */
+  opacity: .5;
+}
+.no-touch .cd-top:hover {
+  background-color: #e86256;
+  opacity: 1;
+}

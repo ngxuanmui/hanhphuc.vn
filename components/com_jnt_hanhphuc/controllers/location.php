@@ -35,12 +35,12 @@ class Jnt_HanhPhucControllerLocation extends JController {
             $parentValue = $parent;
             $query->where('l.'.$parentColumn. ' = '.$parentValue);
         }
-
+        
         // Get the options.
         $db->setQuery($query);
 
         $options = $db->loadObjectList();
-        array_unshift($options, JHtml::_('select.option', '0', JText::_('- Lựa chọn -')));
+        array_unshift($options, JHtml::_('select.option', '', JText::_('- Lựa chọn -')));
         echo json_encode($options);
         die;
     }

@@ -1,7 +1,7 @@
 <?php
 
 class FrontJntHanhphucHelper
-{
+{	
 	public function getUsers($catId, $getQuery = false, $limit = 6)
 	{
 		$db = JFactory::getDbo();
@@ -96,5 +96,14 @@ class FrontJntHanhphucHelper
 			die ($db->getErrorMsg());
 
 		return $rs;
+	}
+	
+	public static function getPaymentMethods()
+	{
+		jimport('joomla.application.component.helper');
+		
+		$params = JComponentHelper::getParams('com_jnt_hanhphuc');
+		
+		return $params;
 	}
 }

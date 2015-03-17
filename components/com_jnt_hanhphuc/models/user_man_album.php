@@ -237,18 +237,7 @@ class Jnt_HanhphucModelUser_Man_Album extends JModelAdmin
 
 			// Upload thumb
 			$item = $this->getItem();
-			$data['images'] = Jnt_HanhPhucHelper::uploadImages('images', $item, $delImage, 'albums');
-			
-//			$coordinates = LocaHelper::getGmapCoordinates($data['address']);
-//			
-//			$data['gmap_lat'] = $coordinates['lat'];
-//			$data['gmap_long'] = $coordinates['long'];
-			
-			//TODO: Update count location
-//			Jnt_HanhPhucHelper::updateCountLocations('albums');
-			
-			//TODO: Update count custom field for each location
-//			Jnt_HanhPhucHelper::updateCountCustomFieldLocations('albums');
+			$data['images'] = Jnt_HanhPhucHelper::uploadImages('images', $item, $delImage, 'albums', 300);
 
 			return parent::save($data);
 	    }

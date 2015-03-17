@@ -84,6 +84,10 @@ $doc->addScript(JURI::base() . 'media/jquery.bxslider/jquery.bxslider.min.js');
 		</div>
 	</div>
 	
+	<a href="#0" class="cd-top">Top</a>
+	
+	<script src="<?php echo $this->baseurl ?>/templates/<?php echo $this->template; ?>/javascript/back_to_top/main.js"></script>
+	
 	<jdoc:include type="modules" name="debug" />
 </body>
 </html>

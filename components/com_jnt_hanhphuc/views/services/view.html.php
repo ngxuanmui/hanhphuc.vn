@@ -25,6 +25,7 @@ class Jnt_HanhPhucViewServices extends JView {
 	protected $pagination;
 	protected $user_info;
 	protected $addresses;
+	protected $checkInfo;
     
 	function display($tpl = null) {
 		
@@ -37,6 +38,7 @@ class Jnt_HanhPhucViewServices extends JView {
 		$this->pagination	= $this->get('Pagination');
 		$this->user_info	= $this->get('UserInfo');
 		$this->addresses	= $this->get('Addresses');
+		$this->checkInfo	= $this->get('CheckPromotionsAndWeddingImages');
 		
 		$getMap = JRequest::getInt('getmap');
 		

@@ -200,4 +200,58 @@ class Jnt_HanhPhucModelServices extends JModelList
 		
 		return $rs;
 	}
+	
+	public function getCheckPromotionsAndWeddingImages()
+	{
+		$arr = array();
+		
+		$db = JFactory::getDbo();
+		
+		$query = $db->getQuery(true);
+		
+		// check albums
+		$query->select('a.id')
+			->from('#__hp_albums a')
+			->where('a.state = 1')
+			->order('a.id DESC');
+		
+		$userId = JRequest::getInt('user', 0);
+		
+		$query -> where('a.created_by = ' . (int) $userId);
+		
+		$db->setQuery($query);
+		
+		$result = $db->loadObject();
+		
+		$arr['has_albums'] = ($result->id > 0) ? true : false;
+		
+		// check promotions news
+		$query->clear()->select('c.id')->from('#__hp_business_content c')->where('c.state = 1');
+				
+		// join over user to get username
+		$query->select('u.username, u.name');
+		$query->join('INNER', '#__users u ON u.id = c.created_by');
+		
+		// filter by user id
+		$userId = JRequest::getInt('user');
+		
+		$query->where('c.created_by = ' . $userId);
+		
+		// Filter by start and end dates.
+		$nullDate	= $db->Quote($db->getNullDate());
+		$nowDate	= $db->Quote(JFactory::getDate()->toSql());
+		
+		$query->where('(c.publish_up = '.$nullDate.' OR c.publish_up <= '.$nowDate.')');
+		$query->where('(c.publish_down = '.$nullDate.' OR c.publish_down >= '.$nowDate.')');
+		
+		$query->order('c.id DESC');
+		
+		$db->setQuery($query);
+		
+		$result = $db->loadObject();
+		
+		$arr['has_promotions'] = ($result->id > 0) ? true : false;
+		
+		return $arr;
+	}
 }

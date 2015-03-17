@@ -491,7 +491,7 @@ class Jnt_HanhphucTableHp_User extends JTable
 	 * @return	boolean	True on success.
 	 * @since	1.6
 	 */
-	public function stick($pks = null, $state = 1, $userId = 0)
+	public function stick($pks = null, $state = 1, $userId = 0, $field = 'sticky')
 	{
 		// Initialise variables.
 		$k = $this->_tbl_key;
@@ -530,7 +530,7 @@ class Jnt_HanhphucTableHp_User extends JTable
 			if($table->checked_out==0 || $table->checked_out==$userId)
 			{
 				// Change the state
-				$table->sticky = $state;
+				$table->$field = $state;
 // 				$table->checked_out=0;
 // 				$table->checked_out_time=$this->_db->getNullDate();
 

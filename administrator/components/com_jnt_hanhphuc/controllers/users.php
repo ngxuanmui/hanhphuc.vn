@@ -44,6 +44,8 @@ class Jnt_HanhphucControllerUsers extends JControllerAdmin
 		$this->registerTask('block',		'changeBlock');
 		$this->registerTask('unblock',		'changeBlock');
 		$this->registerTask('sticky_unpublish',	'sticky_publish');
+		$this->registerTask('is_verify_user_unpublish',	'is_verify_user_publish');
+		$this->registerTask('is_verify_transaction_unpublish',	'is_verify_transaction_publish');
 	}
 
 	/**
@@ -67,35 +69,50 @@ class Jnt_HanhphucControllerUsers extends JControllerAdmin
 	 */
 	public function sticky_publish()
 	{
+		$this->_stick('sticky');
+	}
+	
+	public function is_verify_user_publish()
+	{
+		$this->_stick('is_verify_user');
+	}
+	
+	public function is_verify_transaction_publish()
+	{
+		$this->_stick('is_verify_transaction');
+	}
+	
+	private function _stick($field = 'sticky')
+	{
 		// Check for request forgeries.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
-	
+		
 		// Initialise variables.
 		$user	= JFactory::getUser();
 		$ids	= JRequest::getVar('cid', array(), '', 'array');
-		$values	= array('sticky_publish' => 1, 'sticky_unpublish' => 0);
+		$values	= array($field . '_publish' => 1, $field . '_unpublish' => 0);
 		$task	= $this->getTask();
 		$value	= JArrayHelper::getValue($values, $task, 0, 'int');
-	
+		
 		if (empty($ids)) {
 			JError::raiseWarning(500, JText::_('COM_JNT_HANHPHUC_NO_BANNERS_SELECTED'));
 		} else {
 			// Get the model.
 			$model	= $this->getModel();
-	
+		
 			// Change the state of the records.
-			if (!$model->stick($ids, $value)) {
+			if (!$model->stick($ids, $value, $field)) {
 				JError::raiseWarning(500, $model->getError());
 			} else {
 				if ($value == 1) {
-					$ntext = 'COM_JNT_HANHPHUC_N_USERS_STUCK';
+					$ntext = 'Success Tick!';
 				} else {
-					$ntext = 'COM_JNT_HANHPHUC_N_USERS_UNSTUCK';
+					$ntext = 'Success Untick!';
 				}
 				$this->setMessage(JText::plural($ntext, count($ids)));
 			}
 		}
-	
+		
 		$this->setRedirect('index.php?option=com_jnt_hanhphuc&view=users');
 	}
 }

@@ -73,7 +73,7 @@ class Jnt_HanhphucModelUser extends JModelAdmin
 	 *
 	 * @since   1.6
 	 */
-	function stick(&$pks, $value = 1)
+	function stick(&$pks, $value = 1, $field = 'sticky')
 	{
 		// Initialise variables.
 		$user = JFactory::getUser();
@@ -95,7 +95,7 @@ class Jnt_HanhphucModelUser extends JModelAdmin
 		}
 
 		// Attempt to change the state of the records.
-		if (!$table->stick($pks, $value, $user->get('id')))
+		if (!$table->stick($pks, $value, $user->get('id'), $field))
 		{
 			$this->setError($table->getError());
 			return false;
